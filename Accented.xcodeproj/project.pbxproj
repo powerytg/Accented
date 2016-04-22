@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18093AF61CC9ABF700EFCE44 /* ACSignInWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18093AF41CC9ABF700EFCE44 /* ACSignInWebViewController.swift */; };
+		18093AF71CC9ABF700EFCE44 /* ACSignInWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18093AF51CC9ABF700EFCE44 /* ACSignInWebViewController.xib */; };
+		18093AF91CC9ACE000EFCE44 /* ACOAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18093AF81CC9ACE000EFCE44 /* ACOAuthManager.swift */; };
+		184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06791CBB1020008A1E37 /* AppDelegate.swift */; };
+		184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184C067D1CBB1020008A1E37 /* Main.storyboard */; };
+		184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184C06801CBB1020008A1E37 /* Assets.xcassets */; };
+		184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184C06821CBB1020008A1E37 /* LaunchScreen.storyboard */; };
+		184C068E1CBB10C3008A1E37 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C068C1CBB10C3008A1E37 /* SignInViewController.swift */; };
+		184C068F1CBB10C3008A1E37 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184C068D1CBB10C3008A1E37 /* SignInViewController.xib */; };
+		184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06901CBB11C3008A1E37 /* MainViewController.swift */; };
+		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
+		B533F78988683511425D2792 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		18093AF41CC9ABF700EFCE44 /* ACSignInWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACSignInWebViewController.swift; sourceTree = "<group>"; };
+		18093AF51CC9ABF700EFCE44 /* ACSignInWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACSignInWebViewController.xib; sourceTree = "<group>"; };
+		18093AF81CC9ACE000EFCE44 /* ACOAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACOAuthManager.swift; sourceTree = "<group>"; };
+		184C06761CBB1020008A1E37 /* Accented.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accented.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		184C06791CBB1020008A1E37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		184C067E1CBB1020008A1E37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		184C06801CBB1020008A1E37 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		184C06831CBB1020008A1E37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		184C06851CBB1020008A1E37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		184C068C1CBB10C3008A1E37 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		184C068D1CBB10C3008A1E37 /* SignInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		184C06901CBB11C3008A1E37 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
+		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
+		BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
+		EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		184C06731CBB1020008A1E37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B533F78988683511425D2792 /* Pods_Accented.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		184C066D1CBB1020008A1E37 = {
+			isa = PBXGroup;
+			children = (
+				184C06781CBB1020008A1E37 /* Accented */,
+				184C06771CBB1020008A1E37 /* Products */,
+				9385356013A62B856B95A320 /* Pods */,
+				C6F20A3FBF55D98B8D8F2C33 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		184C06771CBB1020008A1E37 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				184C06761CBB1020008A1E37 /* Accented.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		184C06781CBB1020008A1E37 /* Accented */ = {
+			isa = PBXGroup;
+			children = (
+				184C068B1CBB10C3008A1E37 /* Launch */,
+				184C06791CBB1020008A1E37 /* AppDelegate.swift */,
+				184C067D1CBB1020008A1E37 /* Main.storyboard */,
+				184C06801CBB1020008A1E37 /* Assets.xcassets */,
+				184C06821CBB1020008A1E37 /* LaunchScreen.storyboard */,
+				184C06851CBB1020008A1E37 /* Info.plist */,
+				184C06901CBB11C3008A1E37 /* MainViewController.swift */,
+			);
+			path = Accented;
+			sourceTree = "<group>";
+		};
+		184C068B1CBB10C3008A1E37 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				184C068C1CBB10C3008A1E37 /* SignInViewController.swift */,
+				184C068D1CBB10C3008A1E37 /* SignInViewController.xib */,
+				184C23361CBCAC610057DCD6 /* SignInLogoView.swift */,
+				18093AF41CC9ABF700EFCE44 /* ACSignInWebViewController.swift */,
+				18093AF51CC9ABF700EFCE44 /* ACSignInWebViewController.xib */,
+				18093AF81CC9ACE000EFCE44 /* ACOAuthManager.swift */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		9385356013A62B856B95A320 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */,
+				8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C6F20A3FBF55D98B8D8F2C33 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		184C06751CBB1020008A1E37 /* Accented */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 184C06881CBB1020008A1E37 /* Build configuration list for PBXNativeTarget "Accented" */;
+			buildPhases = (
+				F5A48944206747A610DAFFE1 /* Check Pods Manifest.lock */,
+				184C06721CBB1020008A1E37 /* Sources */,
+				184C06731CBB1020008A1E37 /* Frameworks */,
+				184C06741CBB1020008A1E37 /* Resources */,
+				BBEFA168FF920E7F5D1332E4 /* Embed Pods Frameworks */,
+				5C8D52EEDE9A7FC57C7CE61D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Accented;
+			productName = Accented;
+			productReference = 184C06761CBB1020008A1E37 /* Accented.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		184C066E1CBB1020008A1E37 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Tiangong You";
+				TargetAttributes = {
+					184C06751CBB1020008A1E37 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 184C06711CBB1020008A1E37 /* Build configuration list for PBXProject "Accented" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 184C066D1CBB1020008A1E37;
+			productRefGroup = 184C06771CBB1020008A1E37 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				184C06751CBB1020008A1E37 /* Accented */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		184C06741CBB1020008A1E37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				184C068F1CBB10C3008A1E37 /* SignInViewController.xib in Resources */,
+				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
+				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
+				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
+				18093AF71CC9ABF700EFCE44 /* ACSignInWebViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5C8D52EEDE9A7FC57C7CE61D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBEFA168FF920E7F5D1332E4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5A48944206747A610DAFFE1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		184C06721CBB1020008A1E37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
+				18093AF91CC9ACE000EFCE44 /* ACOAuthManager.swift in Sources */,
+				184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */,
+				184C068E1CBB10C3008A1E37 /* SignInViewController.swift in Sources */,
+				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
+				18093AF61CC9ABF700EFCE44 /* ACSignInWebViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		184C067D1CBB1020008A1E37 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				184C067E1CBB1020008A1E37 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		184C06821CBB1020008A1E37 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				184C06831CBB1020008A1E37 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		184C06861CBB1020008A1E37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		184C06871CBB1020008A1E37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		184C06891CBB1020008A1E37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Accented/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.delphi.you.Accented;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		184C068A1CBB1020008A1E37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Accented/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.delphi.you.Accented;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		184C06711CBB1020008A1E37 /* Build configuration list for PBXProject "Accented" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				184C06861CBB1020008A1E37 /* Debug */,
+				184C06871CBB1020008A1E37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		184C06881CBB1020008A1E37 /* Build configuration list for PBXNativeTarget "Accented" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				184C06891CBB1020008A1E37 /* Debug */,
+				184C068A1CBB1020008A1E37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 184C066E1CBB1020008A1E37 /* Project object */;
+}
