@@ -19,10 +19,13 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // Retrieve OAuth tokens. If the tokens are absent, promote sign in screen
-        let authManager = ACOAuthManager.sharedInstance
-        if !authManager.retrieveStoredOAuthTokens() {
-            let signInViewController = SignInViewController(nibName: "SignInViewController", bundle: nil)
-            self.presentViewController(signInViewController, animated: false, completion: nil)
+        let authService = AuthenticationService.sharedInstance
+        if !authService.retrieveStoredOAuthTokens() {
+            let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
+            self.presentViewController(greetingsViewController, animated: false, completion: nil)
+        } else {
+            let storageService = StorageService.sharedInstance
+            APIService.sharedInstance.getPhotos(StreamType.Popular)
         }
         
     }

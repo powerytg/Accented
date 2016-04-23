@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         // Handle OAuth callback url
-        if (url.host == ACOAuthManager.oauthHost) {
+        if (url.host == AuthenticationService.oauthHost) {
             OAuthSwift.handleOpenURL(url)
         }
         

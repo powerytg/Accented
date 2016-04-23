@@ -31,11 +31,9 @@ class SignInLogoView: UIView {
             let layerView = UIImageView(image: layerImage)
             layerView.contentMode = UIViewContentMode.ScaleAspectFit
             self.insertSubview(layerView, atIndex: 0)
-            
-            layerView.layer.anchorPoint = CGPointMake(1.0, 0.55)
-            layerView.layer.transform.m34 = 1 / 3500.0
-            layerView.layer.zPosition = 100.0 * CGFloat(i)
         }
+        
+        resetAnimations()
     }
     
     override func layoutSubviews() {
@@ -44,8 +42,22 @@ class SignInLogoView: UIView {
         }
     }
     
+    func resetAnimations() -> Void {
+        for layerView in self.subviews as [UIView] {
+            let layerIndex = self.subviews.indexOf(layerView)
+            layerView.layer.removeAllAnimations()
+            
+            layerView.layer.anchorPoint = CGPointMake(1.0, 0.55)
+            layerView.layer.transform.m34 = 1 / 3500.0
+            layerView.layer.zPosition = 100.0 * CGFloat(layerCount - layerIndex!)
+        }
+    }
+    
     func performPerspectiveAnimation()  {
-        let animationOptions : UIViewKeyframeAnimationOptions = [.Repeat, .Autoreverse, .BeginFromCurrentState]
+        // Cancel previous animations
+        resetAnimations()
+        
+        let animationOptions : UIViewKeyframeAnimationOptions = [.Repeat, .Autoreverse]
         UIView.animateKeyframesWithDuration(10, delay: 0.2, options: animationOptions, animations: {
             for layerView in self.subviews as [UIView] {
                 let layerIndex = self.subviews.indexOf(layerView)
@@ -71,7 +83,7 @@ class SignInLogoView: UIView {
                 })
             }
         }, completion: { (Bool) in
-            
+            // Ignore
         })
     
     }
