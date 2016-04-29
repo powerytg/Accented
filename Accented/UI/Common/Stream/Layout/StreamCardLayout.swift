@@ -22,14 +22,7 @@ class StreamCardLayout: StreamLayoutBase {
     var templateGenerator : TemplateGenerator?
     
     var contentHeight : CGFloat = 0
-    
-    var availableWidth : CGFloat {
-        if collectionView == nil {
-            return 0
-        }
-        
-        return CGRectGetWidth(collectionView!.bounds) - leftMargin - rightMargin
-    }
+    var availableWidth : CGFloat = 0
     
     override init() {
         super.init()
@@ -44,6 +37,10 @@ class StreamCardLayout: StreamLayoutBase {
         
         if photos.count == 0 {
             return
+        }
+        
+        if collectionView != nil {
+            availableWidth = CGRectGetWidth(collectionView!.bounds) - leftMargin - rightMargin
         }
         
         calculateLayoutAttributes()

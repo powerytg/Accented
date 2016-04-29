@@ -41,7 +41,7 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         streamCollectionView.dataSource = self
         streamCollectionView.delegate = self
         streamCollectionView.collectionViewLayout = streamLayout
-
+        
         // Initialize events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         

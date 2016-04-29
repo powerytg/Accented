@@ -25,18 +25,10 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func initialize() -> Void {
-        renderer.translatesAutoresizingMaskIntoConstraints = false
-        renderer.clipsToBounds = true
-        
         self.contentView.addSubview(renderer)
         self.contentView.clipsToBounds = true
+    }
         
-        let views = ["renderer" : renderer]
-        var constraints = [NSLayoutConstraint]()
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[renderer]|", options: [], metrics: nil, views: views)
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[renderer]|", options: [], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(constraints)    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -44,9 +36,9 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if renderer != nil {
-            renderer.photo = photo
-        }        
+
+        renderer.photo = photo
+        renderer.frame = contentView.bounds
     }
     
     override func prepareForReuse() {

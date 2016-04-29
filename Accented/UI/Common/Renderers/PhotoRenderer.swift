@@ -30,37 +30,22 @@ class PhotoRenderer: UIView {
         initialize()
     }
     
-    var photoModel : PhotoModel?
-    var photo : PhotoModel? {
-        set(value) {
-            if photoModel != value {
-                photoModel = value
-            }
-            
-            if photoModel != nil {
-                let url = NSURL(string: (value?.imageUrls[ImageSize.Large])!)
-                imageView.af_setImageWithURL(url!)
-            } else {
-                imageView.image = nil
-            }
-        }
-        
-        get {
-            return photoModel
-        }
-    }
+    var photo : PhotoModel?
     
     func initialize() -> Void {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
-        
-        let views = ["imageView" : imageView]
-        var constraints = [NSLayoutConstraint]()
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[imageView]|", options: [], metrics: nil, views: views)
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[imageView]|", options: [], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(constraints)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageView.frame = self.bounds
+        
+        if photo != nil {
+            let url = NSURL(string: (photo?.imageUrls[ImageSize.Medium])!)
+            imageView.af_setImageWithURL(url!)
+        } else {
+            imageView.image = nil
+        }
+    }
 }
