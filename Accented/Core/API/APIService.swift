@@ -21,10 +21,19 @@ enum StreamType : String {
     case User = "user"
 }
 
+// Image size definitions
+enum ImageSize : String {
+    case Small = "30"   // 256px on the longest side
+    case Medium = "31"  // 450px high
+    case Large = "4"    // 900px on the longest side
+}
+
 class APIService: NSObject {
     
     // API base url
     let baseUrl = "https://api.500px.com/v1/"
+    
+    let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
     
     // Singleton instance
     static let sharedInstance = APIService()

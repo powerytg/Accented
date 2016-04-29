@@ -16,7 +16,11 @@ extension APIService {
         var params = parameters
         params["feature"] = streamType.rawValue
         params["page"] = String(page)
-        params["image_size"] = "4"
+        if parameters["image_size"] == nil {
+            params["image_size"] = defaultImageSizesForStream.map({ (size) -> String in
+                return size.rawValue
+            }).joinWithSeparator(",")
+        }
         
         client.get(url, parameters: params, success: { (data, response) in
             let userInfo : [String : AnyObject] = ["streamType" : streamType.rawValue,

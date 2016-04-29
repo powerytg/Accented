@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class MainViewController: UIViewController {
 
@@ -26,8 +28,11 @@ class MainViewController: UIViewController {
         } else {
             let storageService = StorageService.sharedInstance
             APIService.sharedInstance.getPhotos(StreamType.Popular)
+            
+            let streamViewController = StreamViewController()
+            streamViewController.stream = storageService.getStream(StreamType.Popular)
+            self.presentViewController(streamViewController, animated: false, completion: nil)
         }
-        
     }
     
 }

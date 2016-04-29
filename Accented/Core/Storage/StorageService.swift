@@ -22,6 +22,10 @@ class StorageService: NSObject {
         initializeEventListeners()
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     // Streams
     let streamCache = NSCache()
     

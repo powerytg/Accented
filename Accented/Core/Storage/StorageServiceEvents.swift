@@ -9,5 +9,10 @@
 import UIKit
 
 class StorageServiceEvents: NSObject {
+    // Event names
     static let streamDidUpdate = "streamDidUpdate"
+    
+    // Event params
+    static let streamType = "streamType"
+    static let page = "page"
 }
