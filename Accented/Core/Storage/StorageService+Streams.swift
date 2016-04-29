@@ -25,6 +25,11 @@ extension StorageService {
         let jsonData : NSData = notification.userInfo!["response"] as! NSData
         let page : Int = notification.userInfo!["page"] as! Int
         let streamType = StreamType(rawValue: notification.userInfo!["streamType"] as! String)
+        if streamType == nil {
+            debugPrint("Unrecognized stream type \(streamType)")
+            return
+        }
+        
         let stream = getStream(streamType!)
         
         dispatch_async(parsingQueue) { [weak self] in

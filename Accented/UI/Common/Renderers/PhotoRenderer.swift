@@ -33,9 +33,16 @@ class PhotoRenderer: UIView {
     var photoModel : PhotoModel?
     var photo : PhotoModel? {
         set(value) {
-            photoModel = value
-            let url = NSURL(string: (value?.imageUrls[ImageSize.Large])!)
-            imageView.af_setImageWithURL(url!)
+            if photoModel != value {
+                photoModel = value
+            }
+            
+            if photoModel != nil {
+                let url = NSURL(string: (value?.imageUrls[ImageSize.Large])!)
+                imageView.af_setImageWithURL(url!)
+            } else {
+                imageView.image = nil
+            }
         }
         
         get {

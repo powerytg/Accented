@@ -14,7 +14,22 @@ class StreamCardLayout: StreamLayoutBase {
     private let leftMargin : CGFloat = 15
     private let rightMargin : CGFloat = 15
     
+    // A cache that holds all the previously calculated layout attributes. The cache will remain valid until
+    // explicitly cleared
     var layoutCache : Array<UICollectionViewLayoutAttributes> = []
+    
+    // Layout template generator that takes in a group of image sizes and returns calculated frames for the images
+    var templateGenerator : TemplateGenerator?
+    
+    var contentHeight : CGFloat = 0
+    
+    var availableWidth : CGFloat {
+        if collectionView == nil {
+            return 0
+        }
+        
+        return CGRectGetWidth(collectionView!.bounds) - leftMargin - rightMargin
+    }
     
     override init() {
         super.init()
@@ -39,15 +54,7 @@ class StreamCardLayout: StreamLayoutBase {
             return super.collectionViewContentSize()
         }
         
-        var totalHeight : CGFloat = 0
-        for attributes in layoutCache {
-            totalHeight += attributes.frame.size.height
-        }
-        
-        let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        totalHeight += CGFloat((layoutCache.count - 1)) * vGap
-        
-        return CGSizeMake(w, totalHeight)
+        return CGSizeMake(availableWidth, contentHeight)
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -63,31 +70,41 @@ class StreamCardLayout: StreamLayoutBase {
     }
     
     private func calculateLayoutAttributes() -> Void {
-        var nextIndex = 0
-        let w = CGRectGetWidth(UIScreen.mainScreen().bounds) - leftMargin - rightMargin
+        if availableWidth == 0 || layoutCache.count >= photos.count {
+            return
+        }
         
-        let templateCapacity = 2
-        var nextY : CGFloat = 0
-        var nextItemId = 0
-        while nextIndex + templateCapacity < photos.count {
-            let photo1 = photos[nextIndex]
-            let photo2 = photos[nextIndex + 1]
-            let size1 = CGSizeMake(CGFloat(photo1.width), CGFloat(photo1.height))
-            let size2 = CGSizeMake(CGFloat(photo2.width), CGFloat(photo2.height))
-            let layout = SideBySideTemplate(photoSizes: [size1, size2], maxWidth: w)
-            
-            for frame in layout.frames {
+        if templateGenerator == nil {
+            templateGenerator = TemplateGenerator(maxWidth: availableWidth)
+        }
+        
+        // Start from the index that has no layout yet
+        let startIndex = layoutCache.count
+        let endIndex = photos.count - 1
+        let photosForProcessing = photos[startIndex...endIndex]
+        templateGenerator?.photos = Array(photosForProcessing)
+        
+        let templates = templateGenerator?.generateLayoutTemplates()
+        if templates == nil || templates?.count == 0 {
+            return
+        }
+        
+        var nextY = contentHeight
+        var nextIndex = startIndex
+        for template in templates! {
+            for frame in template.frames {
                 let finalRect = CGRectMake(frame.origin.x + leftMargin, frame.origin.y + nextY, frame.size.width, frame.size.height)
-                let indexPath = NSIndexPath(forItem: nextItemId, inSection: 0)
+                let indexPath = NSIndexPath(forItem: nextIndex, inSection: 0)
                 let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
                 attributes.frame = finalRect
                 layoutCache.append(attributes)
-                
-                nextItemId += 1
+                nextIndex += 1
             }
             
-            nextY += layout.height + vGap
-            nextIndex += templateCapacity
+            nextY += template.height + vGap
         }
+     
+        // Update content height
+        contentHeight = nextY
     }
 }

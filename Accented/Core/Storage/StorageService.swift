@@ -10,7 +10,7 @@ import UIKit
 
 class StorageService: NSObject {
     
-    let pageSize = 20
+    static let pageSize = 20
     
     let parsingQueue = dispatch_queue_create("com.accented.parser", nil)
     

@@ -21,6 +21,8 @@
 		1855149C1CD33A2600B572CE /* SideBySideTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855149B1CD33A2600B572CE /* SideBySideTemplate.swift */; };
 		185514A11CD33A8600B572CE /* StreamCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855149F1CD33A8600B572CE /* StreamCardLayout.swift */; };
 		185514A21CD33A8600B572CE /* StreamLayoutBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A01CD33A8600B572CE /* StreamLayoutBase.swift */; };
+		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
+		9B04B4F61CD3B80A001724EE /* TemplateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
 		9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D21CCA978E008F5257 /* AuthenticationService.swift */; };
 		9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D41CCA9944008F5257 /* GreetingsViewController.swift */; };
@@ -54,6 +56,8 @@
 		1855149F1CD33A8600B572CE /* StreamCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCardLayout.swift; sourceTree = "<group>"; };
 		185514A01CD33A8600B572CE /* StreamLayoutBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayoutBase.swift; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
+		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
+		9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateGenerator.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		9B6115D21CCA978E008F5257 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		9B6115D41CCA9944008F5257 /* GreetingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingsViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			children = (
 				185514991CD33A0000B572CE /* StreamLayoutTemplateBase.swift */,
 				1855149B1CD33A2600B572CE /* SideBySideTemplate.swift */,
+				9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */,
+				9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -378,6 +384,8 @@
 				18093AFF1CCB3ACC00EFCE44 /* StreamViewController.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
+				9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */,
+				9B04B4F61CD3B80A001724EE /* TemplateGenerator.swift in Sources */,
 				9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,

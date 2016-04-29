@@ -27,6 +27,11 @@ class StreamLayoutTemplateBase: NSObject {
     // Generated layout frames
     var frames : Array<CGRect> = []
     
+    // Max number of photo items the template could manage
+    var capacity : Int {
+        return 1
+    }
+    
     required init(photoSizes: Array<CGSize>, maxWidth : CGFloat) {
         self.width = maxWidth
         self.inputSizes = photoSizes

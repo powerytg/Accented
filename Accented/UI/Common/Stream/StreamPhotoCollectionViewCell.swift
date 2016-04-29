@@ -49,4 +49,7 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
         }        
     }
     
+    override func prepareForReuse() {
+        renderer.photo = nil
+    }
 }

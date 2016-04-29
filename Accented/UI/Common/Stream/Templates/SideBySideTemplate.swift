@@ -13,6 +13,10 @@ class SideBySideTemplate: StreamLayoutTemplateBase {
     private let maxHeight : CGFloat = 200
     private let maxHorizontalRatio : CGFloat = 3.0 / 2.0
     
+    override var capacity : Int {
+        return 2
+    }
+    
     required init(photoSizes: Array<CGSize>, maxWidth: CGFloat) {
         super.init(photoSizes: photoSizes, maxWidth: maxWidth)
         generateLayoutMetadata()

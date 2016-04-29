@@ -14,6 +14,7 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
     var stream:StreamModel?
     let reuseIdentifier = "photoRenderer"
     
+    var loading = false
     var streamLayout = StreamCardLayout()
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +44,9 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
 
         // Initialize events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+        
+        // Load the first page
+        APIService.sharedInstance.getPhotos(StreamType.Popular)
     }
 
     func streamDidUpdate(notification : NSNotification) -> Void {
@@ -52,6 +56,8 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
             streamLayout.photos = stream!.photos
             streamCollectionView.reloadData()
         }
+        
+        loading = false
     }
 
     // MARK: - UICollectionViewDataSource
@@ -67,8 +73,29 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         let photo = stream?.photos[indexPath.row]
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCollectionViewCell
         cell.photo = photo
-        cell.setNeedsLayout()
         
         return cell
     }
+    
+    // MARK: - Infinite scrolling
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.size.height - 50 {
+            loadNextPage()
+        }
+    }
+    
+    func loadNextPage() -> Void {
+        if loading {
+            return
+        }
+        
+        let page = stream!.photos.count / StorageService.pageSize + 1
+        APIService.sharedInstance.getPhotos(stream!.streamType, page: page, parameters: [:]);
+    }
+    
+    
 }

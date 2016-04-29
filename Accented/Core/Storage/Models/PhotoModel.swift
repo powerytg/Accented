@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class PhotoModel: NSObject {
     var imageUrls : [ImageSize : String!]
-    var width : Int
-    var height: Int
+    var width : CGFloat
+    var height: CGFloat
     
     init(json:JSON) {
         // Image urls
@@ -25,7 +25,7 @@ class PhotoModel: NSObject {
         }
         
         // Original width and height
-        width = json["width"].int!
-        height = json["height"].int!
+        width = CGFloat(json["width"].int!)
+        height = CGFloat(json["height"].int!)
     }
 }

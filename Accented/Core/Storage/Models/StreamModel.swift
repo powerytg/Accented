@@ -11,6 +11,7 @@ import UIKit
 class StreamModel: NSObject {
     let streamType : StreamType
     var photos : Array<PhotoModel> = []
+    var totalCount = 0
     
     required init(streamType : StreamType) {
         self.streamType = streamType

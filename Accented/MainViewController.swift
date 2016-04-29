@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
             self.presentViewController(greetingsViewController, animated: false, completion: nil)
         } else {
             let storageService = StorageService.sharedInstance
-            APIService.sharedInstance.getPhotos(StreamType.Popular)
             
             let streamViewController = StreamViewController()
             streamViewController.stream = storageService.getStream(StreamType.Popular)
