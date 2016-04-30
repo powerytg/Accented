@@ -12,6 +12,9 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
 
     var renderer: PhotoRenderer!
     var photo : PhotoModel?
+    var effectLayer : CALayer {
+        return self.layer
+    }
 
     override init(frame: CGRect) {
         renderer = PhotoRenderer()
@@ -27,6 +30,14 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
     func initialize() -> Void {
         self.contentView.addSubview(renderer)
         self.contentView.clipsToBounds = true
+        
+        // Shadow effect
+        effectLayer.masksToBounds = false
+        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
+        effectLayer.shadowColor = UIColor.blackColor().CGColor
+        effectLayer.shadowOpacity = 0.55
+        effectLayer.shadowRadius = 8
+        effectLayer.shadowOffset = CGSize(width: 0, height: 2)
     }
         
     override func awakeFromNib() {
@@ -37,6 +48,8 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
+        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
+        
         renderer.photo = photo
         renderer.frame = contentView.bounds
     }

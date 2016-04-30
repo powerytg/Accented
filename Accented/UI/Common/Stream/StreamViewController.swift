@@ -15,7 +15,12 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
     let reuseIdentifier = "photoRenderer"
     
     var loading = false
+    var dirty = false
+    var scrolling = false
     var streamLayout = StreamCardLayout()
+    
+    // Event delegate
+    var delegate : StreamViewControllerDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -36,7 +41,10 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.clearColor()
+        
         // Cell type registration
+        streamCollectionView.backgroundColor = UIColor.clearColor()
         streamCollectionView.registerClass(StreamPhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         streamCollectionView.dataSource = self
         streamCollectionView.delegate = self
@@ -53,8 +61,12 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
         if streamType == stream?.streamType {
-            streamLayout.photos = stream!.photos
-            streamCollectionView.reloadData()
+            if !scrolling {
+                streamLayout.photos = stream!.photos
+                streamCollectionView.reloadData()
+            } else {
+                dirty = true
+            }
         }
         
         loading = false
@@ -73,18 +85,39 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         let photo = stream?.photos[indexPath.row]
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCollectionViewCell
         cell.photo = photo
+        cell.setNeedsLayout()
         
         return cell
     }
     
     // MARK: - Infinite scrolling
     
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        scrolling = true
+    }
+    
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        scrolling = false
+        
+        if dirty {
+            dirty = false
+            streamLayout.photos = stream!.photos
+            streamCollectionView.reloadData()
+        }
+        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.size.height - 50 {
             loadNextPage()
+        }
+        
+        // Dispatch events
+        let visibleIndexes = streamCollectionView.indexPathsForVisibleItems()
+        if visibleIndexes.count > 0 {
+            let firstVisibleIndex = visibleIndexes[0]
+            let firstVisiblePhoto = stream!.photos[firstVisibleIndex.item]
+            delegate?.streamViewDidFinishedScrolling(firstVisiblePhoto)
         }
     }
     

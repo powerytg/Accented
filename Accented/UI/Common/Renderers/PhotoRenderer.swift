@@ -30,7 +30,25 @@ class PhotoRenderer: UIView {
         initialize()
     }
     
-    var photo : PhotoModel?
+    private var photoModel : PhotoModel?
+    var photo : PhotoModel? {
+        get {
+            return photoModel
+        }
+        
+        set(value) {
+            if value != photoModel {
+                photoModel = value
+                
+                if photoModel != nil {
+                    let url = NSURL(string: (photoModel?.imageUrls[ImageSize.Medium])!)
+                    imageView.af_setImageWithURL(url!)
+                } else {
+                    imageView.image = nil
+                }
+            }
+        }
+    }
     
     func initialize() -> Void {
         imageView.contentMode = .ScaleAspectFill
@@ -40,12 +58,5 @@ class PhotoRenderer: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = self.bounds
-        
-        if photo != nil {
-            let url = NSURL(string: (photo?.imageUrls[ImageSize.Medium])!)
-            imageView.af_setImageWithURL(url!)
-        } else {
-            imageView.image = nil
-        }
     }
 }

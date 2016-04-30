@@ -26,11 +26,8 @@ class MainViewController: UIViewController {
             let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
             self.presentViewController(greetingsViewController, animated: false, completion: nil)
         } else {
-            let storageService = StorageService.sharedInstance
-            
-            let streamViewController = StreamViewController()
-            streamViewController.stream = storageService.getStream(StreamType.Popular)
-            self.presentViewController(streamViewController, animated: false, completion: nil)
+            let gatewayViewController = GatewayViewController()
+            self.presentViewController(gatewayViewController, animated: false, completion: nil)
         }
     }
     
