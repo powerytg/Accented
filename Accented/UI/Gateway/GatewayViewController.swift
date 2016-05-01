@@ -39,7 +39,10 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
+        // Load initial stream
+        stream = StorageService.sharedInstance.getStream(StreamType.Popular)
         streamViewController = StreamViewController()
+        streamViewController!.stream = stream
         addChildViewController(streamViewController!)
         self.view.addSubview(streamViewController!.view)
         streamViewController!.view.frame = self.view.bounds
@@ -47,9 +50,6 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         streamViewController!.didMoveToParentViewController(self)
         streamViewController!.delegate = self
         
-        // Load initial stream
-        stream = StorageService.sharedInstance.getStream(StreamType.Popular)
-        streamViewController!.stream = stream
         
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)

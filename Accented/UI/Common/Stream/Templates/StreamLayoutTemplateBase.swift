@@ -8,14 +8,6 @@
 
 import UIKit
 
-protocol StreamLayoutTemplate {
-    // Fixed, calculated height
-    var height : CGFloat { get }
-
-    // Generated layout frames
-    var frames : Array<CGRect> { get }
-}
-
 class StreamLayoutTemplateBase: NSObject, StreamLayoutTemplate {
     
     // Horizontal gap between columns

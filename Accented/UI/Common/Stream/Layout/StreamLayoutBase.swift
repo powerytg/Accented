@@ -9,10 +9,20 @@
 import UIKit
 
 class StreamLayoutBase: UICollectionViewFlowLayout {
-    var photos : Array<PhotoModel> = []
+
     var leftMargin : CGFloat = 15
     var rightMargin : CGFloat = 15
     
-    // Layout template generator that takes in a group of image sizes and returns calculated frames for the images
-    var layoutGenerator : TemplateGenerator?
+    // A cache that holds all the previously calculated layout attributes. The cache will remain valid until
+    // explicitly cleared
+    var layoutCache : Array<UICollectionViewLayoutAttributes> = []
+    
+    func clearLayoutCache() {
+        layoutCache.removeAll()
+    }
+    
+    func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+        fatalError("Not implemented in base class")
+    }
+    
 }
