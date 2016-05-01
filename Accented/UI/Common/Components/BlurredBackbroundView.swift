@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class BlurredBackbroundView: UIView {
 
     var imageView : UIImageView
     var blurView : UIVisualEffectView
-    var vibrancyView : UIVisualEffectView
-    var curtainView : UIView
     
     required convenience init(coder aDecoder: NSCoder) {
         self.init()
@@ -24,11 +23,6 @@ class BlurredBackbroundView: UIView {
         
         let blurEffect = UIBlurEffect(style: .Dark)
         blurView = UIVisualEffectView(effect: blurEffect)
-        
-        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-        vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
-        
-        curtainView = UIView()
         
         if let coder = coder {
             super.init(coder: coder)!
@@ -46,25 +40,37 @@ class BlurredBackbroundView: UIView {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
         self.addSubview(blurView)
-        self.addSubview(vibrancyView)
-        
-        curtainView.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.8)
-        self.addSubview(curtainView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = self.bounds
         blurView.frame = self.bounds
-        vibrancyView.frame = self.bounds
-        curtainView.frame = self.bounds
         
         if photo != nil {
             let url = NSURL(string: (photo?.imageUrls[ImageSize.Medium])!)
-            imageView.af_setImageWithURL(url!)
+            let filter = DesaturationFilter()
+            imageView.af_setImageWithURL(
+                url!,
+                placeholderImage: nil,
+                filter: filter,
+                imageTransition: .CrossDissolve(0.2)
+            )
         } else {
             imageView.image = nil
         }
     }
 
+}
+
+// MARK: - Filters
+
+// De-saturate filter lowers the saturation of an image
+private struct DesaturationFilter: ImageFilter {
+    var filter: Image -> Image {
+        return { image in
+            let parameters = [kCIInputSaturationKey : 0.25]
+            return image.af_imageWithAppliedCoreImageFilter("CIColorControls", filterParameters: parameters) ?? image
+        }
+    }
 }

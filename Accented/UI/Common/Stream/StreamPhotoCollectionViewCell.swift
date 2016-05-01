@@ -35,8 +35,8 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
         effectLayer.masksToBounds = false
         effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
         effectLayer.shadowColor = UIColor.blackColor().CGColor
-        effectLayer.shadowOpacity = 0.55
-        effectLayer.shadowRadius = 8
+        effectLayer.shadowOpacity = 0.25
+        effectLayer.shadowRadius = 5
         effectLayer.shadowOffset = CGSize(width: 0, height: 2)
     }
         

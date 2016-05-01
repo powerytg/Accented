@@ -21,7 +21,6 @@
 		1855149C1CD33A2600B572CE /* SideBySideTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855149B1CD33A2600B572CE /* SideBySideTemplate.swift */; };
 		185514A11CD33A8600B572CE /* StreamCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1855149F1CD33A8600B572CE /* StreamCardLayout.swift */; };
 		185514A21CD33A8600B572CE /* StreamLayoutBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A01CD33A8600B572CE /* StreamLayoutBase.swift */; };
-		185514A41CD4310300B572CE /* StreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A31CD4310300B572CE /* StreamViewModel.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
 		185514AB1CD448AE00B572CE /* GatewayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A91CD448AE00B572CE /* GatewayViewController.swift */; };
 		185514AC1CD448AE00B572CE /* GatewayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185514AA1CD448AE00B572CE /* GatewayViewController.xib */; };
@@ -60,7 +59,6 @@
 		1855149B1CD33A2600B572CE /* SideBySideTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBySideTemplate.swift; sourceTree = "<group>"; };
 		1855149F1CD33A8600B572CE /* StreamCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCardLayout.swift; sourceTree = "<group>"; };
 		185514A01CD33A8600B572CE /* StreamLayoutBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayoutBase.swift; sourceTree = "<group>"; };
-		185514A31CD4310300B572CE /* StreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewModel.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
 		185514A91CD448AE00B572CE /* GatewayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayViewController.swift; sourceTree = "<group>"; };
 		185514AA1CD448AE00B572CE /* GatewayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GatewayViewController.xib; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				18093AFD1CCB3ACC00EFCE44 /* StreamViewController.swift */,
 				18093AFE1CCB3ACC00EFCE44 /* StreamViewController.xib */,
 				18093B041CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift */,
-				185514A31CD4310300B572CE /* StreamViewModel.swift */,
 				185514B01CD4524200B572CE /* StreamViewControllerDelegate.swift */,
 			);
 			path = Stream;
@@ -425,7 +422,6 @@
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
-				185514A41CD4310300B572CE /* StreamViewModel.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */,
 			);

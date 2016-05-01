@@ -75,8 +75,8 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
 
     // MARK: - StreamViewControllerDelegate
     func streamViewDidFinishedScrolling(firstVisiblePhoto: PhotoModel) {
-        backgroundView!.photo = firstVisiblePhoto
-        backgroundView!.setNeedsLayout()
+//        backgroundView!.photo = firstVisiblePhoto
+//        backgroundView!.setNeedsLayout()
     }
     
 }

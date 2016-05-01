@@ -17,6 +17,8 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
     var loading = false
     var dirty = false
     var scrolling = false
+    
+    // Layout
     var streamLayout = StreamCardLayout()
     
     // Event delegate
