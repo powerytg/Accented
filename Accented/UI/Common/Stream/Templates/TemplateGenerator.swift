@@ -9,79 +9,118 @@
 import UIKit
 
 class TemplateGenerator: NSObject {
+    
+    private var storedPhotos = [PhotoModel]()
+    var photos : [PhotoModel] {
+        get {
+            return storedPhotos
+        }
+        
+        set(value) {
+            let previousCount = storedPhotos.count
+            storedPhotos = value
+            
+            let startIndex = previousCount
+            let endIndex = storedPhotos.count - 1
+            let photosForProcessing = Array(storedPhotos[startIndex...endIndex])
+            generateLayoutTemplates(photosForProcessing)
+        }
+    }
+    
+    // Data model represents grouped photos
+    typealias PhotoGroup = [PhotoModel]
+    
+    // Available width
     let availableWidth : CGFloat
     
-    // Photos to be processed
-    var photos : [PhotoModel]?
-    
+    // Max width / height aspect ratio to allow using single line horizontal layout template
     let singleLandscapeAspectRatio : CGFloat = 1.64
     
-    // Generated rects
-    var rects : [CGRect] = []
+    // Cached photo groups
+    var photoGroups = [PhotoGroup]()
+    
+    // Cached templates
+    var templates = [StreamLayoutTemplate]()
     
     required init(maxWidth : CGFloat) {
         self.availableWidth = maxWidth
         super.init()        
     }
     
-    func generateLayoutTemplates() -> [StreamLayoutTemplateBase] {
-        if photos == nil || photos?.count == 0 {
-            return []
+    private func generateLayoutTemplates(photosForProcessing : [PhotoModel]){
+        if photosForProcessing.count == 0 {
+            return
         }
         
-        var templates : [StreamLayoutTemplateBase] = []
         var nextIndex = 0
-        while nextIndex < photos!.count {
-            let nextPhoto = photos![nextIndex]
+        while nextIndex < photosForProcessing.count {
+            let currentPhoto = photosForProcessing[nextIndex]
+            
+            // If there are more than three photos, then always use headline layout for the first three photos
+            if photosForProcessing.count >= 3 && nextIndex == 0{
+                let photo1 = currentPhoto
+                let photo2 = photosForProcessing[nextIndex + 1]
+                let photo3 = photosForProcessing[nextIndex + 2]
+
+                let template = HeadlineTemplate(photoSizes: [photoSize(photo1), photoSize(photo2), photoSize(photo3)], maxWidth: availableWidth)
+                templates.append(template)
+                photoGroups.append([photo1, photo2, photo3])
+                nextIndex += 3
+                continue
+            }
             
             // Last photo always use landscape or portrait layout
-            if nextPhoto == photos!.first || nextPhoto == photos!.last {
-                let template = SingleLandscapeTemplate(photoSizes: [photoSize(nextPhoto)], maxWidth: availableWidth)
+            if currentPhoto == photosForProcessing.first || currentPhoto == photosForProcessing.last {
+                let template = SingleLandscapeTemplate(photoSizes: [photoSize(currentPhoto)], maxWidth: availableWidth)
                 templates.append(template)
+                photoGroups.append([currentPhoto])
                 nextIndex += 1
                 continue
             }
             
             // The 2nd and 3rd photos use side by side layout, unless there are less than photos all together
             // The same rules apply to the last two photos
-            if photos!.count > 3 {
-                if nextIndex == 1 || nextIndex == photos!.count - 2 {
-                    let photo1 = photos![nextIndex]
-                    let photo2 = photos![nextIndex + 1]
+            if photosForProcessing.count > 3 {
+                if nextIndex == 1 || nextIndex == photosForProcessing.count - 2 {
+                    let photo1 = currentPhoto
+                    let photo2 = photosForProcessing[nextIndex + 1]
                     let template = SideBySideTemplate(photoSizes: [photoSize(photo1), photoSize(photo2)], maxWidth: availableWidth)
                     templates.append(template)
+                    photoGroups.append([photo1, photo2])
                     nextIndex += 2
                     continue
                 }
             }
 
             // If the width / height aspect ratio exceeds a certain threshold, display the image as one single landscape image
-            if shouldUseSingleLandscapeLayout(nextPhoto) {
-                let template = SingleLandscapeTemplate(photoSizes: [photoSize(nextPhoto)], maxWidth: availableWidth)
+            if shouldUseSingleLandscapeLayout(currentPhoto) {
+                let template = SingleLandscapeTemplate(photoSizes: [photoSize(currentPhoto)], maxWidth: availableWidth)
                 templates.append(template)
+                photoGroups.append([currentPhoto])
                 nextIndex += 1
                 continue
             }
             
             // Otherwise, check up the following item's aspect ratio and decide where we should use side by side layout
-            let followupPhoto = photos![nextIndex + 1]
+            let followupPhoto = photosForProcessing[nextIndex + 1]
             if shouldUseSingleLandscapeLayout(followupPhoto) {
                 // Since both photos require landscape layout, cancel the decision of using side by side layout
-                let template1 = SingleLandscapeTemplate(photoSizes: [photoSize(nextPhoto)], maxWidth: availableWidth)
+                let template1 = SingleLandscapeTemplate(photoSizes: [photoSize(currentPhoto)], maxWidth: availableWidth)
                 let template2 = SingleLandscapeTemplate(photoSizes: [photoSize(followupPhoto)], maxWidth: availableWidth)
-                templates += [template1, template2]
+                templates.append(template1)
+                templates.append(template2)
+                photoGroups.append([currentPhoto])
+                photoGroups.append([followupPhoto])
                 nextIndex += 2
                 continue
             } else {
-                let template = SideBySideTemplate(photoSizes: [photoSize(nextPhoto), photoSize(followupPhoto)], maxWidth: availableWidth)
+                let template = SideBySideTemplate(photoSizes: [photoSize(currentPhoto), photoSize(followupPhoto)], maxWidth: availableWidth)
                 templates.append(template)
+                photoGroups.append([currentPhoto, followupPhoto])
                 nextIndex += 2
                 continue
             }
-            
         }
-        
-        return templates
     }
     
     private func shouldUseSingleLandscapeLayout(photo : PhotoModel) -> Bool {

@@ -8,7 +8,15 @@
 
 import UIKit
 
-class StreamLayoutTemplateBase: NSObject {
+protocol StreamLayoutTemplate {
+    // Fixed, calculated height
+    var height : CGFloat { get }
+
+    // Generated layout frames
+    var frames : Array<CGRect> { get }
+}
+
+class StreamLayoutTemplateBase: NSObject, StreamLayoutTemplate {
     
     // Horizontal gap between columns
     let hGap : CGFloat = 20
@@ -19,13 +27,10 @@ class StreamLayoutTemplateBase: NSObject {
     // Max width
     var width : CGFloat
     
-    // Fixed, calculated height
     var height : CGFloat = 0
-    
     var inputSizes : Array<CGSize> = []
+    var frames = Array<CGRect>()
     
-    // Generated layout frames
-    var frames : Array<CGRect> = []
     
     // Max number of photo items the template could manage
     var capacity : Int {

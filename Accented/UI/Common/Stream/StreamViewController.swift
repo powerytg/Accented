@@ -11,6 +11,7 @@ import UIKit
 class StreamViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var streamCollectionView: UICollectionView!
+    
     var stream:StreamModel?
     let reuseIdentifier = "photoRenderer"
     
@@ -20,6 +21,7 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     // Layout
     var streamLayout = StreamCardLayout()
+    var layoutGenerator : TemplateGenerator?
     
     // Event delegate
     var delegate : StreamViewControllerDelegate?
@@ -45,6 +47,7 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         self.view.backgroundColor = UIColor.clearColor()
         
+        
         // Cell type registration
         streamCollectionView.backgroundColor = UIColor.clearColor()
         streamCollectionView.registerClass(StreamPhotoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -52,6 +55,12 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         streamCollectionView.delegate = self
         streamCollectionView.collectionViewLayout = streamLayout
         
+        // Layout generator
+        let maxWidth = UIScreen.mainScreen().bounds.size.width - streamLayout.leftMargin - streamLayout.rightMargin
+        layoutGenerator = TemplateGenerator(maxWidth: maxWidth)
+        streamLayout.layoutGenerator = layoutGenerator
+        streamLayout.headerReferenceSize = CGSizeMake(50, 50)
+
         // Initialize events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         
@@ -64,6 +73,8 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         let streamType = StreamType(rawValue: streamTypeString)
         if streamType == stream?.streamType {
             if !scrolling {
+                // Update content and layout
+                layoutGenerator!.photos = stream!.photos
                 streamLayout.photos = stream!.photos
                 streamCollectionView.reloadData()
             } else {
@@ -76,20 +87,29 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     // MARK: - UICollectionViewDataSource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return layoutGenerator!.photoGroups.count
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (stream?.photos.count)!
+        return layoutGenerator!.photoGroups[section].count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let photo = stream?.photos[indexPath.row]
+        let group = layoutGenerator!.photoGroups[indexPath.section]
+        let photo = group[indexPath.item]
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCollectionViewCell
         cell.photo = photo
         cell.setNeedsLayout()
         
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(50, 75)
+    }
+    
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        return UICollectionViewCell()
     }
     
     // MARK: - Infinite scrolling
@@ -103,6 +123,7 @@ class StreamViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         if dirty {
             dirty = false
+            layoutGenerator!.photos = stream!.photos
             streamLayout.photos = stream!.photos
             streamCollectionView.reloadData()
         }

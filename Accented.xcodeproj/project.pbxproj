@@ -25,6 +25,7 @@
 		185514AB1CD448AE00B572CE /* GatewayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A91CD448AE00B572CE /* GatewayViewController.swift */; };
 		185514AC1CD448AE00B572CE /* GatewayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185514AA1CD448AE00B572CE /* GatewayViewController.xib */; };
 		185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514B01CD4524200B572CE /* StreamViewControllerDelegate.swift */; };
+		185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514B61CD5B95A00B572CE /* HeadlineTemplate.swift */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
 		9B04B4F61CD3B80A001724EE /* TemplateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
@@ -63,6 +64,7 @@
 		185514A91CD448AE00B572CE /* GatewayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayViewController.swift; sourceTree = "<group>"; };
 		185514AA1CD448AE00B572CE /* GatewayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GatewayViewController.xib; sourceTree = "<group>"; };
 		185514B01CD4524200B572CE /* StreamViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewControllerDelegate.swift; sourceTree = "<group>"; };
+		185514B61CD5B95A00B572CE /* HeadlineTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadlineTemplate.swift; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
 		9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateGenerator.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				1855149B1CD33A2600B572CE /* SideBySideTemplate.swift */,
 				9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */,
 				9B04B4F51CD3B80A001724EE /* TemplateGenerator.swift */,
+				185514B61CD5B95A00B572CE /* HeadlineTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */,
+				185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
