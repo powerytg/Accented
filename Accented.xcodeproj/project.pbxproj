@@ -31,6 +31,7 @@
 		185514BE1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514BD1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift */; };
 		185514C01CD6B03200B572CE /* StreamState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514BF1CD6B03200B572CE /* StreamState.swift */; };
 		185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514C11CD6BADE00B572CE /* StreamLayoutTemplate.swift */; };
+		185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514C31CD6C1D700B572CE /* QuadTemplate.swift */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
 		9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D21CCA978E008F5257 /* AuthenticationService.swift */; };
@@ -74,6 +75,7 @@
 		185514BD1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamCardLayoutGenerator.swift; sourceTree = "<group>"; };
 		185514BF1CD6B03200B572CE /* StreamState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamState.swift; sourceTree = "<group>"; };
 		185514C11CD6BADE00B572CE /* StreamLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayoutTemplate.swift; sourceTree = "<group>"; };
+		185514C31CD6C1D700B572CE /* QuadTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadTemplate.swift; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				185514BB1CD6AAB000B572CE /* StreamTemplateGenerator.swift */,
 				185514BD1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift */,
 				185514C11CD6BADE00B572CE /* StreamLayoutTemplate.swift */,
+				185514C31CD6C1D700B572CE /* QuadTemplate.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				185514AB1CD448AE00B572CE /* GatewayViewController.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
+				185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,

@@ -64,6 +64,22 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
                 continue
             }
             
+            // Try to fit the following 4 photos can fit into a quad layout
+            if nextIndex < photos.count - 4 {
+                let photo1 = photos[nextIndex]
+                let photo2 = photos[nextIndex + 1]
+                let photo3 = photos[nextIndex + 2]
+                let photo4 = photos[nextIndex + 3]
+                
+                if shouldUseQuadLayout(photo1, photo2: photo2, photo3: photo3, photo4: photo4) {
+                    let photoSizes = [photoSize(photo1), photoSize(photo2), photoSize(photo3), photoSize(photo4)]
+                    let template = QuadTemplate(photoSizes: photoSizes, maxWidth: availableWidth)
+                    templates.append(template)
+                    nextIndex += 4
+                    continue
+                }
+            }
+            
             // Otherwise, check up the following item's aspect ratio and decide where we should use side by side layout
             let followupPhoto = photos[nextIndex + 1]
             if shouldUseSingleLandscapeLayout(followupPhoto) {
@@ -92,5 +108,12 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
     
     private func photoSize(photo : PhotoModel) -> CGSize {
         return CGSizeMake(CGFloat(photo.width), CGFloat(photo.height))
+    }
+    
+    private func shouldUseQuadLayout(photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
+        return (!shouldUseSingleLandscapeLayout(photo1)
+            && !shouldUseSingleLandscapeLayout(photo2)
+            && !shouldUseSingleLandscapeLayout(photo3)
+            && !shouldUseSingleLandscapeLayout(photo4))
     }
 }
