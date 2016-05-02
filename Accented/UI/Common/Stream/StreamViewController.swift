@@ -43,7 +43,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         streamCollectionView.backgroundColor = UIColor.clearColor()
 
         // Create the stream view model
-        viewModel = StreamViewModel(stream: stream!, collectionView: streamCollectionView)
+        viewModel = StreamViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
         
         streamCollectionView.dataSource = viewModel
         streamCollectionView.delegate = self        
@@ -52,6 +52,16 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         APIService.sharedInstance.getPhotos(StreamType.Popular)
     }
 
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 200)
+        } else {
+            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 50)
+        }
+    }
+    
     // MARK: - Infinite scrolling
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {

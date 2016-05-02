@@ -52,11 +52,18 @@ class StreamCardLayout: StreamLayoutBase {
     }
     
     override func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
-        let sectionHeight = headerReferenceSize.height
-        
         var nextY = contentHeight
         var currentSectionIndex = sectionStartIndex
         for template in templates {
+            let headerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForHeaderInSection: currentSectionIndex)
+            
+            // Header layout
+            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withIndexPath: NSIndexPath(forItem: 0, inSection: currentSectionIndex))
+            headerAttributes.frame = CGRectMake(0, nextY, headerSize.width, headerSize.height)
+            layoutCache.append(headerAttributes)
+            nextY += headerSize.height
+            
+            // Cell layout
             for (itemIndex, frame) in template.frames.enumerate() {
                 let finalRect = CGRectMake(frame.origin.x + leftMargin, frame.origin.y + nextY, frame.size.width, frame.size.height)
                 let indexPath = NSIndexPath(forItem: itemIndex, inSection: currentSectionIndex)
@@ -66,7 +73,7 @@ class StreamCardLayout: StreamLayoutBase {
             }
             
             currentSectionIndex += 1
-            nextY += template.height + vGap + sectionHeight
+            nextY += template.height + vGap
         }
      
         // Update content height

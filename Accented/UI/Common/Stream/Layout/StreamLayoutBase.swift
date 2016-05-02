@@ -13,12 +13,18 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     var leftMargin : CGFloat = 15
     var rightMargin : CGFloat = 15
     
+    weak var layoutDelegate : UICollectionViewDelegateFlowLayout?
+    
     // A cache that holds all the previously calculated layout attributes. The cache will remain valid until
     // explicitly cleared
     var layoutCache : Array<UICollectionViewLayoutAttributes> = []
-    
+
+    // Header layout cache
+    var headerLayoutCache : Array<UICollectionViewLayoutAttributes> = []
+
     func clearLayoutCache() {
         layoutCache.removeAll()
+        headerLayoutCache.removeAll()
     }
     
     func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {

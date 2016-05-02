@@ -14,6 +14,8 @@ class PhotoModel: NSObject {
     var width : CGFloat
     var height: CGFloat
     
+    var firstName : String
+    
     init(json:JSON) {
         // Image urls
         imageUrls = [:]
@@ -27,5 +29,8 @@ class PhotoModel: NSObject {
         // Original width and height
         width = CGFloat(json["width"].int!)
         height = CGFloat(json["height"].int!)
+        
+        // User
+        firstName = json["user"]["firstname"].string!
     }
 }

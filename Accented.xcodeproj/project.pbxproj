@@ -10,7 +10,6 @@
 		18093AFF1CCB3ACC00EFCE44 /* StreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18093AFD1CCB3ACC00EFCE44 /* StreamViewController.swift */; };
 		18093B001CCB3ACC00EFCE44 /* StreamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18093AFE1CCB3ACC00EFCE44 /* StreamViewController.xib */; };
 		18093B031CCB3E9D00EFCE44 /* PhotoRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18093B021CCB3E9D00EFCE44 /* PhotoRenderer.swift */; };
-		18093B061CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18093B041CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift */; };
 		184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06791CBB1020008A1E37 /* AppDelegate.swift */; };
 		184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184C067D1CBB1020008A1E37 /* Main.storyboard */; };
 		184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184C06801CBB1020008A1E37 /* Assets.xcassets */; };
@@ -32,6 +31,12 @@
 		185514C01CD6B03200B572CE /* StreamState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514BF1CD6B03200B572CE /* StreamState.swift */; };
 		185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514C11CD6BADE00B572CE /* StreamLayoutTemplate.swift */; };
 		185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514C31CD6C1D700B572CE /* QuadTemplate.swift */; };
+		185514C71CD6C6EB00B572CE /* StreamPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514C61CD6C6EB00B572CE /* StreamPhotoCell.swift */; };
+		185514CE1CD6C9AB00B572CE /* StreamHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514CC1CD6C9AB00B572CE /* StreamHeaderCell.swift */; };
+		185514CF1CD6C9AB00B572CE /* StreamHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185514CD1CD6C9AB00B572CE /* StreamHeaderCell.xib */; };
+		185514D21CD6D39D00B572CE /* StreamSectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514D01CD6D39D00B572CE /* StreamSectionHeaderCell.swift */; };
+		185514D31CD6D39D00B572CE /* StreamSectionHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185514D11CD6D39D00B572CE /* StreamSectionHeaderCell.xib */; };
+		185514D51CD704B600B572CE /* StreamSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514D41CD704B600B572CE /* StreamSelectorView.swift */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
 		9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D21CCA978E008F5257 /* AuthenticationService.swift */; };
@@ -52,7 +57,6 @@
 		18093AFD1CCB3ACC00EFCE44 /* StreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamViewController.swift; sourceTree = "<group>"; };
 		18093AFE1CCB3ACC00EFCE44 /* StreamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamViewController.xib; sourceTree = "<group>"; };
 		18093B021CCB3E9D00EFCE44 /* PhotoRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRenderer.swift; sourceTree = "<group>"; };
-		18093B041CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		184C06761CBB1020008A1E37 /* Accented.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accented.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184C06791CBB1020008A1E37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		184C067E1CBB1020008A1E37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +80,12 @@
 		185514BF1CD6B03200B572CE /* StreamState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamState.swift; sourceTree = "<group>"; };
 		185514C11CD6BADE00B572CE /* StreamLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLayoutTemplate.swift; sourceTree = "<group>"; };
 		185514C31CD6C1D700B572CE /* QuadTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadTemplate.swift; sourceTree = "<group>"; };
+		185514C61CD6C6EB00B572CE /* StreamPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPhotoCell.swift; sourceTree = "<group>"; };
+		185514CC1CD6C9AB00B572CE /* StreamHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderCell.swift; sourceTree = "<group>"; };
+		185514CD1CD6C9AB00B572CE /* StreamHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderCell.xib; sourceTree = "<group>"; };
+		185514D01CD6D39D00B572CE /* StreamSectionHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSectionHeaderCell.swift; sourceTree = "<group>"; };
+		185514D11CD6D39D00B572CE /* StreamSectionHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamSectionHeaderCell.xib; sourceTree = "<group>"; };
+		185514D41CD704B600B572CE /* StreamSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSelectorView.swift; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -128,12 +138,12 @@
 		18093AFC1CCB3AB500EFCE44 /* Stream */ = {
 			isa = PBXGroup;
 			children = (
+				185514C51CD6C6D900B572CE /* Renderers */,
 				185514B81CD66BEE00B572CE /* Models */,
 				1855149E1CD33A8600B572CE /* Layout */,
 				185514941CD339E500B572CE /* Templates */,
 				18093AFD1CCB3ACC00EFCE44 /* StreamViewController.swift */,
 				18093AFE1CCB3ACC00EFCE44 /* StreamViewController.xib */,
-				18093B041CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift */,
 				185514B01CD4524200B572CE /* StreamViewControllerDelegate.swift */,
 			);
 			path = Stream;
@@ -230,6 +240,7 @@
 			children = (
 				185514A91CD448AE00B572CE /* GatewayViewController.swift */,
 				185514AA1CD448AE00B572CE /* GatewayViewController.xib */,
+				185514D41CD704B600B572CE /* StreamSelectorView.swift */,
 			);
 			path = Gateway;
 			sourceTree = "<group>";
@@ -241,6 +252,18 @@
 				185514BF1CD6B03200B572CE /* StreamState.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		185514C51CD6C6D900B572CE /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				185514C61CD6C6EB00B572CE /* StreamPhotoCell.swift */,
+				185514CC1CD6C9AB00B572CE /* StreamHeaderCell.swift */,
+				185514CD1CD6C9AB00B572CE /* StreamHeaderCell.xib */,
+				185514D01CD6D39D00B572CE /* StreamSectionHeaderCell.swift */,
+				185514D11CD6D39D00B572CE /* StreamSectionHeaderCell.xib */,
+			);
+			path = Renderers;
 			sourceTree = "<group>";
 		};
 		9385356013A62B856B95A320 /* Pods */ = {
@@ -362,6 +385,8 @@
 			files = (
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
+				185514D31CD6D39D00B572CE /* StreamSectionHeaderCell.xib in Resources */,
+				185514CF1CD6C9AB00B572CE /* StreamHeaderCell.xib in Resources */,
 				18093B001CCB3ACC00EFCE44 /* StreamViewController.xib in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
@@ -430,7 +455,8 @@
 				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
 				185514BA1CD66BF600B572CE /* StreamViewModel.swift in Sources */,
-				18093B061CCB440E00EFCE44 /* StreamPhotoCollectionViewCell.swift in Sources */,
+				185514C71CD6C6EB00B572CE /* StreamPhotoCell.swift in Sources */,
+				185514CE1CD6C9AB00B572CE /* StreamHeaderCell.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				185514BC1CD6AAB000B572CE /* StreamTemplateGenerator.swift in Sources */,
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
@@ -451,8 +477,10 @@
 				185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
+				185514D51CD704B600B572CE /* StreamSelectorView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */,
+				185514D21CD6D39D00B572CE /* StreamSectionHeaderCell.swift in Sources */,
 				185514BE1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift in Sources */,
 				185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */,
 				185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */,

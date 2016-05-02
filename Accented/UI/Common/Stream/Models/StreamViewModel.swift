@@ -31,17 +31,20 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     var streamState = StreamState()
     
     // Renderers
-    private let cardRendererReuseIdentifier = "cardRenderer"
+    private let cardRendererReuseIdentifier = "card"
+    private let streamHeaderRendererReuseIdentifier = "streamHeader"
+    private let sectionHeaderRendererReuseIdentifier = "streamSectionHeader"
     
     // PhotoGroups serve as the view model for the stream. These models are in strict sync with layout templates
     var photoGroups  = [PhotoGroupModel]()
     
-    required init(stream : StreamModel, collectionView : UICollectionView) {
+    required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         self.stream = stream
         self.collectionView = collectionView
         
         // Initialize layout
         layoutEngine = StreamCardLayout()
+        layoutEngine.layoutDelegate = flowLayoutDelegate
         layoutEngine.headerReferenceSize = CGSizeMake(50, 50)
 
         let availableWidth = UIScreen.mainScreen().bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
@@ -50,8 +53,14 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         super.init()
         
         // Register renderer types
-        collectionView.registerClass(StreamPhotoCollectionViewCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
+        collectionView.registerClass(StreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
         
+        let headerCellNib = UINib(nibName: "StreamHeaderCell", bundle: nil)
+        collectionView.registerNib(headerCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: streamHeaderRendererReuseIdentifier)
+
+        let sectionCellNib = UINib(nibName: "StreamSectionHeaderCell", bundle: nil)
+        collectionView.registerNib(sectionCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderRendererReuseIdentifier)
+
         // Attach layout to collection view
         collectionView.collectionViewLayout = layoutEngine
         
@@ -141,7 +150,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let group = photoGroups[indexPath.section]
         let photo = group[indexPath.item]
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCell
         cell.photo = photo
         cell.setNeedsLayout()
         
@@ -149,6 +158,18 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionHeader {
+            if indexPath.section == 0 {
+                let streamHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: streamHeaderRendererReuseIdentifier, forIndexPath: indexPath)
+                return streamHeaderView
+            } else {
+                let sectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderRendererReuseIdentifier, forIndexPath: indexPath) as! StreamSectionHeaderCell
+                sectionHeaderView.photoGroup = photoGroups[indexPath.section]
+                sectionHeaderView.setNeedsLayout()
+                return sectionHeaderView
+            }
+        }
+        
         return UICollectionViewCell()
     }
     

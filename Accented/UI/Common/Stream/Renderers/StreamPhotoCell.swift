@@ -1,21 +1,21 @@
 //
-//  StreamPhotoCollectionViewCell.swift
+//  StreamPhotoCell.swift
 //  Accented
 //
-//  Created by Tiangong You on 4/22/16.
+//  Created by Tiangong You on 5/1/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class StreamPhotoCollectionViewCell: UICollectionViewCell {
+class StreamPhotoCell: UICollectionViewCell {
 
     var renderer: PhotoRenderer!
     var photo : PhotoModel?
     var effectLayer : CALayer {
         return self.layer
     }
-
+    
     override init(frame: CGRect) {
         renderer = PhotoRenderer()
         super.init(frame: frame)
@@ -39,15 +39,15 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
         effectLayer.shadowRadius = 5
         effectLayer.shadowOffset = CGSize(width: 0, height: 2)
     }
-        
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
         
         renderer.photo = photo
@@ -57,4 +57,5 @@ class StreamPhotoCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         renderer.photo = nil
     }
+
 }
