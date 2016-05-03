@@ -22,18 +22,13 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     unowned var collectionView : UICollectionView
     
     // Layout generator
-    var layoutGenerator : StreamTemplateGenerator
+    var layoutGenerator : StreamTemplateGenerator = StreamTemplateGenerator()
     
     // Layout engine
-    var layoutEngine : StreamLayoutBase
+    var layoutEngine = StreamLayoutBase()
     
     // Stream state
     var streamState = StreamState()
-    
-    // Renderers
-    private let cardRendererReuseIdentifier = "card"
-    private let streamHeaderRendererReuseIdentifier = "streamHeader"
-    private let sectionHeaderRendererReuseIdentifier = "streamSectionHeader"
     
     // PhotoGroups serve as the view model for the stream. These models are in strict sync with layout templates
     var photoGroups  = [PhotoGroupModel]()
@@ -42,30 +37,31 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         self.stream = stream
         self.collectionView = collectionView
         
-        // Initialize layout
-        layoutEngine = StreamCardLayout()
-        layoutEngine.layoutDelegate = flowLayoutDelegate
-        layoutEngine.headerReferenceSize = CGSizeMake(50, 50)
-
-        let availableWidth = UIScreen.mainScreen().bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
-        layoutGenerator = StreamCardLayoutGenerator(maxWidth: availableWidth)
-
         super.init()
         
         // Register renderer types
-        collectionView.registerClass(StreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
+        registerCellTypes()
+
+        // Initialize layout
+        createLayoutEngine()
+        layoutEngine.layoutDelegate = flowLayoutDelegate
         
-        let headerCellNib = UINib(nibName: "StreamHeaderCell", bundle: nil)
-        collectionView.registerNib(headerCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: streamHeaderRendererReuseIdentifier)
-
-        let sectionCellNib = UINib(nibName: "StreamSectionHeaderCell", bundle: nil)
-        collectionView.registerNib(sectionCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderRendererReuseIdentifier)
-
+        let availableWidth = UIScreen.mainScreen().bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
+        layoutGenerator = StreamCardLayoutGenerator(maxWidth: availableWidth)
+        
         // Attach layout to collection view
         collectionView.collectionViewLayout = layoutEngine
         
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+    }
+    
+    func registerCellTypes() -> Void {
+        fatalError("Not implemented in base class")
+    }
+    
+    func createLayoutEngine() {
+        fatalError("Not implemented in base class")
     }
     
     deinit {
@@ -105,12 +101,16 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         streamState.loading = false
     }
     
+    func clearCollectionView() {
+        photoCountInCollectionView = 0
+        photoGroups.removeAll()
+        layoutEngine.clearLayoutCache()
+    }
+    
     func updateCollectionView(shouldRefresh : Bool) {
         // If stream needs refresh (page is 1), then clear all the previous layout metadata and group info
         if shouldRefresh {
-            photoCountInCollectionView = 0
-            photoGroups.removeAll()
-            layoutEngine.clearLayoutCache()
+            clearCollectionView()
         }
         
         // Generate layout templates for the new photos. Since we already know the number of items currently displayed in the collection
@@ -148,29 +148,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let group = photoGroups[indexPath.section]
-        let photo = group[indexPath.item]
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCell
-        cell.photo = photo
-        cell.setNeedsLayout()
-        
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
-            if indexPath.section == 0 {
-                let streamHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: streamHeaderRendererReuseIdentifier, forIndexPath: indexPath)
-                return streamHeaderView
-            } else {
-                let sectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: sectionHeaderRendererReuseIdentifier, forIndexPath: indexPath) as! StreamSectionHeaderCell
-                sectionHeaderView.photoGroup = photoGroups[indexPath.section]
-                sectionHeaderView.setNeedsLayout()
-                return sectionHeaderView
-            }
-        }
-        
-        return UICollectionViewCell()
+        fatalError("Not implemented in base class")
     }
     
 }

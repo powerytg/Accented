@@ -1,15 +1,14 @@
 //
-//  StreamCardLayout.swift
+//  GatewayCardLayout.swift
 //  Accented
 //
-//  Created by Tiangong You on 4/28/16.
+//  Created by Tiangong You on 5/2/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class StreamCardLayout: StreamLayoutBase {
-
+class GatewayCardLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
     
     var contentHeight : CGFloat = 0
@@ -56,6 +55,7 @@ class StreamCardLayout: StreamLayoutBase {
         var currentSectionIndex = sectionStartIndex
         for template in templates {
             let headerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForHeaderInSection: currentSectionIndex)
+            let footerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForFooterInSection: currentSectionIndex)
             
             // Header layout
             let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withIndexPath: NSIndexPath(forItem: 0, inSection: currentSectionIndex))
@@ -72,10 +72,18 @@ class StreamCardLayout: StreamLayoutBase {
                 layoutCache.append(attributes)
             }
             
+            nextY += template.height
+            
+            // Footer layout
+            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withIndexPath: NSIndexPath(forItem: 0, inSection: currentSectionIndex))
+            footerAttributes.frame = CGRectMake(0, nextY, footerSize.width, footerSize.height)
+            layoutCache.append(footerAttributes)
+            nextY += footerSize.height + vGap
+            
+            // Advance to next section
             currentSectionIndex += 1
-            nextY += template.height + vGap
         }
-     
+        
         // Update content height
         contentHeight = nextY
     }

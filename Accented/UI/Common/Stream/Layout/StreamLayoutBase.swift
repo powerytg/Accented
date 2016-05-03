@@ -19,12 +19,8 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     // explicitly cleared
     var layoutCache : Array<UICollectionViewLayoutAttributes> = []
 
-    // Header layout cache
-    var headerLayoutCache : Array<UICollectionViewLayoutAttributes> = []
-
     func clearLayoutCache() {
         layoutCache.removeAll()
-        headerLayoutCache.removeAll()
     }
     
     func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {

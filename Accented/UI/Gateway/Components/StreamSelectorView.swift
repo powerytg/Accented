@@ -17,6 +17,10 @@ class StreamSelectorView: UIView {
     private var contentWidth : CGFloat = 0
     
     let displayStreamTypes : [StreamType] = [StreamType.Popular, StreamType.FreshToday, StreamType.Upcoming, StreamType.Editors]
+    private var currentTab : UIButton?
+    
+    private let unselectedColor = UIColor(red: 202/255.0, green: 202/255.0, blue: 202/255.0, alpha: 1.0)
+    private let selectedColor = UIColor(red: 240/255.0, green: 33/255.0, blue: 101/255.0, alpha: 1.0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,9 +66,17 @@ class StreamSelectorView: UIView {
         for streamType in displayStreamTypes {
             let button = UIButton()
             button.setTitle(displayName(streamType), forState: .Normal)
-            button.titleLabel!.font = UIFont(name: "Futura-CondensedMedium", size: 12)
+            button.titleLabel!.font = UIFont(name: "Futura-CondensedMedium", size: 18)
             button.sizeToFit()
             self.addSubview(button)
+            
+            button.addTarget(self, action: #selector(tabDidTap(_:)), forControlEvents: .TouchUpInside)
+            
+            if streamType == StorageService.sharedInstance.currentStream.streamType {
+                setToSelectedState(button, animated: false)
+            } else {
+                setToUnselectedState(button, animated: false)
+            }
             
             contentWidth += CGRectGetWidth(button.bounds)
         }
@@ -72,6 +84,47 @@ class StreamSelectorView: UIView {
         contentWidth += hGap * CGFloat(displayStreamTypes.count - 1)
     }
     
+    func tabDidTap(sender : UIButton) {
+        if sender == currentTab {
+            return
+        }
+        
+        setToUnselectedState(currentTab!, animated: true)
+        setToSelectedState(sender, animated: true, completed: { streamType in
+            let userInfo = [GatewayEvents.selectedStreamType : streamType.rawValue]
+            NSNotificationCenter.defaultCenter().postNotificationName(GatewayEvents.streamSelectionWillChange, object: nil, userInfo: userInfo)
+        })
+    }
+    
+    private func setToSelectedState(tab : UIButton, animated : Bool, completed : ((StreamType) -> Void)? = nil) {
+        if animated {
+            UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
+                tab.setTitleColor(self!.selectedColor, forState: .Normal)
+                }, completion: { (finished) in
+                    if let completedAction = completed {
+                        let selectedIndex = self.subviews.indexOf(tab)
+                        completedAction(self.displayStreamTypes[selectedIndex!])
+                    }
+            })
+        } else {
+            tab.setTitleColor(self.selectedColor, forState: .Normal)
+        }
+        
+        currentTab = tab
+    }
+
+    private func setToUnselectedState(tab : UIButton, animated : Bool) {
+        if animated {
+            UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
+                tab.setTitleColor(self!.unselectedColor, forState: .Normal)
+                }, completion: { (completed) in
+                    // Do nothing
+            })
+        } else {
+            tab.setTitleColor(self.unselectedColor, forState: .Normal)
+        }
+    }
+
     private func displayName(streamType : StreamType) -> String {
         switch streamType {
         case .Popular:

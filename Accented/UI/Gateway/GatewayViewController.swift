@@ -11,7 +11,7 @@ import UIKit
 class GatewayViewController: UIViewController, StreamViewControllerDelegate {
     
     var backgroundView : BlurredBackbroundView?
-    var streamViewController : StreamViewController?
+    var streamViewController : GatewayStreamViewController?
     var stream : StreamModel?
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,19 +40,11 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
         // Load initial stream
-        stream = StorageService.sharedInstance.getStream(StreamType.Popular)
-        streamViewController = StreamViewController()
-        streamViewController!.stream = stream
-        addChildViewController(streamViewController!)
-        self.view.addSubview(streamViewController!.view)
-        streamViewController!.view.frame = self.view.bounds
-        streamViewController!.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        streamViewController!.didMoveToParentViewController(self)
-        streamViewController!.delegate = self
-        
+        createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: GatewayEvents.streamSelectionWillChange, object: nil)
     }
 
     deinit {
@@ -64,6 +56,18 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    private func createStreamViewController(streamType : StreamType) {
+        stream = StorageService.sharedInstance.getStream(streamType)
+        streamViewController = GatewayStreamViewController()
+        streamViewController!.stream = stream
+        addChildViewController(streamViewController!)
+        self.view.addSubview(streamViewController!.view)
+        streamViewController!.view.frame = self.view.bounds
+        streamViewController!.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        streamViewController!.didMoveToParentViewController(self)
+        streamViewController!.delegate = self
+    }
+    
     func streamDidUpdate(notification : NSNotification) -> Void {
         let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
@@ -73,6 +77,27 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         }
     }
 
+    // MARK: - Events
+    func streamSelectionWillChange(notification : NSNotification) {
+        let streamTypeString = notification.userInfo![GatewayEvents.selectedStreamType] as! String
+        let streamType = StreamType(rawValue: streamTypeString)
+        
+        if streamType == stream!.streamType {
+            return
+        }
+        
+        StorageService.sharedInstance.currentStream = StorageService.sharedInstance.getStream(streamType!)
+        stream = StorageService.sharedInstance.currentStream
+        
+        // Recreate the stream view controller
+        if streamViewController != nil {
+            streamViewController!.view.removeFromSuperview()
+            streamViewController!.removeFromParentViewController()
+        }
+        
+        createStreamViewController(stream!.streamType)
+    }
+    
     // MARK: - StreamViewControllerDelegate
     func streamViewDidFinishedScrolling(firstVisiblePhoto: PhotoModel) {
 //        backgroundView!.photo = firstVisiblePhoto

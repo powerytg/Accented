@@ -12,12 +12,13 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
     @IBOutlet weak var streamCollectionView: UICollectionView!
     
-    var stream:StreamModel?
-    let reuseIdentifier = "photoRenderer"
-  
+    // Infinite scrolling threshold
+    let loadingThreshold : CGFloat = 50
+    
     // View model
-    private var viewModel : StreamViewModel?
-    private var streamState : StreamState {
+    var stream:StreamModel?
+    var viewModel : StreamViewModel?
+    var streamState : StreamState {
         return viewModel!.streamState
     }
    
@@ -43,23 +44,27 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         streamCollectionView.backgroundColor = UIColor.clearColor()
 
         // Create the stream view model
-        viewModel = StreamViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        createViewModel()
         
         streamCollectionView.dataSource = viewModel
         streamCollectionView.delegate = self        
 
         // Load the first page
-        APIService.sharedInstance.getPhotos(StreamType.Popular)
+        APIService.sharedInstance.getPhotos(stream!.streamType)
     }
 
+    func createViewModel() {
+        fatalError("Not implemented in base class")
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 0 {
-            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 200)
-        } else {
-            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 50)
-        }
+        return CGSizeZero
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSizeZero
     }
     
     // MARK: - Infinite scrolling
@@ -79,7 +84,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         
-        if offsetY > contentHeight - scrollView.frame.size.height - 50 {
+        if offsetY > contentHeight - scrollView.frame.size.height - loadingThreshold {
             viewModel!.loadNextPage()
         }
         

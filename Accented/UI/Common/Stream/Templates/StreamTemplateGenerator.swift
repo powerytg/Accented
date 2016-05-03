@@ -17,6 +17,10 @@ class StreamTemplateGenerator : NSObject {
         super.init()
     }
     
+    convenience override init() {
+        self.init(maxWidth : 0)
+    }
+    
     func generateLayoutMetadata(photos : [PhotoModel]) -> [StreamLayoutTemplate] {
         fatalError("Not implemented in base class")
     }

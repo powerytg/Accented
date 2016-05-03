@@ -26,8 +26,9 @@ class StorageService: NSObject {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    // Streams
+    // Streams default to popular stream
     let streamCache = NSCache()
+    var currentStream : StreamModel = StreamModel(streamType: .Popular)
     
     private func initializeEventListeners() {
         let notificationCenter = NSNotificationCenter.defaultCenter()

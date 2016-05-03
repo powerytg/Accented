@@ -10,10 +10,6 @@ import UIKit
 
 class StreamSectionHeaderCell: UICollectionViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    var photoGroup : [PhotoModel]?
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -24,22 +20,6 @@ class StreamSectionHeaderCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        if photoGroup != nil {
-            var names = [String]()
-            for photo in photoGroup! {
-                names.append(photo.firstName)
-            }
-            
-            let nameString = names.joinWithSeparator(", ").uppercaseString
-            let displayText = "BY \(nameString)"
-            titleLabel.text = displayText
-        }
-    }
-    
 }

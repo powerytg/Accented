@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -13,25 +12,9 @@
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="529" height="264"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4UN-aQ-JYk">
-                        <rect key="frame" x="79" y="126" width="371" height="11"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="9"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="0.7448275862068966" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <constraints>
-                <constraint firstItem="4UN-aQ-JYk" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Ujo-7X-uqK"/>
-                <constraint firstItem="4UN-aQ-JYk" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.7" id="rcS-BB-mC1"/>
-                <constraint firstItem="4UN-aQ-JYk" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="zyf-oU-3GY"/>
-            </constraints>
             <size key="customSize" width="529" height="264"/>
-            <connections>
-                <outlet property="titleLabel" destination="4UN-aQ-JYk" id="Dh4-l5-et6"/>
-            </connections>
             <point key="canvasLocation" x="1037.5" y="744"/>
         </collectionViewCell>
     </objects>
