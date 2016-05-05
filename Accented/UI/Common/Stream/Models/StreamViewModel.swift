@@ -52,6 +52,12 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         // Attach layout to collection view
         collectionView.collectionViewLayout = layoutEngine
         
+        // If the stream is not loaded, show the loading state
+        if !stream.loaded {
+            layoutEngine.generateLayoutAttributesForLoadingState()
+            collectionView.reloadData()
+        }
+        
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
     }
@@ -146,11 +152,19 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     // MARK: - UICollectionViewDataSource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return photoGroups.count
+        if !stream.loaded {
+            return 1
+        } else {
+            return photoGroups.count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoGroups[section].count
+        if !stream.loaded {
+            return 1
+        } else {            
+            return photoGroups[section].count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

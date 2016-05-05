@@ -50,8 +50,7 @@
             <connections>
                 <outlet property="endingView" destination="DJx-tf-Ybt" id="G8m-FR-hs8"/>
                 <outlet property="loadingView" destination="9SZ-1x-I5N" id="GG2-U1-0EX"/>
-                <outlet property="retryButon" destination="IJA-7W-12J" id="u4F-bh-oxT"/>
-                <outlet property="retryButton" destination="IJA-7W-12J" id="WLs-L3-pPC"/>
+                <outlet property="retryButton" destination="IJA-7W-12J" id="wKk-G8-ToL"/>
             </connections>
             <point key="canvasLocation" x="725" y="650.5"/>
         </collectionViewCell>

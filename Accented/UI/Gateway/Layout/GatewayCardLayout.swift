@@ -11,9 +11,6 @@ import UIKit
 class GatewayCardLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
     
-    var contentHeight : CGFloat = 0
-    var availableWidth : CGFloat = 0
-    
     override init() {
         super.init()
     }
@@ -48,6 +45,24 @@ class GatewayCardLayout: StreamLayoutBase {
         }
         
         return layoutAttributes
+    }
+    
+    override func generateLayoutAttributesForLoadingState() {
+        if availableWidth == 0 {
+            availableWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        }
+        
+        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
+        let headerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForHeaderInSection: 0)
+        let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+        headerAttributes.frame = CGRectMake(0, 0, availableWidth, headerSize.height)
+        
+        let loadingCellSize = CGSizeMake(availableWidth, 150)
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+        loadingCellAttributes.frame = CGRectMake(0, headerSize.height, availableWidth, loadingCellSize.height)
+        
+        contentHeight += headerSize.height + loadingCellSize.height
+        layoutCache += [headerAttributes, loadingCellAttributes]
     }
     
     override func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {

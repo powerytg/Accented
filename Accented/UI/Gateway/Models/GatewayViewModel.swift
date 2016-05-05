@@ -12,6 +12,7 @@ class GatewayViewModel: StreamViewModel {
     
     // Renderers
     private let cardRendererReuseIdentifier = "card"
+    private let initialLoadingRendererReuseIdentifier = "initialLoading"
     private let cardHeaderRendererReuseIdentifier = "cardHeader"
     private let cardSectionHeaderRendererReuseIdentifier = "cardSectionHeader"
     private let cardSectionFooterRendererReuseIdentifier = "cardSectionFooter"
@@ -38,6 +39,9 @@ class GatewayViewModel: StreamViewModel {
         
         let loadingCellNib = UINib(nibName: "StreamLoadingCell", bundle: nil)
         collectionView.registerNib(loadingCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier)
+        
+        let initialLoadingCellNib = UINib(nibName: "StreamInitialLoadingCell", bundle: nil)
+        collectionView.registerNib(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
     }
     
     override func createLayoutEngine() {
@@ -49,16 +53,25 @@ class GatewayViewModel: StreamViewModel {
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let group = photoGroups[indexPath.section]
-        let photo = group[indexPath.item]
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCell
-        cell.photo = photo
-        cell.setNeedsLayout()
-        
-        return cell
+        if !stream.loaded {
+            let loadingCell = collectionView.dequeueReusableCellWithReuseIdentifier(initialLoadingRendererReuseIdentifier, forIndexPath: indexPath)
+            return loadingCell
+        } else {
+            let group = photoGroups[indexPath.section]
+            let photo = group[indexPath.item]
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! StreamPhotoCell
+            cell.photo = photo
+            cell.setNeedsLayout()
+            
+            return cell
+        }
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        if !stream.loaded {
+            return collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: cardHeaderRendererReuseIdentifier, forIndexPath: indexPath)
+        }
+        
         let group = photoGroups[indexPath.section]
         
         if kind == UICollectionElementKindSectionHeader {

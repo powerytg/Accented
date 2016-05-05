@@ -10,7 +10,7 @@ import UIKit
 
 class StreamLoadingCell: UICollectionViewCell {
 
-    @IBOutlet weak var loadingView: InlineLoadingView!
+    @IBOutlet weak var loadingView: InlineLoadingView!    
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var endingView: UIImageView!
     

@@ -9,9 +9,12 @@
 import UIKit
 
 class StreamLayoutBase: UICollectionViewFlowLayout {
-
+    
     var leftMargin : CGFloat = 15
     var rightMargin : CGFloat = 15
+    
+    var contentHeight : CGFloat = 0
+    var availableWidth : CGFloat = 0
     
     weak var layoutDelegate : UICollectionViewDelegateFlowLayout?
     
@@ -20,7 +23,12 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     var layoutCache : Array<UICollectionViewLayoutAttributes> = []
 
     func clearLayoutCache() {
+        contentHeight = 0
         layoutCache.removeAll()
+    }
+    
+    func generateLayoutAttributesForLoadingState() {
+        fatalError("Not implemented in base class")
     }
     
     func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {

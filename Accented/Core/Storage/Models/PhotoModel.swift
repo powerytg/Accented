@@ -31,6 +31,11 @@ class PhotoModel: NSObject {
         height = CGFloat(json["height"].int!)
         
         // User
-        firstName = json["user"]["firstname"].string!
+        if let firstNameString = json["user"]["firstname"].string {
+            firstName = firstNameString
+        } else {
+            firstName = ""
+        }
+        
     }
 }
