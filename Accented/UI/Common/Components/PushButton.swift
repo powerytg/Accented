@@ -1,14 +1,14 @@
 //
-//  GatewayDisplayStyleButton.swift
+//  PushButton.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/2/16.
+//  Created by You, Tiangong on 5/4/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class GatewayDisplayStyleButton: UIButton {
+class PushButton: UIButton {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,7 +19,7 @@ class GatewayDisplayStyleButton: UIButton {
         super.init(frame: frame)
         initialize()
     }
-
+    
     private func initialize() {
         self.layer.borderColor = UIColor.whiteColor().CGColor
         self.layer.borderWidth = 1.0
@@ -28,4 +28,5 @@ class GatewayDisplayStyleButton: UIButton {
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
     }
+
 }

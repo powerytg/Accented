@@ -39,7 +39,7 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
-        // Load initial stream
+        // If the stream has no content, show the loading view        
         createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
         // Events

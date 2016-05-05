@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="StreamLoadingCell" customModule="Accented" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="416" height="77"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="416" height="77"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9SZ-1x-I5N" customClass="InlineLoadingView" customModule="Accented" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="416" height="77"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkStreamFooterIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="DJx-tf-Ybt">
+                        <rect key="frame" x="190" y="34" width="36" height="9"/>
+                    </imageView>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJA-7W-12J">
+                        <rect key="frame" x="0.0" y="0.0" width="416" height="77"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
+                        <state key="normal" title="Cannot load stream. Click to retry">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="retryButtonDidTouch:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Ajt-FW-L4N"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="9SZ-1x-I5N" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="2SH-Wx-OD9"/>
+                <constraint firstItem="IJA-7W-12J" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="L5p-2g-NZm"/>
+                <constraint firstItem="IJA-7W-12J" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="LK5-QU-jiW"/>
+                <constraint firstItem="DJx-tf-Ybt" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="NmN-sQ-bZe"/>
+                <constraint firstItem="9SZ-1x-I5N" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="bTu-Ek-Cto"/>
+                <constraint firstItem="IJA-7W-12J" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="lud-zH-2Xc"/>
+                <constraint firstItem="IJA-7W-12J" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="nYn-tn-zGz"/>
+                <constraint firstItem="9SZ-1x-I5N" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="p1g-IE-Bc4"/>
+                <constraint firstItem="DJx-tf-Ybt" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="q4N-bQ-S07"/>
+                <constraint firstItem="9SZ-1x-I5N" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="xKL-cq-TVI"/>
+            </constraints>
+            <size key="customSize" width="416" height="77"/>
+            <connections>
+                <outlet property="endingView" destination="DJx-tf-Ybt" id="G8m-FR-hs8"/>
+                <outlet property="loadingView" destination="9SZ-1x-I5N" id="GG2-U1-0EX"/>
+                <outlet property="retryButon" destination="IJA-7W-12J" id="u4F-bh-oxT"/>
+                <outlet property="retryButton" destination="IJA-7W-12J" id="WLs-L3-pPC"/>
+            </connections>
+            <point key="canvasLocation" x="725" y="650.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="DarkStreamFooterIndicator" width="36" height="9"/>
+    </resources>
+</document>

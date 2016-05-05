@@ -11,9 +11,18 @@ import UIKit
 class StreamModel: NSObject {
     let streamType : StreamType
     var photos : Array<PhotoModel> = []
-    var totalCount = 0
+    
+    // If nil, then the stream has not been loaded yet
+    var totalCount : Int?
+    
+    // Has the stream been loaded
+    var loaded : Bool {
+        return totalCount != nil
+    }
     
     required init(streamType : StreamType) {
         self.streamType = streamType
     }
+    
+    
 }
