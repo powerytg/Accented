@@ -17,7 +17,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwU-Ev-H2h">
                         <rect key="frame" x="102" y="29" width="283" height="12"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="0.7448275862" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>

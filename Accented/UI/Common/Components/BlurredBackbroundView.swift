@@ -21,7 +21,7 @@ class BlurredBackbroundView: UIView {
     init(_ coder: NSCoder? = nil) {
         imageView = UIImageView()
         
-        let blurEffect = UIBlurEffect(style: .Dark)
+        let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         blurView = UIVisualEffectView(effect: blurEffect)
         
         if let coder = coder {
@@ -50,12 +50,21 @@ class BlurredBackbroundView: UIView {
         if photo != nil {
             let url = NSURL(string: (photo?.imageUrls[ImageSize.Medium])!)
             let filter = DesaturationFilter()
-            imageView.af_setImageWithURL(
-                url!,
-                placeholderImage: nil,
-                filter: filter,
-                imageTransition: .CrossDissolve(0.2)
-            )
+            
+            if ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground {
+                imageView.af_setImageWithURL(
+                    url!,
+                    placeholderImage: nil,
+                    filter: filter,
+                    imageTransition: .CrossDissolve(0.2)
+                )
+            } else {
+                imageView.af_setImageWithURL(
+                    url!,
+                    placeholderImage: nil,
+                    imageTransition: .CrossDissolve(0.2)
+                )
+            }
         } else {
             imageView.image = nil
         }

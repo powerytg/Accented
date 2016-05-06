@@ -39,6 +39,10 @@
 		1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */; };
 		1859E88A1CDC306B008ACF23 /* StreamButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
+		9B38138B1CDD38CE0066D3B9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B38138A1CDD38CE0066D3B9 /* ThemeManager.swift */; };
+		9B38138D1CDD39070066D3B9 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B38138C1CDD39070066D3B9 /* AppTheme.swift */; };
+		9B38138F1CDD39FF0066D3B9 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B38138E1CDD39FF0066D3B9 /* LightTheme.swift */; };
+		9B3813911CDD3CD20066D3B9 /* DarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813901CDD3CD20066D3B9 /* DarkTheme.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
 		9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D21CCA978E008F5257 /* AuthenticationService.swift */; };
 		9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D41CCA9944008F5257 /* GreetingsViewController.swift */; };
@@ -103,6 +107,10 @@
 		1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamButtonsCell.xib; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
+		9B38138A1CDD38CE0066D3B9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		9B38138C1CDD39070066D3B9 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		9B38138E1CDD39FF0066D3B9 /* LightTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
+		9B3813901CDD3CD20066D3B9 /* DarkTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkTheme.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		9B6115D21CCA978E008F5257 /* AuthenticationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		9B6115D41CCA9944008F5257 /* GreetingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingsViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 		18093AFA1CCB3AB500EFCE44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9B3813891CDD38BF0066D3B9 /* Themes */,
 				185514A81CD4488E00B572CE /* Gateway */,
 				18093AFB1CCB3AB500EFCE44 /* Common */,
 			);
@@ -327,6 +336,17 @@
 				8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9B3813891CDD38BF0066D3B9 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				9B38138A1CDD38CE0066D3B9 /* ThemeManager.swift */,
+				9B38138C1CDD39070066D3B9 /* AppTheme.swift */,
+				9B38138E1CDD39FF0066D3B9 /* LightTheme.swift */,
+				9B3813901CDD3CD20066D3B9 /* DarkTheme.swift */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		9B6115C71CCA89A8008F5257 /* Core */ = {
@@ -551,10 +571,12 @@
 				185514E61CD852B200B572CE /* GatewayCardLayout.swift in Sources */,
 				185514C01CD6B03200B572CE /* StreamState.swift in Sources */,
 				184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */,
+				9B38138D1CDD39070066D3B9 /* AppTheme.swift in Sources */,
 				185514A21CD33A8600B572CE /* StreamLayoutBase.swift in Sources */,
 				18093AFF1CCB3ACC00EFCE44 /* StreamViewController.swift in Sources */,
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
 				185514E21CD8502700B572CE /* GatewayViewModel.swift in Sources */,
+				9B38138F1CDD39FF0066D3B9 /* LightTheme.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
 				9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */,
@@ -565,9 +587,11 @@
 				185514AB1CD448AE00B572CE /* GatewayViewController.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				185514DC1CD84F7900B572CE /* GatewayEvents.swift in Sources */,
+				9B3813911CDD3CD20066D3B9 /* DarkTheme.swift in Sources */,
 				185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
+				9B38138B1CDD38CE0066D3B9 /* ThemeManager.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */,
 				185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */,

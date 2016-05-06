@@ -29,6 +29,7 @@ class StreamButtonsCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        streamLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
         if let streamModel = stream {
             streamLabel.text = displayName(streamModel.streamType)
         }
