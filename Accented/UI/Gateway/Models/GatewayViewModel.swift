@@ -8,11 +8,8 @@
 
 import UIKit
 
-class GatewayViewModel: StreamViewModel {
+class GatewayViewModel: StreamViewModel, StreamLayoutDelegate {
     
-    // Header logo cell
-    private let headerLogoReuseIdentifier = "headerLogo"
-
     // Header navigation cell
     private let headerNavReuseIdentifier = "headerNav"
 
@@ -32,8 +29,11 @@ class GatewayViewModel: StreamViewModel {
         return 1
     }
 
-    // Cell for infinite loading
+    // Inline infinite loading cell
     var loadingCell : StreamLoadingCell?
+    
+    // Navigation cell
+    private var navCell : StreamHeaderNavCell?
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
@@ -42,10 +42,6 @@ class GatewayViewModel: StreamViewModel {
     override func registerCellTypes() {
         collectionView.registerClass(StreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
         
-        // Header logo cell
-        let headerLogoCellNib = UINib(nibName: "StreamHeaderLogoCell", bundle: nil)
-        collectionView.registerNib(headerLogoCellNib, forCellWithReuseIdentifier: headerLogoReuseIdentifier)
-
         // Header navigation cell
         let headerNavCellNib = UINib(nibName: "StreamHeaderNavCell", bundle: nil)
         collectionView.registerNib(headerNavCellNib, forCellWithReuseIdentifier: headerNavReuseIdentifier)
@@ -73,6 +69,7 @@ class GatewayViewModel: StreamViewModel {
     
     override func createLayoutEngine() {
         layoutEngine = GatewayCardLayout()
+        layoutEngine.delegate = self
         layoutEngine.headerReferenceSize = CGSizeMake(50, 50)
         layoutEngine.footerReferenceSize = CGSizeMake(50, 50)
     }
@@ -83,17 +80,20 @@ class GatewayViewModel: StreamViewModel {
         if indexPath.section == headerSection {
             // Stream headers
             if indexPath.item == 0 {
-                // Logo
-                return collectionView.dequeueReusableCellWithReuseIdentifier(headerLogoReuseIdentifier, forIndexPath: indexPath)
+                navCell = collectionView.dequeueReusableCellWithReuseIdentifier(headerNavReuseIdentifier, forIndexPath: indexPath) as? StreamHeaderNavCell
+                if layoutEngine.isKindOfClass(GatewayCardLayout) {
+                    let cardLayout = layoutEngine as! GatewayCardLayout
+                    cardLayout.navBarStickyPosition = -navCell!.navBarDefaultPosition
+                }
+                
+                return navCell!
             } else if indexPath.item == 1 {
-                return collectionView.dequeueReusableCellWithReuseIdentifier(headerNavReuseIdentifier, forIndexPath: indexPath)
-            } else if indexPath.item == 2 {
                 let buttonsCell = collectionView.dequeueReusableCellWithReuseIdentifier(headerButtonsReuseIdentifier, forIndexPath: indexPath) as! StreamButtonsCell
                 buttonsCell.stream = stream
                 buttonsCell.setNeedsLayout()
                 return buttonsCell
             } else {
-                fatalError("There is no header cells beyond index 2")
+                fatalError("There is no header cells beyond index 1")
             }
         } else {
             if !stream.loaded {
@@ -163,7 +163,7 @@ class GatewayViewModel: StreamViewModel {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == headerSection {
-            return 3
+            return 2
         } else {
             if !stream.loaded {
                 return 1
@@ -171,6 +171,13 @@ class GatewayViewModel: StreamViewModel {
                 return photoGroups[section - photoStartSection].count
             }            
         }
+    }
+    
+    // MARK: - StreamLayoutDelegate
+    
+    func streamHeaderCompressionRatioDidChange(headerCompressionRatio: CGFloat) {
+        navCell?.compressionRatio = headerCompressionRatio
+        navCell?.setNeedsLayout()
     }
     
     // MARK: - Events

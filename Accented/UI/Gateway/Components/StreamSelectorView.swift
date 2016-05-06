@@ -16,6 +16,8 @@ class StreamSelectorView: UIView {
     private let hGap : CGFloat = 20
     private var contentWidth : CGFloat = 0
     
+    var compressionRateio : CGFloat = 0
+    
     let displayStreamTypes : [StreamType] = [StreamType.Popular, StreamType.FreshToday, StreamType.Upcoming, StreamType.Editors]
     private var currentTab : UIButton?
     
@@ -60,6 +62,9 @@ class StreamSelectorView: UIView {
             
             currentX += CGRectGetWidth(f) + hGap
         }
+        
+        // Update the top line based on compression ratio
+        topLine.opacity = 1 - Float(compressionRateio)
     }
     
     private func createTabs() {

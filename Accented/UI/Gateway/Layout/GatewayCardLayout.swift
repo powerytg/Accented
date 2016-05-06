@@ -10,8 +10,17 @@ import UIKit
 
 class GatewayCardLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
+    
+    // Total height of the header
     private var headerHeight : CGFloat = 0
+    private var navBarHeight : CGFloat = 145
     private let contentStartSection = 1
+    
+    var navBarDefaultPosition : CGFloat = 0
+    var navBarStickyPosition : CGFloat = 0
+    
+    private var navHeaderAttributes : UICollectionViewLayoutAttributes?
+    private var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
     
     override init() {
         super.init()
@@ -45,8 +54,38 @@ class GatewayCardLayout: StreamLayoutBase {
                 layoutAttributes.append(attributes)
             }
         }
+
+        // Make the nav bar sticky
+        if let navAttributes = self.navHeaderAttributes {
+            let contentOffset = collectionView!.contentOffset.y
+            if !layoutAttributes.contains(navAttributes) {
+                layoutAttributes.append(navAttributes)
+            }
+            
+            var navFrame = navAttributes.frame
+
+            if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
+                navFrame.origin.y = navBarStickyPosition + contentOffset
+            } else {
+                navFrame.origin.y = navBarDefaultPosition
+            }
+
+            navAttributes.frame = navFrame
+            
+            // Calculate header compression ratio. Compression starts when the nav bar becomes sticky, and becomes fully compressed
+            let compressionStarts : CGFloat = 66
+            let compressionCompletes : CGFloat = 106
+            headerCompressionRatio = max(0, contentOffset - compressionStarts) / (compressionCompletes - compressionStarts)
+            headerCompressionRatio = min(1.0, headerCompressionRatio)
+            
+            delegate?.streamHeaderCompressionRatioDidChange(headerCompressionRatio)
+        }
         
         return layoutAttributes
+    }
+    
+    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+        return true
     }
     
     private func generateLayoutAttributesForStreamHeader() {
@@ -55,23 +94,20 @@ class GatewayCardLayout: StreamLayoutBase {
         }
         
         var nextY : CGFloat = 0
-        let logoCellSize = CGSizeMake(fullWidth, 110)
-        let logoAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-        logoAttributes.frame = CGRectMake(0, 0, logoCellSize.width, logoCellSize.height)
-        nextY += logoCellSize.height
-        
-        let navCellSize = CGSizeMake(fullWidth, 35)
-        let navAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 1, inSection: 0))
-        navAttributes.frame = CGRectMake(0, nextY, navCellSize.width, navCellSize.height)
+        let navCellSize = CGSizeMake(fullWidth, navBarHeight)
+        navBarDefaultPosition = nextY
+        self.navHeaderAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+        self.navHeaderAttributes!.frame = CGRectMake(0, nextY, navCellSize.width, navCellSize.height)
+        self.navHeaderAttributes?.zIndex = 1024
         nextY += navCellSize.height
 
         let buttonsCellSize = CGSizeMake(fullWidth, 100)
-        let buttonsAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 2, inSection: 0))
-        buttonsAttributes.frame = CGRectMake(0, nextY, buttonsCellSize.width, buttonsCellSize.height)
+        self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 1, inSection: 0))
+        self.buttonsHeaderAttributes!.frame = CGRectMake(0, nextY, buttonsCellSize.width, buttonsCellSize.height)
         nextY += buttonsCellSize.height
         
         headerHeight = nextY
-        layoutCache += [logoAttributes, navAttributes, buttonsAttributes]
+        layoutCache += [self.navHeaderAttributes!, self.buttonsHeaderAttributes!]
         contentHeight = headerHeight
     }
     

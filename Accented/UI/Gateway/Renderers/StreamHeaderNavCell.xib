@@ -13,31 +13,42 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="425" height="208"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-hR-x2z" customClass="StreamSelectorView" customModule="Accented" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="425" height="208"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="38" id="SHJ-nV-gLd"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="SHJ-nV-gLd"/>
-                            </mask>
-                        </variation>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mam-RN-4Cr" customClass="BlurView" customModule="Accented" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="425" height="130"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUi-hR-x2z" customClass="StreamSelectorView" customModule="Accented" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="95" width="425" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="5Y3-L9-9pk"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkStreamHeader" translatesAutoresizingMaskIntoConstraints="NO" id="XjH-Xo-4Ku">
+                        <rect key="frame" x="145" y="20" width="135" height="60"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="ZUi-hR-x2z" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="7fr-jm-feF"/>
-                <constraint firstItem="ZUi-hR-x2z" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="eQ5-Ie-pIX"/>
+                <constraint firstItem="ZUi-hR-x2z" firstAttribute="top" secondItem="XjH-Xo-4Ku" secondAttribute="bottom" constant="15" id="RyK-S5-zMH"/>
+                <constraint firstItem="mam-RN-4Cr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="VbP-FN-Xl3"/>
+                <constraint firstItem="XjH-Xo-4Ku" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="afh-yn-v5j"/>
                 <constraint firstItem="ZUi-hR-x2z" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="j6g-fj-6TF"/>
+                <constraint firstItem="mam-RN-4Cr" firstAttribute="bottom" secondItem="ZUi-hR-x2z" secondAttribute="bottom" id="kNf-g5-F5C"/>
+                <constraint firstItem="mam-RN-4Cr" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="nLT-9h-NdV"/>
+                <constraint firstItem="XjH-Xo-4Ku" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="rRp-EL-cfR"/>
                 <constraint firstItem="ZUi-hR-x2z" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="st7-1z-FPl"/>
+                <constraint firstItem="mam-RN-4Cr" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="v13-9e-n8k"/>
             </constraints>
             <size key="customSize" width="425" height="208"/>
             <connections>
+                <outlet property="blurView" destination="mam-RN-4Cr" id="ioo-Lt-CGx"/>
                 <outlet property="streamSelectorView" destination="ZUi-hR-x2z" id="NIp-l3-tuc"/>
             </connections>
             <point key="canvasLocation" x="985.5" y="716"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="DarkStreamHeader" width="135" height="60"/>
+    </resources>
 </document>

@@ -34,8 +34,6 @@
 		185514E41CD850FF00B572CE /* GatewayStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E31CD850FF00B572CE /* GatewayStreamViewController.swift */; };
 		185514E61CD852B200B572CE /* GatewayCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E51CD852B200B572CE /* GatewayCardLayout.swift */; };
 		185514E91CD854B700B572CE /* StreamSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E81CD854B700B572CE /* StreamSelectorView.swift */; };
-		1859E8811CDC2F54008ACF23 /* StreamHeaderLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */; };
-		1859E8821CDC2F54008ACF23 /* StreamHeaderLogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */; };
 		1859E8851CDC2F90008ACF23 /* StreamHeaderNavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */; };
 		1859E8861CDC2F90008ACF23 /* StreamHeaderNavCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */; };
 		1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */; };
@@ -56,6 +54,7 @@
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB5900A1CDABD1100E78581 /* StreamInitialLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */; };
 		9BB5900B1CDABD1100E78581 /* StreamInitialLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */; };
+		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
 		9BEF080E1CDA65FA0060D86C /* PhotoRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08041CDA65FA0060D86C /* PhotoRenderer.swift */; };
 		9BEF08111CDA65FA0060D86C /* StreamLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08071CDA65FA0060D86C /* StreamLoadingCell.swift */; };
@@ -98,8 +97,6 @@
 		185514E31CD850FF00B572CE /* GatewayStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayStreamViewController.swift; sourceTree = "<group>"; };
 		185514E51CD852B200B572CE /* GatewayCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayCardLayout.swift; sourceTree = "<group>"; };
 		185514E81CD854B700B572CE /* StreamSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSelectorView.swift; sourceTree = "<group>"; };
-		1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderLogoCell.swift; sourceTree = "<group>"; };
-		1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderLogoCell.xib; sourceTree = "<group>"; };
 		1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderNavCell.swift; sourceTree = "<group>"; };
 		1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderNavCell.xib; sourceTree = "<group>"; };
 		1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamButtonsCell.swift; sourceTree = "<group>"; };
@@ -121,6 +118,7 @@
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamInitialLoadingCell.swift; sourceTree = "<group>"; };
 		9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamInitialLoadingCell.xib; sourceTree = "<group>"; };
+		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
 		9BEF08041CDA65FA0060D86C /* PhotoRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRenderer.swift; sourceTree = "<group>"; };
 		9BEF08071CDA65FA0060D86C /* StreamLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLoadingCell.swift; sourceTree = "<group>"; };
@@ -253,6 +251,7 @@
 				185514A61CD447E600B572CE /* BlurredBackbroundView.swift */,
 				9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */,
 				9BB590021CDAB6D700E78581 /* PushButton.swift */,
+				9BB590F51CDD33EB00E78581 /* BlurView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -389,8 +388,6 @@
 				9BEF080D1CDA65FA0060D86C /* StreamSectionHeaderCell.xib */,
 				9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */,
 				9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */,
-				1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */,
-				1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */,
 				1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */,
 				1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */,
 				1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */,
@@ -478,7 +475,6 @@
 				18093B001CCB3ACC00EFCE44 /* StreamViewController.xib in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9BEF08151CDA65FA0060D86C /* StreamSectionFooterCell.xib in Resources */,
-				1859E8821CDC2F54008ACF23 /* StreamHeaderLogoCell.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				185514AC1CD448AE00B572CE /* GatewayViewController.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
@@ -563,7 +559,6 @@
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
 				9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */,
 				9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */,
-				1859E8811CDC2F54008ACF23 /* StreamHeaderLogoCell.swift in Sources */,
 				9BEF08141CDA65FA0060D86C /* StreamSectionFooterCell.swift in Sources */,
 				1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
@@ -578,6 +573,7 @@
 				185514B11CD4524200B572CE /* StreamViewControllerDelegate.swift in Sources */,
 				185514BE1CD6AADC00B572CE /* StreamCardLayoutGenerator.swift in Sources */,
 				9BB5900A1CDABD1100E78581 /* StreamInitialLoadingCell.swift in Sources */,
+				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */,
 				9BEF08131CDA65FA0060D86C /* StreamPhotoCell.swift in Sources */,
 				185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */,
