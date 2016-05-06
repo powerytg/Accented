@@ -27,17 +27,18 @@ class GatewayStreamViewController: StreamViewController {
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 290)
+            // Section 0 is reserved for stream headers
+            return CGSizeZero
         } else {
             return CGSizeMake(CGRectGetWidth(collectionView.bounds), 8)
         }
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if viewModel!.isKindOfClass(GatewayInitialLoadingViewModel) {
+        if section == 0 {
             return CGSizeZero
-        } else {
-            return CGSizeMake(CGRectGetWidth(collectionView.bounds), 26)
         }
+        
+        return CGSizeMake(CGRectGetWidth(collectionView.bounds), 26)
     }
 }

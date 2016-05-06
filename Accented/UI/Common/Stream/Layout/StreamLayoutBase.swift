@@ -14,7 +14,10 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     var rightMargin : CGFloat = 15
     
     var contentHeight : CGFloat = 0
-    var availableWidth : CGFloat = 0
+    var fullWidth : CGFloat = 0
+    var availableWidth : CGFloat {
+        return fullWidth - leftMargin - rightMargin
+    }
     
     weak var layoutDelegate : UICollectionViewDelegateFlowLayout?
     

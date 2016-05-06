@@ -34,6 +34,12 @@
 		185514E41CD850FF00B572CE /* GatewayStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E31CD850FF00B572CE /* GatewayStreamViewController.swift */; };
 		185514E61CD852B200B572CE /* GatewayCardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E51CD852B200B572CE /* GatewayCardLayout.swift */; };
 		185514E91CD854B700B572CE /* StreamSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514E81CD854B700B572CE /* StreamSelectorView.swift */; };
+		1859E8811CDC2F54008ACF23 /* StreamHeaderLogoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */; };
+		1859E8821CDC2F54008ACF23 /* StreamHeaderLogoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */; };
+		1859E8851CDC2F90008ACF23 /* StreamHeaderNavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */; };
+		1859E8861CDC2F90008ACF23 /* StreamHeaderNavCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */; };
+		1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */; };
+		1859E88A1CDC306B008ACF23 /* StreamButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
 		9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115D21CCA978E008F5257 /* AuthenticationService.swift */; };
@@ -50,12 +56,8 @@
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB5900A1CDABD1100E78581 /* StreamInitialLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */; };
 		9BB5900B1CDABD1100E78581 /* StreamInitialLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */; };
-		9BB5900D1CDAC0CD00E78581 /* GatewayInitialLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB5900C1CDAC0CD00E78581 /* GatewayInitialLoadingViewModel.swift */; };
-		9BB5900F1CDAC18800E78581 /* GatewayInitialLoadingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB5900E1CDAC18800E78581 /* GatewayInitialLoadingLayout.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
 		9BEF080E1CDA65FA0060D86C /* PhotoRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08041CDA65FA0060D86C /* PhotoRenderer.swift */; };
-		9BEF080F1CDA65FA0060D86C /* StreamHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08051CDA65FA0060D86C /* StreamHeaderCell.swift */; };
-		9BEF08101CDA65FA0060D86C /* StreamHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEF08061CDA65FA0060D86C /* StreamHeaderCell.xib */; };
 		9BEF08111CDA65FA0060D86C /* StreamLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08071CDA65FA0060D86C /* StreamLoadingCell.swift */; };
 		9BEF08121CDA65FA0060D86C /* StreamLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BEF08081CDA65FA0060D86C /* StreamLoadingCell.xib */; };
 		9BEF08131CDA65FA0060D86C /* StreamPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF08091CDA65FA0060D86C /* StreamPhotoCell.swift */; };
@@ -96,6 +98,12 @@
 		185514E31CD850FF00B572CE /* GatewayStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayStreamViewController.swift; sourceTree = "<group>"; };
 		185514E51CD852B200B572CE /* GatewayCardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayCardLayout.swift; sourceTree = "<group>"; };
 		185514E81CD854B700B572CE /* StreamSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamSelectorView.swift; sourceTree = "<group>"; };
+		1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderLogoCell.swift; sourceTree = "<group>"; };
+		1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderLogoCell.xib; sourceTree = "<group>"; };
+		1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderNavCell.swift; sourceTree = "<group>"; };
+		1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderNavCell.xib; sourceTree = "<group>"; };
+		1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamButtonsCell.swift; sourceTree = "<group>"; };
+		1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamButtonsCell.xib; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -113,12 +121,8 @@
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamInitialLoadingCell.swift; sourceTree = "<group>"; };
 		9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamInitialLoadingCell.xib; sourceTree = "<group>"; };
-		9BB5900C1CDAC0CD00E78581 /* GatewayInitialLoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayInitialLoadingViewModel.swift; sourceTree = "<group>"; };
-		9BB5900E1CDAC18800E78581 /* GatewayInitialLoadingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayInitialLoadingLayout.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
 		9BEF08041CDA65FA0060D86C /* PhotoRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoRenderer.swift; sourceTree = "<group>"; };
-		9BEF08051CDA65FA0060D86C /* StreamHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamHeaderCell.swift; sourceTree = "<group>"; };
-		9BEF08061CDA65FA0060D86C /* StreamHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderCell.xib; sourceTree = "<group>"; };
 		9BEF08071CDA65FA0060D86C /* StreamLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamLoadingCell.swift; sourceTree = "<group>"; };
 		9BEF08081CDA65FA0060D86C /* StreamLoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamLoadingCell.xib; sourceTree = "<group>"; };
 		9BEF08091CDA65FA0060D86C /* StreamPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPhotoCell.swift; sourceTree = "<group>"; };
@@ -290,7 +294,6 @@
 			isa = PBXGroup;
 			children = (
 				185514E51CD852B200B572CE /* GatewayCardLayout.swift */,
-				9BB5900E1CDAC18800E78581 /* GatewayInitialLoadingLayout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -299,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				185514E11CD8502700B572CE /* GatewayViewModel.swift */,
-				9BB5900C1CDAC0CD00E78581 /* GatewayInitialLoadingViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -378,8 +380,6 @@
 			isa = PBXGroup;
 			children = (
 				9BEF08041CDA65FA0060D86C /* PhotoRenderer.swift */,
-				9BEF08051CDA65FA0060D86C /* StreamHeaderCell.swift */,
-				9BEF08061CDA65FA0060D86C /* StreamHeaderCell.xib */,
 				9BEF08071CDA65FA0060D86C /* StreamLoadingCell.swift */,
 				9BEF08081CDA65FA0060D86C /* StreamLoadingCell.xib */,
 				9BEF08091CDA65FA0060D86C /* StreamPhotoCell.swift */,
@@ -389,6 +389,12 @@
 				9BEF080D1CDA65FA0060D86C /* StreamSectionHeaderCell.xib */,
 				9BB590081CDABD1100E78581 /* StreamInitialLoadingCell.swift */,
 				9BB590091CDABD1100E78581 /* StreamInitialLoadingCell.xib */,
+				1859E87F1CDC2F54008ACF23 /* StreamHeaderLogoCell.swift */,
+				1859E8801CDC2F54008ACF23 /* StreamHeaderLogoCell.xib */,
+				1859E8831CDC2F90008ACF23 /* StreamHeaderNavCell.swift */,
+				1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */,
+				1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */,
+				1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -464,13 +470,15 @@
 			files = (
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
 				9BB5900B1CDABD1100E78581 /* StreamInitialLoadingCell.xib in Resources */,
+				1859E8861CDC2F90008ACF23 /* StreamHeaderNavCell.xib in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
-				9BEF08101CDA65FA0060D86C /* StreamHeaderCell.xib in Resources */,
 				9BEF08121CDA65FA0060D86C /* StreamLoadingCell.xib in Resources */,
 				9BEF08171CDA65FA0060D86C /* StreamSectionHeaderCell.xib in Resources */,
+				1859E88A1CDC306B008ACF23 /* StreamButtonsCell.xib in Resources */,
 				18093B001CCB3ACC00EFCE44 /* StreamViewController.xib in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9BEF08151CDA65FA0060D86C /* StreamSectionFooterCell.xib in Resources */,
+				1859E8821CDC2F54008ACF23 /* StreamHeaderLogoCell.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				185514AC1CD448AE00B572CE /* GatewayViewController.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
@@ -540,7 +548,7 @@
 				9BEF08111CDA65FA0060D86C /* StreamLoadingCell.swift in Sources */,
 				185514BA1CD66BF600B572CE /* StreamViewModel.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
-				9BEF080F1CDA65FA0060D86C /* StreamHeaderCell.swift in Sources */,
+				1859E8851CDC2F90008ACF23 /* StreamHeaderNavCell.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
 				185514BC1CD6AAB000B572CE /* StreamTemplateGenerator.swift in Sources */,
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
@@ -555,12 +563,13 @@
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
 				9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */,
 				9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */,
+				1859E8811CDC2F54008ACF23 /* StreamHeaderLogoCell.swift in Sources */,
 				9BEF08141CDA65FA0060D86C /* StreamSectionFooterCell.swift in Sources */,
+				1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				185514AB1CD448AE00B572CE /* GatewayViewController.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				185514DC1CD84F7900B572CE /* GatewayEvents.swift in Sources */,
-				9BB5900F1CDAC18800E78581 /* GatewayInitialLoadingLayout.swift in Sources */,
 				185514C41CD6C1D700B572CE /* QuadTemplate.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				1855149A1CD33A0000B572CE /* StreamLayoutTemplateBase.swift in Sources */,
@@ -572,7 +581,6 @@
 				185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */,
 				9BEF08131CDA65FA0060D86C /* StreamPhotoCell.swift in Sources */,
 				185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */,
-				9BB5900D1CDAC0CD00E78581 /* GatewayInitialLoadingViewModel.swift in Sources */,
 				9BEF08161CDA65FA0060D86C /* StreamSectionHeaderCell.swift in Sources */,
 				185514E41CD850FF00B572CE /* GatewayStreamViewController.swift in Sources */,
 				9BEF080E1CDA65FA0060D86C /* PhotoRenderer.swift in Sources */,

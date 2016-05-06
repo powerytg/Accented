@@ -18,6 +18,10 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     // Currently available photo count in the collection view
     var photoCountInCollectionView = 0
     
+    var photoStartSection : Int {
+        return 0
+    }
+    
     // Reference to the collection view
     unowned var collectionView : UICollectionView
     
@@ -74,7 +78,20 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func loadStreamIfNecessary() {
+        clearCollectionView()
+        
+        if !stream.loaded {
+            layoutEngine.generateLayoutAttributesForLoadingState()
+            collectionView.reloadData()
+            loadNextPage()
+        } else {
+            updateCollectionView(true)
+        }
+    }
+    
     // MARL: - Stream loading and updating
+    
     func loadNextPage() -> Void {
         if streamState.loading {
             return
@@ -127,7 +144,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         
         // Generate layout templates for the new photos. Since we already know the number of items currently displayed in the collection
         // view, we'll use this number as start index and generate layout templates for all the images that come after the index
-        let sectionStartIndex = photoGroups.count
+        let sectionStartIndex = photoStartSection + photoGroups.count
         let startIndex = photoCountInCollectionView
         let endIndex = stream.photos.count - 1
         let photosForProcessing = Array(stream.photos[startIndex...endIndex])
@@ -152,19 +169,11 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     // MARK: - UICollectionViewDataSource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        if !stream.loaded {
-            return 1
-        } else {
-            return photoGroups.count
-        }
+        fatalError("Not implemented in base class")
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !stream.loaded {
-            return 1
-        } else {            
-            return photoGroups[section].count
-        }
+        fatalError("Not implemented in base class")
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

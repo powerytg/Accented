@@ -10,6 +10,8 @@ import UIKit
 
 class GatewayCardLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
+    private var headerHeight : CGFloat = 0
+    private let contentStartSection = 1
     
     override init() {
         super.init()
@@ -23,7 +25,7 @@ class GatewayCardLayout: StreamLayoutBase {
         scrollDirection = .Vertical
         
         if collectionView != nil {
-            availableWidth = CGRectGetWidth(collectionView!.bounds) - leftMargin - rightMargin
+            fullWidth = CGRectGetWidth(collectionView!.bounds)
         }
     }
     
@@ -47,25 +49,57 @@ class GatewayCardLayout: StreamLayoutBase {
         return layoutAttributes
     }
     
-    override func generateLayoutAttributesForLoadingState() {
-        if availableWidth == 0 {
-            availableWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+    private func generateLayoutAttributesForStreamHeader() {
+        if fullWidth == 0 {
+            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         }
         
-        let indexPath = NSIndexPath(forItem: 0, inSection: 0)
-        let headerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForHeaderInSection: 0)
-        let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-        headerAttributes.frame = CGRectMake(0, 0, availableWidth, headerSize.height)
+        var nextY : CGFloat = 0
+        let logoCellSize = CGSizeMake(fullWidth, 110)
+        let logoAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
+        logoAttributes.frame = CGRectMake(0, 0, logoCellSize.width, logoCellSize.height)
+        nextY += logoCellSize.height
         
+        let navCellSize = CGSizeMake(fullWidth, 35)
+        let navAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 1, inSection: 0))
+        navAttributes.frame = CGRectMake(0, nextY, navCellSize.width, navCellSize.height)
+        nextY += navCellSize.height
+
+        let buttonsCellSize = CGSizeMake(fullWidth, 100)
+        let buttonsAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 2, inSection: 0))
+        buttonsAttributes.frame = CGRectMake(0, nextY, buttonsCellSize.width, buttonsCellSize.height)
+        nextY += buttonsCellSize.height
+        
+        headerHeight = nextY
+        layoutCache += [logoAttributes, navAttributes, buttonsAttributes]
+        contentHeight = headerHeight
+    }
+    
+    override func generateLayoutAttributesForLoadingState() {
+        if fullWidth == 0 {
+            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        }
+        
+        // Generate header layout attributes if absent
+        if layoutCache.count == 0 {
+            generateLayoutAttributesForStreamHeader()
+        }
+        
+        let nextY = contentHeight
         let loadingCellSize = CGSizeMake(availableWidth, 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-        loadingCellAttributes.frame = CGRectMake(0, headerSize.height, availableWidth, loadingCellSize.height)
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+        loadingCellAttributes.frame = CGRectMake(0, nextY, availableWidth, loadingCellSize.height)
         
-        contentHeight += headerSize.height + loadingCellSize.height
-        layoutCache += [headerAttributes, loadingCellAttributes]
+        contentHeight += loadingCellSize.height
+        layoutCache.append(loadingCellAttributes)
     }
     
     override func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+        // Generate header layout attributes if absent
+        if layoutCache.count == 0 {
+            generateLayoutAttributesForStreamHeader()
+        }
+
         var nextY = contentHeight
         var currentSectionIndex = sectionStartIndex
         for template in templates {

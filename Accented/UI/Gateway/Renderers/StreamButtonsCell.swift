@@ -1,17 +1,15 @@
 //
-//  StreamHeaderCell.swift
+//  StreamButtonsCell.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/1/16.
+//  Created by Tiangong You on 5/5/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class StreamHeaderCell: UICollectionViewCell {
+class StreamButtonsCell: UICollectionViewCell {
 
-    @IBOutlet weak var titleView: UIImageView!
-    @IBOutlet weak var streamSelectorView: StreamSelectorView!
     @IBOutlet weak var streamLabel: UILabel!
     
     var stream : StreamModel?
@@ -26,7 +24,6 @@ class StreamHeaderCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        streamSelectorView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     override func layoutSubviews() {
@@ -55,9 +52,7 @@ class StreamHeaderCell: UICollectionViewCell {
             return "Upcoming Photos"
         case .User:
             return "User Photos"
-        default:
-            return "Photo Stream"
         }
     }
-    
+
 }

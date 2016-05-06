@@ -16,7 +16,15 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     let loadingThreshold : CGFloat = 50
     
     // View model
-    var stream:StreamModel?
+    var stream:StreamModel? {
+        didSet {
+            if stream != nil && viewModel != nil {
+                viewModel!.stream = stream!
+                viewModel!.loadStreamIfNecessary()
+            }
+        }
+    }
+    
     var viewModel : StreamViewModel?
     var streamState : StreamState {
         return viewModel!.streamState
@@ -47,10 +55,14 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         createViewModel()
         
         streamCollectionView.dataSource = viewModel
-        streamCollectionView.delegate = self        
-
-        // Load the first page
-        APIService.sharedInstance.getPhotos(stream!.streamType)
+        streamCollectionView.delegate = self
+        
+        // Refresh stream
+        if let streamModel = stream {
+            if !streamModel.loaded {
+                viewModel!.loadNextPage()
+            }
+        }
     }
 
     func createViewModel() {

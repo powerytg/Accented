@@ -88,14 +88,8 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         
         StorageService.sharedInstance.currentStream = StorageService.sharedInstance.getStream(streamType!)
         stream = StorageService.sharedInstance.currentStream
-        
-        // Recreate the stream view controller
-        if streamViewController != nil {
-            streamViewController!.view.removeFromSuperview()
-            streamViewController!.removeFromParentViewController()
-        }
-        
-        createStreamViewController(stream!.streamType)
+
+        streamViewController?.stream = stream
     }
     
     // MARK: - StreamViewControllerDelegate
