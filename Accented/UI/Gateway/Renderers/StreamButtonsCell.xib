@@ -20,10 +20,13 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opz-VJ-IG2" customClass="PushButton" customModule="Accented" customModuleProvider="target">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opz-VJ-IG2" customClass="GatewayPushButton" customModule="Accented" customModuleProvider="target">
                         <rect key="frame" x="161" y="62" width="129" height="30"/>
                         <inset key="contentEdgeInsets" minX="10" minY="6" maxX="10" maxY="6"/>
                         <state key="normal" title="DISPLAY STYLE"/>
+                        <connections>
+                            <action selector="displayButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="CgG-bs-wQR"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -37,6 +40,7 @@
             </constraints>
             <size key="customSize" width="451" height="219"/>
             <connections>
+                <outlet property="displayStyleButton" destination="opz-VJ-IG2" id="vJs-oe-Jnk"/>
                 <outlet property="streamLabel" destination="7aZ-5o-omd" id="4hT-Ei-N53"/>
             </connections>
             <point key="canvasLocation" x="442.5" y="721.5"/>

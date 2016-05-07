@@ -48,4 +48,7 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
         fatalError("Not implemented in base class")
     }
     
+    func generateLayoutAttributesForStreamHeader() {
+        fatalError("Not implemented in base class")
+    }
 }

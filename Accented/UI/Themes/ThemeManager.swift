@@ -11,12 +11,24 @@ import UIKit
 class ThemeManager: NSObject {
     
     // Current theme, default to dark theme
-    var currentTheme : AppTheme
+    private var theme : AppTheme = DarkTheme()
+    var currentTheme : AppTheme {
+        get {
+            return theme
+        }
+        
+        set(value) {
+            if theme != value {
+                theme = value
+                NSNotificationCenter.defaultCenter().postNotificationName(ThemeManagerEvents.appThemeDidChange, object: nil)
+            }
+        }
+    }
     
     // Singleton instance
     static let sharedInstance = ThemeManager()
     private override init() {
-        currentTheme = DarkTheme()
+        
     }
 
 }

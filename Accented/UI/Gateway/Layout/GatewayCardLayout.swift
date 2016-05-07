@@ -13,7 +13,7 @@ class GatewayCardLayout: StreamLayoutBase {
     
     // Total height of the header
     private var headerHeight : CGFloat = 0
-    private var navBarHeight : CGFloat = 145
+    private var navBarHeight : CGFloat = 156
     private let contentStartSection = 1
     
     var navBarDefaultPosition : CGFloat = 0
@@ -40,7 +40,7 @@ class GatewayCardLayout: StreamLayoutBase {
     
     override func collectionViewContentSize() -> CGSize {
         if layoutCache.count == 0 {
-            return super.collectionViewContentSize()
+            return CGSizeZero
         }
         
         return CGSizeMake(availableWidth, contentHeight)
@@ -88,7 +88,7 @@ class GatewayCardLayout: StreamLayoutBase {
         return true
     }
     
-    private func generateLayoutAttributesForStreamHeader() {
+    override func generateLayoutAttributesForStreamHeader() {
         if fullWidth == 0 {
             fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         }
@@ -101,7 +101,7 @@ class GatewayCardLayout: StreamLayoutBase {
         self.navHeaderAttributes?.zIndex = 1024
         nextY += navCellSize.height
 
-        let buttonsCellSize = CGSizeMake(fullWidth, 100)
+        let buttonsCellSize = CGSizeMake(fullWidth, 110)
         self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 1, inSection: 0))
         self.buttonsHeaderAttributes!.frame = CGRectMake(0, nextY, buttonsCellSize.width, buttonsCellSize.height)
         nextY += buttonsCellSize.height

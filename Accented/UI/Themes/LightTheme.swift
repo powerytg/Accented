@@ -19,7 +19,15 @@ class LightTheme: AppTheme {
     }
 
     override var titleTextColor : UIColor {
-        return UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
+        return UIColor(red: 80 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1.0)
+    }
+
+    override var standardTextColor : UIColor {
+        return UIColor(red: 60 / 255.0, green: 60 / 255.0, blue: 60 / 255.0, alpha: 1.0)
+    }
+    
+    override var statusBarStyle : UIStatusBarStyle {
+        return .Default
     }
 
     init() {

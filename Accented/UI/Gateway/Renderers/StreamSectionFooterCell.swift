@@ -31,6 +31,12 @@ class StreamSectionFooterCell: UICollectionViewCell {
         super.layoutSubviews()
 
         // Footer label
+        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
+            footerLabel.textColor = UIColor(red: 70/255.0, green: 70/255.0, blue: 70/255.0, alpha: 1)
+        } else {
+            footerLabel.textColor = UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)
+        }
+        
         if photoGroup != nil {
             var names = [String]()
             for photo in photoGroup! {

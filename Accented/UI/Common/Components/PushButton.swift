@@ -20,7 +20,7 @@ class PushButton: UIButton {
         initialize()
     }
     
-    private func initialize() {
+    func initialize() {
         self.layer.borderColor = UIColor.whiteColor().CGColor
         self.layer.borderWidth = 1.0
         self.backgroundColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 0.1)

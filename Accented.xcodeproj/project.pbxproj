@@ -38,6 +38,9 @@
 		1859E8861CDC2F90008ACF23 /* StreamHeaderNavCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */; };
 		1859E8891CDC306B008ACF23 /* StreamButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */; };
 		1859E88A1CDC306B008ACF23 /* StreamButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */; };
+		1859E8901CDD769E008ACF23 /* GatewayNavBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E88F1CDD769E008ACF23 /* GatewayNavBlurView.swift */; };
+		1859E8921CDD796A008ACF23 /* GatewayPushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8911CDD796A008ACF23 /* GatewayPushButton.swift */; };
+		1859E8941CDD7AA7008ACF23 /* ThemeManagerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E8931CDD7AA7008ACF23 /* ThemeManagerEvents.swift */; };
 		9B01595F1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */; };
 		9B38138B1CDD38CE0066D3B9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B38138A1CDD38CE0066D3B9 /* ThemeManager.swift */; };
 		9B38138D1CDD39070066D3B9 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B38138C1CDD39070066D3B9 /* AppTheme.swift */; };
@@ -105,6 +108,9 @@
 		1859E8841CDC2F90008ACF23 /* StreamHeaderNavCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamHeaderNavCell.xib; sourceTree = "<group>"; };
 		1859E8871CDC306B008ACF23 /* StreamButtonsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamButtonsCell.swift; sourceTree = "<group>"; };
 		1859E8881CDC306B008ACF23 /* StreamButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamButtonsCell.xib; sourceTree = "<group>"; };
+		1859E88F1CDD769E008ACF23 /* GatewayNavBlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayNavBlurView.swift; sourceTree = "<group>"; };
+		1859E8911CDD796A008ACF23 /* GatewayPushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GatewayPushButton.swift; sourceTree = "<group>"; };
+		1859E8931CDD7AA7008ACF23 /* ThemeManagerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManagerEvents.swift; sourceTree = "<group>"; };
 		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 		9B01595E1CD3B65F0054C0E6 /* SingleLandscapeTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLandscapeTemplate.swift; sourceTree = "<group>"; };
 		9B38138A1CDD38CE0066D3B9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -325,6 +331,8 @@
 			isa = PBXGroup;
 			children = (
 				185514E81CD854B700B572CE /* StreamSelectorView.swift */,
+				1859E88F1CDD769E008ACF23 /* GatewayNavBlurView.swift */,
+				1859E8911CDD796A008ACF23 /* GatewayPushButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -345,6 +353,7 @@
 				9B38138C1CDD39070066D3B9 /* AppTheme.swift */,
 				9B38138E1CDD39FF0066D3B9 /* LightTheme.swift */,
 				9B3813901CDD3CD20066D3B9 /* DarkTheme.swift */,
+				1859E8931CDD7AA7008ACF23 /* ThemeManagerEvents.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -570,7 +579,9 @@
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
 				185514E61CD852B200B572CE /* GatewayCardLayout.swift in Sources */,
 				185514C01CD6B03200B572CE /* StreamState.swift in Sources */,
+				1859E8921CDD796A008ACF23 /* GatewayPushButton.swift in Sources */,
 				184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */,
+				1859E8941CDD7AA7008ACF23 /* ThemeManagerEvents.swift in Sources */,
 				9B38138D1CDD39070066D3B9 /* AppTheme.swift in Sources */,
 				185514A21CD33A8600B572CE /* StreamLayoutBase.swift in Sources */,
 				18093AFF1CCB3ACC00EFCE44 /* StreamViewController.swift in Sources */,
@@ -599,6 +610,7 @@
 				9BB5900A1CDABD1100E78581 /* StreamInitialLoadingCell.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				185514B71CD5B95A00B572CE /* HeadlineTemplate.swift in Sources */,
+				1859E8901CDD769E008ACF23 /* GatewayNavBlurView.swift in Sources */,
 				9BEF08131CDA65FA0060D86C /* StreamPhotoCell.swift in Sources */,
 				185514C21CD6BADE00B572CE /* StreamLayoutTemplate.swift in Sources */,
 				9BEF08161CDA65FA0060D86C /* StreamSectionHeaderCell.swift in Sources */,

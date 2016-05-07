@@ -166,7 +166,6 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         collectionView.reloadData()
     }
     
-    
     // MARK: - UICollectionViewDataSource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         fatalError("Not implemented in base class")

@@ -12,6 +12,13 @@ class GatewayStreamViewController: StreamViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Events
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,4 +48,12 @@ class GatewayStreamViewController: StreamViewController {
         
         return CGSizeMake(CGRectGetWidth(collectionView.bounds), 26)
     }
+    
+    // MARK: - Events
+    func appThemeDidChange(notification : NSNotification) {
+        viewModel = GatewayViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        streamCollectionView.dataSource = viewModel
+        viewModel!.updateCollectionView(true)
+    }
+    
 }

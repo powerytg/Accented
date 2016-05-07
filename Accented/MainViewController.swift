@@ -14,7 +14,11 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.blackColor()
+        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
+            self.view.backgroundColor = UIColor.whiteColor()
+        } else {
+            self.view.backgroundColor = UIColor.blackColor()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {

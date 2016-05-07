@@ -21,9 +21,24 @@ class StreamSelectorView: UIView {
     let displayStreamTypes : [StreamType] = [StreamType.Popular, StreamType.FreshToday, StreamType.Upcoming, StreamType.Editors]
     private var currentTab : UIButton?
     
-    private let unselectedColor = UIColor(red: 202/255.0, green: 202/255.0, blue: 202/255.0, alpha: 1.0)
-    private let selectedColor = UIColor(red: 240/255.0, green: 33/255.0, blue: 101/255.0, alpha: 1.0)
+    private var unselectedColor : UIColor {
+        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
+            return UIColor(red: 60/255.0, green: 60/255.0, blue: 60/255.0, alpha: 1.0)
+        } else {
+            return UIColor(red: 202/255.0, green: 202/255.0, blue: 202/255.0, alpha: 1.0)
+        }
+    }
     
+    private let selectedColor = UIColor(red: 240/255.0, green: 33/255.0, blue: 101/255.0, alpha: 1.0)
+
+    private var lineColor : UIColor {
+        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
+            return UIColor(red: 72/255.0, green: 72/255.0, blue: 72/255.0, alpha: 1.0)
+        } else {
+            return UIColor(red: 162/255.0, green: 162/255.0, blue: 162/255.0, alpha: 1.0)
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -35,9 +50,6 @@ class StreamSelectorView: UIView {
     }
     
     private func initialize() {
-        topLine.backgroundColor = UIColor(red: 162 / 255.0, green: 162 / 255.0, blue: 162 / 255.0, alpha: 1.0).CGColor
-        bottomLine.backgroundColor = topLine.backgroundColor
-        
         self.layer.addSublayer(topLine)
         self.layer.addSublayer(bottomLine)
         
@@ -49,9 +61,12 @@ class StreamSelectorView: UIView {
         
         let w = CGRectGetWidth(self.bounds)
         let h = CGRectGetHeight(self.bounds)
+        
         topLine.frame = CGRectMake(0, 0, w, 1)
         bottomLine.frame = CGRectMake(0, h - 1, w, 1)
-        
+        topLine.backgroundColor = lineColor.CGColor
+        bottomLine.backgroundColor = lineColor.CGColor
+
         // Distrubute tabs
         var currentX = w / 2 - contentWidth / 2
         for tabView in self.subviews {
@@ -59,6 +74,13 @@ class StreamSelectorView: UIView {
             f.origin.x = currentX
             f.origin.y = h / 2 - CGRectGetHeight(f) / 2
             tabView.frame = f
+            tabView.setNeedsLayout()
+            
+            if tabView == currentTab {
+                setToSelectedState(tabView as! UIButton, animated: false)
+            } else {
+                setToUnselectedState(tabView as! UIButton, animated: false)
+            }
             
             currentX += CGRectGetWidth(f) + hGap
         }

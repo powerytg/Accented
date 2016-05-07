@@ -40,6 +40,13 @@ class BlurredBackbroundView: UIView {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
         self.addSubview(blurView)
+        
+        // Events
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func layoutSubviews() {
@@ -70,6 +77,12 @@ class BlurredBackbroundView: UIView {
         }
     }
 
+    // MARK : - Events
+    func appThemeDidChange(notification : NSNotification) {
+        UIView.animateWithDuration(0.3) { [weak self] in
+            self?.blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
+        }
+    }
 }
 
 // MARK: - Filters

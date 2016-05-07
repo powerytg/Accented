@@ -27,7 +27,7 @@ class BlurView: UIView {
         initialize()
     }
 
-    private func initialize() {
+    func initialize() {
         let blurEffect = UIBlurEffect(style: .Dark)
         blurView.effect = blurEffect
         blurView.contentView.alpha = 0

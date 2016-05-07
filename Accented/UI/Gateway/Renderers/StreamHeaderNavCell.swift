@@ -10,8 +10,12 @@ import UIKit
 
 class StreamHeaderNavCell: UICollectionViewCell {
 
-    @IBOutlet weak var blurView: BlurView!
+    @IBOutlet weak var blurView: GatewayNavBlurView!
     @IBOutlet weak var streamSelectorView: StreamSelectorView!
+    @IBOutlet weak var headerImageView: UIImageView!
+    
+    private let lightThemeImage = UIImage(named: "LightStreamHeader")
+    private let darkThemeImage = UIImage(named: "DarkStreamHeader")
     
     var compressionRatio : CGFloat = 0
     
@@ -26,7 +30,16 @@ class StreamHeaderNavCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        switch ThemeManager.sharedInstance.currentTheme.themeType {
+        case .Light:
+            headerImageView.image = lightThemeImage
+        default:
+            headerImageView.image = darkThemeImage
+        }
+        
+        headerImageView.alpha = 1 - compressionRatio
         blurView.alpha = compressionRatio
+        blurView.setNeedsLayout()
         
         streamSelectorView.compressionRateio = compressionRatio
         streamSelectorView.setNeedsLayout()

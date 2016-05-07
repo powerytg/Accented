@@ -26,13 +26,16 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         self.init(nibName : "GatewayViewController", bundle: nil)
     }
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Status bar
+        applyStatusBarStyle()
+        
         // Background
         backgroundView = BlurredBackbroundView()
         self.view.addSubview(backgroundView!)
@@ -45,6 +48,7 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: GatewayEvents.streamSelectionWillChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
 
     deinit {
@@ -90,6 +94,16 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         stream = StorageService.sharedInstance.currentStream
 
         streamViewController?.stream = stream
+    }
+    
+    func appThemeDidChange(notification : NSNotification) {
+        applyStatusBarStyle()
+    }
+    
+    // MARK: - Private
+    
+    private func applyStatusBarStyle() {
+        UIApplication.sharedApplication().statusBarStyle = ThemeManager.sharedInstance.currentTheme.statusBarStyle
     }
     
     // MARK: - StreamViewControllerDelegate

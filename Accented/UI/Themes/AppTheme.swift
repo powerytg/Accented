@@ -31,6 +31,15 @@ class AppTheme: NSObject {
     var titleTextColor : UIColor {
         return UIColor.whiteColor()
     }
+
+    // Standard text color
+    var standardTextColor : UIColor {
+        return UIColor.whiteColor()
+    }
+
+    var statusBarStyle : UIStatusBarStyle {
+        return .LightContent
+    }
     
     init(themeType : AppThemeType) {
         self.themeType = themeType

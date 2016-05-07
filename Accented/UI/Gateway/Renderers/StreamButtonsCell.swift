@@ -11,6 +11,7 @@ import UIKit
 class StreamButtonsCell: UICollectionViewCell {
 
     @IBOutlet weak var streamLabel: UILabel!
+    @IBOutlet weak var displayStyleButton: GatewayPushButton!
     
     var stream : StreamModel?
     
@@ -56,4 +57,11 @@ class StreamButtonsCell: UICollectionViewCell {
         }
     }
 
+    @IBAction func displayButtonDidTap(sender: AnyObject) {
+        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
+            ThemeManager.sharedInstance.currentTheme = DarkTheme()
+        } else {
+            ThemeManager.sharedInstance.currentTheme = LightTheme()
+        }
+    }
 }
