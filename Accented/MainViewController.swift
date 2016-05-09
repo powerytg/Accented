@@ -7,18 +7,12 @@
 //
 
 import UIKit
-import AVKit
-import AVFoundation
 
 class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
-            self.view.backgroundColor = UIColor.whiteColor()
-        } else {
-            self.view.backgroundColor = UIColor.blackColor()
-        }
+        self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -30,8 +24,8 @@ class MainViewController: UIViewController {
             let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
             self.presentViewController(greetingsViewController, animated: false, completion: nil)
         } else {
-            let gatewayViewController = GatewayViewController()
-            self.presentViewController(gatewayViewController, animated: false, completion: nil)
+            let homeViewController = HomeViewController()
+            self.presentViewController(homeViewController, animated: false, completion: nil)
         }
     }
     

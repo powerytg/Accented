@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamSelectorView: UIView {
+class DefaultStreamSelectorView: UIView {
 
     var topLine = CALayer()
     var bottomLine = CALayer()
@@ -118,8 +118,8 @@ class StreamSelectorView: UIView {
         
         setToUnselectedState(currentTab!, animated: true)
         setToSelectedState(sender, animated: true, completed: { streamType in
-            let userInfo = [GatewayEvents.selectedStreamType : streamType.rawValue]
-            NSNotificationCenter.defaultCenter().postNotificationName(GatewayEvents.streamSelectionWillChange, object: nil, userInfo: userInfo)
+            let userInfo = [StreamEvents.selectedStreamType : streamType.rawValue]
+            NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.streamSelectionWillChange, object: nil, userInfo: userInfo)
         })
     }
     

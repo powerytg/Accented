@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GatewayCardLayout: StreamLayoutBase {
+class DefaultStreamLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
     
     // Total height of the header

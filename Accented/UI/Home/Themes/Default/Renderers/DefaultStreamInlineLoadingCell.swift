@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamLoadingCell: UICollectionViewCell {
+class DefaultStreamInlineLoadingCell: UICollectionViewCell {
 
     @IBOutlet weak var loadingView: InlineLoadingView!    
     @IBOutlet weak var retryButton: UIButton!

@@ -17,6 +17,11 @@ class AppTheme: NSObject {
     
     var themeType : AppThemeType
     
+    // Base background color
+    var rootViewBackgroundColor : UIColor {
+        return UIColor.blackColor()
+    }
+    
     // Background blur effect
     var backgroundBlurEffect : UIBlurEffect {
         return UIBlurEffect(style: .Dark)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GatewayNavBlurView: BlurView {
+class DefaultNavBlurView: BlurView {
 
     override func initialize() {
         super.initialize()

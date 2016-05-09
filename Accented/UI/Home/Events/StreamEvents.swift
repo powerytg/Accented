@@ -1,14 +1,14 @@
 //
-//  GatewayEvents.swift
+//  StreamEvents.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/2/16.
+//  Created by You, Tiangong on 5/8/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class GatewayEvents: NSObject {
+class StreamEvents: NSObject {
     static let streamSelectionWillChange = "streamSelectionWillChange"
     static let selectedStreamType = "selectedStreamType"
 }

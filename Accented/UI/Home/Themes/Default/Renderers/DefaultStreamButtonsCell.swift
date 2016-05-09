@@ -8,10 +8,10 @@
 
 import UIKit
 
-class StreamButtonsCell: UICollectionViewCell {
+class DefaultStreamButtonsCell: UICollectionViewCell {
 
     @IBOutlet weak var streamLabel: UILabel!
-    @IBOutlet weak var displayStyleButton: GatewayPushButton!
+    @IBOutlet weak var displayStyleButton: DefaultThemeSelectorButton!
     
     var stream : StreamModel?
     

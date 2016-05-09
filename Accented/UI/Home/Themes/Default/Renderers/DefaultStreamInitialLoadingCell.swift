@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamInitialLoadingCell: UICollectionViewCell {
+class DefaultStreamInitialLoadingCell: UICollectionViewCell {
 
     @IBOutlet weak var loadingIndicator: InlineLoadingView!
     @IBOutlet weak var messageLabel: UILabel!

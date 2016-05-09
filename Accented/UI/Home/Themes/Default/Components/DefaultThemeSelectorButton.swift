@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GatewayPushButton: PushButton {
+class DefaultThemeSelectorButton: PushButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamSectionFooterCell: UICollectionViewCell {
+class DefaultStreamSectionFooterCell: UICollectionViewCell {
 
     @IBOutlet weak var footerLabel: UILabel!
     

@@ -1,5 +1,5 @@
 //
-//  GatewayStreamViewController.swift
+//  HomeStreamViewController.swift
 //  Accented
 //
 //  Created by Tiangong You on 5/2/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GatewayStreamViewController: StreamViewController {
+class HomeStreamViewController: StreamViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class GatewayStreamViewController: StreamViewController {
     }
     
     override func createViewModel() {
-        viewModel = GatewayViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        viewModel = DefaultViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -51,7 +51,7 @@ class GatewayStreamViewController: StreamViewController {
     
     // MARK: - Events
     func appThemeDidChange(notification : NSNotification) {
-        viewModel = GatewayViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        viewModel = DefaultViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
         streamCollectionView.dataSource = viewModel
         viewModel!.updateCollectionView(true)
     }

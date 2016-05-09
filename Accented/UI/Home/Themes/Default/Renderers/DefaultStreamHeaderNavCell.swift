@@ -8,10 +8,10 @@
 
 import UIKit
 
-class StreamHeaderNavCell: UICollectionViewCell {
+class DefaultStreamHeaderNavCell: UICollectionViewCell {
 
-    @IBOutlet weak var blurView: GatewayNavBlurView!
-    @IBOutlet weak var streamSelectorView: StreamSelectorView!
+    @IBOutlet weak var blurView: DefaultNavBlurView!
+    @IBOutlet weak var streamSelectorView: DefaultStreamSelectorView!
     @IBOutlet weak var headerImageView: UIImageView!
     
     private let lightThemeImage = UIImage(named: "LightStreamHeader")

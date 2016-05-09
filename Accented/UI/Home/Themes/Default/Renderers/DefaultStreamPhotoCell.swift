@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamPhotoCell: UICollectionViewCell {
+class DefaultStreamPhotoCell: UICollectionViewCell {
 
     var renderer: PhotoRenderer!
     var photo : PhotoModel?

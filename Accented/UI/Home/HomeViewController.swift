@@ -1,30 +1,18 @@
 //
-//  GatewayViewController.swift
+//  HomeViewController.swift
 //  Accented
 //
-//  Created by Tiangong You on 4/29/16.
+//  Created by You, Tiangong on 5/8/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class GatewayViewController: UIViewController, StreamViewControllerDelegate {
-    
-    var backgroundView : BlurredBackbroundView?
-    var streamViewController : GatewayStreamViewController?
-    var stream : StreamModel?
+class HomeViewController: UIViewController, StreamViewControllerDelegate {
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    convenience init() {
-        self.init(nibName : "GatewayViewController", bundle: nil)
-    }
+    var backgroundView : BlurredBackbroundView?
+    var streamViewController : HomeStreamViewController?
+    var stream : StreamModel?
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
@@ -32,7 +20,7 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Status bar
         applyStatusBarStyle()
         
@@ -42,15 +30,15 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
-        // If the stream has no content, show the loading view        
+        // If the stream has no content, show the loading view
         createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: GatewayEvents.streamSelectionWillChange, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
-
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
@@ -62,7 +50,7 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
     
     private func createStreamViewController(streamType : StreamType) {
         stream = StorageService.sharedInstance.getStream(streamType)
-        streamViewController = GatewayStreamViewController()
+        streamViewController = HomeStreamViewController()
         streamViewController!.stream = stream
         addChildViewController(streamViewController!)
         self.view.addSubview(streamViewController!.view)
@@ -80,10 +68,10 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
             backgroundView!.setNeedsLayout()
         }
     }
-
+    
     // MARK: - Events
     func streamSelectionWillChange(notification : NSNotification) {
-        let streamTypeString = notification.userInfo![GatewayEvents.selectedStreamType] as! String
+        let streamTypeString = notification.userInfo![StreamEvents.selectedStreamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
         
         if streamType == stream!.streamType {
@@ -92,7 +80,7 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
         
         StorageService.sharedInstance.currentStream = StorageService.sharedInstance.getStream(streamType!)
         stream = StorageService.sharedInstance.currentStream
-
+        
         streamViewController?.stream = stream
     }
     
@@ -108,8 +96,8 @@ class GatewayViewController: UIViewController, StreamViewControllerDelegate {
     
     // MARK: - StreamViewControllerDelegate
     func streamViewDidFinishedScrolling(firstVisiblePhoto: PhotoModel) {
-//        backgroundView!.photo = firstVisiblePhoto
-//        backgroundView!.setNeedsLayout()
+        //        backgroundView!.photo = firstVisiblePhoto
+        //        backgroundView!.setNeedsLayout()
     }
-    
+
 }
