@@ -30,6 +30,30 @@ class LightTheme: AppTheme {
         return .Default
     }
 
+    override var footerTextColor : UIColor {
+        return UIColor(red: 70/255.0, green: 70/255.0, blue: 70/255.0, alpha: 1)
+    }
+
+    override var navButtonNormalColor : UIColor {
+        return UIColor(red: 60/255.0, green: 60/255.0, blue: 60/255.0, alpha: 1.0)
+    }
+
+    override var navBarBorderColor : UIColor {
+        return UIColor(red: 72/255.0, green: 72/255.0, blue: 72/255.0, alpha: 1.0)
+    }
+
+    override var pushButtonBorderColor : UIColor {
+        return UIColor(red: 100 / 255.0, green: 100 / 255.0, blue: 100 / 255.0, alpha: 1)
+    }
+    
+    override var pushButtonBackgroundColor : UIColor {
+        return UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 0.9)
+    }
+    
+    override var pushButtonTextColor : UIColor {
+        return UIColor(red: 76 / 255.0, green: 76 / 255.0, blue: 76 / 255.0, alpha: 1)
+    }
+
     init() {
         super.init(themeType: .Light)
     }

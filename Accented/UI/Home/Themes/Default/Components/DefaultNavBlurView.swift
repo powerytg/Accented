@@ -16,13 +16,7 @@ class DefaultNavBlurView: BlurView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
-            blurView.effect = UIBlurEffect(style: .ExtraLight)
-        } else {
-            blurView.effect = UIBlurEffect(style: .Dark)
-        }
-
+        blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
     }
     
 }

@@ -22,21 +22,15 @@ class DefaultStreamSelectorView: UIView {
     private var currentTab : UIButton?
     
     private var unselectedColor : UIColor {
-        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
-            return UIColor(red: 60/255.0, green: 60/255.0, blue: 60/255.0, alpha: 1.0)
-        } else {
-            return UIColor(red: 202/255.0, green: 202/255.0, blue: 202/255.0, alpha: 1.0)
-        }
+        return ThemeManager.sharedInstance.currentTheme.navButtonNormalColor
     }
     
-    private let selectedColor = UIColor(red: 240/255.0, green: 33/255.0, blue: 101/255.0, alpha: 1.0)
+    private var selectedColor : UIColor {
+        return ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor
+    }
 
     private var lineColor : UIColor {
-        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
-            return UIColor(red: 72/255.0, green: 72/255.0, blue: 72/255.0, alpha: 1.0)
-        } else {
-            return UIColor(red: 162/255.0, green: 162/255.0, blue: 162/255.0, alpha: 1.0)
-        }
+        return ThemeManager.sharedInstance.currentTheme.navBarBorderColor
     }
 
     override init(frame: CGRect) {
