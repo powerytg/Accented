@@ -79,9 +79,11 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     func loadStreamIfNecessary() {
-        clearCollectionView()
-        
         if !stream.loaded {
+            // Scroll to top of the stream
+            collectionView.setContentOffset(CGPointZero, animated: false)
+            clearCollectionView()
+            
             layoutEngine.generateLayoutAttributesForLoadingState()
             collectionView.reloadData()
             loadNextPage()

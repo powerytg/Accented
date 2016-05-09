@@ -120,7 +120,7 @@ class DefaultStreamSelectorView: UIView {
     private func setToSelectedState(tab : UIButton, animated : Bool, completed : ((StreamType) -> Void)? = nil) {
         if animated {
             UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
-                tab.setTitleColor(self!.selectedColor, forState: .Normal)
+                tab.setTitleColor(self?.selectedColor, forState: .Normal)
                 }, completion: { (finished) in
                     if let completedAction = completed {
                         let selectedIndex = self.subviews.indexOf(tab)
@@ -137,7 +137,7 @@ class DefaultStreamSelectorView: UIView {
     private func setToUnselectedState(tab : UIButton, animated : Bool) {
         if animated {
             UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
-                tab.setTitleColor(self!.unselectedColor, forState: .Normal)
+                tab.setTitleColor(self?.unselectedColor, forState: .Normal)
                 }, completion: { (completed) in
                     // Do nothing
             })
