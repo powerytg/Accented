@@ -11,6 +11,8 @@ import UIKit
 enum AppThemeType {
     case Light
     case Dark
+    case JournalDark
+    case JournalLight
 }
 
 class AppTheme: NSObject {
