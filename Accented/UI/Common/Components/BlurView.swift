@@ -12,12 +12,20 @@ class BlurView: UIView {
 
     var blurView : UIVisualEffectView = UIVisualEffectView()
     
+    var blurEffect : UIBlurEffect {
+        didSet {
+            blurView.effect = blurEffect
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
+        blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         super.init(coder: aDecoder)
         initialize()
     }
     
     override init(frame: CGRect) {
+        blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         super.init(frame: frame)
         initialize()
     }
@@ -28,8 +36,6 @@ class BlurView: UIView {
     }
 
     func initialize() {
-        let blurEffect = UIBlurEffect(style: .Dark)
-        blurView.effect = blurEffect
         blurView.contentView.alpha = 0
         self.addSubview(blurView)
     }

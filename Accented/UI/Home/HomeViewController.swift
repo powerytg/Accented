@@ -10,9 +10,13 @@ import UIKit
 
 class HomeViewController: UIViewController, StreamViewControllerDelegate {
 
-    var backgroundView : BlurredBackbroundView?
+    var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
     var stream : StreamModel?
+    
+    // Whether the entrance animation has been performed
+    // This flag will be reset after theme change
+    var entranceAnimationPerformed = false
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.Portrait
@@ -25,7 +29,7 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         applyStatusBarStyle()
         
         // Background
-        backgroundView = BlurredBackbroundView()
+        backgroundView = ThemeManager.sharedInstance.currentTheme.backgroundViewClass.init()
         self.view.addSubview(backgroundView!)
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
@@ -64,8 +68,16 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
         if streamType == stream?.streamType && stream!.photos.count != 0 {
-            backgroundView!.photo = stream!.photos[0]
-            backgroundView!.setNeedsLayout()
+            // Perform entrance animation if necessary
+            if !entranceAnimationPerformed {
+                entranceAnimationPerformed = true
+                
+                backgroundView!.photo = stream!.photos[0]
+                backgroundView!.setNeedsLayout()
+                backgroundView!.performEntranceAnimation({
+                    // Ignore
+                })
+            }
         }
     }
     
@@ -86,6 +98,19 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
     
     func appThemeDidChange(notification : NSNotification) {
         applyStatusBarStyle()
+        
+        // Remove the previous background view and apply the new background along with entrance animation
+        backgroundView!.removeFromSuperview()
+        
+        backgroundView! = ThemeManager.sharedInstance.currentTheme.backgroundViewClass.init()
+        backgroundView!.frame = self.view.bounds
+        backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        backgroundView!.photo = stream!.photos[0]
+
+        self.view.insertSubview(backgroundView!, atIndex: 0)
+        backgroundView!.performEntranceAnimation({
+            // Ignore
+        })
     }
     
     // MARK: - Private
@@ -100,4 +125,7 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         //        backgroundView!.setNeedsLayout()
     }
 
+    func streamViewContentOffsetDidChange(contentOffset: CGFloat) {
+        backgroundView!.streamViewContentOffsetDidChange(contentOffset)
+    }
 }

@@ -13,4 +13,8 @@ class JournalTheme: AppTheme {
     var backgroundLogoImage : UIImage! {
         return UIImage(named: "JournalBackgroundLogo")
     }
+    
+    override var backgroundViewClass: ThemeableBackgroundView.Type {
+        return JournalBackgroundView.self
+    }
 }

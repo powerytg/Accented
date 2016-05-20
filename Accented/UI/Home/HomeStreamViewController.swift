@@ -27,7 +27,8 @@ class HomeStreamViewController: StreamViewController {
     }
     
     override func createViewModel() {
-        viewModel = DefaultViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        let viewModelClass = ThemeManager.sharedInstance.currentTheme.streamViewModelClass
+        viewModel = viewModelClass.init(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -51,7 +52,8 @@ class HomeStreamViewController: StreamViewController {
     
     // MARK: - Events
     func appThemeDidChange(notification : NSNotification) {
-        viewModel = DefaultViewModel(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
+        let viewModelClass = ThemeManager.sharedInstance.currentTheme.streamViewModelClass
+        viewModel = viewModelClass.init(stream: stream!, collectionView: streamCollectionView, flowLayoutDelegate: self)
         streamCollectionView.dataSource = viewModel
         viewModel!.updateCollectionView(true)
     }

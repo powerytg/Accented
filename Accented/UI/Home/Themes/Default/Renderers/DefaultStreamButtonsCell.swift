@@ -32,31 +32,10 @@ class DefaultStreamButtonsCell: UICollectionViewCell {
         
         streamLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
         if let streamModel = stream {
-            streamLabel.text = displayName(streamModel.streamType)
+            streamLabel.text = TextUtils.streamDisplayName(streamModel.streamType)
         }
     }
     
-    private func displayName(streamType : StreamType) -> String {
-        switch streamType {
-        case .Popular:
-            return "Popular Photos"
-        case .Editors:
-            return "Editors' Choice"
-        case .FreshToday:
-            return "Fresh Today"
-        case .FreshWeek:
-            return "Fresh This Week"
-        case .FreshYesterday:
-            return "Fresh Yesterday"
-        case .HighestRated:
-            return "Highest Rated"
-        case .Upcoming:
-            return "Upcoming Photos"
-        case .User:
-            return "User Photos"
-        }
-    }
-
     @IBAction func displayButtonDidTap(sender: AnyObject) {
         if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
             ThemeManager.sharedInstance.currentTheme = DarkTheme()

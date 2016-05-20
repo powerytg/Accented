@@ -31,7 +31,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
    
     // Event delegate
-    var delegate : StreamViewControllerDelegate?
+    weak var delegate : StreamViewControllerDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -109,4 +109,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegate?.streamViewContentOffsetDidChange(streamCollectionView.contentOffset.y)
+    }
 }

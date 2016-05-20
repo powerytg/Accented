@@ -9,32 +9,24 @@
 import UIKit
 import AlamofireImage
 
-class BlurredBackbroundView: UIView {
+class BlurredBackbroundView: ThemeableBackgroundView {
 
     var imageView : UIImageView
     var blurView : UIVisualEffectView
     
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init()
-    }
-    
-    init(_ coder: NSCoder? = nil) {
+    required init() {
         imageView = UIImageView()
         
         let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         blurView = UIVisualEffectView(effect: blurEffect)
         
-        if let coder = coder {
-            super.init(coder: coder)!
-        }
-        else {
-            super.init(frame: CGRectZero)
-        }
-        
+        super.init()
         initialize()
     }
     
-    var photo : PhotoModel?
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func initialize() -> Void {
         imageView.contentMode = .ScaleAspectFill
@@ -47,6 +39,10 @@ class BlurredBackbroundView: UIView {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    override func performEntranceAnimation(completed: (() -> Void)) {
+        completed()
     }
     
     override func layoutSubviews() {
@@ -72,9 +68,7 @@ class BlurredBackbroundView: UIView {
                     imageTransition: .CrossDissolve(0.2)
                 )
             }
-        } else {
-            imageView.image = nil
-        }
+        } 
     }
 
     // MARK : - Events

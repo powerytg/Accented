@@ -83,6 +83,16 @@ class AppTheme: NSObject {
         return .LightContent
     }
     
+    // Background view type
+    var backgroundViewClass : ThemeableBackgroundView.Type {
+        return BlurredBackbroundView.self
+    }
+    
+    // Stream view model
+    var streamViewModelClass : StreamViewModel.Type {
+        return DefaultViewModel.self
+    }
+    
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

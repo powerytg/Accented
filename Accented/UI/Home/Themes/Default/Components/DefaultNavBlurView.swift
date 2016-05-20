@@ -10,10 +10,6 @@ import UIKit
 
 class DefaultNavBlurView: BlurView {
 
-    override func initialize() {
-        super.initialize()
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
         blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect

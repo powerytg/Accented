@@ -18,4 +18,7 @@ class JournalDarkTheme: JournalTheme {
         return UIColor(red: 28 / 255.0, green: 30 / 255.0, blue: 34 / 255.0, alpha: 1.0)
     }
     
+    override var streamViewModelClass: StreamViewModel.Type {
+        return JournalViewModel.self
+    }
 }
