@@ -4,12 +4,14 @@ PODS:
     - Alamofire (~> 3.3)
   - OAuthSwift (0.5.2)
   - SwiftyJSON (2.3.2)
+  - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.3)
   - AlamofireImage (~> 2.0)
   - OAuthSwift (~> 0.5.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - TTTAttributedLabel
 
 EXTERNAL SOURCES:
   SwiftyJSON:
@@ -25,5 +27,6 @@ SPEC CHECKSUMS:
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
 COCOAPODS: 0.39.0

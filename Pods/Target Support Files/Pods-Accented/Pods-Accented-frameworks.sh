@@ -88,10 +88,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Accented/AlamofireImage.framework"
   install_framework "Pods-Accented/OAuthSwift.framework"
   install_framework "Pods-Accented/SwiftyJSON.framework"
+  install_framework "Pods-Accented/TTTAttributedLabel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Accented/Alamofire.framework"
   install_framework "Pods-Accented/AlamofireImage.framework"
   install_framework "Pods-Accented/OAuthSwift.framework"
   install_framework "Pods-Accented/SwiftyJSON.framework"
+  install_framework "Pods-Accented/TTTAttributedLabel.framework"
 fi
