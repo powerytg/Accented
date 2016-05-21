@@ -74,6 +74,10 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate {
         layoutEngine.footerReferenceSize = CGSizeMake(50, 50)
     }
     
+    override func createLayoutTemplateGenerator(maxWidth: CGFloat) -> StreamTemplateGenerator {
+        return StreamCardLayoutGenerator(maxWidth: maxWidth)
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

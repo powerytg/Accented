@@ -15,8 +15,13 @@ protocol StreamLayoutDelegate : NSObjectProtocol {
 
 class StreamLayoutBase: UICollectionViewFlowLayout {
     
-    var leftMargin : CGFloat = 15
-    var rightMargin : CGFloat = 15
+    var leftMargin : CGFloat {
+        return 15
+    }
+    
+    var rightMargin : CGFloat {
+        return 15
+    }
     
     var contentHeight : CGFloat = 0
     var fullWidth : CGFloat = 0
@@ -47,7 +52,7 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         fatalError("Not implemented in base class")
     }
-    
+
     func generateLayoutAttributesForStreamHeader() {
         fatalError("Not implemented in base class")
     }

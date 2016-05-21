@@ -95,5 +95,8 @@ class JournalBackgroundView: ThemeableBackgroundView {
         
         blurView.alpha = compressionRate
         blurView.setNeedsLayout()
+        
+        let scaleFactor = 1.0 + compressionRate
+        imageView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
     }
 }

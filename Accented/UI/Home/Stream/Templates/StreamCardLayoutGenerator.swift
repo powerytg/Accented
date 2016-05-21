@@ -106,10 +106,6 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
         return (aspectRatio >= singleLandscapeAspectRatio)
     }
     
-    private func photoSize(photo : PhotoModel) -> CGSize {
-        return CGSizeMake(CGFloat(photo.width), CGFloat(photo.height))
-    }
-    
     private func shouldUseQuadLayout(photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
         return (!shouldUseSingleLandscapeLayout(photo1)
             && !shouldUseSingleLandscapeLayout(photo2)

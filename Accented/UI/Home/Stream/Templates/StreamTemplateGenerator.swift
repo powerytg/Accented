@@ -24,5 +24,11 @@ class StreamTemplateGenerator : NSObject {
     func generateLayoutMetadata(photos : [PhotoModel]) -> [StreamLayoutTemplate] {
         fatalError("Not implemented in base class")
     }
+    
+    
+    func photoSize(photo : PhotoModel) -> CGSize {
+        return CGSizeMake(CGFloat(photo.width), CGFloat(photo.height))
+    }
+    
 }
 

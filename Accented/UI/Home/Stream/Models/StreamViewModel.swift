@@ -51,7 +51,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         layoutEngine.layoutDelegate = flowLayoutDelegate
         
         let availableWidth = UIScreen.mainScreen().bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
-        layoutGenerator = StreamCardLayoutGenerator(maxWidth: availableWidth)
+        layoutGenerator = createLayoutTemplateGenerator(availableWidth)
         
         // Attach layout to collection view
         collectionView.collectionViewLayout = layoutEngine
@@ -71,6 +71,10 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     func createLayoutEngine() {
+        fatalError("Not implemented in base class")
+    }
+    
+    func createLayoutTemplateGenerator(maxWidth : CGFloat) -> StreamTemplateGenerator {
         fatalError("Not implemented in base class")
     }
     

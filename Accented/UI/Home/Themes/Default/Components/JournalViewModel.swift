@@ -11,7 +11,7 @@ import UIKit
 class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
 
     private let headerReuseIdentifier = "header"
-    private let cardRendererReuseIdentifier = "renderer"
+    private let photoRendererReuseIdentifier = "renderer"
     private let initialLoadingRendererReuseIdentifier = "initialLoading"
     private let loadingFooterRendererReuseIdentifier = "loadingFooter"
     
@@ -31,7 +31,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
     
     override func registerCellTypes() {
         // Photo renderer
-        collectionView.registerClass(DefaultStreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
+        collectionView.registerClass(JournalPhotoCell.self, forCellWithReuseIdentifier: photoRendererReuseIdentifier)
         
         // Header cell
         let headerCellNib = UINib(nibName: "JournalHeaderTitleCell", bundle: nil)
@@ -49,10 +49,13 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
     override func createLayoutEngine() {
         layoutEngine = JournalStreamLayout()
         layoutEngine.delegate = self
-        layoutEngine.headerReferenceSize = CGSizeMake(50, 50)
-        layoutEngine.footerReferenceSize = CGSizeMake(50, 50)
+
     }
     
+    override func createLayoutTemplateGenerator(maxWidth: CGFloat) -> StreamTemplateGenerator {
+        return StreamJournalLayoutGenerator(maxWidth: maxWidth)
+    }
+
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -71,9 +74,10 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
                 let loadingCell = collectionView.dequeueReusableCellWithReuseIdentifier(initialLoadingRendererReuseIdentifier, forIndexPath: indexPath)
                 return loadingCell
             } else {
+                // In the journal layout, each group only has 1 photo item
                 let group = photoGroups[indexPath.section - photoStartSection]
                 let photo = group[indexPath.item]
-                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! DefaultStreamPhotoCell
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoRendererReuseIdentifier, forIndexPath: indexPath) as! JournalPhotoCell
                 cell.photo = photo
                 cell.setNeedsLayout()
                 
@@ -92,7 +96,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == headerSection {
-            return 1
+            return 2
         } else {
             if !stream.loaded {
                 return 1

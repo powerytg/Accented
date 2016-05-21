@@ -10,9 +10,14 @@ import UIKit
 import SwiftyJSON
 
 class PhotoModel: NSObject {
+    var dateFormatter = NSDateFormatter()
+    
     var imageUrls : [ImageSize : String!]
     var width : CGFloat
     var height: CGFloat
+    var title : String
+    var desc : String?
+    var creationDate : NSDate?
     
     var firstName : String
     
@@ -29,6 +34,18 @@ class PhotoModel: NSObject {
         // Original width and height
         width = CGFloat(json["width"].int!)
         height = CGFloat(json["height"].int!)
+        
+        // Title
+        title = json["name"].string!
+        
+        // Description
+        desc = json["description"].string
+        
+        // Dates
+        
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        let createdAt = json["created_at"].string!
+        creationDate = dateFormatter.dateFromString(createdAt)
         
         // User
         if let firstNameString = json["user"]["firstname"].string {

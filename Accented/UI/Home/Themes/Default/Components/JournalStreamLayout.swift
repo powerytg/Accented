@@ -11,17 +11,17 @@ import UIKit
 class JournalStreamLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
     
+    override var leftMargin : CGFloat {
+        return 0
+    }
+    
+    override var rightMargin : CGFloat {
+        return 0
+    }
+
     // Total height of the header
     private var headerHeight : CGFloat = 260
     private let contentStartSection = 1
-    
-    override init() {
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
     
     override func prepareLayout() {
         scrollDirection = .Vertical
@@ -95,17 +95,14 @@ class JournalStreamLayout: StreamLayoutBase {
         var nextY = contentHeight
         var currentSectionIndex = sectionStartIndex
         for template in templates {
-            for (itemIndex, frame) in template.frames.enumerate() {
-                let finalRect = CGRectMake(frame.origin.x + leftMargin, frame.origin.y + nextY, frame.size.width, frame.size.height)
-                let indexPath = NSIndexPath(forItem: itemIndex, inSection: currentSectionIndex)
-                let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-                attributes.frame = finalRect
-                layoutCache.append(attributes)
-            }
+            let frame = template.frames[0]
+            let finalRect = CGRectMake(0, frame.origin.y + nextY, availableWidth, frame.size.height)
+            let indexPath = NSIndexPath(forItem: 0, inSection: currentSectionIndex)
+            let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+            attributes.frame = finalRect
+            layoutCache.append(attributes)
             
             nextY += template.height
-            
-            // Advance to next section
             currentSectionIndex += 1
         }
         
