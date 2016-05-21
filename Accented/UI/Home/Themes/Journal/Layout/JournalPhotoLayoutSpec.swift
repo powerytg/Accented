@@ -11,7 +11,7 @@ import UIKit
 class JournalPhotoLayoutSpec: NSObject {
     
     // Top padding
-    static let topPadding : CGFloat = 6
+    static let topPadding : CGFloat = 18
     
     // Bottom padding
     static let bottomPadding : CGFloat = 20
@@ -29,10 +29,7 @@ class JournalPhotoLayoutSpec: NSObject {
     static let descHPadding : CGFloat = 10
     
     // Padding between the photo and the subtitle, as well between the photo and the descriptions
-    static let photoVPadding : CGFloat = 14
-    
-    // Padding between the description and the footer
-    static let descVPadding : CGFloat = 15
+    static let photoVPadding : CGFloat = 15
     
     // Max lines of title
     static let titleLabelLineCount = 2
@@ -44,7 +41,7 @@ class JournalPhotoLayoutSpec: NSObject {
     static let descLineCount = 10
     
     // Footer decor height
-    static let footerHeight : CGFloat = 14
+    static let footerHeight : CGFloat = 12
     
     // Max height of photo
     static let maxPhotoHeight : CGFloat = 240

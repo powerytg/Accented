@@ -16,16 +16,9 @@ class JournalBackgroundView: ThemeableBackgroundView {
     var imageView : UIImageView = UIImageView()
     var blurView : BlurView = DefaultNavBlurView()
     
-    required init() {
-        super.init()
-        initialize()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func initialize() -> Void {
+    override func initialize() -> Void {
+        super.initialize()
+        
         // Image view
         addSubview(imageView)
         imageView.contentMode = .ScaleAspectFill
@@ -48,13 +41,6 @@ class JournalBackgroundView: ThemeableBackgroundView {
         // Perform the initial animation states
         imageView.alpha = 0
         imageView.transform = CGAffineTransformMakeTranslation(0, -30)
-
-        // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func performEntranceAnimation(completed: (() -> Void)) {
@@ -73,10 +59,9 @@ class JournalBackgroundView: ThemeableBackgroundView {
     }
     
     // MARK : - Events
-    func appThemeDidChange(notification : NSNotification) {
-        UIView.animateWithDuration(0.3) { [weak self] in
-            self?.blurView.blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
-        }
+    override func applyThemeChangeAnimation() {
+        super.applyThemeChangeAnimation()
+        self.blurView.blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
     }
     
     override func streamViewContentOffsetDidChange(contentOffset: CGFloat) {

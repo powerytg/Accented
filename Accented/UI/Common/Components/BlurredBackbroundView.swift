@@ -11,34 +11,18 @@ import AlamofireImage
 
 class BlurredBackbroundView: ThemeableBackgroundView {
 
-    var imageView : UIImageView
-    var blurView : UIVisualEffectView
+    var imageView = UIImageView()
+    var blurView : UIVisualEffectView = UIVisualEffectView()
     
-    required init() {
-        imageView = UIImageView()
+    override func initialize() -> Void {
+        super.initialize()
         
         let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
-        blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.effect = blurEffect
         
-        super.init()
-        initialize()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initialize() -> Void {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
         self.addSubview(blurView)
-        
-        // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func performEntranceAnimation(completed: (() -> Void)) {
@@ -72,10 +56,9 @@ class BlurredBackbroundView: ThemeableBackgroundView {
     }
 
     // MARK : - Events
-    func appThemeDidChange(notification : NSNotification) {
-        UIView.animateWithDuration(0.3) { [weak self] in
-            self?.blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
-        }
+    override func applyThemeChangeAnimation() {
+        super.applyThemeChangeAnimation()
+        self.blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
     }
 }
 

@@ -91,13 +91,14 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
             descText = nil
         }
 
-        descMeasuringLabel.text = descText
-        descMeasuringLabel.frame = CGRectMake(0, 0, availableWidth - JournalPhotoLayoutSpec.descHPadding * 2, 0)
-        descMeasuringLabel.sizeToFit()
-        nextY += CGRectGetHeight(descMeasuringLabel.bounds) + JournalPhotoLayoutSpec.descVPadding
+        if descText?.characters.count > 0 {
+            descMeasuringLabel.text = descText
+            descMeasuringLabel.frame = CGRectMake(0, 0, availableWidth - JournalPhotoLayoutSpec.descHPadding * 2, 0)
+            descMeasuringLabel.sizeToFit()
+            nextY += CGRectGetHeight(descMeasuringLabel.bounds)
+        }
         
-        // Footer
-        nextY += JournalPhotoLayoutSpec.footerHeight + JournalPhotoLayoutSpec.bottomPadding
+        nextY += JournalPhotoLayoutSpec.bottomPadding
         
         return nextY
     }

@@ -10,6 +10,7 @@ import UIKit
 
 class JournalStreamLayout: StreamLayoutBase {
     private let vGap : CGFloat = 20
+    private let backdropFadeTimingFactor : CGFloat = 0.5
     
     override var leftMargin : CGFloat {
         return 0
@@ -48,6 +49,30 @@ class JournalStreamLayout: StreamLayoutBase {
             }
         }
         
+        // Backdrop layout attributes
+        if collectionView != nil {
+            let contentOffset = collectionView!.contentOffset.y
+            let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+            
+            // Backdrop starts from the first photo
+            let backdropPositionY = max(contentOffset, headerHeight)
+            let backdropFrame = CGRectMake(0, backdropPositionY, fullWidth, screenHeight)
+            
+            // As the content scrolls, fade out the backdrop
+            let backdropMaxFadeDist: CGFloat = headerHeight * backdropFadeTimingFactor
+            var backdropAlpha = (backdropMaxFadeDist - contentOffset) / backdropMaxFadeDist
+            if backdropAlpha < 0 {
+                backdropAlpha = 0
+            } else if backdropAlpha > 1 {
+                backdropAlpha = 1
+            }
+            
+            let backdropAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: "backdrop", withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+            backdropAttributes.frame = backdropFrame
+            backdropAttributes.alpha = backdropAlpha
+            layoutAttributes.append(backdropAttributes)
+        }
+    
         return layoutAttributes
     }
     

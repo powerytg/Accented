@@ -14,6 +14,10 @@ class JournalTheme: AppTheme {
         return UIImage(named: "JournalBackgroundLogo")
     }
     
+    var separatorColor : UIColor {
+        return UIColor(red: 55/255.0, green: 55/255.0, blue: 55/255.0, alpha: 0.5)
+    }
+    
     override var backgroundViewClass: ThemeableBackgroundView.Type {
         return JournalBackgroundView.self
     }

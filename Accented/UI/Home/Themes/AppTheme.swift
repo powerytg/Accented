@@ -23,7 +23,12 @@ class AppTheme: NSObject {
     var rootViewBackgroundColor : UIColor {
         return UIColor.blackColor()
     }
-    
+
+    // Home stream background color
+    var streamBackgroundColor : UIColor {
+        return UIColor.blackColor()
+    }
+
     // Background blur effect
     var backgroundBlurEffect : UIBlurEffect {
         return UIBlurEffect(style: .Dark)

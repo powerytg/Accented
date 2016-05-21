@@ -11,13 +11,19 @@ import UIKit
 class JournalPhotoCell: UICollectionViewCell {
     
     var photoView = PhotoRenderer()
-    var footerDecorView = UIImageView(image: UIImage(named: "JournalFooterIcon"))
     var titleLabel = UILabel()
     var descLabel = UILabel()
     var subtitleLabel = UILabel()
+    var bottomLine = CALayer()
+    var footerView = UIImageView(image: UIImage(named: "DarkJournalFooter"))
     
     var photo : PhotoModel?
     
+    private var lineColor : UIColor {
+        let journalTheme = ThemeManager.sharedInstance.currentTheme as! JournalTheme
+        return journalTheme.separatorColor
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -57,9 +63,10 @@ class JournalPhotoCell: UICollectionViewCell {
         descLabel.lineBreakMode = .ByTruncatingTail
         contentView.addSubview(descLabel)
         
-        // Footer decor
-        footerDecorView.contentMode = .Center
-        contentView.addSubview(footerDecorView)
+        // Bottom line and footer
+        footerView.contentMode = .ScaleAspectFit
+        contentView.addSubview(footerView)
+        self.layer.addSublayer(bottomLine)
     }
     
     override func prepareForReuse() {
@@ -112,14 +119,27 @@ class JournalPhotoCell: UICollectionViewCell {
         }
         
         layoutLabel(descLabel, width: w, originY: nextY, padding: JournalPhotoLayoutSpec.descHPadding)
-        nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.descVPadding
         
-        // Footer
-        f = footerDecorView.frame
-        f.origin.x = w / 2 - CGRectGetWidth(f) / 2
-        f.origin.y = nextY
-        f.size.height = JournalPhotoLayoutSpec.footerHeight
-        footerDecorView.frame = f
+        // Display the bottom line if there are descriptions. Otherwise hide the bottom line and show the footer symbol instead
+        if descLabel.text?.characters.count > 0 {
+            // Make the bottom line further away from the description
+            nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.bottomPadding
+            bottomLine.frame = CGRectMake(0, nextY, w, 1)
+            bottomLine.backgroundColor = lineColor.CGColor
+            footerView.hidden = true
+            bottomLine.hidden = false
+        } else {
+            // Make the footer closer to the photo
+            nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.bottomPadding / 2
+            footerView.hidden = false
+            bottomLine.hidden = true
+            
+            f = footerView.frame
+            f.size.width = w
+            f.size.height = JournalPhotoLayoutSpec.footerHeight
+            f.origin.y = nextY
+            footerView.frame = f
+        }
     }
     
     private func layoutLabel(label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {

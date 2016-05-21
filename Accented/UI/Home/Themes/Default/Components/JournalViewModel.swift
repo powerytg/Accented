@@ -14,6 +14,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
     private let photoRendererReuseIdentifier = "renderer"
     private let initialLoadingRendererReuseIdentifier = "initialLoading"
     private let loadingFooterRendererReuseIdentifier = "loadingFooter"
+    private let backdropDecorIdentifier = "backdrop"
     
     // Header section, which includes the logo, the nav bar and the buttons
     private let headerSection = 0
@@ -49,7 +50,9 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
     override func createLayoutEngine() {
         layoutEngine = JournalStreamLayout()
         layoutEngine.delegate = self
-
+        
+        // Register backdrop as decoration class
+        layoutEngine.registerClass(JournalBackdropCell.self, forDecorationViewOfKind: backdropDecorIdentifier)
     }
     
     override func createLayoutTemplateGenerator(maxWidth: CGFloat) -> StreamTemplateGenerator {

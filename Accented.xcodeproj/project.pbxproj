@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		182109811CF0DE3100529610 /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1821097C1CF0DE0000529610 /* GPUImage.framework */; };
 		182109831CF0DE5800529610 /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1821097C1CF0DE0000529610 /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109871CF0E72600529610 /* JournalBackdropCell.swift */; };
 		184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06791CBB1020008A1E37 /* AppDelegate.swift */; };
 		184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 184C067D1CBB1020008A1E37 /* Main.storyboard */; };
 		184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 184C06801CBB1020008A1E37 /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 
 /* Begin PBXFileReference section */
 		182109761CF0DE0000529610 /* GPUImage-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "GPUImage-iOS.xcodeproj"; path = "../../Downloads/GPUImage2-master/framework/GPUImage-iOS.xcodeproj"; sourceTree = "<group>"; };
+		182109871CF0E72600529610 /* JournalBackdropCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackdropCell.swift; sourceTree = "<group>"; };
 		184C06761CBB1020008A1E37 /* Accented.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Accented.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		184C06791CBB1020008A1E37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		184C067E1CBB1020008A1E37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -250,6 +252,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		182109861CF0E66200529610 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		184C066D1CBB1020008A1E37 = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +362,7 @@
 				9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */,
 				9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */,
 				1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */,
+				182109871CF0E72600529610 /* JournalBackdropCell.swift */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -369,6 +379,7 @@
 		9B3813A01CE00DF30066D3B9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				182109861CF0E66200529610 /* Components */,
 				9B3813F41CE012B80066D3B9 /* Events */,
 				9B3813B51CE010770066D3B9 /* Stream */,
 				9B3813A11CE00DF30066D3B9 /* Themes */,
@@ -770,6 +781,7 @@
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
+				182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */,
 				9B3813CC1CE010770066D3B9 /* StreamViewControllerDelegate.swift in Sources */,
 				9B3813B41CE00F610066D3B9 /* LightTheme.swift in Sources */,
 				9B3813EC1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.swift in Sources */,

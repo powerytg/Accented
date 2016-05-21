@@ -9,7 +9,11 @@
 import UIKit
 
 class LightTheme: AppTheme {
-    
+
+    override var streamBackgroundColor : UIColor {
+        return UIColor.whiteColor()
+    }
+
     override var backgroundBlurEffect : UIBlurEffect {
         return UIBlurEffect(style: .ExtraLight)
     }
