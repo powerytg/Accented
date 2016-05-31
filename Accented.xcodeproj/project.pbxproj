@@ -25,6 +25,7 @@
 		1884AA5E1CEFE9BE002109A9 /* JournalPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */; };
+		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A21CE00DF30066D3B9 /* AppTheme.swift */; };
 		9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A71CE00DF30066D3B9 /* ThemeManager.swift */; };
 		9B3813AD1CE00DF30066D3B9 /* ThemeManagerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A81CE00DF30066D3B9 /* ThemeManagerEvents.swift */; };
@@ -66,6 +67,7 @@
 		9B3814011CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813FE1CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift */; };
 		9B3814021CE01E4D0066D3B9 /* DefaultThemeSelectorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813FF1CE01E4D0066D3B9 /* DefaultThemeSelectorButton.swift */; };
 		9B3814051CE01EBE0066D3B9 /* DefaultStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3814041CE01EBE0066D3B9 /* DefaultStreamLayout.swift */; };
+		9B3AACD41CFE42A90070C495 /* JournalLightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3AACD31CFE42A90070C495 /* JournalLightTheme.swift */; };
 		9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */; };
 		9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B54707B1CEE90DF001F6C3C /* TextUtils.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
@@ -87,7 +89,6 @@
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
-		B533F78988683511425D2792 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +148,8 @@
 		1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoCell.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoLayoutSpec.swift; sourceTree = "<group>"; };
-		8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
+		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B3813A21CE00DF30066D3B9 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		9B3813A71CE00DF30066D3B9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		9B3813A81CE00DF30066D3B9 /* ThemeManagerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManagerEvents.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		9B3813FE1CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStreamSelectorView.swift; sourceTree = "<group>"; };
 		9B3813FF1CE01E4D0066D3B9 /* DefaultThemeSelectorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultThemeSelectorButton.swift; sourceTree = "<group>"; };
 		9B3814041CE01EBE0066D3B9 /* DefaultStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStreamLayout.swift; sourceTree = "<group>"; };
+		9B3AACD31CFE42A90070C495 /* JournalLightTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLightTheme.swift; sourceTree = "<group>"; };
 		9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalStreamLayout.swift; path = Accented/UI/Home/Themes/Default/Components/JournalStreamLayout.swift; sourceTree = SOURCE_ROOT; };
 		9B54707B1CEE90DF001F6C3C /* TextUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -210,8 +213,7 @@
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
-		BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
-		EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6EE669E5A41007E2D826622 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				182109811CF0DE3100529610 /* GPUImage.framework in Frameworks */,
-				B533F78988683511425D2792 /* Pods_Accented.framework in Frameworks */,
+				32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,8 +269,8 @@
 				182109761CF0DE0000529610 /* GPUImage-iOS.xcodeproj */,
 				184C06781CBB1020008A1E37 /* Accented */,
 				184C06771CBB1020008A1E37 /* Products */,
-				9385356013A62B856B95A320 /* Pods */,
-				C6F20A3FBF55D98B8D8F2C33 /* Frameworks */,
+				5496ED24C9331CF47B824344 /* Pods */,
+				9A4B97BF032CBEF925FBB806 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -329,6 +331,7 @@
 				1884AA4C1CEE05C8002109A9 /* Renderers */,
 				1884AA531CEE095B002109A9 /* JournalTheme.swift */,
 				1884AA551CEE0974002109A9 /* JournalDarkTheme.swift */,
+				9B3AACD31CFE42A90070C495 /* JournalLightTheme.swift */,
 			);
 			path = Journal;
 			sourceTree = "<group>";
@@ -370,13 +373,21 @@
 			path = Renderers;
 			sourceTree = "<group>";
 		};
-		9385356013A62B856B95A320 /* Pods */ = {
+		5496ED24C9331CF47B824344 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */,
-				8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */,
+				7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */,
+				E6EE669E5A41007E2D826622 /* Pods-Accented.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9A4B97BF032CBEF925FBB806 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2350E629F6B30A7B28301141 /* Pods_Accented.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9B3813A01CE00DF30066D3B9 /* Home */ = {
@@ -566,14 +577,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		C6F20A3FBF55D98B8D8F2C33 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EFA52BF7A0295F7B448C64AB /* Pods_Accented.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -581,13 +584,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 184C06881CBB1020008A1E37 /* Build configuration list for PBXNativeTarget "Accented" */;
 			buildPhases = (
-				F5A48944206747A610DAFFE1 /* Check Pods Manifest.lock */,
+				E6CAFE10A005192502937644 /* 📦 Check Pods Manifest.lock */,
 				184C06721CBB1020008A1E37 /* Sources */,
 				184C06731CBB1020008A1E37 /* Frameworks */,
 				184C06741CBB1020008A1E37 /* Resources */,
-				BBEFA168FF920E7F5D1332E4 /* Embed Pods Frameworks */,
-				5C8D52EEDE9A7FC57C7CE61D /* Copy Pods Resources */,
 				182109821CF0DE4700529610 /* CopyFiles */,
+				032B40E70724DD16AE364794 /* 📦 Embed Pods Frameworks */,
+				94FF0D2AE2613D60350956AB /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -679,29 +682,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5C8D52EEDE9A7FC57C7CE61D /* Copy Pods Resources */ = {
+		032B40E70724DD16AE364794 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BBEFA168FF920E7F5D1332E4 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -709,14 +697,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F5A48944206747A610DAFFE1 /* Check Pods Manifest.lock */ = {
+		94FF0D2AE2613D60350956AB /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6CAFE10A005192502937644 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -781,6 +784,7 @@
 				9B3813C81CE010770066D3B9 /* StreamState.swift in Sources */,
 				1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
+				9B3AACD41CFE42A90070C495 /* JournalLightTheme.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
@@ -916,7 +920,7 @@
 		};
 		184C06891CBB1020008A1E37 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BC1AA7610B59DB0581E65046 /* Pods-Accented.debug.xcconfig */;
+			baseConfigurationReference = 7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Accented/Info.plist;
@@ -928,7 +932,7 @@
 		};
 		184C068A1CBB1020008A1E37 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C57A0EA1906EBD8BEEA0EA5 /* Pods-Accented.release.xcconfig */;
+			baseConfigurationReference = E6EE669E5A41007E2D826622 /* Pods-Accented.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Accented/Info.plist;
