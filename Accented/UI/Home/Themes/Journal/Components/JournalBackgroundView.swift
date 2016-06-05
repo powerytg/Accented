@@ -16,6 +16,10 @@ class JournalBackgroundView: ThemeableBackgroundView {
     var imageView : UIImageView = UIImageView()
     var blurView : BlurView = DefaultNavBlurView()
     
+    var journalTheme : JournalTheme {
+        return ThemeManager.sharedInstance.currentTheme as! JournalTheme
+    }
+    
     override func initialize() -> Void {
         super.initialize()
         
@@ -28,8 +32,7 @@ class JournalBackgroundView: ThemeableBackgroundView {
         imageView.widthAnchor.constraintEqualToAnchor(self.widthAnchor, multiplier: 0.5).active = true
         
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
-            let journalStyle = ThemeManager.sharedInstance.currentTheme as! JournalTheme
-            imageView.image = journalStyle.backgroundLogoImage
+            imageView.image = journalTheme.backgroundLogoImage
         } else {
             imageView.image = nil;
         }
@@ -62,6 +65,12 @@ class JournalBackgroundView: ThemeableBackgroundView {
     override func applyThemeChangeAnimation() {
         super.applyThemeChangeAnimation()
         self.blurView.blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
+        
+        if ThemeManager.sharedInstance.currentTheme is JournalTheme {
+            imageView.image = journalTheme.backgroundLogoImage
+        } else {
+            imageView.image = nil;
+        }
     }
     
     override func streamViewContentOffsetDidChange(contentOffset: CGFloat) {

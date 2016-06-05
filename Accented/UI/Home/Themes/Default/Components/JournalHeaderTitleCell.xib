@@ -13,7 +13,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="549" height="302"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="JournalTitleLogo" translatesAutoresizingMaskIntoConstraints="NO" id="HdG-52-OzP">
+                    <imageView userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkJournalTitleLogo" translatesAutoresizingMaskIntoConstraints="NO" id="HdG-52-OzP">
                         <rect key="frame" x="267" y="31" width="282" height="56"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POPULAR" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1N-oN-hDX">
@@ -50,11 +50,12 @@
             <connections>
                 <outlet property="streamTitleView" destination="e1N-oN-hDX" id="Pb4-5Q-O0D"/>
                 <outlet property="themeButton" destination="Pqy-p1-DAR" id="IV8-W1-K3M"/>
+                <outlet property="titleImageView" destination="HdG-52-OzP" id="eXu-Yd-HhJ"/>
             </connections>
             <point key="canvasLocation" x="1466.5" y="763"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="JournalTitleLogo" width="282" height="56"/>
+        <image name="DarkJournalTitleLogo" width="282" height="56"/>
     </resources>
 </document>

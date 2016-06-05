@@ -11,6 +11,10 @@ import UIKit
 class JournalBubbleDecoCell: UICollectionReusableView {
     var imageView = UIImageView(image: UIImage(named : "DarkJournalBubble"))
     
+    var journalTheme : JournalTheme {
+        return ThemeManager.sharedInstance.currentTheme as! JournalTheme
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(imageView)
@@ -20,4 +24,16 @@ class JournalBubbleDecoCell: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        applyTheme()
+    }
+ 
+    private func applyTheme() {
+        if ThemeManager.sharedInstance.currentTheme is JournalTheme {
+            imageView.image = journalTheme.bubbleDecorImage
+        } else {
+            imageView.image = nil
+        }
+    }
 }

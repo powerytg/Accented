@@ -10,13 +10,29 @@ import UIKit
 
 class JournalBackdropCell: UICollectionReusableView {
     
+    var journalTheme : JournalTheme {
+        return ThemeManager.sharedInstance.currentTheme as! JournalTheme
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        applyTheme()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        applyTheme()
+    }
+    
+    private func applyTheme() {
+        if ThemeManager.sharedInstance.currentTheme is JournalTheme {
+            self.backgroundColor = journalTheme.streamBackdropColor
+        } else {
+            self.backgroundColor = nil
+        }
+    }
 }

@@ -19,11 +19,10 @@ class JournalPhotoCell: UICollectionViewCell {
     
     var photo : PhotoModel?
     
-    private var lineColor : UIColor {
-        let journalTheme = ThemeManager.sharedInstance.currentTheme as! JournalTheme
-        return journalTheme.separatorColor
+    private var currentTheme : JournalTheme? {
+        return ThemeManager.sharedInstance.currentTheme as? JournalTheme
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -35,7 +34,7 @@ class JournalPhotoCell: UICollectionViewCell {
     
     private func initialize() {
         // Title
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = currentTheme?.titleTextColor
         titleLabel.font = JournalPhotoLayoutSpec.titleFont
         titleLabel.numberOfLines = JournalPhotoLayoutSpec.titleLabelLineCount
         titleLabel.textAlignment = .Center
@@ -56,7 +55,7 @@ class JournalPhotoCell: UICollectionViewCell {
         contentView.addSubview(photoView)
         
         // Descriptions
-        descLabel.textColor = UIColor(red: 147 / 255.0, green: 147 / 255.0, blue: 147 / 255.0, alpha: 1.0)
+        descLabel.textColor = currentTheme?.standardTextColor
         descLabel.font = JournalPhotoLayoutSpec.descFont
         descLabel.numberOfLines = JournalPhotoLayoutSpec.descLineCount
         descLabel.textAlignment = .Center
@@ -86,6 +85,7 @@ class JournalPhotoCell: UICollectionViewCell {
         var nextY : CGFloat = JournalPhotoLayoutSpec.topPadding
         
         // Title label
+        titleLabel.textColor = currentTheme?.titleTextColor
         titleLabel.text = photoModel.title
         layoutLabel(titleLabel, width: w, originY: nextY, padding: JournalPhotoLayoutSpec.titleHPadding)
         nextY += CGRectGetHeight(titleLabel.frame) + JournalPhotoLayoutSpec.titleVPadding
@@ -107,6 +107,7 @@ class JournalPhotoCell: UICollectionViewCell {
         nextY += CGRectGetHeight(f) + JournalPhotoLayoutSpec.photoVPadding
         
         // Description
+        descLabel.textColor = currentTheme?.standardTextColor
         if let descData = photoModel.desc?.dataUsingEncoding(NSUTF8StringEncoding) {
             do {
                 let descText = try NSAttributedString(data: descData, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
@@ -125,7 +126,7 @@ class JournalPhotoCell: UICollectionViewCell {
             // Make the bottom line further away from the description
             nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.bottomPadding
             bottomLine.frame = CGRectMake(0, nextY, w, 1)
-            bottomLine.backgroundColor = lineColor.CGColor
+            bottomLine.backgroundColor = currentTheme?.separatorColor.CGColor
             footerView.hidden = true
             bottomLine.hidden = false
         } else {

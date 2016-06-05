@@ -13,8 +13,13 @@ class JournalHeaderTitleCell: UICollectionViewCell {
 
     @IBOutlet weak var themeButton: DefaultThemeSelectorButton!
     @IBOutlet weak var streamTitleView: UILabel!
+    @IBOutlet weak var titleImageView: UIImageView!
     
     var stream : StreamModel?
+    
+    var journalTheme : JournalTheme {
+        return ThemeManager.sharedInstance.currentTheme as! JournalTheme
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +31,12 @@ class JournalHeaderTitleCell: UICollectionViewCell {
         
         if let streamModel = self.stream {
             streamTitleView.text = TextUtils.streamCondensedDisplayName(streamModel.streamType).uppercaseString
+        }
+        
+        if ThemeManager.sharedInstance.currentTheme is JournalTheme {
+            titleImageView.image = journalTheme.titleHeaderImage
+        } else {
+            titleImageView.image = nil;
         }
     }
     
