@@ -37,10 +37,6 @@ class DefaultStreamButtonsCell: UICollectionViewCell {
     }
     
     @IBAction func displayButtonDidTap(sender: AnyObject) {
-        if ThemeManager.sharedInstance.currentTheme.themeType == .Light {
-            ThemeManager.sharedInstance.currentTheme = DarkTheme()
-        } else {
-            ThemeManager.sharedInstance.currentTheme = LightTheme()
-        }
+        NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.didRequestRightDrawer, object: nil)
     }
 }

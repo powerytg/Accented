@@ -134,6 +134,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     func streamFailedLoading(error : String) {
         debugPrint(error)
+        streamState.loading = false
     }
     
     func clearCollectionView() {

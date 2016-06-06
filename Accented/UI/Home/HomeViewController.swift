@@ -34,7 +34,7 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         
-        // If the stream has no content, show the loading view
+        // Initialize stream
         createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
         // Events
