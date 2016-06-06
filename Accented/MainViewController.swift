@@ -10,7 +10,6 @@ import UIKit
 
 class MainViewController: UINavigationController {
 
-    private let rightDrawer = ThemeSelectorViewController()
     private let drawerTransitionDelegate = DrawerAnimationController()
     
     override func viewDidLoad() {
@@ -45,6 +44,7 @@ class MainViewController: UINavigationController {
     // MARK: Events
     
     func didRequestRightDrawer(notification : NSNotification) {
+        let rightDrawer = DrawerViewController(viewController: ThemeSelectorViewController())
         rightDrawer.modalPresentationStyle = .Custom
         rightDrawer.transitioningDelegate = self.drawerTransitionDelegate
         self.presentViewController(rightDrawer, animated: true, completion: nil)

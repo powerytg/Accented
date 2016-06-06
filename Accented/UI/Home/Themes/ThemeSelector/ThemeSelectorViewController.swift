@@ -13,7 +13,7 @@ class ThemeSelectorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.redColor()
+        self.view.backgroundColor = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1.0)
     }
 
     override func didReceiveMemoryWarning() {
