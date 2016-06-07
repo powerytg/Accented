@@ -10,22 +10,31 @@ import UIKit
 
 class DrawerDismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     
+    private var drawerViewController : DrawerViewController
+    
+    init(drawer : DrawerViewController) {
+        drawerViewController = drawer
+        super.init()
+    }
+
     // MARK: UIViewControllerAnimatedTransitioning
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+        return 0.2
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let container = transitionContext.containerView()!
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
         
-        container.addSubview(toView)
+        container.addSubview(fromView)
+        
+        // Prepare entrance animation
+        self.drawerViewController.willPerformDismissAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        let dest = CGRectGetWidth(container.frame)
-        UIView.animateWithDuration(duration, delay: 0, options: [], animations: {
-            toView.transform = CGAffineTransformMakeTranslation(dest, 0)
+        UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+            self?.drawerViewController.performanceDismissAnimation()
         }) { (finished) in
             transitionContext.completeTransition(true)
         }

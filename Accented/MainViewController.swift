@@ -44,7 +44,7 @@ class MainViewController: UINavigationController {
     // MARK: Events
     
     func didRequestRightDrawer(notification : NSNotification) {
-        let rightDrawer = DrawerViewController(viewController: ThemeSelectorViewController())
+        let rightDrawer = DrawerViewController(viewController: ThemeSelectorViewController(), anchor: .Right)
         rightDrawer.modalPresentationStyle = .Custom
         rightDrawer.transitioningDelegate = self.drawerTransitionDelegate
         self.presentViewController(rightDrawer, animated: true, completion: nil)

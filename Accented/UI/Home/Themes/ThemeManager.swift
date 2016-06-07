@@ -11,7 +11,7 @@ import UIKit
 class ThemeManager: NSObject {
     
     // Current theme, default to dark theme
-    private var theme : AppTheme = DarkTheme()
+    private var theme : AppTheme = JournalLightTheme()
     var currentTheme : AppTheme {
         get {
             return theme

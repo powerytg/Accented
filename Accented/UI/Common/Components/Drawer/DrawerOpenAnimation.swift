@@ -20,7 +20,7 @@ class DrawerOpenAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: UIViewControllerAnimatedTransitioning
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+        return 0.2
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -33,7 +33,7 @@ class DrawerOpenAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         self.drawerViewController.willPerformOpenAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        UIView.animateWithDuration(duration, delay: 0, options: [], animations: { [weak self] in
+        UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.drawerViewController.performanceOpenAnimation()
         }) { (finished) in
             transitionContext.completeTransition(true)

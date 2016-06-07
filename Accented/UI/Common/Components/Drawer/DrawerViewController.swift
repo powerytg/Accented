@@ -8,16 +8,26 @@
 
 import UIKit
 
+enum DrawerAnchor {
+    case Left
+    case Right
+    case Bottom
+}
+
 class DrawerViewController: UIViewController {
 
+    // Drawer anchor, deffault to pinning to left
+    private var anchor : DrawerAnchor = .Left
+    
     // Curtain view
     private var curtainView = UIView()
     
     // Hosted view controller
     private var drawer : UIViewController
     
-    init(viewController : UIViewController) {
-        drawer = viewController
+    init(viewController : UIViewController, anchor : DrawerAnchor = .Left) {
+        self.drawer = viewController
+        self.anchor = anchor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,6 +40,7 @@ class DrawerViewController: UIViewController {
         
         // Setup curtain view
         self.view.addSubview(curtainView)
+        curtainView.userInteractionEnabled = true
         curtainView.alpha = 0
         curtainView.backgroundColor = UIColor.blackColor()
         curtainView.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +55,10 @@ class DrawerViewController: UIViewController {
         drawer.view.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
         drawer.view.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.8).active = true
         drawer.view.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
+        
+        // Events
+        let curtainTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnCurtainView(_:)))
+        curtainView.addGestureRecognizer(curtainTap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,13 +77,46 @@ class DrawerViewController: UIViewController {
         drawer.view.layer.shadowOffset = CGSizeMake(-3, 0)
     }
 
+    // MARK: Animations
+    
     func willPerformOpenAnimation() {
-        drawer.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.view.bounds), 0)
+        switch anchor {
+        case .Left:
+            drawer.view.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.view.bounds), 0)
+        case .Right:
+            drawer.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.view.bounds), 0)
+        case .Bottom:
+            drawer.view.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.view.bounds))
+        }
     }
     
     func performanceOpenAnimation() {
         curtainView.alpha = 0.7
         drawer.view.transform = CGAffineTransformIdentity
+    }
+    
+    func willPerformDismissAnimation() {
+        // Do nothing
+    }
+    
+    func performanceDismissAnimation() {
+        curtainView.alpha = 0
+        switch anchor {
+        case .Left:
+            drawer.view.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.view.bounds), 0)
+        case .Right:
+            drawer.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.view.bounds), 0)
+        case .Bottom:
+            drawer.view.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.view.bounds))
+        }
+    }
+
+    //MARK: Events
+    
+    func didTapOnCurtainView(sender : AnyObject) {
+        self.dismissViewControllerAnimated(true) { 
+            // Ignore
+        }
     }
     
 }
