@@ -11,7 +11,7 @@ import UIKit
 class ThemeManager: NSObject {
     
     // Current theme, default to dark theme
-    private var theme : AppTheme = JournalLightTheme()
+    private var theme : AppTheme = DarkTheme()
     var currentTheme : AppTheme {
         get {
             return theme
@@ -24,6 +24,9 @@ class ThemeManager: NSObject {
             }
         }
     }
+    
+    // Available themes
+    let themes = [DarkTheme(), LightTheme(), JournalDarkTheme(), JournalLightTheme()]
     
     // Singleton instance
     static let sharedInstance = ThemeManager()

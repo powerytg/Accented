@@ -14,6 +14,14 @@ class JournalDarkTheme: JournalTheme {
         super.init(themeType: .JournalDark)
     }
     
+    override var displayLabel : String {
+        return "enchanted"
+    }
+    
+    override var displayThumbnail : UIImage! {
+        return UIImage(named: "JournalDarkThemeThumbnail")
+    }
+
     override var streamBackgroundColor: UIColor {
         return UIColor(red: 28 / 255.0, green: 30 / 255.0, blue: 34 / 255.0, alpha: 1.0)
     }

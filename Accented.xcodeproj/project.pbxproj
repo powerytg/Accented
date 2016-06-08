@@ -18,11 +18,14 @@
 		184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06901CBB11C3008A1E37 /* MainViewController.swift */; };
 		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
-		1870820C1D04AF4A00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870820B1D04AF4A00FDAAEB /* ThemeSelectorViewController.swift */; };
 		187082151D04C72100FDAAEB /* DrawerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082141D04C72100FDAAEB /* DrawerAnimationController.swift */; };
 		187082171D05095E00FDAAEB /* DrawerOpenAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082161D05095E00FDAAEB /* DrawerOpenAnimation.swift */; };
 		187082191D05096600FDAAEB /* DrawerDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082181D05096600FDAAEB /* DrawerDismissAnimation.swift */; };
 		1870821B1D05163700FDAAEB /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821A1D05163700FDAAEB /* DrawerViewController.swift */; };
+		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
+		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
+		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
+		187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */; };
 		1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA4F1CEE07D1002109A9 /* JournalBackgroundView.swift */; };
 		1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA531CEE095B002109A9 /* JournalTheme.swift */; };
 		1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA551CEE0974002109A9 /* JournalDarkTheme.swift */; };
@@ -146,11 +149,14 @@
 		184C06901CBB11C3008A1E37 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
-		1870820B1D04AF4A00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		187082141D04C72100FDAAEB /* DrawerAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationController.swift; sourceTree = "<group>"; };
 		187082161D05095E00FDAAEB /* DrawerOpenAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenAnimation.swift; sourceTree = "<group>"; };
 		187082181D05096600FDAAEB /* DrawerDismissAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerDismissAnimation.swift; sourceTree = "<group>"; };
 		1870821A1D05163700FDAAEB /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
+		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
+		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
+		187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorRenderer.xib; sourceTree = "<group>"; };
 		1884AA4F1CEE07D1002109A9 /* JournalBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackgroundView.swift; sourceTree = "<group>"; };
 		1884AA531CEE095B002109A9 /* JournalTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalTheme.swift; sourceTree = "<group>"; };
 		1884AA551CEE0974002109A9 /* JournalDarkTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDarkTheme.swift; sourceTree = "<group>"; };
@@ -336,7 +342,10 @@
 		187082091D04AF3D00FDAAEB /* ThemeSelector */ = {
 			isa = PBXGroup;
 			children = (
-				1870820B1D04AF4A00FDAAEB /* ThemeSelectorViewController.swift */,
+				1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */,
+				1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */,
+				187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */,
+				187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */,
 			);
 			path = ThemeSelector;
 			sourceTree = "<group>";
@@ -699,11 +708,13 @@
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
+				1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */,
 				9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9B3813CB1CE010770066D3B9 /* StreamViewController.xib in Resources */,
 				9B3813E71CE012180066D3B9 /* DefaultStreamButtonsCell.xib in Resources */,
+				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
@@ -791,7 +802,6 @@
 				1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */,
 				9B3813E61CE012180066D3B9 /* DefaultStreamButtonsCell.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
-				1870820C1D04AF4A00FDAAEB /* ThemeSelectorViewController.swift in Sources */,
 				9B3813D21CE010770066D3B9 /* StreamLayoutTemplate.swift in Sources */,
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
 				9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */,
@@ -802,6 +812,7 @@
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B3813D61CE011150066D3B9 /* HomeStreamViewController.swift in Sources */,
+				1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */,
 				9B3813D31CE010770066D3B9 /* StreamLayoutTemplateBase.swift in Sources */,
 				9B3814051CE01EBE0066D3B9 /* DefaultStreamLayout.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
@@ -814,6 +825,7 @@
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,
 				187082191D05096600FDAAEB /* DrawerDismissAnimation.swift in Sources */,
 				1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */,
+				187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */,
 				9B3813C71CE010770066D3B9 /* StreamLayoutBase.swift in Sources */,
 				9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */,
 				9B3813EE1CE012180066D3B9 /* DefaultStreamPhotoCell.swift in Sources */,

@@ -10,6 +10,11 @@ import UIKit
 
 class DarkTheme: AppTheme {
 
+    // Display label
+    override var displayLabel : String {
+        return "deep (default)"
+    }
+    
     init() {
         super.init(themeType: .Dark)
     }

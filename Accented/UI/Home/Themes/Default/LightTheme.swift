@@ -10,6 +10,14 @@ import UIKit
 
 class LightTheme: AppTheme {
 
+    override var displayLabel : String {
+        return "arc"
+    }
+    
+    override var displayThumbnail : UIImage! {
+        return UIImage(named: "LightThemeThumbnail")
+    }
+
     override var streamBackgroundColor : UIColor {
         return UIColor.whiteColor()
     }

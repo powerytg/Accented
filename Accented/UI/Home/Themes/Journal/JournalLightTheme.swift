@@ -10,6 +10,14 @@ import UIKit
 
 class JournalLightTheme: JournalDarkTheme {
 
+    override var displayLabel : String {
+        return "dream"
+    }
+    
+    override var displayThumbnail : UIImage! {
+        return UIImage(named: "JournalLightThemeThumbnail")
+    }
+
     override var streamBackgroundColor: UIColor {
         return UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 245 / 255.0, alpha: 1.0)
     }

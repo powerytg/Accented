@@ -25,6 +25,9 @@ class DrawerViewController: UIViewController {
     // Hosted view controller
     private var drawer : UIViewController
     
+    // Drawer percentage width
+    static let drawerPercentageWidth : CGFloat = 0.8
+    
     init(viewController : UIViewController, anchor : DrawerAnchor = .Left) {
         self.drawer = viewController
         self.anchor = anchor
@@ -53,7 +56,7 @@ class DrawerViewController: UIViewController {
         drawer.view.translatesAutoresizingMaskIntoConstraints = false
         drawer.didMoveToParentViewController(self)
         drawer.view.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
-        drawer.view.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: 0.8).active = true
+        drawer.view.widthAnchor.constraintEqualToAnchor(self.view.widthAnchor, multiplier: DrawerViewController.drawerPercentageWidth).active = true
         drawer.view.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
         
         // Events

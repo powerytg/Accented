@@ -2,18 +2,34 @@
 //  ThemeSelectorViewController.swift
 //  Accented
 //
-//  Created by Tiangong You on 6/5/16.
+//  Created by Tiangong You on 6/7/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class ThemeSelectorViewController: UIViewController {
+class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    @IBOutlet weak var themeCollectionView: UICollectionView!
+    
+    private var themeCellIdentifier = "themeCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1.0)
+        
+        // Register cell types
+        let cellNib = UINib(nibName: "ThemeSelectorRenderer", bundle: nil)
+        themeCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: themeCellIdentifier)
+        themeCollectionView.dataSource = self
+        themeCollectionView.delegate = self
+        
+        // Layout 
+        let porpotion : CGFloat = 0.45
+        let w : CGFloat = CGRectGetWidth(UIScreen.mainScreen().bounds) * DrawerViewController.drawerPercentageWidth
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSizeMake(w, w * porpotion)
+        themeCollectionView.collectionViewLayout = layout
+        themeCollectionView.contentInset = UIEdgeInsetsMake(155, 0, 0, 0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +38,30 @@ class ThemeSelectorViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: UICollectionViewDataSource
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
     }
-    */
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return ThemeManager.sharedInstance.themes.count
+    }
 
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(themeCellIdentifier, forIndexPath: indexPath) as! ThemeSelectorRenderer
+        cell.theme = ThemeManager.sharedInstance.themes[indexPath.item]
+        return cell;
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedTheme = ThemeManager.sharedInstance.themes[indexPath.item]
+        ThemeManager.sharedInstance.currentTheme = selectedTheme
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
 }

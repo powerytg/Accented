@@ -19,6 +19,15 @@ class AppTheme: NSObject {
     
     var themeType : AppThemeType
     
+    // Display label
+    var displayLabel : String {
+        return "default"
+    }
+    
+    var displayThumbnail : UIImage! {
+        return UIImage(named: "DarkThemeThumbnail")
+    }
+    
     // Base background color
     var rootViewBackgroundColor : UIColor {
         return UIColor.blackColor()
