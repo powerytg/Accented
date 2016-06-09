@@ -10,12 +10,12 @@ import UIKit
 
 class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
 
-    private let headerReuseIdentifier = "header"
-    private let photoRendererReuseIdentifier = "renderer"
-    private let initialLoadingRendererReuseIdentifier = "initialLoading"
-    private let loadingFooterRendererReuseIdentifier = "loadingFooter"
-    static let backdropDecorIdentifier = "backdrop"
-    static let bubbleDecorIdentifier = "bubble"
+    private let headerReuseIdentifier = "journalHeader"
+    private let photoRendererReuseIdentifier = "journalPhotoRenderer"
+    private let initialLoadingRendererReuseIdentifier = "journalTnitialLoading"
+    private let loadingFooterRendererReuseIdentifier = "journalLoadingFooter"
+    static let backdropDecorIdentifier = "journalBackdrop"
+    static let bubbleDecorIdentifier = "journalBubble"
     
     // Header section, which includes the logo, the nav bar and the buttons
     private let headerSection = 0

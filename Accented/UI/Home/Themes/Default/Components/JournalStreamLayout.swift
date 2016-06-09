@@ -50,6 +50,8 @@ class JournalStreamLayout: StreamLayoutBase {
         }
         
         if collectionView != nil {
+            let sectionCount = self.collectionView!.numberOfSections()
+            
             // Backdrop layout attributes
             let contentOffset = collectionView!.contentOffset.y
             let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
@@ -67,21 +69,24 @@ class JournalStreamLayout: StreamLayoutBase {
                 backdropAlpha = 1
             }
             
-            let backdropAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
-            backdropAttributes.frame = backdropFrame
-            backdropAttributes.alpha = backdropAlpha
-            backdropAttributes.zIndex = -2
-            layoutAttributes.append(backdropAttributes)
-            
-            // Bubble footer decoration
-            let bubbleWidth : CGFloat = 127
-            let bubbleHeight : CGFloat = 141
-            let bubblePositionY = contentOffset + screenHeight - bubbleHeight
-            let bubbleFrame = CGRectMake(0, bubblePositionY, bubbleWidth, bubbleHeight)
-            let bubbleAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
-            bubbleAttributes.frame = bubbleFrame
-            bubbleAttributes.zIndex = -1
-            layoutAttributes.append(bubbleAttributes)
+            // Only apply the backdrop or bubble decorations when there are more than one section (the first section is always the header)
+            if(sectionCount > contentStartSection) {
+                let backdropAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+                backdropAttributes.frame = backdropFrame
+                backdropAttributes.alpha = backdropAlpha
+                backdropAttributes.zIndex = -2
+                layoutAttributes.append(backdropAttributes)
+                
+                // Bubble footer decoration
+                let bubbleWidth : CGFloat = 127
+                let bubbleHeight : CGFloat = 141
+                let bubblePositionY = contentOffset + screenHeight - bubbleHeight
+                let bubbleFrame = CGRectMake(0, bubblePositionY, bubbleWidth, bubbleHeight)
+                let bubbleAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+                bubbleAttributes.frame = bubbleFrame
+                bubbleAttributes.zIndex = -1
+                layoutAttributes.append(bubbleAttributes)   
+            }
         }
     
         return layoutAttributes
