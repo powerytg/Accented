@@ -26,6 +26,9 @@
                         <rect key="frame" x="403" y="171" width="129" height="30"/>
                         <inset key="contentEdgeInsets" minX="10" minY="6" maxX="10" maxY="6"/>
                         <state key="normal" title="DISPLAY STYLE"/>
+                        <connections>
+                            <action selector="themeButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="X5b-l2-Zru"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STREAM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoM-wx-THh">
                         <rect key="frame" x="463" y="121" width="70" height="32"/>

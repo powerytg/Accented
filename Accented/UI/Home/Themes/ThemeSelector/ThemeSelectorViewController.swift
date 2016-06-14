@@ -17,6 +17,8 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.streamBackgroundColor;
+        
         // Register cell types
         let cellNib = UINib(nibName: "ThemeSelectorRenderer", bundle: nil)
         themeCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: themeCellIdentifier)
@@ -29,7 +31,7 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(w, w * porpotion)
         themeCollectionView.collectionViewLayout = layout
-        themeCollectionView.contentInset = UIEdgeInsetsMake(155, 0, 0, 0)
+        themeCollectionView.contentInset = UIEdgeInsetsMake(155, 0, 40, 0)
     }
 
     override func didReceiveMemoryWarning() {

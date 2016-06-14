@@ -40,4 +40,7 @@ class JournalHeaderTitleCell: UICollectionViewCell {
         }
     }
     
+    @IBAction func themeButtonDidTap(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.didRequestRightDrawer, object: nil)
+    }
 }
