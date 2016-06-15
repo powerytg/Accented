@@ -90,6 +90,8 @@
 		9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115E51CCAC91E008F5257 /* StreamModel.swift */; };
 		9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115E71CCAD1D2008F5257 /* StorageService+Streams.swift */; };
 		9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115EE1CCAE151008F5257 /* PhotoModel.swift */; };
+		9B76AB541D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76AB521D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift */; };
+		9B76AB551D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B76AB531D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib */; };
 		9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */; };
 		9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */; };
 		9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */; };
@@ -222,6 +224,8 @@
 		9B6115E51CCAC91E008F5257 /* StreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamModel.swift; sourceTree = "<group>"; };
 		9B6115E71CCAD1D2008F5257 /* StorageService+Streams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Streams.swift"; sourceTree = "<group>"; };
 		9B6115EE1CCAE151008F5257 /* PhotoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		9B76AB521D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorFooterRenderer.swift; sourceTree = "<group>"; };
+		9B76AB531D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorFooterRenderer.xib; sourceTree = "<group>"; };
 		9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableBackgroundView.swift; sourceTree = "<group>"; };
 		9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalHeaderTitleCell.swift; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.swift; sourceTree = SOURCE_ROOT; };
 		9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JournalHeaderTitleCell.xib; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.xib; sourceTree = SOURCE_ROOT; };
@@ -346,6 +350,8 @@
 				1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */,
 				187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */,
 				187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */,
+				9B76AB521D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift */,
+				9B76AB531D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib */,
 			);
 			path = ThemeSelector;
 			sourceTree = "<group>";
@@ -713,6 +719,7 @@
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9B3813CB1CE010770066D3B9 /* StreamViewController.xib in Resources */,
+				9B76AB551D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib in Resources */,
 				9B3813E71CE012180066D3B9 /* DefaultStreamButtonsCell.xib in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
@@ -833,6 +840,7 @@
 				1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				9B3AACD41CFE42A90070C495 /* JournalLightTheme.swift in Sources */,
+				9B76AB541D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,

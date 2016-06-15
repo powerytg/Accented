@@ -21,7 +21,11 @@ class ThemeSelectorRenderer: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        thumbnailView.layer.shadowOffset = CGSizeMake(0, 1);
+        thumbnailView.layer.shadowRadius = 3;
+        thumbnailView.layer.borderColor = UIColor(red: 30 / 255.0, green: 128 / 255.0, blue: 243 / 255.0, alpha: 1.0).CGColor
+        thumbnailView.layer.shadowPath = UIBezierPath(rect: self.thumbnailView.bounds).CGPath
     }
 
     override func layoutSubviews() {
@@ -31,5 +35,26 @@ class ThemeSelectorRenderer: UICollectionViewCell {
             thumbnailView.image = themeModel.displayThumbnail
             titleLabel.text = themeModel.displayLabel
         }
+        
+        if self.selected {
+            self.applySelectedState()
+        } else {
+            self.applyUnselectedState()
+        }
     }
+    
+    private func applyUnselectedState() {
+        thumbnailView.layer.masksToBounds = false;
+        thumbnailView.layer.shadowOpacity = 0.9;
+        thumbnailView.layer.cornerRadius = 0;
+        thumbnailView.layer.borderWidth = 0;
+    }
+    
+    private func applySelectedState() {
+        thumbnailView.layer.masksToBounds = true;
+        thumbnailView.layer.cornerRadius = 4;
+        thumbnailView.layer.borderWidth = 4;
+        thumbnailView.layer.shadowOpacity = 0;
+    }
+    
 }

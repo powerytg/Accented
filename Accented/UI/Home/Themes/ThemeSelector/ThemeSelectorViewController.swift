@@ -13,6 +13,7 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
     @IBOutlet weak var themeCollectionView: UICollectionView!
     
     private var themeCellIdentifier = "themeCell"
+    private var footerIdentifier = "themeFooter"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,10 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         // Register cell types
         let cellNib = UINib(nibName: "ThemeSelectorRenderer", bundle: nil)
         themeCollectionView.registerNib(cellNib, forCellWithReuseIdentifier: themeCellIdentifier)
+        
+        let footerNib = UINib(nibName: "ThemeSelectorFooterRenderer", bundle: nil)
+        themeCollectionView.registerNib(footerNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: footerIdentifier)
+        
         themeCollectionView.dataSource = self
         themeCollectionView.delegate = self
         
@@ -31,7 +36,12 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(w, w * porpotion)
         themeCollectionView.collectionViewLayout = layout
-        themeCollectionView.contentInset = UIEdgeInsetsMake(155, 0, 40, 0)
+        themeCollectionView.contentInset = UIEdgeInsetsMake(155, 0, 10, 0)
+        
+        // Select the current theme
+        let currentThemeIndex = ThemeManager.sharedInstance.themes.indexOf(ThemeManager.sharedInstance.currentTheme)!
+        let currentThemePath = NSIndexPath(forItem: currentThemeIndex, inSection: 0)
+        themeCollectionView.selectItemAtIndexPath(currentThemePath, animated: false, scrollPosition: .Top)
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,11 +66,21 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         return cell;
     }
     
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: footerIdentifier, forIndexPath: indexPath)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), 100)
+    }
+    
     // MARK: UICollectionViewDelegateFlowLayout
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedTheme = ThemeManager.sharedInstance.themes[indexPath.item]
         ThemeManager.sharedInstance.currentTheme = selectedTheme
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {

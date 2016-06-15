@@ -28,9 +28,10 @@ class DrawerViewController: UIViewController {
     // Drawer percentage width
     static let drawerPercentageWidth : CGFloat = 0.8
     
-    init(viewController : UIViewController, anchor : DrawerAnchor = .Left) {
-        self.drawer = viewController
+    init(drawer : UIViewController, anchor : DrawerAnchor = .Left) {
+        self.drawer = drawer
         self.anchor = anchor
+        
         super.init(nibName: nil, bundle: nil)
     }
     
