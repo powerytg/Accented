@@ -14,10 +14,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="418" height="219"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bbq-OI-gxO">
-                        <rect key="frame" x="5" y="5" width="408" height="209"/>
+                        <rect key="frame" x="10" y="5" width="398" height="204"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vph-Nf-tFx">
-                        <rect key="frame" x="25" y="183" width="43" height="21"/>
+                        <rect key="frame" x="30" y="178" width="43" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="18"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -26,11 +26,11 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="bbq-OI-gxO" secondAttribute="trailing" constant="5" id="9o0-26-AYZ"/>
+                <constraint firstAttribute="trailing" secondItem="bbq-OI-gxO" secondAttribute="trailing" constant="10" id="9o0-26-AYZ"/>
                 <constraint firstItem="bbq-OI-gxO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="TQO-Lt-vYU"/>
                 <constraint firstItem="Vph-Nf-tFx" firstAttribute="bottom" secondItem="bbq-OI-gxO" secondAttribute="bottom" constant="-10" id="WAQ-cW-hJi"/>
-                <constraint firstAttribute="bottom" secondItem="bbq-OI-gxO" secondAttribute="bottom" constant="5" id="ZXd-Lh-NLS"/>
-                <constraint firstItem="bbq-OI-gxO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="Zj7-dX-qHR"/>
+                <constraint firstAttribute="bottom" secondItem="bbq-OI-gxO" secondAttribute="bottom" constant="10" id="ZXd-Lh-NLS"/>
+                <constraint firstItem="bbq-OI-gxO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Zj7-dX-qHR"/>
                 <constraint firstItem="Vph-Nf-tFx" firstAttribute="leading" secondItem="bbq-OI-gxO" secondAttribute="leading" constant="20" id="qWt-k6-muR"/>
             </constraints>
             <size key="customSize" width="418" height="219"/>
