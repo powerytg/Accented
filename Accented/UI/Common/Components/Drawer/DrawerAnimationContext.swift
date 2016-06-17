@@ -16,11 +16,8 @@ class DrawerAnimationContext: NSObject {
     // Weak reference to the host view controller
     weak var container : UIViewController?
     
-    // Weak reference to the drawer view controller
-    weak var drawer : DrawerViewController?
-    
-    // Weak reference to the content view controller
-    weak var content : UIViewController?
+    // Strong reference to the content view controller
+    var content : UIViewController
     
     // Drawer size
     var drawerSize : CGSize = CGSizeZero
@@ -28,6 +25,14 @@ class DrawerAnimationContext: NSObject {
     // Anchor
     var anchor : DrawerAnchor = .Left
     
+    // Presentation controller
+    weak var presentationController : DrawerPresentationController?
+    
     // Animation configurations
     var configurations = DrawerAnimationParams()
+    
+    required init(content : UIViewController) {
+        self.content = content
+        super.init()
+    }
 }

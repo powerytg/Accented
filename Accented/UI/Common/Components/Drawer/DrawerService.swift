@@ -19,7 +19,13 @@ class DrawerService: NSObject {
         return DrawerGestureController(animationContext : animationContext, delegate: delegate)
     }
     
-    func presentDrawer(drawer : DrawerViewController, container : UIViewController) {
-        container.presentViewController(drawer, animated: true, completion: nil)
+    func presentDrawer(animationContext : DrawerAnimationContext) {
+        let transitionDelegate = DrawerPresentationController(animationContext : animationContext)
+        guard let container = animationContext.container else {
+            return
+        }
+        
+        animationContext.content.transitioningDelegate = transitionDelegate
+        container.presentViewController(animationContext.content, animated: true, completion: nil)
     }
 }

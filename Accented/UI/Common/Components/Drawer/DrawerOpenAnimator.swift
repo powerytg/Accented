@@ -24,20 +24,14 @@ class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewController
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let container = transitionContext.containerView()!
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        
-        container.addSubview(toView)
-        
-        // Prepare entrance animation
-        animationContext.drawer?.willPerformOpenAnimation()
-        
+        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!        
         let duration = self.transitionDuration(transitionContext)
         let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? .CurveLinear : .CurveEaseOut)
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            self?.animationContext.drawer?.performanceOpenAnimation()
-        }) { (finished) in            
-            transitionContext.completeTransition(true)
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: {
+            toView.transform = CGAffineTransformIdentity
+        }) { (finished) in
+            let transitionCompleted = !transitionContext.transitionWasCancelled()
+            transitionContext.completeTransition(transitionCompleted)
         }
     }
     

@@ -51,7 +51,16 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.view.layer.shadowPath = UIBezierPath(rect: self.view.bounds).CGPath
+        self.view.layer.shadowColor = UIColor.blackColor().CGColor
+        self.view.layer.shadowOpacity = 0.65;
+        self.view.layer.shadowRadius = 5
+        self.view.layer.shadowOffset = CGSizeMake(-3, 0)
+    }
+    
     // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
