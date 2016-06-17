@@ -11,5 +11,5 @@ import UIKit
 class DrawerAnimationParams: NSObject {
     
     // Tolerance distance before the swipe gesture can trigger the drawer transition
-    static let translationBeginThreshold : CGFloat = 20
+    var translationBeginThreshold : CGFloat = 90
 }

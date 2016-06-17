@@ -11,8 +11,7 @@ import UIKit
 class MainViewController: UINavigationController, DrawerGestureControllerDelegate {
 
     private var rightDrawerSize : CGSize
-    
-    private var homeViewController : HomeViewController?
+    private var rightDrawerGestureController : DrawerGestureController?
     
     required init?(coder aDecoder: NSCoder) {
         let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
@@ -27,6 +26,10 @@ class MainViewController: UINavigationController, DrawerGestureControllerDelegat
         self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         self.setNavigationBarHidden(true, animated: false)
         
+        // Setup drawers
+        let rightDrawerAnimationContext = self.rightDrawerAnimationContext(true)
+        self.rightDrawerGestureController = DrawerService.sharedInstance.addInteractiveGesture(rightDrawerAnimationContext, delegate: self)
+
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
     }
@@ -46,26 +49,38 @@ class MainViewController: UINavigationController, DrawerGestureControllerDelegat
             self.presentViewController(greetingsViewController, animated: false, completion: nil)
         } else {
             // Show the home view controller as root
-            self.homeViewController = HomeViewController()
-            self.pushViewController(homeViewController!, animated: false)
-            
-            
-            // Drawers
-            DrawerService.sharedInstance.addInteractiveGesture(self.homeViewController!, anchor: .Right, drawerSize: rightDrawerSize, delegate: self)
+            let homeViewController = HomeViewController()
+            self.pushViewController(homeViewController, animated: false)
         }
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     //MARK: DrawerGestureControllerDelegate
     
     func drawerViewControllerForInteractiveGesture() -> DrawerViewController {
-        return DrawerViewController(drawer: ThemeSelectorViewController(), drawerSize: self.rightDrawerSize, anchor: .Right, interactive: false)
+        return DrawerViewController(content : ThemeSelectorViewController(), animationContext : self.rightDrawerAnimationContext(true))
     }
     
     //MARK: Events
     
     func didRequestRightDrawer(notification : NSNotification) {
-        let rightDrawer = DrawerViewController(drawer: ThemeSelectorViewController(), drawerSize: self.rightDrawerSize, anchor: .Right, interactive: false)
+        let rightDrawer = DrawerViewController(content : ThemeSelectorViewController(), animationContext: self.rightDrawerAnimationContext(false))
         DrawerService.sharedInstance.presentDrawer(rightDrawer, container: self)
+    }
+    
+    //MARK: Private
+    
+    func rightDrawerAnimationContext(interactive : Bool) -> DrawerAnimationContext {
+        let animationContext = DrawerAnimationContext()
+        animationContext.container = self
+        animationContext.drawerSize = rightDrawerSize
+        animationContext.anchor = .Right
+        animationContext.interactive = interactive
+        
+        return animationContext
     }
     
 }

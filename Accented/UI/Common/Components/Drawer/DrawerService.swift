@@ -15,8 +15,8 @@ class DrawerService: NSObject {
         super.init()
     }
 
-    func addInteractiveGesture(container : UIViewController, anchor : DrawerAnchor, drawerSize : CGSize, delegate : DrawerGestureControllerDelegate) {
-        let gestureController = DrawerGestureController(container: container, anchor: anchor, drawerSize: drawerSize, delegate: delegate)
+    func addInteractiveGesture(animationContext : DrawerAnimationContext, delegate : DrawerGestureControllerDelegate) -> DrawerGestureController {
+        return DrawerGestureController(animationContext : animationContext, delegate: delegate)
     }
     
     func presentDrawer(drawer : DrawerViewController, container : UIViewController) {

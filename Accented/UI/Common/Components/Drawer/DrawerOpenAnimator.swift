@@ -10,12 +10,10 @@ import UIKit
 
 class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private weak var drawerViewController : DrawerViewController?
-    private var interactive : Bool
+    private var animationContext : DrawerAnimationContext
     
-    init(drawer : DrawerViewController, interactive : Bool) {
-        self.drawerViewController = drawer
-        self.interactive = interactive
+    init(animationContext : DrawerAnimationContext) {
+        self.animationContext = animationContext
         super.init()
     }
     
@@ -32,13 +30,13 @@ class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewController
         container.addSubview(toView)
         
         // Prepare entrance animation
-        self.drawerViewController?.willPerformOpenAnimation()
+        animationContext.drawer?.willPerformOpenAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        let animationOptions : UIViewAnimationOptions = (self.interactive ? [.CurveLinear] : [.CurveEaseOut])
+        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? .CurveLinear : .CurveEaseOut)
         UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            self?.drawerViewController?.performanceOpenAnimation()
-        }) { (finished) in
+            self?.animationContext.drawer?.performanceOpenAnimation()
+        }) { (finished) in            
             transitionContext.completeTransition(true)
         }
     }

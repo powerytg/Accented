@@ -16,19 +16,14 @@ enum DrawerAnchor {
 
 class DrawerViewController: UIViewController, UIViewControllerTransitioningDelegate {
 
-    private var interactive : Bool
-    
-    // Drawer anchor, deffault to pinning to left
-    var anchor : DrawerAnchor = .Left
+    // Animation context
+    private var animationContext : DrawerAnimationContext
     
     // Curtain view
     private var curtainView = UIView()
     
-    // Hosted view controller
-    private var drawer : UIViewController
-    
-    // Drawer size
-    var drawerSize : CGSize
+    // Content view controller
+    private var contentViewcontroller : UIViewController;
     
     // Open animator
     var openAnimator : DrawerOpenAnimator?
@@ -42,23 +37,22 @@ class DrawerViewController: UIViewController, UIViewControllerTransitioningDeleg
     // Interactive close animator
     var interactiveDismissAnimator : DrawerDismissAnimator?
     
-    init(drawer : UIViewController, drawerSize : CGSize, anchor : DrawerAnchor = .Left, interactive : Bool) {
-        self.drawer = drawer
-        self.anchor = anchor
-        self.drawerSize = drawerSize
-        self.interactive = interactive
-        
+    init(content : UIViewController, animationContext : DrawerAnimationContext) {
+        self.animationContext = animationContext
+        self.contentViewcontroller = content
         super.init(nibName: nil, bundle: nil)
         
         // Animators
-        self.openAnimator = DrawerOpenAnimator(drawer: self, interactive: false)
-        self.dismissAnimator = DrawerDismissAnimator(drawer: self, interactive: false)
-        self.interactiveOpenAnimator = DrawerOpenAnimator(drawer : self, interactive: true)
-        self.interactiveDismissAnimator = DrawerDismissAnimator(drawer: self, interactive: true)
+        self.openAnimator = DrawerOpenAnimator(animationContext : animationContext)
+        self.dismissAnimator = DrawerDismissAnimator(animationContext : animationContext)
+        self.interactiveOpenAnimator = DrawerOpenAnimator(animationContext : animationContext)
+        self.interactiveDismissAnimator = DrawerDismissAnimator(animationContext : animationContext)
         
         // Initialization
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
+        self.animationContext.drawer = self
+        self.animationContext.content = content
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,20 +72,21 @@ class DrawerViewController: UIViewController, UIViewControllerTransitioningDeleg
         curtainView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor).active = true
                 
         // Setup host view
-        addChildViewController(drawer)
-        self.view.addSubview(drawer.view)
-        drawer.view.translatesAutoresizingMaskIntoConstraints = false
-        drawer.didMoveToParentViewController(self)
-        drawer.view.widthAnchor.constraintEqualToConstant(drawerSize.width).active = true
-        drawer.view.heightAnchor.constraintEqualToConstant(drawerSize.height).active = true
+        let contentView = contentViewcontroller.view
+        addChildViewController(contentViewcontroller)
+        self.view.addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.widthAnchor.constraintEqualToConstant(animationContext.drawerSize.width).active = true
+        contentView.heightAnchor.constraintEqualToConstant(animationContext.drawerSize.height).active = true
+        contentViewcontroller.didMoveToParentViewController(self)
         
-        switch self.anchor {
+        switch animationContext.anchor {
         case .Left:
-            drawer.view.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor).active = true
+            contentView.leadingAnchor.constraintEqualToAnchor(self.view.leadingAnchor).active = true
         case .Right:
-            drawer.view.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
+            contentView.trailingAnchor.constraintEqualToAnchor(self.view.trailingAnchor).active = true
         case .Bottom:
-            drawer.view.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
+            contentView.bottomAnchor.constraintEqualToAnchor(self.view.bottomAnchor).active = true
         }
         
         // Events
@@ -108,29 +103,31 @@ class DrawerViewController: UIViewController, UIViewControllerTransitioningDeleg
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        drawer.view.layer.shadowPath = UIBezierPath(rect: drawer.view.bounds).CGPath
-        drawer.view.layer.shadowColor = UIColor.blackColor().CGColor
-        drawer.view.layer.shadowOpacity = 0.65;
-        drawer.view.layer.shadowRadius = 5
-        drawer.view.layer.shadowOffset = CGSizeMake(-3, 0)
+        let contentView = contentViewcontroller.view
+        contentView.layer.shadowPath = UIBezierPath(rect: contentViewcontroller.view.bounds).CGPath
+        contentView.layer.shadowColor = UIColor.blackColor().CGColor
+        contentView.layer.shadowOpacity = 0.65;
+        contentView.layer.shadowRadius = 5
+        contentView.layer.shadowOffset = CGSizeMake(-3, 0)
     }
 
     // MARK: Animations
     
     func willPerformOpenAnimation() {
-        switch anchor {
+        let contentView = contentViewcontroller.view
+        switch animationContext.anchor {
         case .Left:
-            drawer.view.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.view.bounds), 0)
+            contentView.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(contentView.bounds), 0)
         case .Right:
-            drawer.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.view.bounds), 0)
+            contentView.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(contentView.bounds), 0)
         case .Bottom:
-            drawer.view.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.view.bounds))
+            contentView.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(contentView.bounds))
         }
     }
     
     func performanceOpenAnimation() {
         curtainView.alpha = 0.7
-        drawer.view.transform = CGAffineTransformIdentity
+        contentViewcontroller.view.transform = CGAffineTransformIdentity
     }
     
     func willPerformDismissAnimation() {
@@ -138,14 +135,15 @@ class DrawerViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     
     func performanceDismissAnimation() {
+        let contentView = contentViewcontroller.view
         curtainView.alpha = 0
-        switch anchor {
+        switch animationContext.anchor {
         case .Left:
-            drawer.view.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.view.bounds), 0)
+            contentView.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(contentView.bounds), 0)
         case .Right:
-            drawer.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.view.bounds), 0)
+            contentView.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(contentView.bounds), 0)
         case .Bottom:
-            drawer.view.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.view.bounds))
+            contentView.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(contentView.bounds))
         }
     }
 
@@ -160,16 +158,19 @@ class DrawerViewController: UIViewController, UIViewControllerTransitioningDeleg
     }
     
     func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactive ? self.interactiveOpenAnimator : nil
+        return animationContext.interactive ? self.interactiveOpenAnimator : nil
     }
     
     func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactive ? self.interactiveDismissAnimator : nil
+        return animationContext.interactive ? self.interactiveDismissAnimator : nil
     }
     
     //MARK: Events
     
     func didTapOnCurtainView(sender : AnyObject) {
+        // Disable interactive transition
+        animationContext.interactive = false
+        
         self.dismissViewControllerAnimated(true) { 
             // Ignore
         }

@@ -13,9 +13,9 @@ protocol DrawerGestureControllerDelegate : NSObjectProtocol {
 }
 
 class DrawerGestureController: NSObject {
+
+    private var animationContext : DrawerAnimationContext
     
-    private var anchor : DrawerAnchor
-    private var drawerSize : CGSize
     private var screenWidth : CGFloat
     private var screenHeight : CGFloat
     private var maxHorizontalTranslationPercentage : CGFloat
@@ -24,26 +24,22 @@ class DrawerGestureController: NSObject {
     weak var delegate : DrawerGestureControllerDelegate?
     weak private var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
     
-    // Weak reference to the drawer view controller
-    weak private var drawer : DrawerViewController?
+    var swipeGesture : UIScreenEdgePanGestureRecognizer!
     
-    // Weak reference to the container view controller
-    weak private var container : UIViewController?
-    
-    required init(container : UIViewController, anchor : DrawerAnchor, drawerSize : CGSize, delegate : DrawerGestureControllerDelegate) {
-        self.anchor = anchor
-        self.drawerSize = drawerSize
+    required init(animationContext : DrawerAnimationContext, delegate : DrawerGestureControllerDelegate) {
+        self.animationContext = animationContext
         self.screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         self.screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
-        self.maxHorizontalTranslationPercentage = drawerSize.width / screenWidth
-        self.maxVerticalTranslationPercentage = drawerSize.height / screenHeight
+        self.maxHorizontalTranslationPercentage = animationContext.drawerSize.width / screenWidth
+        self.maxVerticalTranslationPercentage = animationContext.drawerSize.height / screenHeight
+        self.delegate = delegate
         
         super.init()
         
         // Events
-        let swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didReceiveEdgePanGesture(_:)))
+        self.swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didReceiveEdgePanGesture(_:)))
         
-        switch anchor {
+        switch animationContext.anchor {
         case .Left:
             swipeGesture.edges = .Left
         case .Right:
@@ -52,30 +48,48 @@ class DrawerGestureController: NSObject {
             swipeGesture.edges = .Bottom
         }
         
-        container.view.addGestureRecognizer(swipeGesture)
+        animationContext.container!.view.addGestureRecognizer(swipeGesture)
     }
     
     @objc func didReceiveEdgePanGesture(gesture : UIScreenEdgePanGestureRecognizer) {
-        let tx = gesture.locationInView(gesture.view).x
-        let ty = gesture.locationInView(gesture.view).y
+        var tx = gesture.locationInView(gesture.view).x
+        var ty = gesture.locationInView(gesture.view).y        
+        var travelDist : CGFloat
+        
+        // Since the drawer may not cover the entire screen, we need to compensate the gap area
+        tx -= (screenWidth - animationContext.drawerSize.width)
+        ty -= (screenHeight - animationContext.drawerSize.height)
         
         var percentage : CGFloat
         
-        switch self.anchor {
+        switch animationContext.anchor {
         case .Left:
-            percentage = min(maxHorizontalTranslationPercentage, tx / drawerSize.width)
+            percentage = tx / animationContext.drawerSize.width
+            travelDist = abs(tx)
         case .Right:
-            percentage = min(maxHorizontalTranslationPercentage, tx / drawerSize.width)
+            percentage = (screenWidth - tx) / animationContext.drawerSize.width
+            travelDist = abs(screenWidth - tx)
         case .Bottom:
-            percentage = min(maxVerticalTranslationPercentage, ty / drawerSize.height)            
+            percentage = (screenHeight - ty) / animationContext.drawerSize.height
+            travelDist = abs(screenHeight - ty)
         }
         
+        // Camp the percentage to 0..1
+        percentage = max(0, min(1, percentage))
+        
+        print(percentage)
         switch gesture.state {
         case .Began:
-            self.drawer = delegate?.drawerViewControllerForInteractiveGesture()
-            self.interactiveOpenAnimator = self.drawer?.interactiveOpenAnimator
-            DrawerService.sharedInstance.presentDrawer(self.drawer!, container: self.container!)
+            let drawer = delegate?.drawerViewControllerForInteractiveGesture()
+            DrawerService.sharedInstance.presentDrawer(drawer!, container: animationContext.container!)
+            self.interactiveOpenAnimator = drawer!.interactiveOpenAnimator
         case .Ended:
+            // If the travel distance does not meet the minimal requirement, cancel the animation
+//            if travelDist < animationContext.configurations.translationBeginThreshold {
+//                interactiveOpenAnimator?.cancelInteractiveTransition()
+//            } else {
+//                interactiveOpenAnimator?.finishInteractiveTransition()
+//            }
             interactiveOpenAnimator?.finishInteractiveTransition()
         case .Cancelled:
             interactiveOpenAnimator?.cancelInteractiveTransition()
@@ -85,4 +99,5 @@ class DrawerGestureController: NSObject {
             print("begin")
         }
     }
+    
 }

@@ -10,12 +10,10 @@ import UIKit
 
 class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private weak var drawerViewController : DrawerViewController?
-    private var interactive : Bool
+    private var animationContext : DrawerAnimationContext
     
-    init(drawer : DrawerViewController, interactive : Bool) {
-        self.drawerViewController = drawer
-        self.interactive = interactive
+    init(animationContext : DrawerAnimationContext) {
+        self.animationContext = animationContext
         super.init()
     }
     
@@ -32,12 +30,12 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
         container.addSubview(fromView)
         
         // Prepare entrance animation
-        self.drawerViewController?.willPerformDismissAnimation()
+        animationContext.drawer?.willPerformDismissAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        let animationOptions : UIViewAnimationOptions = (self.interactive ? [.CurveLinear] : [.CurveEaseOut])
+        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? [.CurveLinear] : [.CurveEaseOut])
         UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            self?.drawerViewController?.performanceDismissAnimation()
+            self?.animationContext.drawer?.performanceDismissAnimation()
         }) { (finished) in
             transitionContext.completeTransition(true)
         }
