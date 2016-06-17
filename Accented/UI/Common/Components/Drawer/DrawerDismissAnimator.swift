@@ -1,22 +1,24 @@
 //
-//  DrawerDismissAnimation.swift
+//  DrawerDismissAnimator.swift
 //  Accented
 //
-//  Created by Tiangong You on 6/5/16.
+//  Created by You, Tiangong on 6/16/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class DrawerDismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private var drawerViewController : DrawerViewController
+    private weak var drawerViewController : DrawerViewController?
+    private var interactive : Bool
     
-    init(drawer : DrawerViewController) {
-        drawerViewController = drawer
+    init(drawer : DrawerViewController, interactive : Bool) {
+        self.drawerViewController = drawer
+        self.interactive = interactive
         super.init()
     }
-
+    
     // MARK: UIViewControllerAnimatedTransitioning
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -30,11 +32,12 @@ class DrawerDismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(fromView)
         
         // Prepare entrance animation
-        self.drawerViewController.willPerformDismissAnimation()
+        self.drawerViewController?.willPerformDismissAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
-            self?.drawerViewController.performanceDismissAnimation()
+        let animationOptions : UIViewAnimationOptions = (self.interactive ? [.CurveLinear] : [.CurveEaseOut])
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
+            self?.drawerViewController?.performanceDismissAnimation()
         }) { (finished) in
             transitionContext.completeTransition(true)
         }

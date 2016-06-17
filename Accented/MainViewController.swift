@@ -8,9 +8,19 @@
 
 import UIKit
 
-class MainViewController: UINavigationController {
+class MainViewController: UINavigationController, DrawerGestureControllerDelegate {
 
-    private let drawerTransitionDelegate = DrawerAnimationController()
+    private var rightDrawerSize : CGSize
+    
+    private var homeViewController : HomeViewController?
+    
+    required init?(coder aDecoder: NSCoder) {
+        let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+        rightDrawerSize = CGSizeMake(screenWidth * ThemeSelectorViewController.drawerWidthInPercentage, screenHeight)
+
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +46,26 @@ class MainViewController: UINavigationController {
             self.presentViewController(greetingsViewController, animated: false, completion: nil)
         } else {
             // Show the home view controller as root
-            let homeViewController = HomeViewController()
-            self.pushViewController(homeViewController, animated: false)
+            self.homeViewController = HomeViewController()
+            self.pushViewController(homeViewController!, animated: false)
+            
+            
+            // Drawers
+            DrawerService.sharedInstance.addInteractiveGesture(self.homeViewController!, anchor: .Right, drawerSize: rightDrawerSize, delegate: self)
         }
     }
     
-    // MARK: Events
+    //MARK: DrawerGestureControllerDelegate
+    
+    func drawerViewControllerForInteractiveGesture() -> DrawerViewController {
+        return DrawerViewController(drawer: ThemeSelectorViewController(), drawerSize: self.rightDrawerSize, anchor: .Right, interactive: false)
+    }
+    
+    //MARK: Events
     
     func didRequestRightDrawer(notification : NSNotification) {
-        let rightDrawer = DrawerViewController(drawer: ThemeSelectorViewController(), anchor: .Right)
-        rightDrawer.modalPresentationStyle = .Custom
-        rightDrawer.transitioningDelegate = self.drawerTransitionDelegate
-        self.presentViewController(rightDrawer, animated: true, completion: nil)
+        let rightDrawer = DrawerViewController(drawer: ThemeSelectorViewController(), drawerSize: self.rightDrawerSize, anchor: .Right, interactive: false)
+        DrawerService.sharedInstance.presentDrawer(rightDrawer, container: self)
     }
     
 }

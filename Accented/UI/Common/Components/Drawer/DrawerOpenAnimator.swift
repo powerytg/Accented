@@ -1,19 +1,21 @@
 //
-//  DrawerOpenAnimation.swift
+//  DrawerOpenAnimator.swift
 //  Accented
 //
-//  Created by Tiangong You on 6/5/16.
+//  Created by You, Tiangong on 6/16/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class DrawerOpenAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private var drawerViewController : DrawerViewController
+    private weak var drawerViewController : DrawerViewController?
+    private var interactive : Bool
     
-    init(drawer : DrawerViewController) {
-        drawerViewController = drawer
+    init(drawer : DrawerViewController, interactive : Bool) {
+        self.drawerViewController = drawer
+        self.interactive = interactive
         super.init()
     }
     
@@ -30,14 +32,15 @@ class DrawerOpenAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         container.addSubview(toView)
         
         // Prepare entrance animation
-        self.drawerViewController.willPerformOpenAnimation()
+        self.drawerViewController?.willPerformOpenAnimation()
         
         let duration = self.transitionDuration(transitionContext)
-        UIView.animateWithDuration(duration, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
-            self?.drawerViewController.performanceOpenAnimation()
+        let animationOptions : UIViewAnimationOptions = (self.interactive ? [.CurveLinear] : [.CurveEaseOut])
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
+            self?.drawerViewController?.performanceOpenAnimation()
         }) { (finished) in
             transitionContext.completeTransition(true)
         }
     }
-
+    
 }

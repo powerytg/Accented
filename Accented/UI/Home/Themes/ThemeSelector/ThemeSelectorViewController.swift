@@ -11,6 +11,8 @@ import UIKit
 class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var themeCollectionView: UICollectionView!
+
+    static let drawerWidthInPercentage : CGFloat = 0.8
     
     private var themeCellIdentifier = "themeCell"
     private var footerIdentifier = "themeFooter"
@@ -32,7 +34,7 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         
         // Layout 
         let porpotion : CGFloat = 0.45
-        let w : CGFloat = CGRectGetWidth(UIScreen.mainScreen().bounds) * DrawerViewController.drawerPercentageWidth
+        let w : CGFloat = CGRectGetWidth(UIScreen.mainScreen().bounds) * ThemeSelectorViewController.drawerWidthInPercentage
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSizeMake(w, w * porpotion)
         themeCollectionView.collectionViewLayout = layout
