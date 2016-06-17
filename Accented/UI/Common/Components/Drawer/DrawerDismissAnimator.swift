@@ -24,20 +24,25 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let container = transitionContext.containerView()!
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        
-        container.addSubview(fromView)
-        
-        // Prepare entrance animation
-        animationContext.drawer?.willPerformDismissAnimation()
-        
         let duration = self.transitionDuration(transitionContext)
         let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? [.CurveLinear] : [.CurveEaseOut])
         UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            self?.animationContext.drawer?.performanceDismissAnimation()
+            self?.performDismissalAnimation()
         }) { (finished) in
-            transitionContext.completeTransition(true)
+            let transitionCompleted = !transitionContext.transitionWasCancelled()
+            transitionContext.completeTransition(transitionCompleted)
+        }
+    }
+    
+    private func performDismissalAnimation() {
+        let drawer = animationContext.content.view
+        switch animationContext.anchor {
+        case .Left:
+            drawer.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.bounds), 0)
+        case .Right:
+            drawer.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.bounds), 0)
+        case .Bottom:
+            drawer.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.bounds))
         }
     }
 }

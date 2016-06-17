@@ -18,7 +18,6 @@
 		184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06901CBB11C3008A1E37 /* MainViewController.swift */; };
 		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
-		1870821B1D05163700FDAAEB /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821A1D05163700FDAAEB /* DrawerViewController.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -102,6 +101,7 @@
 		9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6261D1358AD00B178F3 /* DrawerService.swift */; };
 		9BFFB6731D136E1400B178F3 /* DrawerOpenAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */; };
 		9BFFB6751D136E4100B178F3 /* DrawerDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6741D136E4100B178F3 /* DrawerDismissAnimator.swift */; };
+		9BFFB7511D147BA200B178F3 /* DrawerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB7501D147BA200B178F3 /* DrawerPresentationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,7 +154,6 @@
 		184C06901CBB11C3008A1E37 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
-		1870821A1D05163700FDAAEB /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -239,6 +238,7 @@
 		9BFFB6261D1358AD00B178F3 /* DrawerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerService.swift; sourceTree = "<group>"; };
 		9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenAnimator.swift; sourceTree = "<group>"; };
 		9BFFB6741D136E4100B178F3 /* DrawerDismissAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerDismissAnimator.swift; sourceTree = "<group>"; };
+		9BFFB7501D147BA200B178F3 /* DrawerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerPresentationController.swift; sourceTree = "<group>"; };
 		E6EE669E5A41007E2D826622 /* Pods-Accented.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.release.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -365,13 +365,13 @@
 		1870820E1D04B5EF00FDAAEB /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
-				1870821A1D05163700FDAAEB /* DrawerViewController.swift */,
 				9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */,
 				9BFFB6241D13548D00B178F3 /* DrawerGestureController.swift */,
 				9BFFB6261D1358AD00B178F3 /* DrawerService.swift */,
 				9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */,
 				9BFFB6741D136E4100B178F3 /* DrawerDismissAnimator.swift */,
 				187082291D13B08C00FDAAEB /* DrawerAnimationContext.swift */,
+				9BFFB7501D147BA200B178F3 /* DrawerPresentationController.swift */,
 			);
 			path = Drawer;
 			sourceTree = "<group>";
@@ -797,13 +797,13 @@
 				1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */,
 				9B3813EA1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.swift in Sources */,
 				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
+				9BFFB7511D147BA200B178F3 /* DrawerPresentationController.swift in Sources */,
 				9B3814001CE01E4D0066D3B9 /* DefaultNavBlurView.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
 				9B3814011CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift in Sources */,
 				9B3813D11CE010770066D3B9 /* StreamCardLayoutGenerator.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */,
-				1870821B1D05163700FDAAEB /* DrawerViewController.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
