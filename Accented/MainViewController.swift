@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MainViewController: UINavigationController, DrawerGestureControllerDelegate {
+class MainViewController: UINavigationController, DrawerOpenGestureControllerDelegate {
 
     private var rightDrawerSize : CGSize
-    private var rightDrawerGestureController : DrawerGestureController?
+    private var rightDrawerGestureController : DrawerOpenGestureController?
     
     // Theme selector
     private var rightDrawer : ThemeSelectorViewController?
@@ -62,7 +62,7 @@ class MainViewController: UINavigationController, DrawerGestureControllerDelegat
         return UIInterfaceOrientationMask.Portrait
     }
     
-    //MARK: DrawerGestureControllerDelegate
+    //MARK: DrawerOpenGestureControllerDelegate
     
     func drawerAnimationContextForInteractiveGesture() -> DrawerAnimationContext {
         return self.rightDrawerAnimationContext(true)

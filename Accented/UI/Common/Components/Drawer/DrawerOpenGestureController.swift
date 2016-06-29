@@ -1,5 +1,5 @@
 //
-//  DrawerGestureController.swift
+//  DrawerOpenGestureController.swift
 //  Accented
 //
 //  Created by You, Tiangong on 6/16/16.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-protocol DrawerGestureControllerDelegate : NSObjectProtocol {
+protocol DrawerOpenGestureControllerDelegate : NSObjectProtocol {
     func drawerAnimationContextForInteractiveGesture() -> DrawerAnimationContext
 }
 
-class DrawerGestureController: NSObject {
-
+class DrawerOpenGestureController: NSObject {
+    
     private var animationContext : DrawerAnimationContext
     
     private var screenWidth : CGFloat
@@ -21,12 +21,12 @@ class DrawerGestureController: NSObject {
     private var maxHorizontalTranslationPercentage : CGFloat
     private var maxVerticalTranslationPercentage : CGFloat
     
-    weak var delegate : DrawerGestureControllerDelegate?
+    weak var delegate : DrawerOpenGestureControllerDelegate?
     weak private var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
     
     var swipeGesture : UIScreenEdgePanGestureRecognizer!
     
-    required init(animationContext : DrawerAnimationContext, delegate : DrawerGestureControllerDelegate) {
+    required init(animationContext : DrawerAnimationContext, delegate : DrawerOpenGestureControllerDelegate) {
         self.animationContext = animationContext
         self.screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
         self.screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
@@ -109,7 +109,7 @@ class DrawerGestureController: NSObject {
             oppositeDirection = (velocity.y > 0)
             travelDist = abs(gesture.translationInView(gesture.view).y)
         }
-
+        
         // If the velocity is on the opposite direction, dismiss the menu if the travel distance exceeds the threshold
         if oppositeDirection && travelDist >= animationContext.configurations.cancelTriggeringTranslation {
             interactiveOpenAnimator?.cancelInteractiveTransition()

@@ -16,6 +16,9 @@ class DrawerAnimationContext: NSObject {
     // Weak reference to the host view controller
     weak var container : UIViewController?
     
+    // Weak reference to the background view
+    weak var backgroundView : UIView?
+    
     // Strong reference to the content view controller
     var content : UIViewController
     

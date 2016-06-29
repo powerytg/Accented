@@ -28,11 +28,15 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     // Interactive close animator
     var interactiveDismissAnimator : DrawerDismissAnimator?
 
+    // Dismissal gesture controller
+    private var dismissGestureController : DrawerDismissGestureController?
+    
     required init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
         super.init(presentedViewController: animationContext.content, presentingViewController: animationContext.container!)
         
         animationContext.presentationController = self
+        animationContext.backgroundView = curtainView
         
         // Animators
         self.openAnimator = DrawerOpenAnimator(animationContext : animationContext)
@@ -95,10 +99,9 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
             // This is important as the interactive should only be set after a gesture detection
             animationContext.interactive = false
             
-            // Events
-            let curtainTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnCurtainView(_:)))
-            curtainView.addGestureRecognizer(curtainTap)
-
+            // Install dismissal gestures
+            dismissGestureController = DrawerDismissGestureController(animationContext: animationContext)
+            dismissGestureController!.installDismissalGestures()
         } else {
             curtainView.removeFromSuperview()
         }
@@ -140,13 +143,4 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
         return self
     }
-    
-    //MARK: Events
-    
-    func didTapOnCurtainView(sender : AnyObject) {
-        // Because the tap action is never going to be interactive, we need to make sure that we disable the interactive property in the context so that the correct non-interactive dismissal animator will be used
-        animationContext.interactive = false
-        presentedViewController.dismissViewControllerAnimated(true, completion: nil)
-    }
-
 }
