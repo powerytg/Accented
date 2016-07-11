@@ -53,10 +53,18 @@ class PhotoRenderer: UIView {
     func initialize() -> Void {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)
+        
+        // Gestures
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didReceiveTap(_:)))
+        self.addGestureRecognizer(tapGesture)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = self.bounds
+    }
+    
+    @objc private func didReceiveTap(tap :UITapGestureRecognizer) {
+        NavigationService.sharedInstance.navigateToDetailPage()
     }
 }

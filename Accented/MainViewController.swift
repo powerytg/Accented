@@ -29,6 +29,9 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         self.setNavigationBarHidden(true, animated: false)
         
+        // Initialize navigation service
+        NavigationService.sharedInstance.initWithRootNavigationController(self)
+        
         // Events
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
     }
