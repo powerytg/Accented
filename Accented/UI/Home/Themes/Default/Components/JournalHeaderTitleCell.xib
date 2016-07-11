@@ -36,6 +36,13 @@
                         <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjx-Oy-k9Q" customClass="DefaultStreamSelectorView" customModule="Accented" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="267" width="549" height="35"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="7iy-dX-Dmg"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -43,11 +50,14 @@
                 <constraint firstAttribute="trailing" secondItem="HdG-52-OzP" secondAttribute="trailing" id="0Zs-hj-zjI"/>
                 <constraint firstAttribute="trailing" secondItem="e1N-oN-hDX" secondAttribute="trailing" constant="17" id="7Bv-Yo-rFB"/>
                 <constraint firstAttribute="trailing" secondItem="Pqy-p1-DAR" secondAttribute="trailing" constant="17" id="CIm-X2-OBt"/>
+                <constraint firstItem="vjx-Oy-k9Q" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Nk2-uu-1HX"/>
                 <constraint firstItem="e1N-oN-hDX" firstAttribute="top" secondItem="HdG-52-OzP" secondAttribute="bottom" constant="4" id="NlY-Lb-dyC"/>
                 <constraint firstAttribute="trailing" secondItem="eoM-wx-THh" secondAttribute="trailing" constant="16" id="VMK-kT-1e1"/>
                 <constraint firstItem="eoM-wx-THh" firstAttribute="top" secondItem="e1N-oN-hDX" secondAttribute="bottom" constant="2" id="Wtm-5Z-VHk"/>
+                <constraint firstItem="vjx-Oy-k9Q" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="Xcd-4e-vfq"/>
                 <constraint firstItem="Pqy-p1-DAR" firstAttribute="top" secondItem="eoM-wx-THh" secondAttribute="bottom" constant="18" id="g9z-fo-dod"/>
                 <constraint firstItem="HdG-52-OzP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="31" id="oRA-be-Fgi"/>
+                <constraint firstAttribute="bottom" secondItem="vjx-Oy-k9Q" secondAttribute="bottom" id="yv0-KR-nhq"/>
             </constraints>
             <size key="customSize" width="549" height="302"/>
             <connections>
