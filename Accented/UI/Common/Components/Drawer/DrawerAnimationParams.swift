@@ -27,4 +27,8 @@ class DrawerAnimationParams: NSObject {
     
     // If the travel diretion is on the opposite, the transition will be canceled if exceeding this threshold
     var cancelTriggeringTranslation : CGFloat = 20
+    
+    // Tolerance distance before the swipe gesture can trigger the drawer dismissal transition
+    var dismissTriggeringTranslation : CGFloat = 20
+
 }

@@ -47,12 +47,12 @@ class DrawerDismissGestureController: NSObject {
         let tx = gesture.translationInView(gesture.view).x
         let ty = gesture.translationInView(gesture.view).y
         var percentage : CGFloat
-        print(tx)
+        
         switch animationContext.anchor {
         case .Left:
-            percentage = tx / animationContext.drawerSize.width
-        case .Right:
             percentage = -tx / animationContext.drawerSize.width
+        case .Right:
+            percentage = tx / animationContext.drawerSize.width
         case .Bottom:
             percentage = ty / animationContext.drawerSize.height
         }
@@ -68,8 +68,10 @@ class DrawerDismissGestureController: NSObject {
             self.interactiveDismissAnimator = animationContext.presentationController?.interactiveDismissAnimator
         case .Ended:
             self.dismissGestureFinished(gesture)
+            animationContext.interactive = true
         case .Cancelled:
             interactiveDismissAnimator?.cancelInteractiveTransition()
+            animationContext.interactive = false
         case .Changed:
             interactiveDismissAnimator?.updateInteractiveTransition(percentage)
         default: break
@@ -77,35 +79,49 @@ class DrawerDismissGestureController: NSObject {
     }
 
     private func dismissGestureFinished(gesture : UIPanGestureRecognizer) {
-//        let velocity = gesture.velocityInView(gesture.view)
-//        let travelDist : CGFloat
-//        let oppositeDirection : Bool
-//        
-//        switch animationContext.anchor {
-//        case .Left:
-//            oppositeDirection = (velocity.x < 0)
-//            travelDist = abs(gesture.translationInView(gesture.view).x)
-//        case .Right:
-//            oppositeDirection = (velocity.x > 0)
-//            travelDist = abs(gesture.translationInView(gesture.view).x)
-//        case .Bottom:
-//            oppositeDirection = (velocity.y > 0)
-//            travelDist = abs(gesture.translationInView(gesture.view).y)
-//        }
-//        
-//        // If the velocity is on the opposite direction, dismiss the menu if the travel distance exceeds the threshold
-//        if oppositeDirection && travelDist >= animationContext.configurations.cancelTriggeringTranslation {
-//            interactiveOpenAnimator?.cancelInteractiveTransition()
-//        } else if self.isOpeningVelocityAccepted(velocity) {
-//            // If the velocity exceeds threahold, open the menu regardlessly
-//            interactiveOpenAnimator?.finishInteractiveTransition()
-//        } else {
-//            // If the travel distance does not meet the minimal requirement, cancel the animation
-//            if travelDist < animationContext.configurations.openTriggeringTranslation {
-//                interactiveOpenAnimator?.cancelInteractiveTransition()
-//            } else {
-//                interactiveOpenAnimator?.finishInteractiveTransition()
-//            }
-//        }
+        let velocity = gesture.velocityInView(gesture.view)
+        let travelDist : CGFloat
+        let oppositeDirection : Bool
+        
+        switch animationContext.anchor {
+        case .Left:
+            oppositeDirection = (velocity.x > 0)
+            travelDist = abs(gesture.translationInView(gesture.view).x)
+        case .Right:
+            oppositeDirection = (velocity.x < 0)
+            travelDist = abs(gesture.translationInView(gesture.view).x)
+        case .Bottom:
+            oppositeDirection = (velocity.y < 0)
+            travelDist = abs(gesture.translationInView(gesture.view).y)
+        }
+        
+        // If the velocity is on the opposite direction, dismiss the menu if the travel distance exceeds the threshold
+        if oppositeDirection && travelDist >= animationContext.configurations.cancelTriggeringTranslation {
+            interactiveDismissAnimator?.cancelInteractiveTransition()
+        } else if self.isDismissalVelocityAccepted(velocity) {
+            // If the velocity exceeds threahold, open the menu regardlessly
+            interactiveDismissAnimator?.finishInteractiveTransition()
+        } else {
+            // If the travel distance does not meet the minimal requirement, cancel the animation
+            if travelDist < animationContext.configurations.openTriggeringTranslation {
+                interactiveDismissAnimator?.cancelInteractiveTransition()
+            } else {
+                interactiveDismissAnimator?.finishInteractiveTransition()
+            }
+        }
+    }
+    
+    private func isDismissalVelocityAccepted(velocity : CGPoint) -> Bool {
+        var v : CGFloat
+        switch animationContext.anchor {
+        case .Left:
+            v = -velocity.x
+        case .Right:
+            v = velocity.x
+        case .Bottom:
+            v = velocity.y
+        }
+        
+        return v >= animationContext.configurations.dismissTriggeringTranslation
     }
 }
