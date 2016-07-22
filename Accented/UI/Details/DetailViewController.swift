@@ -2,7 +2,7 @@
 //  DetailViewController.swift
 //  Accented
 //
-//  Created by You, Tiangong on 7/11/16.
+//  Created by Tiangong You on 7/21/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
@@ -10,10 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    var photo : PhotoModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {
