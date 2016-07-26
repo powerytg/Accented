@@ -10,11 +10,23 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    var photo : PhotoModel!
+    var photo : PhotoModel
+    var sourceImageView : UIImageView
     
     var sectionViews = [DetailSectionViewBase]()
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    init(photo : PhotoModel, sourceImageView : UIImageView) {
+        self.photo = photo
+        self.sourceImageView = sourceImageView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSections()

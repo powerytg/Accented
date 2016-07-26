@@ -36,7 +36,7 @@ class ThemeManager: NSObject {
     // Singleton instance
     static let sharedInstance = ThemeManager()
     private override init() {
-        theme = journalDarkTheme
+        theme = darkTheme
         themes = [darkTheme, lightTheme, journalDarkTheme, journalLightTheme]
         super.init()
     }
