@@ -65,6 +65,6 @@ class PhotoRenderer: UIView {
     }
     
     @objc private func didReceiveTap(tap :UITapGestureRecognizer) {
-        NavigationService.sharedInstance.navigateToDetailPage(photoModel!)
+        NavigationService.sharedInstance.navigateToDetailPage(photo!, sourceView: imageView)
     }
 }

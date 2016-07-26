@@ -8,12 +8,17 @@
 
 import UIKit
 
-class DetailPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
+class DetailPresentationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    // MARK: UIPresentationController
+    private var fromView : UIView
+    private var toView : UIView
+    private var sourceImageView : UIImageView
     
-    override func presentationTransitionWillBegin() {
-        
+    init(sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : UIViewController) {
+        self.sourceImageView = sourceImageView
+        self.fromView = fromViewController.view
+        self.toView = toViewController.view
+        super.init()
     }
     
     // MARK: UIViewControllerAnimatedTransitioning
@@ -23,29 +28,27 @@ class DetailPresentationController: UIPresentationController, UIViewControllerTr
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+        let containerView = transitionContext.containerView()
         let duration = self.transitionDuration(transitionContext)
         let animationOptions : UIViewAnimationOptions = .CurveEaseOut
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: {
-            toView.transform = CGAffineTransformIdentity
+        
+        // Create a proxy image view
+        let proxyImageView = UIImageView(image: sourceImageView.image)
+        proxyImageView.contentMode = sourceImageView.contentMode
+        let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toView)
+        proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
+        containerView?.addSubview(proxyImageView)
+        
+        // Initially hide the target view controller
+        containerView?.addSubview(toView)
+        toView.alpha = 0
+        
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
+            self?.fromView.alpha = 0
+            
         }) { (finished) in
             let transitionCompleted = !transitionContext.transitionWasCancelled()
             transitionContext.completeTransition(transitionCompleted)
         }
     }
-    
-    //MARK: UIViewControllerTransitioningDelegate
-    
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return self
-    }
-    
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        return self
-    }
-    
 }
