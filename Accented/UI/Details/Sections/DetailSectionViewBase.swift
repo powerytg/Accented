@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailSectionViewBase: UIView {
+class DetailSectionViewBase: UIView, DetailEntranceAnimation {
 
     var photo : PhotoModel
     var maxWidth : CGFloat
@@ -30,6 +30,18 @@ class DetailSectionViewBase: UIView {
     
     func estimatedHeight(width : CGFloat) -> CGFloat {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func entranceAnimationWillBegin() {
+        // Not implemented in the base class
+    }
+    
+    func performEntranceAnimation() {
+        // Not implemented in the base class
+    }
+    
+    func entranceAnimationDidFinish() {
+        // Not implemented in the base class
     }
     
 }

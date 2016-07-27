@@ -23,9 +23,9 @@ class DetailOverviewSectionView: DetailSectionViewBase {
     
     override func initialize() {
         super.initialize()
-        photo.title = "This is a very long and long and long line"
         self.translatesAutoresizingMaskIntoConstraints = false;
         
+        // Title label
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false;
         titleLabel.font = DetailOverviewSectionView.titleFont
@@ -35,19 +35,21 @@ class DetailOverviewSectionView: DetailSectionViewBase {
         titleLabel.lineBreakMode = .ByWordWrapping
         addSubview(titleLabel)
         
+        // Photo view
         photoView = UIImageView()
         photoView.contentMode = .ScaleAspectFill
         photoView.translatesAutoresizingMaskIntoConstraints = false;
         addSubview(photoView)
 
+        // Constaints
         titleLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: DetailOverviewSectionView.titleLabelLeftMargin).active = true
         titleLabel.trailingAnchor.constraintEqualToAnchor(self.trailingAnchor, constant: DetailOverviewSectionView.titleLabelRightMargin).active = true
         titleLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: DetailOverviewSectionView.titleLabelTopMargin).active = true
-        
-        // Calculate photo height
+
+        // Calculate the final destination frame for the photo view
         self.calculatedPhotoHeight = DetailOverviewSectionView.estimatedPhotoViewHeight(photo, width: maxWidth)
-        
-        photoView.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: DetailOverviewSectionView.photoViewTopMargin).active = true
+        let photoViewDestFrame = DetailOverviewSectionView.targetRectForPhotoView(photo)
+        photoView.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: photoViewDestFrame.origin.y).active = true
         photoView.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor).active = true
         photoView.widthAnchor.constraintEqualToConstant(maxWidth).active = true
         photoView.heightAnchor.constraintEqualToConstant(self.calculatedPhotoHeight).active = true
@@ -88,6 +90,31 @@ class DetailOverviewSectionView: DetailSectionViewBase {
         let top = DetailOverviewSectionView.titleLabelTopMargin + titleSize.height + photoViewTopMargin
         
         return CGRectMake(0, top, w, photoHeight)
+    }
+    
+    // MARK: - Animations
+    
+    override func entranceAnimationWillBegin() {
+        super.entranceAnimationWillBegin()
+        titleLabel.alpha = 0
+        titleLabel.transform = CGAffineTransformMakeTranslation(0, -30)
+        
+        // Initially hide the photo view. We'll reveal it after the completion of the entrance animation
+        photoView.alpha = 0
+    }
+    
+    override func performEntranceAnimation() {
+        super.performEntranceAnimation()
+        
+        UIView .addKeyframeWithRelativeStartTime(0, relativeDuration: 1.0, animations: { [weak self] in
+            self?.titleLabel.alpha = 1
+            self?.titleLabel.transform = CGAffineTransformIdentity
+        })
+    }
+    
+    override func entranceAnimationDidFinish() {
+        super.entranceAnimationDidFinish()
+        photoView.alpha = 1
     }
     
 }

@@ -35,7 +35,7 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if operation == .Push && toVC is DetailViewController {
             let detailViewController = toVC as! DetailViewController
-            return DetailPresentationController(photo : detailViewController.photo, sourceImageView: detailViewController.sourceImageView, fromViewController: fromVC, toViewController: toVC)
+            return DetailPresentationController(photo : detailViewController.photo, sourceImageView: detailViewController.sourceImageView, fromViewController: fromVC, toViewController: detailViewController)
         } else {
             return nil
         }

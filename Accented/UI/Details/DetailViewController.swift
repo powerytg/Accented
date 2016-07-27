@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
 
     var photo : PhotoModel
     var sourceImageView : UIImageView
@@ -55,4 +55,29 @@ class DetailViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    // MARK: - Animations
+    
+    func entranceAnimationWillBegin() {
+        for sectionView in sectionViews {
+            sectionView.entranceAnimationWillBegin()
+        }
+    }
+    
+    func performEntranceAnimation() {
+        for sectionView in sectionViews {
+            sectionView.performEntranceAnimation()
+        }
+    }
+    
+    func entranceAnimationDidFinish() {
+        for sectionView in sectionViews {
+            sectionView.entranceAnimationDidFinish()
+        }
+    }
+    
+    func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
+        return DetailOverviewSectionView.targetRectForPhotoView(photo)
+    }
+    
 }

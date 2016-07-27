@@ -14,12 +14,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     private var fromView : UIView
     private var toView : UIView
     private var sourceImageView : UIImageView
+    weak var detailVC : DetailViewController?
     
-    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : UIViewController) {
+    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailViewController) {
         self.photo = photo
         self.sourceImageView = sourceImageView
         self.fromView = fromViewController.view
         self.toView = toViewController.view
+        self.detailVC = toViewController
         super.init()
     }
     
@@ -32,28 +34,37 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
         let duration = self.transitionDuration(transitionContext)
-        let animationOptions : UIViewAnimationOptions = .CurveEaseOut
+        let detailViewController = self.detailVC!
         
+        // Prepare entrance animation
+        containerView?.addSubview(toView)
+        detailVC?.entranceAnimationWillBegin()
+
         // Create a proxy image view
+        let targetPhotoViewRect = detailVC!.desitinationRectForProxyView(photo)
         let proxyImageView = UIImageView(image: sourceImageView.image)
         proxyImageView.contentMode = sourceImageView.contentMode
         let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toView)
         proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
         containerView?.addSubview(proxyImageView)
-        
-        // Calculate the target frame for the photo view
-        let targetPhotoViewRect = DetailOverviewSectionView.targetRectForPhotoView(photo)
-        
-        // Initially hide the target view controller
-        containerView?.addSubview(toView)
-        toView.alpha = 0
-        
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            proxyImageView.frame = targetPhotoViewRect
-            self?.fromView.alpha = 0            
-        }) { (finished) in
-            let transitionCompleted = !transitionContext.transitionWasCancelled()
-            transitionContext.completeTransition(transitionCompleted)
+
+        UIView.animateKeyframesWithDuration(duration, delay: 0, options: [], animations: { [weak self] in
+            
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
+                proxyImageView.frame = targetPhotoViewRect
+                self?.fromView.alpha = 0
+            })
+            
+            // Let the detailVC handle the rest of animation
+            self?.detailVC?.performEntranceAnimation()
+            
+            }) { (finished) in
+                let transitionCompleted = !transitionContext.transitionWasCancelled()
+                transitionContext.completeTransition(transitionCompleted)
+                detailViewController.entranceAnimationDidFinish()
+                
+                // Remove proxy image
+                proxyImageView.removeFromSuperview()
         }
     }
 }

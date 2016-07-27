@@ -99,6 +99,7 @@
 		9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */; };
 		9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F37331D42C6B90090961E /* DetailSectionViewBase.swift */; };
 		9B8F37361D42C7160090961E /* DetailOverviewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F37351D42C7160090961E /* DetailOverviewSectionView.swift */; };
+		9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */; };
 		9B94F9131D243E4200291973 /* DrawerOpenGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B94F9121D243E4200291973 /* DrawerOpenGestureController.swift */; };
 		9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */; };
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
@@ -243,6 +244,7 @@
 		9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewModel.swift; path = Accented/UI/Home/Themes/Default/Components/JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
 		9B8F37331D42C6B90090961E /* DetailSectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSectionViewBase.swift; sourceTree = "<group>"; };
 		9B8F37351D42C7160090961E /* DetailOverviewSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOverviewSectionView.swift; sourceTree = "<group>"; };
+		9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProxyAnimation.swift; sourceTree = "<group>"; };
 		9B94F9121D243E4200291973 /* DrawerOpenGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenGestureController.swift; sourceTree = "<group>"; };
 		9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerDismissGestureController.swift; sourceTree = "<group>"; };
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 			isa = PBXGroup;
 			children = (
 				9B6677051D340DE400B89009 /* DetailPresentationController.swift */,
+				9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -886,6 +889,7 @@
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
+				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,
 				9B3813D61CE011150066D3B9 /* HomeStreamViewController.swift in Sources */,
 				1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */,
 				9BFFB6751D136E4100B178F3 /* DrawerDismissAnimator.swift in Sources */,
