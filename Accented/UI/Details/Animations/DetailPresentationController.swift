@@ -33,7 +33,6 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
-        let duration = self.transitionDuration(transitionContext)
         let detailViewController = self.detailVC!
         
         // Prepare entrance animation
@@ -48,7 +47,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
         containerView?.addSubview(proxyImageView)
 
-        UIView.animateKeyframesWithDuration(duration, delay: 0, options: [], animations: { [weak self] in
+        UIView.animateKeyframesWithDuration(0.4, delay: 0, options: [.CalculationModeCubic], animations: { [weak self] in
             
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
                 proxyImageView.frame = targetPhotoViewRect
