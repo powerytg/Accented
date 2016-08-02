@@ -7,7 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="Accented" customModuleProvider="target">
             <connections>
-                <outlet property="scrollView" destination="fBf-HF-ce7" id="fY6-fC-MBK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,28 +14,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DetailBackground" translatesAutoresizingMaskIntoConstraints="NO" id="jlI-5t-MAM" userLabel="BackgroundView">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBf-HF-ce7">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                </scrollView>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="fBf-HF-ce7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="4eG-mj-s85"/>
-                <constraint firstItem="jlI-5t-MAM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="I8d-1X-7en"/>
-                <constraint firstItem="jlI-5t-MAM" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="edg-Zj-YrH"/>
-                <constraint firstItem="fBf-HF-ce7" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="gnp-D5-zkf"/>
-                <constraint firstItem="fBf-HF-ce7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="rno-A2-qfb"/>
-                <constraint firstItem="jlI-5t-MAM" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="soo-7c-5Rk"/>
-                <constraint firstItem="fBf-HF-ce7" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="xe3-pr-puP"/>
-                <constraint firstItem="jlI-5t-MAM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="yKw-5S-1ui"/>
-            </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="DetailBackground" width="414" height="736"/>
-    </resources>
 </document>

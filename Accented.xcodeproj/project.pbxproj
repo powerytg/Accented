@@ -23,6 +23,7 @@
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
 		187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */; };
 		1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082291D13B08C00FDAAEB /* DrawerAnimationContext.swift */; };
+		1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */; };
 		1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA4F1CEE07D1002109A9 /* JournalBackgroundView.swift */; };
 		1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA531CEE095B002109A9 /* JournalTheme.swift */; };
 		1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA551CEE0974002109A9 /* JournalDarkTheme.swift */; };
@@ -30,6 +31,7 @@
 		1884AA5E1CEFE9BE002109A9 /* JournalPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */; };
+		188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */; };
 		18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB00221D41CCCA00895192 /* DetailViewController.swift */; };
 		18AB00251D41CCCA00895192 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18AB00231D41CCCA00895192 /* DetailViewController.xib */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
@@ -167,6 +169,7 @@
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
 		187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorRenderer.xib; sourceTree = "<group>"; };
 		187082291D13B08C00FDAAEB /* DrawerAnimationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationContext.swift; sourceTree = "<group>"; };
+		1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBackgroundView.swift; sourceTree = "<group>"; };
 		1884AA4F1CEE07D1002109A9 /* JournalBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackgroundView.swift; sourceTree = "<group>"; };
 		1884AA531CEE095B002109A9 /* JournalTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalTheme.swift; sourceTree = "<group>"; };
 		1884AA551CEE0974002109A9 /* JournalDarkTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDarkTheme.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 		1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoCell.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoLayoutSpec.swift; sourceTree = "<group>"; };
+		188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDescriptionSectionView.swift; sourceTree = "<group>"; };
 		18AB00221D41CCCA00895192 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		18AB00231D41CCCA00895192 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,6 +397,14 @@
 				9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */,
 			);
 			path = Drawer;
+			sourceTree = "<group>";
+		};
+		1872E2E21D502CD900F160F1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		1884AA481CEE0542002109A9 /* Journal */ = {
@@ -654,6 +666,7 @@
 		9B6676FD1D34050500B89009 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				1872E2E21D502CD900F160F1 /* Components */,
 				9B9C9A3B1D42845D00B015F4 /* Sections */,
 				9B6677041D340D6300B89009 /* Animations */,
 				18AB00221D41CCCA00895192 /* DetailViewController.swift */,
@@ -684,6 +697,7 @@
 			children = (
 				9B8F37331D42C6B90090961E /* DetailSectionViewBase.swift */,
 				9B8F37351D42C7160090961E /* DetailOverviewSectionView.swift */,
+				188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -888,6 +902,7 @@
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
+				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,
 				9B3813D61CE011150066D3B9 /* HomeStreamViewController.swift in Sources */,
@@ -932,6 +947,7 @@
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
+				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

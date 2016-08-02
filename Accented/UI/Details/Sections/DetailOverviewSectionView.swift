@@ -21,8 +21,8 @@ class DetailOverviewSectionView: DetailSectionViewBase {
     private static let authorLabelLeftMargin : CGFloat = 30
     private static let authorLabelRightMargin : CGFloat = 120
     private static let photoViewTopMargin : CGFloat = 20
-    private static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 42)
-    private static let authorFont = UIFont(name: "HelveticaNeue-Medium", size: 24)
+    private static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 46)
+    private static let authorFont = UIFont(name: "HelveticaNeue-Medium", size: 18)
     
     private var calculatedPhotoHeight : CGFloat!
     
@@ -86,13 +86,10 @@ class DetailOverviewSectionView: DetailSectionViewBase {
     }
     
     override func estimatedHeight(width: CGFloat) -> CGFloat {
-        // Calculate title label
-        let titleSize = NSString(string : photo.title).boundingRectWithSize(CGSizeMake(maxWidth, CGFloat.max),
-                                                                            options: .UsesLineFragmentOrigin,
-                                                                            attributes: [NSFontAttributeName: DetailOverviewSectionView.titleFont!],
-                                                                            context: nil).size
-        
-        return self.calculatedPhotoHeight + titleSize.height + DetailOverviewSectionView.titleLabelTopMargin + DetailOverviewSectionView.photoViewTopMargin
+        // Calculate title and author labels
+        let titleAndAuthorHeight = DetailOverviewSectionView.estimatedTitleAndAuthorLabelSize(photo)
+
+        return titleAndAuthorHeight + self.calculatedPhotoHeight + DetailOverviewSectionView.photoViewTopMargin
     }
     
     private static func estimatedPhotoViewHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {
@@ -100,7 +97,7 @@ class DetailOverviewSectionView: DetailSectionViewBase {
         return width * photoAspectRatio
     }
     
-    static func targetRectForPhotoView(photo : PhotoModel) -> CGRect {
+    private static func estimatedTitleAndAuthorLabelSize(photo : PhotoModel) -> CGFloat {
         let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
         let maxTitleWidth = w - DetailOverviewSectionView.titleLabelLeftMargin - DetailOverviewSectionView.titleLabelRightMargin
         let titleSize = NSString(string : photo.title).boundingRectWithSize(CGSizeMake(maxTitleWidth, CGFloat.max),
@@ -110,12 +107,18 @@ class DetailOverviewSectionView: DetailSectionViewBase {
         
         let maxAuthorWidth = w - DetailOverviewSectionView.authorLabelLeftMargin - DetailOverviewSectionView.authorLabelRightMargin
         let authorSize = NSString(string : photo.firstName).boundingRectWithSize(CGSizeMake(maxAuthorWidth, CGFloat.max),
-                                                                            options: .UsesLineFragmentOrigin,
-                                                                            attributes: [NSFontAttributeName: DetailOverviewSectionView.authorFont!],
-                                                                            context: nil).size
+                                                                                 options: .UsesLineFragmentOrigin,
+                                                                                 attributes: [NSFontAttributeName: DetailOverviewSectionView.authorFont!],
+                                                                                 context: nil).size
 
+        return titleSize.height + DetailOverviewSectionView.titleLabelTopMargin + DetailOverviewSectionView.authorLabelTopMargin + authorSize.height
+    }
+    
+    static func targetRectForPhotoView(photo : PhotoModel) -> CGRect {
+        let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
+        let titleAndAuthorHeight = DetailOverviewSectionView.estimatedTitleAndAuthorLabelSize(photo)
         let photoHeight = estimatedPhotoViewHeight(photo, width: w)
-        let top = DetailOverviewSectionView.titleLabelTopMargin + titleSize.height + authorLabelTopMargin + authorSize.height + photoViewTopMargin
+        let top = titleAndAuthorHeight +  photoViewTopMargin
         
         return CGRectMake(0, top, w, photoHeight)
     }

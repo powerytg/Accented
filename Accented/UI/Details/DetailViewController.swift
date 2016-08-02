@@ -12,14 +12,18 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
 
     var photo : PhotoModel
     var sourceImageView : UIImageView
-    
     var sectionViews = [DetailSectionViewBase]()
+    var entranceAnimationViews = [DetailEntranceAnimation]()
+    var cachedSectionMeasurements = [DetailSectionViewBase : CGRect]()
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    var backgroundView: DetailBackgroundView
+    var scrollView: UIScrollView
     
     init(photo : PhotoModel, sourceImageView : UIImageView) {
         self.photo = photo
         self.sourceImageView = sourceImageView
+        self.backgroundView = DetailBackgroundView(frame: CGRectZero)
+        self.scrollView = UIScrollView(frame: CGRectZero)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,7 +33,13 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.clearColor()
+        
+        self.view.addSubview(backgroundView)
+        self.view.addSubview(scrollView)
+        
         setupSections()
+        setupEntranceAnimationViews()
     }
 
     private func setupSections() {
@@ -38,18 +48,41 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
         
         let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
         sectionViews.append(DetailOverviewSectionView(photo: photo, maxWidth: w))
+        sectionViews.append(DetailDescriptionSectionView(photo: photo, maxWidth: w))
         
         var nextY : CGFloat = 0
         for section in sectionViews {
-            contentView.addSubview(section)
             let sectionHeight = section.estimatedHeight(w)
             let sectionFrame = CGRectMake(0, nextY, w, sectionHeight)
             section.frame = sectionFrame
+            contentView.addSubview(section)
+            
+            // Cache section measurements
+            cachedSectionMeasurements[section] = sectionFrame
             
             nextY += sectionHeight
         }
         
         contentView.frame = CGRectMake(0, 0, w, nextY)
+        scrollView.contentSize = CGSizeMake(w, nextY)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        backgroundView.frame = self.view.bounds
+        scrollView.frame = self.view.bounds
+        
+        for section in sectionViews {
+            section.frame = cachedSectionMeasurements[section]!
+        }
+    }
+    
+    private func setupEntranceAnimationViews() {
+        entranceAnimationViews.append(backgroundView)
+        for section in sectionViews {
+            entranceAnimationViews.append(section)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,20 +92,20 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
     // MARK: - Animations
     
     func entranceAnimationWillBegin() {
-        for sectionView in sectionViews {
-            sectionView.entranceAnimationWillBegin()
+        for view in entranceAnimationViews {
+            view.entranceAnimationWillBegin()
         }
     }
     
     func performEntranceAnimation() {
-        for sectionView in sectionViews {
-            sectionView.performEntranceAnimation()
+        for view in entranceAnimationViews {
+            view.performEntranceAnimation()
         }
     }
     
     func entranceAnimationDidFinish() {
-        for sectionView in sectionViews {
-            sectionView.entranceAnimationDidFinish()
+        for view in entranceAnimationViews {
+            view.entranceAnimationDidFinish()
         }
     }
     
