@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
+class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
 
     // Reference to the data source
     weak var dataSource : DeckViewControllerDataSource? {
@@ -21,14 +21,9 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
             
             // Re-create cache and layout
             if let ds = dataSource {
-                selectedIndex = 0
                 totalCardCount = ds.numberOfCards()
                 cacheController.initializeCache(selectedIndex)
-                contentView.frame = CGRectMake(0, 0, layoutController.contentSize.width, layoutController.contentSize.height)
-                scrollView.contentSize = layoutController.contentSize
-                
-                // Automatically select at index 0
-                selectItemAt(0)
+                updateVisibleCardFrames()
             }
         }
     }
@@ -42,16 +37,18 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
     // Selected index
     private var selectedIndex = 0
     
+    // Previous selected index
+    private var previousSelectedIndex = 0
+    
     // Total number of cards
     private var totalCardCount = 0
     
-    // Scroll view
-    private var scrollView = UIScrollView()
-    
-    // Content view. This is the view that contains all the cards
+    // Content view
     private var contentView = UIView()
     
-    init() {
+    init(initialSelectedIndex : Int = 0) {
+        self.selectedIndex = initialSelectedIndex
+        self.previousSelectedIndex = initialSelectedIndex
         self.cacheController = DeckCacheController()
         self.layoutController = DeckLayoutController()
         super.init(nibName: nil, bundle: nil)
@@ -61,8 +58,9 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
         self.layoutController.delegate = self
         self.cacheController.delegate = self
         
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
+        // Gestures
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didReceivePanGesture(_:)))
+        self.view.addGestureRecognizer(panGesture)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,9 +69,8 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.view.addSubview(scrollView)
-        self.scrollView.addSubview(self.contentView)
+        
+        self.view.addSubview(contentView)
         
         // Update container size for the layout controller
         layoutController.containerSize = self.view.bounds.size
@@ -81,11 +78,6 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        self.scrollView.frame = self.view.bounds
     }
     
     // MARK: - Card management
@@ -117,72 +109,81 @@ class DeckViewController: UIViewController, UIScrollViewDelegate, DeckLayoutCont
         }
     }
     
-    func selectItemAt(index : Int) {
-        selectedIndex = index
-        cacheController.selectItemAt(index)
-        
-        updateVisibleCardFrames()
-        scrollToSelectedCard()
+    // MARK: - Gestures
+    func didReceivePanGesture(gesture : UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .Began:
+            for view in self.contentView.subviews {
+                view.hidden = false
+            }
+        case .Ended:
+            panGestureDidEnd(gesture)
+        case .Changed:
+            panGestureDidChange(gesture)
+        default:
+            // Ignore
+            print("good")
+        }
     }
     
-    private func scrollToSelectedCard() {
-        scrollView.contentOffset = CGPointMake(layoutController.selectedCardFrame.origin.x, 0)
+    private func panGestureDidChange(gesture : UIPanGestureRecognizer) {
+        let tx = gesture.translationInView(gesture.view).x
+        contentView.transform = CGAffineTransformMakeTranslation(tx, 0)
     }
     
-    // MARK: - UIScrollViewDelegate
-    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let currentOffset = scrollView.contentOffset.x
-        let targetOffset = targetContentOffset.memory.x
+    private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {
+        let velocity = gesture.velocityInView(gesture.view).x
         
-        // Calculate the target content offset to allow the scroll view to "snap" to the desire page
-        var targetItemIndex = selectedIndex
-        var targetFrame = layoutController.selectedCardFrame
-        if targetOffset > currentOffset {
-            if targetItemIndex + 1 < self.totalCardCount {
-                targetItemIndex += 1
-                targetFrame = layoutController.rightVisibleCardFrames[0]
+        if velocity > 0 {
+            // Scroll to right
+            if selectedIndex > 0 {
+                selectedIndex -= 1
+                cacheController.scrollToRight()
+                
+                // The previous left 
             }
         } else {
-            if targetItemIndex - 1 >= 0 {
-                targetItemIndex -= 1
-                targetFrame = layoutController.leftVisibleCardFrames[0]
+            // Scroll to left
+            if selectedIndex < totalCardCount - 1 {
+                selectedIndex += 1
+                cacheController.scrollToLeft()
             }
         }
         
-        // Update the selected index
-        self.selectedIndex = targetItemIndex
-        
-        targetContentOffset.memory.x = currentOffset
-        scrollView.setContentOffset(CGPointMake(targetFrame.origin.x, 0), animated: true)
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        cacheController.selectItemAt(selectedIndex)
-        updateVisibleCardFrames()
+        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+            self?.contentView.transform = CGAffineTransformIdentity
+            self?.updateVisibleCardFrames()
+            }) { (completed) in
+                // Ignore
+        }
     }
     
     // MARK: - DeckLayoutControllerDelegate
     
     internal func deckLayoutDidChange() {
         updateVisibleCardFrames()
+        contentView.frame = CGRectMake(0, 0, layoutController.contentSize.width, layoutController.contentSize.height)
     }
     
     // MARK: - DeckCacheControllerDelegate
     
     internal func cardCacheDidChange() {
-        removeAllCards()
-        
         for card in cacheController.leftVisibleCardViewControllers {
-            contentView.addSubview(card.view)
+            if !contentView.subviews.contains(card.view) {
+                contentView.addSubview(card.view)
+            }
         }
         
         if let selectedCard = cacheController.selectedCardViewController {
-            contentView.addSubview(selectedCard.view)
+            if !contentView.subviews.contains(selectedCard.view) {
+                contentView.addSubview(selectedCard.view)
+            }
         }
         
         for card in cacheController.rightVisibleCardViewControllers {
-            contentView.addSubview(card.view)
+            if !contentView.subviews.contains(card.view) {
+                contentView.addSubview(card.view)
+            }
         }
     }
 }

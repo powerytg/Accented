@@ -25,7 +25,7 @@ class DetailCardViewController: DeckViewController, DeckViewControllerDataSource
     // MARK: - DeckViewControllerDataSource
     
     func numberOfCards() -> Int {
-        return 5
+        return 10
     }
     
     func cardForItemIndex(itemIndex: Int) -> CardViewController {
@@ -33,6 +33,10 @@ class DetailCardViewController: DeckViewController, DeckViewControllerDataSource
         if card == nil {
             card = CardViewController()
         }
+        
+        card!.view.backgroundColor = UIColor(red: CGFloat(1.0) / CGFloat(itemIndex + 1), green: 0, blue: 0, alpha: 1)
+        card!.index = itemIndex
+        card!.view.setNeedsLayout()
         
         return card!
     }

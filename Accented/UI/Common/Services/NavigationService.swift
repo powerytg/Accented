@@ -30,7 +30,7 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
 //        detailViewController.sourceImageView = sourceView
 //        rootNavigationController?.pushViewController(detailViewController, animated: true)
         
-        let detailViewController = DetailCardViewController()
+        let detailViewController = DetailCardViewController(initialSelectedIndex: 0)
         rootNavigationController?.pushViewController(detailViewController, animated: true)
     }
     

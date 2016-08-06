@@ -10,10 +10,14 @@ import UIKit
 
 class CardViewController: UIViewController {
 
+    var label : UILabel = UILabel()
+    
+    var index : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = UIColor.redColor()
+        label.textColor = UIColor.whiteColor()
+        self.view.addSubview(label)
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,4 +28,15 @@ class CardViewController: UIViewController {
         // Base class do nothing
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.label.text = String(index)
+        label.sizeToFit()
+        
+        var f = label.frame
+        f.origin.x = 50
+        f.origin.y = 50
+        label.frame = f
+    }
+    
 }

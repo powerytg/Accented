@@ -58,6 +58,9 @@ class DeckLayoutController: NSObject {
     // Cached content size
     private var calculatedContentSize = CGSizeZero
     
+    // Page width
+    var cardWidth : CGFloat = 0
+    
     private func recalculateCardFrames() {
         calculatedContentSize = CGSizeZero
         leftVisibleCardFrames.removeAll()
@@ -68,12 +71,13 @@ class DeckLayoutController: NSObject {
         if let ds = dataSource {
             let w = containerSize.width
             let h = containerSize.height
-            let cardWidth = w - gap - visibleRightChildWidth
+            cardWidth = w - gap - visibleRightChildWidth
             
             // Calculate the current card frame as well as its left and right siblings, regardless whether these siblings exist
-            let leftVisibleFrame = CGRectMake(0, 0, cardWidth, h)
+            selectedCardFrame = CGRectMake(0, 0, cardWidth, h)
+            
+            let leftVisibleFrame = CGRectMake(-w, 0, cardWidth, h)
             leftVisibleCardFrames.append(leftVisibleFrame)
-            selectedCardFrame = CGRectMake(leftVisibleFrame.origin.x + cardWidth + gap, 0, cardWidth, h)
             
             let rightSiblingFrame1 = CGRectMake(selectedCardFrame.origin.x + cardWidth + gap , 0, cardWidth, h)
             rightVisibleCardFrames.append(rightSiblingFrame1)
@@ -81,9 +85,7 @@ class DeckLayoutController: NSObject {
             let rightSiblingFrame2 = CGRectMake(rightSiblingFrame1.origin.x + cardWidth + gap, 0, cardWidth, h)
             rightVisibleCardFrames.append(rightSiblingFrame2)
             
-            let visibleCardCount = min(3, ds.numberOfCards())
-
-            calculatedContentSize = CGSizeMake(CGFloat(visibleCardCount) * w, h)
+            calculatedContentSize = CGSizeMake(CGFloat(ds.numberOfCards()) * w, h)
         }
         
         delegate?.deckLayoutDidChange()
