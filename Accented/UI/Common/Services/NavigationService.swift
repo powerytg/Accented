@@ -25,9 +25,12 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     }
     
     func navigateToDetailPage(photo : PhotoModel, sourceView : UIImageView) {
-        let detailViewController = DetailViewController(photo: photo, sourceImageView: sourceView)
-        detailViewController.photo = photo
-        detailViewController.sourceImageView = sourceView
+//        let detailViewController = DetailViewController(photo: photo, sourceImageView: sourceView)
+//        detailViewController.photo = photo
+//        detailViewController.sourceImageView = sourceView
+//        rootNavigationController?.pushViewController(detailViewController, animated: true)
+        
+        let detailViewController = DetailCardViewController()
         rootNavigationController?.pushViewController(detailViewController, animated: true)
     }
     

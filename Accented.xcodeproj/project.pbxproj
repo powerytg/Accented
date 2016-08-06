@@ -99,6 +99,12 @@
 		9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */; };
 		9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */; };
 		9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */; };
+		9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1111D54FA8D00382744 /* DeckViewController.swift */; };
+		9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1131D54FBAC00382744 /* CardViewController.swift */; };
+		9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B11B1D55017100382744 /* DeckCacheController.swift */; };
+		9B89B11E1D550E1400382744 /* DeckLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B11D1D550E1400382744 /* DeckLayoutController.swift */; };
+		9B89B1201D550F2900382744 /* DeckViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B11F1D550F2900382744 /* DeckViewControllerDataSource.swift */; };
+		9B89B1221D55222A00382744 /* DetailCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1211D55222A00382744 /* DetailCardViewController.swift */; };
 		9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F37331D42C6B90090961E /* DetailSectionViewBase.swift */; };
 		9B8F37361D42C7160090961E /* DetailOverviewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F37351D42C7160090961E /* DetailOverviewSectionView.swift */; };
 		9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */; };
@@ -246,6 +252,12 @@
 		9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalHeaderTitleCell.swift; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.swift; sourceTree = SOURCE_ROOT; };
 		9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JournalHeaderTitleCell.xib; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.xib; sourceTree = SOURCE_ROOT; };
 		9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewModel.swift; path = Accented/UI/Home/Themes/Default/Components/JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		9B89B1111D54FA8D00382744 /* DeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckViewController.swift; sourceTree = "<group>"; };
+		9B89B1131D54FBAC00382744 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		9B89B11B1D55017100382744 /* DeckCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckCacheController.swift; sourceTree = "<group>"; };
+		9B89B11D1D550E1400382744 /* DeckLayoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckLayoutController.swift; sourceTree = "<group>"; };
+		9B89B11F1D550F2900382744 /* DeckViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckViewControllerDataSource.swift; sourceTree = "<group>"; };
+		9B89B1211D55222A00382744 /* DetailCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCardViewController.swift; sourceTree = "<group>"; };
 		9B8F37331D42C6B90090961E /* DetailSectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSectionViewBase.swift; sourceTree = "<group>"; };
 		9B8F37351D42C7160090961E /* DetailOverviewSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOverviewSectionView.swift; sourceTree = "<group>"; };
 		9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProxyAnimation.swift; sourceTree = "<group>"; };
@@ -361,6 +373,7 @@
 		185514A51CD447D900B572CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9B89B10F1D54FA7E00382744 /* Deck */,
 				1870820E1D04B5EF00FDAAEB /* Drawer */,
 				185514A61CD447E600B572CE /* BlurredBackbroundView.swift */,
 				9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */,
@@ -671,6 +684,7 @@
 				9B6677041D340D6300B89009 /* Animations */,
 				18AB00221D41CCCA00895192 /* DetailViewController.swift */,
 				18AB00231D41CCCA00895192 /* DetailViewController.xib */,
+				9B89B1211D55222A00382744 /* DetailCardViewController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -690,6 +704,18 @@
 				9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		9B89B10F1D54FA7E00382744 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				9B89B1111D54FA8D00382744 /* DeckViewController.swift */,
+				9B89B1131D54FBAC00382744 /* CardViewController.swift */,
+				9B89B11B1D55017100382744 /* DeckCacheController.swift */,
+				9B89B11D1D550E1400382744 /* DeckLayoutController.swift */,
+				9B89B11F1D550F2900382744 /* DeckViewControllerDataSource.swift */,
+			);
+			path = Deck;
 			sourceTree = "<group>";
 		};
 		9B9C9A3B1D42845D00B015F4 /* Sections */ = {
@@ -881,7 +907,9 @@
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
+				9B89B1221D55222A00382744 /* DetailCardViewController.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
+				9B89B1201D550F2900382744 /* DeckViewControllerDataSource.swift in Sources */,
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
 				1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */,
 				9B3813CD1CE010770066D3B9 /* HeadlineTemplate.swift in Sources */,
@@ -907,6 +935,7 @@
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,
 				9B3813D61CE011150066D3B9 /* HomeStreamViewController.swift in Sources */,
 				1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */,
+				9B89B11E1D550E1400382744 /* DeckLayoutController.swift in Sources */,
 				9BFFB6751D136E4100B178F3 /* DrawerDismissAnimator.swift in Sources */,
 				9B3813D31CE010770066D3B9 /* StreamLayoutTemplateBase.swift in Sources */,
 				9B3814051CE01EBE0066D3B9 /* DefaultStreamLayout.swift in Sources */,
@@ -934,8 +963,10 @@
 				9B94F9131D243E4200291973 /* DrawerOpenGestureController.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
+				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
+				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
 				182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */,
 				9B3813CC1CE010770066D3B9 /* StreamViewControllerDelegate.swift in Sources */,
 				9B3813B41CE00F610066D3B9 /* LightTheme.swift in Sources */,
@@ -946,6 +977,7 @@
 				9B3813F11CE012180066D3B9 /* DefaultStreamSectionHeaderCell.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
+				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
 			);
