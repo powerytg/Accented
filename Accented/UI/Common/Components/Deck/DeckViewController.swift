@@ -29,10 +29,10 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Cache controller
-    private var cacheController : DeckCacheController
+    var cacheController : DeckCacheController
     
     // Layout controller
-    private var layoutController : DeckLayoutController
+    var layoutController : DeckLayoutController
     
     // Selected index
     private var selectedIndex = 0

@@ -18,8 +18,8 @@ class PhotoModel: NSObject {
     var title : String
     var desc : String?
     var creationDate : NSDate?
-    
-    var firstName : String
+
+    var user : UserModel
     
     init(json:JSON) {
         // Image urls
@@ -48,11 +48,6 @@ class PhotoModel: NSObject {
         creationDate = dateFormatter.dateFromString(createdAt)
         
         // User
-        if let firstNameString = json["user"]["firstname"].string {
-            firstName = firstNameString
-        } else {
-            firstName = ""
-        }
-        
+        user = UserModel(json: json["user"])
     }
 }

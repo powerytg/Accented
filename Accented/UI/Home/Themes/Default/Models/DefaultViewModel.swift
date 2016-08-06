@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DefaultViewModel: StreamViewModel, StreamLayoutDelegate {
+class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDelegate {
     
     // Header navigation cell
     private let headerNavReuseIdentifier = "headerNav"
@@ -105,6 +105,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate {
                 let photo = group[indexPath.item]
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cardRendererReuseIdentifier, forIndexPath: indexPath) as! DefaultStreamPhotoCell
                 cell.photo = photo
+                cell.renderer.delegate = self
                 cell.setNeedsLayout()
                 
                 return cell
@@ -179,6 +180,13 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate {
     func streamHeaderCompressionRatioDidChange(headerCompressionRatio: CGFloat) {
         navCell?.compressionRatio = headerCompressionRatio
         navCell?.setNeedsLayout()
+    }
+    
+    // MARK: - PhotoRendererDelegate
+    
+    func photoRendererDidReceiveTap(renderer: PhotoRenderer) {
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.photos, sourceImageView: renderer.imageView)
+        NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
     
     // MARK: - Events

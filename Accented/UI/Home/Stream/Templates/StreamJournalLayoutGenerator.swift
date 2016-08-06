@@ -67,7 +67,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         nextY += CGRectGetHeight(titleMeasuringLabel.bounds) + JournalPhotoLayoutSpec.titleVPadding
         
         // Measure subtitle
-        subtitleMeasuringLabel.text = photo.firstName
+        subtitleMeasuringLabel.text = photo.user.firstName
         subtitleMeasuringLabel.frame = CGRectMake(0, 0, availableWidth - JournalPhotoLayoutSpec.subtitleHPadding * 2, 0)
         subtitleMeasuringLabel.sizeToFit()
         nextY += CGRectGetHeight(subtitleMeasuringLabel.bounds) + JournalPhotoLayoutSpec.photoVPadding

@@ -8,22 +8,47 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
+class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
 
-    var photo : PhotoModel
-    var sourceImageView : UIImageView
-    var sectionViews = [DetailSectionViewBase]()
-    var entranceAnimationViews = [DetailEntranceAnimation]()
-    var cachedSectionMeasurements = [DetailSectionViewBase : CGRect]()
+    private var photoModel : PhotoModel?
+    var photo : PhotoModel? {
+        get {
+            return photoModel
+        }
+        
+        set(value) {
+            if photoModel != value {
+                photoModel = value
+                
+                if(isViewLoaded()) {
+                    updateSectionViews()
+                }
+            }
+        }
+    }
     
-    var backgroundView: DetailBackgroundView
-    var scrollView: UIScrollView
+    // Source image view from entrance transition
+    private var sourceImageView : UIImageView
     
-    init(photo : PhotoModel, sourceImageView : UIImageView) {
-        self.photo = photo
+    // Sections
+    private var sectionViews = [DetailSectionViewBase]()
+    
+    // All views that would participate entrance animation
+    private var entranceAnimationViews = [DetailEntranceAnimation]()
+    
+    // Cached measurements for all sections
+    private var cachedSectionMeasurements = [DetailSectionViewBase : CGRect]()
+    
+    private var scrollView = UIScrollView()
+    private var contentView = UIView()
+    
+    // Pre-defined width for content
+    // This needs to be specified ahead of time because we need to calculate a few things for a precise entrance animation
+    private var maxWidth : CGFloat
+    
+    init(sourceImageView : UIImageView, maxWidth : CGFloat) {
+        self.maxWidth = maxWidth
         self.sourceImageView = sourceImageView
-        self.backgroundView = DetailBackgroundView(frame: CGRectZero)
-        self.scrollView = UIScrollView(frame: CGRectZero)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -35,51 +60,61 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clearColor()
         
-        self.view.addSubview(backgroundView)
+        // Setup scroll view and content view
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.addSubview(contentView)
         self.view.addSubview(scrollView)
-        
-        setupSections()
+
+        initializeSections()
+        updateSectionViews()
+
+        // Prepare entrance animation
         setupEntranceAnimationViews()
     }
 
-    private func setupSections() {
-        let contentView = UIView()
-        scrollView.addSubview(contentView)
+    private func initializeSections() {
+        sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth))
+        sectionViews.append(DetailPhotoSectionView(maxWidth: maxWidth))
+        sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth))
         
-        let w = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        sectionViews.append(DetailOverviewSectionView(photo: photo, maxWidth: w))
-        sectionViews.append(DetailDescriptionSectionView(photo: photo, maxWidth: w))
+        for section in sectionViews {
+            contentView.addSubview(section)
+        }
+    }
+    
+    private func updateSectionViews() {
+        // Clear all previous measurements
+        cachedSectionMeasurements.removeAll()
         
         var nextY : CGFloat = 0
         for section in sectionViews {
-            let sectionHeight = section.estimatedHeight(w)
-            let sectionFrame = CGRectMake(0, nextY, w, sectionHeight)
-            section.frame = sectionFrame
-            contentView.addSubview(section)
+            section.photo = photo
+            let sectionHeight = section.estimatedHeight(maxWidth)
+            let sectionFrame = CGRectMake(0, nextY, maxWidth, sectionHeight)
             
             // Cache section measurements
             cachedSectionMeasurements[section] = sectionFrame
-            
             nextY += sectionHeight
         }
         
-        contentView.frame = CGRectMake(0, 0, w, nextY)
-        scrollView.contentSize = CGSizeMake(w, nextY)
+        scrollView.contentSize = CGSizeMake(maxWidth, nextY)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        backgroundView.frame = self.view.bounds
         scrollView.frame = self.view.bounds
-        
-        for section in sectionViews {
-            section.frame = cachedSectionMeasurements[section]!
+        contentView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height)
+
+        if cachedSectionMeasurements.count > 0 {
+            // Sections
+            for section in sectionViews {
+                section.frame = cachedSectionMeasurements[section]!
+            }
         }
     }
     
     private func setupEntranceAnimationViews() {
-        entranceAnimationViews.append(backgroundView)
         for section in sectionViews {
             entranceAnimationViews.append(section)
         }
@@ -110,7 +145,9 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation {
     }
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
-        return DetailOverviewSectionView.targetRectForPhotoView(photo)
+//        let maxWidth = CGRectGetWidth(self.view.bounds)
+//        return DetailOverviewSectionView.targetRectForPhotoView(photo, width: maxWidth)
+        return CGRectZero
     }
     
 }

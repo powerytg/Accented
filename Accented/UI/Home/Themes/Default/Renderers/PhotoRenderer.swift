@@ -9,9 +9,14 @@
 import UIKit
 import AlamofireImage
 
+protocol PhotoRendererDelegate : NSObjectProtocol {
+    func photoRendererDidReceiveTap(renderer : PhotoRenderer)
+}
+
 class PhotoRenderer: UIView {
 
     var imageView : UIImageView
+    weak var delegate : PhotoRendererDelegate?
     
     required convenience init(coder aDecoder: NSCoder) {
         self.init()
@@ -65,6 +70,6 @@ class PhotoRenderer: UIView {
     }
     
     @objc private func didReceiveTap(tap :UITapGestureRecognizer) {
-        NavigationService.sharedInstance.navigateToDetailPage(photo!, sourceView: imageView)
+        delegate?.photoRendererDidReceiveTap(self)
     }
 }

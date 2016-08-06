@@ -120,9 +120,11 @@ class DeckCacheController: NSObject {
         rightVisibleCardViewControllers.insert(previousSelectedViewController, atIndex: 0)
         
         // Populate the left siblings
-        if let newLeftSibling = ds?.cardForItemIndex(selectedIndex - 1) {
-            leftVisibleCardViewControllers.append(newLeftSibling)
-            newLeftSibling.view.hidden = true
+        if leftVisibleSiblingCount(selectedIndex) > 0 {
+            if let newLeftSibling = ds?.cardForItemIndex(selectedIndex - 1) {
+                leftVisibleCardViewControllers.append(newLeftSibling)
+                newLeftSibling.view.hidden = true
+            }
         }
         
         delegate?.cardCacheDidChange()

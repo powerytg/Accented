@@ -91,7 +91,7 @@ class JournalPhotoCell: UICollectionViewCell {
         nextY += CGRectGetHeight(titleLabel.frame) + JournalPhotoLayoutSpec.titleVPadding
 
         // Subtitle label
-        subtitleLabel.text = photoModel.firstName
+        subtitleLabel.text = photoModel.user.firstName
         layoutLabel(subtitleLabel, width: w, originY: nextY, padding: JournalPhotoLayoutSpec.subtitleHPadding)
         nextY += CGRectGetHeight(subtitleLabel.frame) + JournalPhotoLayoutSpec.photoVPadding
 

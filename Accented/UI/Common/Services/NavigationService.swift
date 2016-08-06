@@ -30,18 +30,23 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
 //        detailViewController.sourceImageView = sourceView
 //        rootNavigationController?.pushViewController(detailViewController, animated: true)
         
-        let detailViewController = DetailCardViewController(initialSelectedIndex: 0)
-        rootNavigationController?.pushViewController(detailViewController, animated: true)
+//        let detailViewController = DetailGalleryViewController(initialSelectedIndex: 0)
+//        rootNavigationController?.pushViewController(detailViewController, animated: true)
+    }
+
+    func navigateToDetailPage(context : DetailNavigationContext) {
+        let detailVC = DetailGalleryViewController(context: context)
+        rootNavigationController?.pushViewController(detailVC, animated: true)
     }
     
     // MARK: - UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .Push && toVC is DetailViewController {
-            let detailViewController = toVC as! DetailViewController
-            return DetailPresentationController(photo : detailViewController.photo, sourceImageView: detailViewController.sourceImageView, fromViewController: fromVC, toViewController: detailViewController)
-        } else {
-            return nil
-        }
-    }
+//    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        if operation == .Push && toVC is DetailViewController {
+//            let detailViewController = toVC as! DetailViewController
+//            return DetailPresentationController(photo : detailViewController.photo, sourceImageView: detailViewController.sourceImageView, fromViewController: fromVC, toViewController: detailViewController)
+//        } else {
+//            return nil
+//        }
+//    }
     
 }

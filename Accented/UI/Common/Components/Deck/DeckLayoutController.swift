@@ -26,7 +26,7 @@ class DeckLayoutController: NSObject {
     }
     
     // Visible width of the right sibling
-    var visibleRightChildWidth : CGFloat = 40 {
+    var visibleRightChildWidth : CGFloat = 20 {
         didSet {
             recalculateCardFrames()
         }

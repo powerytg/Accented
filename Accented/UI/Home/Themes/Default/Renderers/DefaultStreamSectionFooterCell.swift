@@ -36,7 +36,12 @@ class DefaultStreamSectionFooterCell: UICollectionViewCell {
         if photoGroup != nil {
             var names = [String]()
             for photo in photoGroup! {
-                let trimmedName = photo.firstName.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                if photo.user.firstName == nil && photo.user.fullName == nil {
+                    continue
+                }
+                
+                let name = (photo.user.firstName == nil) ? photo.user.fullName : photo.user.firstName
+                let trimmedName = name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 if trimmedName.characters.count > 0 {
                     names.append(trimmedName.uppercaseString)
                 }
