@@ -145,9 +145,10 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
     }
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
-//        let maxWidth = CGRectGetWidth(self.view.bounds)
-//        return DetailOverviewSectionView.targetRectForPhotoView(photo, width: maxWidth)
-        return CGRectZero
+        let headerSection = sectionViews[0] as! DetailHeaderSectionView
+        var f = DetailPhotoSectionView.targetRectForPhotoView(photo, width: maxWidth)
+        f.origin.y = headerSection.sectionHeight
+        return f
     }
     
 }

@@ -15,6 +15,7 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     
     // Singleton instance
     static let sharedInstance = NavigationService()
+    
     private override init() {
         // Do nothing
     }
@@ -24,29 +25,19 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.delegate = self
     }
     
-    func navigateToDetailPage(photo : PhotoModel, sourceView : UIImageView) {
-//        let detailViewController = DetailViewController(photo: photo, sourceImageView: sourceView)
-//        detailViewController.photo = photo
-//        detailViewController.sourceImageView = sourceView
-//        rootNavigationController?.pushViewController(detailViewController, animated: true)
-        
-//        let detailViewController = DetailGalleryViewController(initialSelectedIndex: 0)
-//        rootNavigationController?.pushViewController(detailViewController, animated: true)
-    }
-
     func navigateToDetailPage(context : DetailNavigationContext) {
         let detailVC = DetailGalleryViewController(context: context)
         rootNavigationController?.pushViewController(detailVC, animated: true)
     }
     
     // MARK: - UINavigationControllerDelegate
-//    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if operation == .Push && toVC is DetailViewController {
-//            let detailViewController = toVC as! DetailViewController
-//            return DetailPresentationController(photo : detailViewController.photo, sourceImageView: detailViewController.sourceImageView, fromViewController: fromVC, toViewController: detailViewController)
-//        } else {
-//            return nil
-//        }
-//    }
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .Push && toVC is DetailGalleryViewController {
+            let galleryViewController = toVC as! DetailGalleryViewController
+            return DetailPresentationController(photo : galleryViewController.initialSelectedPhoto, sourceImageView: galleryViewController.sourceImageView, fromViewController: fromVC, toViewController: galleryViewController)
+        } else {
+            return nil
+        }
+    }
     
 }

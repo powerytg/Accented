@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource {
+class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation {
 
     // Initial selected photo
     var initialSelectedPhoto : PhotoModel
@@ -21,6 +21,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     // Background view
     private var backgroundView = DetailBackgroundView(frame: CGRectZero)
+    
+    // Initial selected view controller
+    private var initialSelectedViewController : DetailViewController!
     
     init(context : DetailNavigationContext) {
         self.sourceImageView = context.sourceImageView
@@ -44,6 +47,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         
         // Setup data source
         self.dataSource = self
+        initialSelectedViewController = cacheController.selectedCardViewController as! DetailViewController
     }
 
     override func viewWillLayoutSubviews() {
@@ -74,4 +78,24 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         return card!
     }
 
+    // MARK: - Animations
+    
+    func entranceAnimationWillBegin() {
+        backgroundView.entranceAnimationWillBegin()
+        initialSelectedViewController.entranceAnimationWillBegin()
+    }
+    
+    func performEntranceAnimation() {
+        backgroundView.performEntranceAnimation()
+        initialSelectedViewController.performEntranceAnimation()
+    }
+    
+    func entranceAnimationDidFinish() {
+        backgroundView.entranceAnimationDidFinish()
+        initialSelectedViewController.entranceAnimationDidFinish()
+    }
+    
+    func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
+        return initialSelectedViewController.desitinationRectForProxyView(photo)
+    }
 }

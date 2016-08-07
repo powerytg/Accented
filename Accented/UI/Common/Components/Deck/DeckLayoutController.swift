@@ -19,14 +19,14 @@ class DeckLayoutController: NSObject {
     weak var delegate : DeckLayoutControllerDelegate?
     
     // Gap between the selected view and its right sibling
-    var gap : CGFloat = 20 {
+    var gap : CGFloat = 10 {
         didSet {
             recalculateCardFrames()
         }
     }
     
     // Visible width of the right sibling
-    var visibleRightChildWidth : CGFloat = 20 {
+    var visibleRightChildWidth : CGFloat = 10 {
         didSet {
             recalculateCardFrames()
         }

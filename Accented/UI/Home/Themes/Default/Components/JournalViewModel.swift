@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
+class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDelegate {
 
     private let headerReuseIdentifier = "journalHeader"
     private let photoRendererReuseIdentifier = "journalPhotoRenderer"
@@ -84,6 +84,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
                 let photo = group[indexPath.item]
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoRendererReuseIdentifier, forIndexPath: indexPath) as! JournalPhotoCell
                 cell.photo = photo
+                cell.photoView.delegate = self
                 cell.setNeedsLayout()
                 
                 return cell
@@ -126,6 +127,13 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate {
         // Ignore
     }
 
+    // MARK: - PhotoRendererDelegate
+    
+    func photoRendererDidReceiveTap(renderer: PhotoRenderer) {
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.photos, sourceImageView: renderer.imageView)
+        NavigationService.sharedInstance.navigateToDetailPage(navContext)
+    }
+    
     // MARK: - Private
     
     private func canLoadMore() -> Bool {

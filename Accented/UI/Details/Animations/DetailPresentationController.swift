@@ -14,14 +14,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     private var fromView : UIView
     private var toView : UIView
     private var sourceImageView : UIImageView
-    weak var detailVC : DetailViewController?
+    weak var galleryVC : DetailGalleryViewController?
     
-    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailViewController) {
+    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailGalleryViewController) {
         self.photo = photo
         self.sourceImageView = sourceImageView
         self.fromView = fromViewController.view
         self.toView = toViewController.view
-        self.detailVC = toViewController
+        self.galleryVC = toViewController
         super.init()
     }
     
@@ -33,14 +33,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
-        let detailViewController = self.detailVC!
+        let galleryViewController = self.galleryVC!
         
         // Prepare entrance animation
         containerView?.addSubview(toView)
-        detailVC?.entranceAnimationWillBegin()
+        galleryViewController.entranceAnimationWillBegin()
 
         // Create a proxy image view
-        let targetPhotoViewRect = detailVC!.desitinationRectForProxyView(photo)
+        let targetPhotoViewRect = galleryViewController.desitinationRectForProxyView(photo)
         let proxyImageView = UIImageView(image: sourceImageView.image)
         proxyImageView.contentMode = sourceImageView.contentMode
         let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toView)
@@ -55,12 +55,12 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
             })
             
             // Let the detailVC handle the rest of animation
-            self?.detailVC?.performEntranceAnimation()
+            self?.galleryVC?.performEntranceAnimation()
             
             }) { (finished) in
                 let transitionCompleted = !transitionContext.transitionWasCancelled()
                 transitionContext.completeTransition(transitionCompleted)
-                detailViewController.entranceAnimationDidFinish()
+                galleryViewController.entranceAnimationDidFinish()
                 
                 // Remove proxy image
                 proxyImageView.removeFromSuperview()

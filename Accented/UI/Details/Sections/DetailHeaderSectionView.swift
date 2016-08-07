@@ -14,7 +14,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     private var authorLabel = UILabel()
 
     // Fixed height
-    private var sectionHeight : CGFloat = 140
+    var sectionHeight : CGFloat = 140
     
     // Fixed avatar size
     private var avatarSize : CGFloat = 40
@@ -79,6 +79,28 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     
     override func estimatedHeight(width : CGFloat) -> CGFloat {
         return sectionHeight
+    }
+    
+    // MARK: - Animations
+    
+    override func entranceAnimationWillBegin() {
+        authorLabel.alpha = 0
+        avatarView.alpha = 0
+        
+        authorLabel.transform = CGAffineTransformMakeTranslation(30, 0)
+        avatarView.transform = CGAffineTransformMakeTranslation(50, 0)
+    }
+    
+    override func performEntranceAnimation() {
+        UIView .addKeyframeWithRelativeStartTime(0.3, relativeDuration: 1, animations: { [weak self] in
+            self?.authorLabel.alpha = 1
+            self?.authorLabel.transform = CGAffineTransformIdentity
+            })
+        
+        UIView .addKeyframeWithRelativeStartTime(0.6, relativeDuration: 1, animations: { [weak self] in
+            self?.avatarView.alpha = 1
+            self?.avatarView.transform = CGAffineTransformIdentity
+            })
     }
     
     // MARK: - Private

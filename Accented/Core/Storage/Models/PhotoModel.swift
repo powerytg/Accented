@@ -43,10 +43,10 @@ class PhotoModel: NSObject {
         
         // Dates
         
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         let createdAt = json["created_at"].string!
         creationDate = dateFormatter.dateFromString(createdAt)
-        
+
         // User
         user = UserModel(json: json["user"])
     }

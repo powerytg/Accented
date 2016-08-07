@@ -14,12 +14,12 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private var dateLabel : UILabel = UILabel()
     private var descLabel : UILabel = UILabel()
     
-    private static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 30)
-    private static let dateFont = UIFont(name: "HelveticaNeue-Medium", size: 16)
-    private static let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 20)
+    private static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
+    private static let dateFont = UIFont(name: "HelveticaNeue", size: 14)
+    private static let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     private static let contentLeftMargin : CGFloat = 15
-    private static let titleLabelTopMargin : CGFloat = 8
+    private static let titleLabelTopMargin : CGFloat = 12
     private static let titleLabelRightMargin : CGFloat = 70
     private static let dateLabelTopMargin : CGFloat = 10
     private static let dateLabelRightMargin : CGFloat = 120
@@ -75,14 +75,14 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         titleLabel.text = photo!.title
         
         if let dateString = DetailDescriptionSectionView.displayDateString(photo!) {
-            descLabel.text = dateString
-            descLabel.hidden = false
+            dateLabel.text = dateString
+            dateLabel.hidden = false
             
             descLabelTopConstraint?.active = false
             descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(dateLabel.bottomAnchor, constant: DetailDescriptionSectionView.descLabelTopMargin)
             descLabelTopConstraint?.active = true
         } else{
-            descLabel.hidden = true
+            dateLabel.hidden = true
             
             descLabelTopConstraint?.active = false
             descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: DetailDescriptionSectionView.descLabelTopMargin)
@@ -159,14 +159,29 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     }
     
     override func entranceAnimationWillBegin() {
-        self.alpha = 0
-        self.transform = CGAffineTransformMakeTranslation(0, 30)
+        titleLabel.alpha = 0
+        dateLabel.alpha = 0
+        descLabel.alpha = 0
+        
+        titleLabel.transform = CGAffineTransformMakeTranslation(0, 30)
+        dateLabel.transform = CGAffineTransformMakeTranslation(0, 30)
+        descLabel.transform = CGAffineTransformMakeTranslation(0, 30)
     }
     
     override func performEntranceAnimation() {
         UIView .addKeyframeWithRelativeStartTime(0.3, relativeDuration: 1, animations: { [weak self] in
-            self?.alpha = 1
-            self?.transform = CGAffineTransformIdentity
-            })
+            self?.titleLabel.alpha = 1
+            self?.titleLabel.transform = CGAffineTransformIdentity
+        })
+        
+        UIView .addKeyframeWithRelativeStartTime(0.5, relativeDuration: 1, animations: { [weak self] in
+            self?.dateLabel.alpha = 1
+            self?.dateLabel.transform = CGAffineTransformIdentity
+        })
+        
+        UIView .addKeyframeWithRelativeStartTime(0.7, relativeDuration: 1, animations: { [weak self] in
+            self?.descLabel.alpha = 1
+            self?.descLabel.transform = CGAffineTransformIdentity
+        })
     }
 }

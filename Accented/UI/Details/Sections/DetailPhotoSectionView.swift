@@ -51,7 +51,7 @@ class DetailPhotoSectionView: DetailSectionViewBase {
         photoView.layer.shadowColor = UIColor.blackColor().CGColor
         photoView.layer.shadowOpacity = 0.5
         photoView.layer.shadowRadius = 5
-        photoView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        photoView.layer.shadowOffset = CGSize(width: 0, height: 0)
         photoView.layer.shadowPath = UIBezierPath(rect: CGRectMake(0, 0, maxWidth, calculatedPhotoHeight)).CGPath
     }
     
@@ -69,7 +69,22 @@ class DetailPhotoSectionView: DetailSectionViewBase {
         let photoAspectRatio = photo.height / photo.width
         return width * photoAspectRatio
     }
+    
+    static func targetRectForPhotoView(photo : PhotoModel, width: CGFloat) -> CGRect {
+        let height = DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: width)
+        return CGRectMake(0, 0, width, height)
+    }
 
+    // MARK: - Animation
+    
+    override func entranceAnimationWillBegin() {
+        photoView.hidden = true
+    }
+    
+    override func entranceAnimationDidFinish() {
+        photoView.hidden = false
+    }
+    
     // MARK: - Private
     
     private func preferredImageUrl() -> NSURL? {
