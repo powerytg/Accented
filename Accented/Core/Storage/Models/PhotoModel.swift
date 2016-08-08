@@ -12,18 +12,17 @@ import SwiftyJSON
 class PhotoModel: NSObject {
     var dateFormatter = NSDateFormatter()
     
-    var imageUrls : [ImageSize : String!]
+    var imageUrls = [ImageSize : String!]()
     var width : CGFloat
     var height: CGFloat
     var title : String
     var desc : String?
     var creationDate : NSDate?
-
+    var tags = [String]()
     var user : UserModel
     
     init(json:JSON) {
         // Image urls
-        imageUrls = [:]
         for (_, imageJson):(String, JSON) in json["images"] {
             // Parse size metadta
             let imageSizeString = String(imageJson["size"].int!)
@@ -42,12 +41,16 @@ class PhotoModel: NSObject {
         desc = json["description"].string
         
         // Dates
-        
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         let createdAt = json["created_at"].string!
         creationDate = dateFormatter.dateFromString(createdAt)
 
         // User
         user = UserModel(json: json["user"])
+        
+        // Tags
+        for (_, tagJSON):(String, JSON) in json["tags"] {
+            tags.append(tagJSON.string!)
+        }
     }
 }

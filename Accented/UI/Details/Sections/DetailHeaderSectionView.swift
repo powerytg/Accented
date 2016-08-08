@@ -35,7 +35,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.contentMode = .ScaleAspectFit
-        addSubview(avatarView)
+        contentView.addSubview(avatarView)
         
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.textColor = UIColor.whiteColor()
@@ -43,13 +43,13 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         authorLabel.preferredMaxLayoutWidth = maxWidth - marginRight
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .ByTruncatingMiddle
-        addSubview(authorLabel)
+        contentView.addSubview(authorLabel)
         
         // Constraints
         avatarView.widthAnchor.constraintEqualToConstant(avatarSize).active = true
         avatarView.heightAnchor.constraintEqualToConstant(avatarSize).active = true
-        avatarView.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: 15).active = true
-        avatarView.bottomAnchor.constraintEqualToAnchor(self.bottomAnchor).active = true
+        avatarView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
+        avatarView.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor).active = true
         
         authorLabel.leadingAnchor.constraintEqualToAnchor(avatarView.trailingAnchor, constant: 15).active = true
         authorLabel.bottomAnchor.constraintEqualToAnchor(self.avatarView.bottomAnchor, constant: -6).active = true

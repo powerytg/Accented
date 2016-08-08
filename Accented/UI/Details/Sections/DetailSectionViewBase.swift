@@ -10,6 +10,7 @@ import UIKit
 
 class DetailSectionViewBase: UIView, DetailEntranceAnimation {
 
+    // Photo model
     var photoModel : PhotoModel?
     var photo : PhotoModel? {
         get {
@@ -24,29 +25,69 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation {
         }
     }
     
+    // Max width for the section
     var maxWidth : CGFloat
-    
-    init(maxWidth : CGFloat) {
-        self.maxWidth = maxWidth
-        super.init(frame : CGRectZero)
-        initialize()
+
+    // Section title
+    var title : String? {
+        return nil
     }
+    
+    var sectionTitleHeight : CGFloat = 45
+    var sectionTitleLabelLeftMargin : CGFloat = 15
+    var sectionTitleLabelTopMargin : CGFloat = 15
+    var sectionTitleLabel = UILabel()
+    
+    // Content view
+    var contentView = UIView()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(maxWidth : CGFloat) {
+        self.maxWidth = maxWidth
+        super.init(frame : CGRectZero)
+        
+        initialize()
+    }
+    
     func initialize() {
-        // Not implemented in base class
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Create a title view if specified
+        if title != nil {
+            addSubview(sectionTitleLabel)
+            sectionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+            sectionTitleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+            sectionTitleLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 14)
+            sectionTitleLabel.text = title
+            
+            sectionTitleLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: sectionTitleLabelTopMargin).active = true
+            sectionTitleLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: sectionTitleLabelLeftMargin).active = true
+            
+            contentView.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: sectionTitleHeight).active = true
+        } else {
+            contentView.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor).active = true
+            contentView.heightAnchor.constraintEqualToAnchor(self.heightAnchor).active = true
+        }
+        
+        contentView.centerXAnchor.constraintEqualToAnchor(self.centerXAnchor).active = true
+        contentView.widthAnchor.constraintEqualToAnchor(self.widthAnchor).active = true
     }
     
     func photoModelDidChange() {
         // Not implemented in base class
     }
     
+    // MARK: - Measurements
+    
     func estimatedHeight(width : CGFloat) -> CGFloat {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Animations
     
     func entranceAnimationWillBegin() {
         // Not implemented in the base class

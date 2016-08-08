@@ -153,8 +153,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
-            }) { (completed) in
-                // Ignore
+            }) { [weak self] (completed) in
+                self?.dataSource?.selectedIndexDidChange()
         }
     }
     

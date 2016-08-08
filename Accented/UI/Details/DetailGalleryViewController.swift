@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation {
+class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation, DetailViewControllerDelegate {
 
     // Initial selected photo
     var initialSelectedPhoto : PhotoModel
@@ -20,7 +20,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     var sourceImageView : UIImageView
     
     // Background view
-    private var backgroundView = DetailBackgroundView(frame: CGRectZero)
+    private var backgroundView : DetailBackgroundView!
     
     // Initial selected view controller
     private var initialSelectedViewController : DetailViewController!
@@ -43,6 +43,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
 
         // Background view
         self.automaticallyAdjustsScrollViewInsets = false
+        backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, atIndex: 0)
         
         // Setup data source
@@ -74,14 +75,19 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         }
         
         card!.photo = photoCollection[itemIndex]
+        card!.delegate = self
         
         return card!
+    }
+    
+    func selectedIndexDidChange() {
+        backgroundView.resetScrollingAnimation()
     }
 
     // MARK: - Animations
     
     func entranceAnimationWillBegin() {
-        backgroundView.entranceAnimationWillBegin()
+        backgroundView.entranceAnimationWillBegin()        
         initialSelectedViewController.entranceAnimationWillBegin()
     }
     
@@ -97,5 +103,11 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
+    }
+    
+    // MARK: - DetailViewControllerDelegate
+    
+    func detailViewDidScroll(offset: CGPoint, contentSize: CGSize) {
+        backgroundView.applyScrollingAnimation(offset, contentSize: contentSize)
     }
 }

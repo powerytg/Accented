@@ -8,8 +8,15 @@
 
 import UIKit
 
-class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
+protocol DetailViewControllerDelegate : NSObjectProtocol {
+    func detailViewDidScroll(offset : CGPoint, contentSize : CGSize)
+}
 
+class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UIScrollViewDelegate {
+
+    // Delegate
+    weak var delegate : DetailViewControllerDelegate?
+    
     private var photoModel : PhotoModel?
     var photo : PhotoModel? {
         get {
@@ -21,6 +28,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
                 photoModel = value
                 
                 if(isViewLoaded()) {
+                    scrollView.contentOffset = CGPointZero
                     updateSectionViews()
                 }
             }
@@ -62,6 +70,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
         
         // Setup scroll view and content view
         scrollView.showsVerticalScrollIndicator = false
+        scrollView.delegate = self
         scrollView.addSubview(contentView)
         self.view.addSubview(scrollView)
 
@@ -76,6 +85,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
         sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailPhotoSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth))
+        sectionViews.append(DetailTagSectionView(maxWidth: maxWidth))
         
         for section in sectionViews {
             contentView.addSubview(section)
@@ -149,6 +159,12 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation {
         var f = DetailPhotoSectionView.targetRectForPhotoView(photo, width: maxWidth)
         f.origin.y = headerSection.sectionHeight
         return f
+    }
+
+    // MARK : - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
     }
     
 }

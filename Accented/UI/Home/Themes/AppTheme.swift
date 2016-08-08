@@ -58,6 +58,11 @@ class AppTheme: NSObject {
         return UIColor.whiteColor()
     }
 
+    // Description text color
+    var descTextColor : UIColor {
+        return UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)
+    }
+
     // Footer text color
     var footerTextColor : UIColor {
         return UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)

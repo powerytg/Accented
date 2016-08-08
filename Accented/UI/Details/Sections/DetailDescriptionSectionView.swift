@@ -1,5 +1,5 @@
 //
-//  DetailDescriptionSectionView.swift
+//  swift
 //  Accented
 //
 //  Created by Tiangong You on 8/1/16.
@@ -14,17 +14,17 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private var dateLabel : UILabel = UILabel()
     private var descLabel : UILabel = UILabel()
     
-    private static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
-    private static let dateFont = UIFont(name: "HelveticaNeue", size: 14)
-    private static let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
+    private let dateFont = UIFont(name: "HelveticaNeue", size: 14)
+    private let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
-    private static let contentLeftMargin : CGFloat = 15
-    private static let titleLabelTopMargin : CGFloat = 12
-    private static let titleLabelRightMargin : CGFloat = 70
-    private static let dateLabelTopMargin : CGFloat = 10
-    private static let dateLabelRightMargin : CGFloat = 120
-    private static let descLabelTopMargin : CGFloat = 10
-    private static let descLabelRightMargin : CGFloat = 30
+    private let contentLeftMargin : CGFloat = 15
+    private let titleLabelTopMargin : CGFloat = 12
+    private let titleLabelRightMargin : CGFloat = 70
+    private let dateLabelTopMargin : CGFloat = 10
+    private let dateLabelRightMargin : CGFloat = 120
+    private let descLabelTopMargin : CGFloat = 10
+    private let descLabelRightMargin : CGFloat = 30
 
     private var calculatedSectionHeight : CGFloat = 0
     
@@ -36,35 +36,35 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         
         // Title label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = DetailDescriptionSectionView.titleFont
+        titleLabel.font = titleFont
         titleLabel.textColor = UIColor.whiteColor()
-        titleLabel.preferredMaxLayoutWidth = maxWidth - DetailDescriptionSectionView.contentLeftMargin - DetailDescriptionSectionView.titleLabelRightMargin
+        titleLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - titleLabelRightMargin
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .ByWordWrapping
-        addSubview(titleLabel)
+        contentView.addSubview(titleLabel)
 
         // Date label
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.font = DetailDescriptionSectionView.dateFont
+        dateLabel.font = dateFont
         dateLabel.textColor = UIColor.whiteColor()
-        dateLabel.preferredMaxLayoutWidth = maxWidth - DetailDescriptionSectionView.contentLeftMargin - DetailDescriptionSectionView.dateLabelRightMargin
-        addSubview(dateLabel)
+        dateLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - dateLabelRightMargin
+        contentView.addSubview(dateLabel)
         
         // Desc label
         descLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.font = DetailDescriptionSectionView.descFont
+        descLabel.font = descFont
         descLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
-        descLabel.preferredMaxLayoutWidth = maxWidth - DetailDescriptionSectionView.contentLeftMargin - DetailDescriptionSectionView.descLabelRightMargin
+        descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .ByWordWrapping
-        addSubview(descLabel)
+        contentView.addSubview(descLabel)
         
         // Constaints
-        titleLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: DetailDescriptionSectionView.contentLeftMargin).active = true
-        titleLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: DetailDescriptionSectionView.titleLabelTopMargin).active = true
+        titleLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
+        titleLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: titleLabelTopMargin).active = true
         
         dateLabel.leadingAnchor.constraintEqualToAnchor(titleLabel.leadingAnchor).active = true
-        dateLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: DetailDescriptionSectionView.dateLabelTopMargin).active = true
+        dateLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: dateLabelTopMargin).active = true
 
         descLabel.leadingAnchor.constraintEqualToAnchor(titleLabel.leadingAnchor).active = true
     }
@@ -74,49 +74,49 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         
         titleLabel.text = photo!.title
         
-        if let dateString = DetailDescriptionSectionView.displayDateString(photo!) {
+        if let dateString = displayDateString(photo!) {
             dateLabel.text = dateString
             dateLabel.hidden = false
             
             descLabelTopConstraint?.active = false
-            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(dateLabel.bottomAnchor, constant: DetailDescriptionSectionView.descLabelTopMargin)
+            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(dateLabel.bottomAnchor, constant: descLabelTopMargin)
             descLabelTopConstraint?.active = true
         } else{
             dateLabel.hidden = true
             
             descLabelTopConstraint?.active = false
-            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: DetailDescriptionSectionView.descLabelTopMargin)
+            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: descLabelTopMargin)
             descLabelTopConstraint?.active = true
         }
         
         descLabel.text = photo!.desc
         
         // Calculate the cache estimated section height
-        calculatedSectionHeight = DetailDescriptionSectionView.estimatedSectionHeight(photo!, width: maxWidth)
+        calculatedSectionHeight = estimatedSectionHeight(photo!, width: maxWidth)
         
         setNeedsUpdateConstraints()
     }
     
     // MARK: - Measurments
     
-    private static func estimatedSectionHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {
+    private func estimatedSectionHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {
         // Title
-        let maxTitleWidth = width - DetailDescriptionSectionView.contentLeftMargin - DetailDescriptionSectionView.titleLabelRightMargin
+        let maxTitleWidth = width - contentLeftMargin - titleLabelRightMargin
         var titleHeight = NSString(string : photo.title).boundingRectWithSize(CGSizeMake(maxTitleWidth, CGFloat.max),
                                                                             options: .UsesLineFragmentOrigin,
-                                                                            attributes: [NSFontAttributeName: DetailDescriptionSectionView.titleFont!],
+                                                                            attributes: [NSFontAttributeName: titleFont!],
                                                                             context: nil).size.height
-        titleHeight += DetailDescriptionSectionView.titleLabelTopMargin
+        titleHeight += titleLabelTopMargin
         
         // Date
         var dateHeight : CGFloat = 0
-        if let date = DetailDescriptionSectionView.displayDateString(photo) {
-            let maxDateWidth = width - DetailDescriptionSectionView.contentLeftMargin - DetailDescriptionSectionView.dateLabelRightMargin
+        if let date = displayDateString(photo) {
+            let maxDateWidth = width - contentLeftMargin - dateLabelRightMargin
             dateHeight = NSString(string : date).boundingRectWithSize(CGSizeMake(maxDateWidth, CGFloat.max),
                                                                               options: .UsesLineFragmentOrigin,
-                                                                              attributes: [NSFontAttributeName: DetailDescriptionSectionView.dateFont!],
+                                                                              attributes: [NSFontAttributeName: dateFont!],
                                                                               context: nil).size.height
-            dateHeight += DetailDescriptionSectionView.dateLabelTopMargin
+            dateHeight += dateLabelTopMargin
         } else {
             dateHeight = 0
         }
@@ -125,11 +125,12 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         // Descriptions
         var descHeight : CGFloat = 0
         if let desc = photo.desc {
-            descHeight = NSString(string : desc).boundingRectWithSize(CGSizeMake(width, CGFloat.max),
+            let maxDescWidth = width - contentLeftMargin - descLabelRightMargin
+            descHeight = NSString(string : desc).boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
                                                                               options: .UsesLineFragmentOrigin,
-                                                                              attributes: [NSFontAttributeName: DetailDescriptionSectionView.descFont!],
+                                                                              attributes: [NSFontAttributeName: descFont!],
                                                                               context: nil).size.height
-            descHeight += DetailDescriptionSectionView.descLabelTopMargin
+            descHeight += descLabelTopMargin
         } else {
             descHeight = 0
         }
@@ -147,7 +148,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     // MARK: - Private
     
-    private static func displayDateString(photo : PhotoModel) -> String? {
+    private func displayDateString(photo : PhotoModel) -> String? {
         if photo.creationDate == nil {
             return nil
         }

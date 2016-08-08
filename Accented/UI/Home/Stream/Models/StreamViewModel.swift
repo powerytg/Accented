@@ -105,7 +105,8 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         
         streamState.loading = true
         let page = stream.photos.count / StorageService.pageSize + 1
-        APIService.sharedInstance.getPhotos(stream.streamType, page: page, parameters: [:], success: nil, failure: { [weak self] (errorMessage) in
+        let params = ["tags" : "1"]
+        APIService.sharedInstance.getPhotos(stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
             self?.streamFailedLoading(errorMessage)
         })
     }

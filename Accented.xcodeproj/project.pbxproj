@@ -38,6 +38,7 @@
 		18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */; };
 		18BD57241D5667E300376DE8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57231D5667E300376DE8 /* UserModel.swift */; };
 		18BD57261D56772A00376DE8 /* DetailPhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57251D56772A00376DE8 /* DetailPhotoSectionView.swift */; };
+		18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57271D57A02500376DE8 /* DetailTagSectionView.swift */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A21CE00DF30066D3B9 /* AppTheme.swift */; };
 		9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A71CE00DF30066D3B9 /* ThemeManager.swift */; };
@@ -192,6 +193,7 @@
 		18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderSectionView.swift; sourceTree = "<group>"; };
 		18BD57231D5667E300376DE8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		18BD57251D56772A00376DE8 /* DetailPhotoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotoSectionView.swift; sourceTree = "<group>"; };
+		18BD57271D57A02500376DE8 /* DetailTagSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionView.swift; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B3813A21CE00DF30066D3B9 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 				188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */,
 				18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */,
 				18BD57251D56772A00376DE8 /* DetailPhotoSectionView.swift */,
+				18BD57271D57A02500376DE8 /* DetailTagSectionView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -973,6 +976,7 @@
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
+				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
 				182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */,
