@@ -18,6 +18,11 @@ class PhotoModel: NSObject {
     var title : String
     var desc : String?
     var creationDate : NSDate?
+    var lens : String?
+    var camera : String?
+    var aperture : String?
+    var longitude : Double?
+    var latitude : Double?
     var tags = [String]()
     var user : UserModel
     
@@ -45,6 +50,15 @@ class PhotoModel: NSObject {
         let createdAt = json["created_at"].string!
         creationDate = dateFormatter.dateFromString(createdAt)
 
+        // EXIF
+        camera = json["camera"].string
+        lens = json["lens"].string
+        aperture = json["aperture"].string
+        
+        // Geolocation
+        longitude = json["longitude"].double
+        latitude = json["latitude"].double
+        
         // User
         user = UserModel(json: json["user"])
         

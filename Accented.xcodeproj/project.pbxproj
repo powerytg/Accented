@@ -18,6 +18,8 @@
 		184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06901CBB11C3008A1E37 /* MainViewController.swift */; };
 		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
+		186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */; };
+		186AF5571D5836C300A9928F /* DetailEndingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -173,6 +175,8 @@
 		184C06901CBB11C3008A1E37 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
+		186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMetadataSectionView.swift; sourceTree = "<group>"; };
+		186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEndingSectionView.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -733,6 +737,8 @@
 				18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */,
 				18BD57251D56772A00376DE8 /* DetailPhotoSectionView.swift */,
 				18BD57271D57A02500376DE8 /* DetailTagSectionView.swift */,
+				186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */,
+				186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -991,7 +997,9 @@
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
 				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
+				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
+				186AF5571D5836C300A9928F /* DetailEndingSectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

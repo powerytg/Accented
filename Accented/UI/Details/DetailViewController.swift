@@ -85,7 +85,9 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailPhotoSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth))
+        sectionViews.append(DetailMetadataSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailTagSectionView(maxWidth: maxWidth))
+        sectionViews.append(DetailEndingSectionView(maxWidth: maxWidth))
         
         for section in sectionViews {
             contentView.addSubview(section)
