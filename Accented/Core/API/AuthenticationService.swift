@@ -70,6 +70,7 @@ class AuthenticationService: NSObject {
                 success(credentials: credential)
             },
             failure: { error in
+                print("Auth error: " + error.localizedDescription)
                 failure(error: error)
             }
         )

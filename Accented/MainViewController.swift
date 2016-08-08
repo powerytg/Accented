@@ -46,6 +46,8 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         // Retrieve OAuth tokens. If the tokens are absent, promote sign in screen
         let authService = AuthenticationService.sharedInstance
         if !authService.retrieveStoredOAuthTokens() {
+            print("Tokens not found")
+            
             // Show the sign in screen
             let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
             self.presentViewController(greetingsViewController, animated: false, completion: nil)

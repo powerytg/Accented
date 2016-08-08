@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import TTTAttributedLabel
 
 class DetailDescriptionSectionView: DetailSectionViewBase {
 
-    private var titleLabel : UILabel = UILabel()
-    private var dateLabel : UILabel = UILabel()
-    private var descLabel : UILabel = UILabel()
+    private var titleLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var descLabel = TTTAttributedLabel(frame: CGRectZero)
     
     private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
     private let dateFont = UIFont(name: "HelveticaNeue", size: 14)
     private let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    private let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
     
     private let contentLeftMargin : CGFloat = 15
     private let titleLabelTopMargin : CGFloat = 12
@@ -27,6 +29,9 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private let descLabelRightMargin : CGFloat = 30
 
     private var calculatedSectionHeight : CGFloat = 0
+    
+    // Formatted desc string as HMTL text. If failed to parse HTML this would be nil
+    private var formattedDescString : NSAttributedString?
     
     // Constraints
     private var descLabelTopConstraint : NSLayoutConstraint?
@@ -57,6 +62,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .ByWordWrapping
+        descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleNone.rawValue]
         contentView.addSubview(descLabel)
         
         // Constaints
@@ -89,7 +95,12 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             descLabelTopConstraint?.active = true
         }
         
-        descLabel.text = photo!.desc
+        self.formattedDescString = getFormattedDescriptionString()
+        if let formattedDesc = self.formattedDescString {
+            descLabel.setText(formattedDesc)
+        } else {
+            descLabel.text = photo!.desc
+        }
         
         // Calculate the cache estimated section height
         calculatedSectionHeight = estimatedSectionHeight(photo!, width: maxWidth)
@@ -126,10 +137,19 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         var descHeight : CGFloat = 0
         if let desc = photo.desc {
             let maxDescWidth = width - contentLeftMargin - descLabelRightMargin
-            descHeight = NSString(string : desc).boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
-                                                                              options: .UsesLineFragmentOrigin,
-                                                                              attributes: [NSFontAttributeName: descFont!],
-                                                                              context: nil).size.height
+            if self.formattedDescString != nil {
+                // Calculate HTML string height
+                descHeight = formattedDescString!.boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
+                                                                       options: .UsesLineFragmentOrigin,
+                                                                       context: nil).size.height
+            } else {
+                // Calculate plain string height
+                descHeight = NSString(string : desc).boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
+                                                                          options: .UsesLineFragmentOrigin,
+                                                                          attributes: [NSFontAttributeName: descFont!],
+                                                                          context: nil).size.height
+            }
+            
             descHeight += descLabelTopMargin
         } else {
             descHeight = 0
@@ -147,6 +167,23 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     }
     
     // MARK: - Private
+    
+    private func getFormattedDescriptionString() -> NSAttributedString? {
+        guard photo != nil else { return nil }
+        guard let desc = photo!.desc else { return nil }
+        
+        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>", desc) as String
+        guard let data = descStringWithStyles.dataUsingEncoding(NSUTF8StringEncoding) else { return nil }
+        
+        let options : [String : AnyObject] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
+                                              NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding]
+        do {
+            return try NSAttributedString(data: data, options: options, documentAttributes: nil)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+            return  nil
+        }
+    }
     
     private func displayDateString(photo : PhotoModel) -> String? {
         if photo.creationDate == nil {

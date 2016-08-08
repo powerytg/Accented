@@ -119,7 +119,9 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         if cachedSectionMeasurements.count > 0 {
             // Sections
             for section in sectionViews {
-                section.frame = cachedSectionMeasurements[section]!
+                if cachedSectionMeasurements[section] != nil {
+                    section.frame = cachedSectionMeasurements[section]!
+                }                
             }
         }
     }
