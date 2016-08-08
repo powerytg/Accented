@@ -29,6 +29,7 @@ class DeckCacheController: NSObject {
     var selectedCardViewController : CardViewController?
     var leftVisibleCardViewControllers = [CardViewController]()
     var rightVisibleCardViewControllers = [CardViewController]()
+    var visibleCardViewControllers = [CardViewController]()
     
     // Selected index, initially -1
     private var selectedIndex : Int = -1
@@ -63,6 +64,7 @@ class DeckCacheController: NSObject {
             }
         }
         
+        updateVisibleCardViewControllers()
         delegate?.cardCacheDidChange()
     }
 
@@ -127,6 +129,7 @@ class DeckCacheController: NSObject {
             }
         }
         
+        updateVisibleCardViewControllers()
         delegate?.cardCacheDidChange()
     }
 
@@ -165,6 +168,7 @@ class DeckCacheController: NSObject {
             }
         }
         
+        updateVisibleCardViewControllers()
         delegate?.cardCacheDidChange()
     }
 
@@ -178,4 +182,12 @@ class DeckCacheController: NSObject {
         }
     }
     
+    private func updateVisibleCardViewControllers() {
+        guard dataSource != nil else { return }
+        
+        visibleCardViewControllers.removeAll()
+        visibleCardViewControllers += leftVisibleCardViewControllers
+        visibleCardViewControllers.append(selectedCardViewController!)
+        visibleCardViewControllers += rightVisibleCardViewControllers
+    }
 }

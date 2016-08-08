@@ -25,6 +25,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     // Initial selected view controller
     private var initialSelectedViewController : DetailViewController!
     
+    // Back button
+    private var backButton = UIButton(type: .Custom)
+    
     init(context : DetailNavigationContext) {
         self.sourceImageView = context.sourceImageView
         self.initialSelectedPhoto = context.initialSelectedPhoto
@@ -46,6 +49,12 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, atIndex: 0)
         
+        // Back button
+        self.view.addSubview(backButton)
+        backButton.setImage(UIImage(named: "DetailBackButton"), forState: .Normal)
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        backButton.sizeToFit()
+        
         // Setup data source
         self.dataSource = self
         initialSelectedViewController = cacheController.selectedCardViewController as! DetailViewController
@@ -54,6 +63,11 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         backgroundView.frame = self.view.bounds
+        
+        var f = backButton.frame
+        f.origin.x = 10
+        f.origin.y = 30
+        backButton.frame = f
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,6 +75,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         // Dispose of any resources that can be recreated.
     }
     
+    @objc private func backButtonDidTap(sender : UIButton) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
     // MARK: - DeckViewControllerDataSource
     
@@ -79,8 +96,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         
         return card!
     }
-    
-    func selectedIndexDidChange() {
+
+    override func selectedIndexDidChange() {
+        super.selectedIndexDidChange()
         backgroundView.resetScrollingAnimation()
     }
 

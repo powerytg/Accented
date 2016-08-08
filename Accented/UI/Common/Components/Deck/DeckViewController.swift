@@ -92,6 +92,12 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
+    func selectedIndexDidChange() {
+        for card in cacheController.visibleCardViewControllers {
+            card.cardSelectionDidChange(card == cacheController.selectedCardViewController)
+        }
+    }
+    
     private func updateVisibleCardFrames() {
         guard dataSource != nil else { return }
         
@@ -129,6 +135,10 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     private func panGestureDidChange(gesture : UIPanGestureRecognizer) {
         let tx = gesture.translationInView(gesture.view).x
         contentView.transform = CGAffineTransformMakeTranslation(tx, 0)
+        
+        for card in cacheController.visibleCardViewControllers {
+            card.cardDidReceivePanGesture(tx, cardWidth: layoutController.cardWidth)
+        }
     }
     
     private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {
@@ -153,8 +163,13 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
+            
+            for card in (self?.cacheController.visibleCardViewControllers)! {
+                card.performCardTransitionAnimation()
+            }
+            
             }) { [weak self] (completed) in
-                self?.dataSource?.selectedIndexDidChange()
+                self?.selectedIndexDidChange()
         }
     }
     

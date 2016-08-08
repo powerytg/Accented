@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailSectionViewBase: UIView, DetailEntranceAnimation {
+class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
 
     // Photo model
     var photoModel : PhotoModel?
@@ -53,8 +53,11 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation {
     }
     
     func initialize() {
+        self.clipsToBounds = false
+        
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.clipsToBounds = false
         
         // Create a title view if specified
         if title != nil {
@@ -101,4 +104,15 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation {
         // Not implemented in the base class
     }
     
+    func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
+        // Not implemented in the base class
+    }
+    
+    func cardSelectionDidChange(selected: Bool) {
+        // Not implemented in the base class
+    }
+    
+    func performCardTransitionAnimation() {
+        // Not implemented in the base class
+    }
 }

@@ -33,6 +33,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView()
+        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
         let galleryViewController = self.galleryVC!
         
         // Prepare entrance animation
@@ -61,6 +62,9 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
                 let transitionCompleted = !transitionContext.transitionWasCancelled()
                 transitionContext.completeTransition(transitionCompleted)
                 galleryViewController.entranceAnimationDidFinish()
+                
+                // Restore origin view controller
+                fromViewController?.view.alpha = 1
                 
                 // Remove proxy image
                 proxyImageView.removeFromSuperview()

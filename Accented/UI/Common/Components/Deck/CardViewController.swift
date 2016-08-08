@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardViewController: UIViewController {
+class CardViewController: UIViewController, CardAnimation {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,20 @@ class CardViewController: UIViewController {
     }
     
     func prepareForReuse() {
-        // Base class do nothing
+        // Not implemented in base class
     }
 
+    // MARK : - Animation
+    
+    func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
+        // Not implemented in base class
+    }
+    
+    func cardSelectionDidChange(selected: Bool) {
+        // Not implemented in base class
+    }
+    
+    func performCardTransitionAnimation() {
+        // Not implemented in base class
+    }
 }

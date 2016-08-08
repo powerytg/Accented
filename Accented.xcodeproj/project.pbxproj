@@ -20,6 +20,7 @@
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
 		186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */; };
 		186AF5571D5836C300A9928F /* DetailEndingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */; };
+		186AF5591D58497200A9928F /* CardAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5581D58497200A9928F /* CardAnimation.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -177,6 +178,7 @@
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
 		186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMetadataSectionView.swift; sourceTree = "<group>"; };
 		186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEndingSectionView.swift; sourceTree = "<group>"; };
+		186AF5581D58497200A9928F /* CardAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimation.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 				9B89B11B1D55017100382744 /* DeckCacheController.swift */,
 				9B89B11D1D550E1400382744 /* DeckLayoutController.swift */,
 				9B89B11F1D550F2900382744 /* DeckViewControllerDataSource.swift */,
+				186AF5581D58497200A9928F /* CardAnimation.swift */,
 			);
 			path = Deck;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */,
 				9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */,
 				9B3813CF1CE010770066D3B9 /* SideBySideTemplate.swift in Sources */,
+				186AF5591D58497200A9928F /* CardAnimation.swift in Sources */,
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,

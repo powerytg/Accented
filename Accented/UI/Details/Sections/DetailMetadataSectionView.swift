@@ -18,7 +18,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     override var title: String? {
-        return "SHOTTING CONDITIONS"
+        return "EQUIPMENTS"
     }
 
     private var exifLabel = UILabel()

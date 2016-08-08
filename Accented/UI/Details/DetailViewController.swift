@@ -66,9 +66,11 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.clipsToBounds = false
         self.view.backgroundColor = UIColor.clearColor()
         
         // Setup scroll view and content view
+        scrollView.clipsToBounds = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.addSubview(contentView)
@@ -163,6 +165,31 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         var f = DetailPhotoSectionView.targetRectForPhotoView(photo, width: maxWidth)
         f.origin.y = headerSection.sectionHeight
         return f
+    }
+
+    override func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
+        super.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
+        for section in sectionViews {
+            section.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
+        }
+    }
+    
+    override func cardSelectionDidChange(selected: Bool) {
+        super.cardSelectionDidChange(selected)
+        for section in sectionViews {
+            section.cardSelectionDidChange(selected)
+        }
+        
+        // If the card is not selected, reset its scroll offset
+        scrollView.setContentOffset(CGPointZero, animated: true)
+    }
+    
+    override func performCardTransitionAnimation() {
+        super.performCardTransitionAnimation()
+        
+        for section in sectionViews {
+            section.performCardTransitionAnimation()
+        }
     }
 
     // MARK : - UIScrollViewDelegate
