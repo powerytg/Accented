@@ -63,7 +63,7 @@ class DetailTagSectionView: DetailSectionViewBase {
                 let button = UIButton(type: .Custom)
                 button.setTitle(tag, forState: .Normal)
                 button.setTitleColor(UIColor.whiteColor(), forState:.Normal)
-                button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
+                button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Medium", size: 15)
                 button.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
                 button.backgroundColor = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
                 button.layer.cornerRadius = 4

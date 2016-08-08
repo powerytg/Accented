@@ -17,7 +17,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     var sectionHeight : CGFloat = 140
     
     // Fixed avatar size
-    private var avatarSize : CGFloat = 40
+    private var avatarSize : CGFloat = 30
     
     // Margin right
     private var marginRight : CGFloat = 60
@@ -40,19 +40,29 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.textColor = UIColor.whiteColor()
         authorLabel.font = UIFont.systemFontOfSize(16)
+        authorLabel.textAlignment = .Right
         authorLabel.preferredMaxLayoutWidth = maxWidth - marginRight
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .ByTruncatingMiddle
         contentView.addSubview(authorLabel)
         
         // Constraints
+//        avatarView.widthAnchor.constraintEqualToConstant(avatarSize).active = true
+//        avatarView.heightAnchor.constraintEqualToConstant(avatarSize).active = true
+//        avatarView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
+//        avatarView.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor).active = true
+//        
+//        authorLabel.leadingAnchor.constraintEqualToAnchor(avatarView.trailingAnchor, constant: 15).active = true
+//        authorLabel.bottomAnchor.constraintEqualToAnchor(self.avatarView.bottomAnchor, constant: -6).active = true
+        
+        authorLabel.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -2).active = true
+        authorLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 30).active = true
+
         avatarView.widthAnchor.constraintEqualToConstant(avatarSize).active = true
         avatarView.heightAnchor.constraintEqualToConstant(avatarSize).active = true
-        avatarView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
-        avatarView.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor).active = true
-        
-        authorLabel.leadingAnchor.constraintEqualToAnchor(avatarView.trailingAnchor, constant: 15).active = true
-        authorLabel.bottomAnchor.constraintEqualToAnchor(self.avatarView.bottomAnchor, constant: -6).active = true
+        avatarView.trailingAnchor.constraintEqualToAnchor(self.authorLabel.trailingAnchor, constant: 0).active = true
+        avatarView.topAnchor.constraintEqualToAnchor(self.authorLabel.bottomAnchor, constant: 6).active = true
+
     }
     
     override func photoModelDidChange() {
