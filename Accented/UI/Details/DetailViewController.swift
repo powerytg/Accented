@@ -10,6 +10,7 @@ import UIKit
 
 protocol DetailViewControllerDelegate : NSObjectProtocol {
     func detailViewDidScroll(offset : CGPoint, contentSize : CGSize)
+    func didTapOnPhoto(photo : PhotoModel, sourceImageView : UIImageView)
 }
 
 class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UIScrollViewDelegate {
@@ -40,6 +41,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
     
     // Sections
     private var sectionViews = [DetailSectionViewBase]()
+    private var photoSection : DetailPhotoSectionView!
     
     // All views that would participate entrance animation
     private var entranceAnimationViews = [DetailEntranceAnimation]()
@@ -85,7 +87,10 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
 
     private func initializeSections() {
         sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth))
-        sectionViews.append(DetailPhotoSectionView(maxWidth: maxWidth))
+        
+        self.photoSection = DetailPhotoSectionView(maxWidth: maxWidth)
+        sectionViews.append(photoSection)
+
         sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailMetadataSectionView(maxWidth: maxWidth))
         sectionViews.append(DetailTagSectionView(maxWidth: maxWidth))
@@ -94,6 +99,10 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         for section in sectionViews {
             contentView.addSubview(section)
         }
+        
+        // Events
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnPhoto(_:)))
+        photoSection.addGestureRecognizer(tap)
     }
     
     private func updateSectionViews() {
@@ -192,10 +201,16 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         }
     }
 
-    // MARK : - UIScrollViewDelegate
+    // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
+    }
+    
+    // MARK: - Events
+    
+    @objc private func didTapOnPhoto(gesture : UITapGestureRecognizer) {
+        delegate?.didTapOnPhoto(photo!, sourceImageView: photoSection.photoView)
     }
     
 }

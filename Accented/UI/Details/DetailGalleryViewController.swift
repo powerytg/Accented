@@ -72,7 +72,6 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @objc private func backButtonDidTap(sender : UIButton) {
@@ -127,5 +126,16 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     func detailViewDidScroll(offset: CGPoint, contentSize: CGSize) {
         backgroundView.applyScrollingAnimation(offset, contentSize: contentSize)
+    }
+    
+    // MARK: - DetailPhotoSectionViewDelegate
+
+    func didTapOnPhoto(photo: PhotoModel, sourceImageView: UIImageView) {
+        let lightboxViewController = DetailLightBoxViewController(selectedPhoto: photo, photoCollection: photoCollection, sourceImageView: sourceImageView)
+        let transitioningDelegate = DetailLightBoxPresentationController(photo: photo, sourceImageView: sourceImageView)
+        lightboxViewController.modalPresentationStyle = .Custom
+        lightboxViewController.transitioningDelegate = transitioningDelegate
+        
+        self.presentViewController(lightboxViewController, animated: true, completion: nil)
     }
 }

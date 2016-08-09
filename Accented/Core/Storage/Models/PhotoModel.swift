@@ -25,6 +25,7 @@ class PhotoModel: NSObject {
     var latitude : Double?
     var tags = [String]()
     var user : UserModel
+    var comments = [CommentModel]()
     
     init(json:JSON) {
         // Image urls

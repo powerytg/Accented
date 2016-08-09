@@ -10,7 +10,7 @@ import UIKit
 
 class DetailPhotoSectionView: DetailSectionViewBase {
 
-    private var photoView = UIImageView()
+    var photoView = UIImageView()
     private var calculatedPhotoHeight : CGFloat = 0
     private static var leftMargin : CGFloat = 5
     private static var rightMargin : CGFloat = 0
