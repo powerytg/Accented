@@ -35,7 +35,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     var layoutController : DeckLayoutController
     
     // Selected index
-    private var selectedIndex = 0
+    var selectedIndex = 0
     
     // Previous selected index
     private var previousSelectedIndex = 0
@@ -70,6 +70,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Create the content container
         self.view.addSubview(contentView)
         
         // Update container size for the layout controller
@@ -141,24 +142,47 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {
-        let velocity = gesture.velocityInView(gesture.view).x
-        
+        let velocity = gesture.velocityInView(gesture.view).x        
         if velocity > 0 {
-            // Scroll to right
-            if selectedIndex > 0 {
-                selectedIndex -= 1
-                cacheController.scrollToRight()
-                
-                // The previous left 
-            }
+            scrollToRight(true)
         } else {
-            // Scroll to left
-            if selectedIndex < totalCardCount - 1 {
-                selectedIndex += 1
-                cacheController.scrollToLeft()
-            }
+            scrollToLeft(true)
+        }
+    }
+    
+    func scrollToLeft(animated : Bool) {
+        // Scroll to left
+        if selectedIndex < totalCardCount - 1 {
+            selectedIndex += 1
+            cacheController.scrollToLeft()
+        }
+
+        if animated {
+            performScrollingAnimation()
+        } else {
+            self.contentView.transform = CGAffineTransformIdentity
+            self.updateVisibleCardFrames()
+            self.selectedIndexDidChange()
+        }
+    }
+    
+    func scrollToRight(animated : Bool) {
+        // Scroll to right
+        if selectedIndex > 0 {
+            selectedIndex -= 1
+            cacheController.scrollToRight()
         }
         
+        if animated {
+            performScrollingAnimation()
+        } else {
+            self.contentView.transform = CGAffineTransformIdentity
+            self.updateVisibleCardFrames()
+            self.selectedIndexDidChange()
+        }
+    }
+    
+    private func performScrollingAnimation() {
         UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
@@ -167,8 +191,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
                 card.performCardTransitionAnimation()
             }
             
-            }) { [weak self] (completed) in
-                self?.selectedIndexDidChange()
+        }) { [weak self] (completed) in
+            self?.selectedIndexDidChange()
         }
     }
     

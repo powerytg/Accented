@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailLightBoxImageViewController: CardViewController, DetailEntranceProxyAnimation {
+class DetailLightBoxImageViewController: CardViewController {
 
     // Image view
     private var imageView  = UIImageView()
@@ -44,20 +44,8 @@ class DetailLightBoxImageViewController: CardViewController, DetailEntranceProxy
     override func cardSelectionDidChange(selected: Bool) {
         super.cardSelectionDidChange(selected)
     }
-    
-    // MARK: - Animations
-    
-    func entranceAnimationWillBegin() {
-        // Do nothing
-    }
-    
-    func performEntranceAnimation() {
-        // Do nothing
-    }
-    
-    func entranceAnimationDidFinish() {
-        // Do nothing
-    }
+
+    // Entrance animation
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
         return self.view.bounds

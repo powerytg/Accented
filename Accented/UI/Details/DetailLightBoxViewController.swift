@@ -8,6 +8,11 @@
 
 import UIKit
 
+// Event delegate for DeailLightBoxViewController
+protocol DetailLightBoxViewControllerDelegate : NSObjectProtocol {
+    func lightBoxSelectionDidChange(selectedIndex : Int)
+}
+
 class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailLightBoxAnimation {
 
     // Initial selected photo
@@ -21,6 +26,12 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
 
     // Initial size
     private var initialSize : CGSize
+    
+    // Back button
+    private var backButton = UIButton(type: .Custom)
+    
+    // Event delegate
+    weak var delegate : DetailLightBoxViewControllerDelegate?
     
     init(selectedPhoto : PhotoModel, photoCollection : [PhotoModel], initialSize : CGSize) {
         self.initialSize = initialSize
@@ -43,6 +54,12 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         layoutController.visibleRightChildWidth = 0
         layoutController.containerSize = initialSize
         
+        // Back button
+        self.view.addSubview(backButton)
+        backButton.setImage(UIImage(named: "DetailBackButton"), forState: .Normal)
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        backButton.sizeToFit()
+
         // Setup data source
         self.dataSource = self
         initialSelectedViewController = cacheController.selectedCardViewController as! DetailLightBoxImageViewController
@@ -52,13 +69,23 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         super.didReceiveMemoryWarning()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        var f = backButton.frame
+        f.origin.x = 10
+        f.origin.y = 30
+        backButton.frame = f
+    }
+    
+    // MARK: - Orientation
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.All
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)        
         layoutController.containerSize = size        
     }
 
@@ -81,6 +108,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     
     override func selectedIndexDidChange() {
         super.selectedIndexDidChange()
+        delegate?.lightBoxSelectionDidChange(self.selectedIndex)
     }
     
     // MARK: - Lightbox animation
@@ -88,22 +116,25 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     func lightBoxTransitionWillBegin() {
         // Initially hide all the conent
         contentView.hidden = true
-        
-        initialSelectedViewController.entranceAnimationWillBegin()
     }
     
     func lightboxTransitionDidFinish() {
         contentView.hidden = false
-        initialSelectedViewController.entranceAnimationDidFinish()
         self.view.backgroundColor = UIColor.blackColor()
     }
     
     func performLightBoxTransition() {
-        initialSelectedViewController.performEntranceAnimation()
+        // Do nothing
     }
     
     func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
+    }
+    
+    // Events
+    
+    @objc private func backButtonDidTap(sender : UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

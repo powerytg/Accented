@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation, DetailViewControllerDelegate, DetailLightBoxAnimation {
+class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation, DetailViewControllerDelegate, DetailLightBoxAnimation, DetailLightBoxViewControllerDelegate {
 
     // Initial selected photo
     var initialSelectedPhoto : PhotoModel
@@ -96,6 +96,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         guard self.selectedDetailViewController!.photo != nil else { return }
         
         let lightboxViewController = DetailLightBoxViewController(selectedPhoto: selectedDetailViewController!.photo!, photoCollection: photoCollection, initialSize: size)
+        lightboxViewController.delegate = self
         self.presentViewController(lightboxViewController, animated: false, completion: nil)
     }
 
@@ -214,6 +215,19 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         }
     }
 
+    // MARK: - DetailLightBoxViewControllerDelegate
+    
+    func lightBoxSelectionDidChange(selectedIndex: Int) {
+        // Sync self selection with the light box
+        if selectedIndex < self.selectedIndex {
+            scrollToRight(false)
+        } else {
+            scrollToLeft(false)
+        }
+    }
+    
+    // MARK: - Events
+    
     @objc private func backButtonDidTap(sender : UIButton) {
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -224,6 +238,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         let transitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
         lightboxViewController.modalPresentationStyle = .Custom
         lightboxViewController.transitioningDelegate = transitioningDelegate
+        lightboxViewController.delegate = self
         
         self.presentViewController(lightboxViewController, animated: true, completion: nil)
     }
