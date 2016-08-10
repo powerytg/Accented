@@ -64,7 +64,11 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+        if let topVC = visibleViewController {
+            return topVC.supportedInterfaceOrientations()
+        } else {
+            return UIInterfaceOrientationMask.Portrait
+        }
     }
     
     //MARK: DrawerOpenGestureControllerDelegate

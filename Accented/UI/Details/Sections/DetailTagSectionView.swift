@@ -34,9 +34,10 @@ class DetailTagSectionView: DetailSectionViewBase {
         contentView.addSubview(noTagsLabel)
         noTagsLabel.translatesAutoresizingMaskIntoConstraints = false
         noTagsLabel.text = "This photo has no tags"
-        noTagsLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
-        noTagsLabel.centerXAnchor.constraintEqualToAnchor(self.centerXAnchor).active = true
-        noTagsLabel.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor).active = true
+        noTagsLabel.font = descFont
+        noTagsLabel.textColor = descColor
+        noTagsLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
+        noTagsLabel.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
         noTagsLabel.hidden = true
     }
     

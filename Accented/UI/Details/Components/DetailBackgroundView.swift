@@ -96,6 +96,8 @@ class DetailBackgroundView: UIView, DetailEntranceAnimation {
         
         bottomImageView.alpha = 0
         bottomImageView.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(0.8, 0.8), CGAffineTransformMakeTranslation(0, 40))
+        
+        curtainView.alpha = 0
     }
     
     func performEntranceAnimation() {
@@ -126,6 +128,10 @@ class DetailBackgroundView: UIView, DetailEntranceAnimation {
         let animationOptions: UIViewAnimationOptions = .CurveEaseInOut
         let options: UIViewKeyframeAnimationOptions = UIViewKeyframeAnimationOptions(rawValue: animationOptions.rawValue)
         UIView.animateKeyframesWithDuration(0.8, delay: 0, options: options, animations: {
+            
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1, animations: { [weak self] in
+                self?.curtainView.alpha = 1
+            })
             
             UIView.addKeyframeWithRelativeStartTime(0.4, relativeDuration: 1, animations: { [weak self] in
                 self?.bottomImageView.alpha = 1

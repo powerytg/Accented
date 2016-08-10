@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DetailPhotoSectionView: DetailSectionViewBase {
+class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSource, DetailLightBoxAnimation {
 
-    var photoView = UIImageView()
+    private var photoView = UIImageView()
     private var calculatedPhotoHeight : CGFloat = 0
     private static var leftMargin : CGFloat = 5
     private static var rightMargin : CGFloat = 0
@@ -77,7 +77,7 @@ class DetailPhotoSectionView: DetailSectionViewBase {
         return CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, height)
     }
 
-    // MARK: - Animation
+    // MARK: - Entrance Animation
     
     override func entranceAnimationWillBegin() {
         photoView.hidden = true
@@ -85,6 +85,32 @@ class DetailPhotoSectionView: DetailSectionViewBase {
     
     override func entranceAnimationDidFinish() {
         photoView.hidden = false
+    }
+    
+    // MARK: - DetailLightBoxAnimationSource
+    
+    func sourceImageViewForLightBoxTransition() -> UIImageView {
+        return photoView
+    }
+    
+    // MARK: - DetailLightBoxAnimation
+    
+    func lightBoxTransitionWillBegin() {
+        // Hide the photo view
+        photoView.hidden = true
+    }
+    
+    func lightboxTransitionDidFinish() {
+        
+    }
+    
+    func performLightBoxTransition() {
+        photoView.hidden = false
+    }
+    
+    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
+        // No-op
+        return CGRectZero
     }
     
     // MARK: - Private

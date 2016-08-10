@@ -41,6 +41,10 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     // Content view
     var contentView = UIView()
     
+    // Common fonts and colors
+    let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    let descColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

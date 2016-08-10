@@ -8,12 +8,29 @@
 
 import UIKit
 
+// Event delegate for the detail page
 protocol DetailViewControllerDelegate : NSObjectProtocol {
+    
+    // Invoked while the detail page is scrolling. Note that this event will be fired at a very small time interval, similar to UIScrollViewDelegate.scrollViewDidScroll()
     func detailViewDidScroll(offset : CGPoint, contentSize : CGSize)
+    
+    // Invoked when the user has tapped on the main photo view
     func didTapOnPhoto(photo : PhotoModel, sourceImageView : UIImageView)
+    
+    // Invoked when the user has started to pinch / zoom on the main photo view
+    func didStartPinchOnPhoto(photo : PhotoModel, sourceImageView : UIImageView)
+    
+    // Invoked when the user has finished to pinch / zoom on the main photo view
+    func didEndPinchOnPhoto(photo : PhotoModel, sourceImageView : UIImageView)
+    
+    // Invoked when the user is pinching on the main photo view
+    func photoDidReceivePinch(photo : PhotoModel, sourceImageView : UIImageView, gesture : UIPinchGestureRecognizer)
+    
+    // Invoked when the user has canceled pinching on the main photo view
+    func didCancelPinchOnPhoto(photo: PhotoModel, sourceImageView: UIImageView)
 }
 
-class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UIScrollViewDelegate {
+class DetailViewController: CardViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, UIScrollViewDelegate {
 
     // Delegate
     weak var delegate : DetailViewControllerDelegate?
@@ -103,6 +120,9 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         // Events
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnPhoto(_:)))
         photoSection.addGestureRecognizer(tap)
+        
+        let zoom = UIPinchGestureRecognizer(target: self, action: #selector(didPinchOnPhoto(_:)))
+        photoSection.addGestureRecognizer(zoom)
     }
     
     private func updateSectionViews() {
@@ -145,11 +165,19 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         }
     }
     
+    override func performCardTransitionAnimation() {
+        super.performCardTransitionAnimation()
+        
+        for section in sectionViews {
+            section.performCardTransitionAnimation()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK: - Animations
+    // MARK: - Entrance animation
     
     func entranceAnimationWillBegin() {
         for view in entranceAnimationViews {
@@ -176,6 +204,53 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         return f
     }
 
+    // MARK: - Lightbox animation
+    
+    func lightBoxTransitionWillBegin() {
+        photoSection.lightBoxTransitionWillBegin()
+    }
+    
+    func lightboxTransitionDidFinish() {
+        photoSection.lightboxTransitionDidFinish()
+    }
+    
+    func performLightBoxTransition() {
+        photoSection.performLightBoxTransition()
+    }
+    
+    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
+        // No-op
+        return CGRectZero
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
+    }
+    
+    // MARK: - Events
+    
+    @objc private func didTapOnPhoto(gesture : UITapGestureRecognizer) {
+        delegate?.didTapOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+    }
+
+    @objc private func didPinchOnPhoto(gesture : UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .Began:
+            delegate?.didStartPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+        case .Ended:
+            delegate?.didEndPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+        case .Cancelled:
+            delegate?.didCancelPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+        case .Failed:
+            delegate?.didCancelPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+        case .Changed:
+            delegate?.photoDidReceivePinch(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition(), gesture: gesture)
+        default: break
+        }
+    }
+
     override func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
         super.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
         for section in sectionViews {
@@ -192,25 +267,4 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, UI
         // If the card is not selected, reset its scroll offset
         scrollView.setContentOffset(CGPointZero, animated: true)
     }
-    
-    override func performCardTransitionAnimation() {
-        super.performCardTransitionAnimation()
-        
-        for section in sectionViews {
-            section.performCardTransitionAnimation()
-        }
-    }
-
-    // MARK: - UIScrollViewDelegate
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
-    }
-    
-    // MARK: - Events
-    
-    @objc private func didTapOnPhoto(gesture : UITapGestureRecognizer) {
-        delegate?.didTapOnPhoto(photo!, sourceImageView: photoSection.photoView)
-    }
-    
 }

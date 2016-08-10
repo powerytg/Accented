@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailEntranceProxyAnimation {
+class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailLightBoxAnimation {
 
     // Initial selected photo
     var initialSelectedPhoto : PhotoModel
@@ -16,14 +16,14 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     // Photo collection
     var photoCollection = [PhotoModel]()
     
-    // Source image view from entrance transition
-    var sourceImageView : UIImageView
-    
     // Initial selected view controller
     private var initialSelectedViewController : DetailLightBoxImageViewController!
 
-    init(selectedPhoto : PhotoModel, photoCollection : [PhotoModel], sourceImageView : UIImageView) {
-        self.sourceImageView = sourceImageView
+    // Initial size
+    private var initialSize : CGSize
+    
+    init(selectedPhoto : PhotoModel, photoCollection : [PhotoModel], initialSize : CGSize) {
+        self.initialSize = initialSize
         self.initialSelectedPhoto = selectedPhoto
         self.photoCollection = photoCollection
         let initialSelectedIndex = photoCollection.indexOf(initialSelectedPhoto)!
@@ -41,6 +41,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         // Setup layout
         layoutController.gap = 0
         layoutController.visibleRightChildWidth = 0
+        layoutController.containerSize = initialSize
         
         // Setup data source
         self.dataSource = self
@@ -51,6 +52,16 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         super.didReceiveMemoryWarning()
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.All
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        layoutController.containerSize = size        
+    }
+
     // MARK: - DeckViewControllerDataSource
     
     func numberOfCards() -> Int {
@@ -72,22 +83,26 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         super.selectedIndexDidChange()
     }
     
-    // MARK: - Animations
+    // MARK: - Lightbox animation
     
-    func entranceAnimationWillBegin() {
+    func lightBoxTransitionWillBegin() {
+        // Initially hide all the conent
+        contentView.hidden = true
+        
         initialSelectedViewController.entranceAnimationWillBegin()
     }
     
-    func performEntranceAnimation() {
-        initialSelectedViewController.performEntranceAnimation()
-    }
-    
-    func entranceAnimationDidFinish() {
+    func lightboxTransitionDidFinish() {
+        contentView.hidden = false
         initialSelectedViewController.entranceAnimationDidFinish()
         self.view.backgroundColor = UIColor.blackColor()
     }
     
-    func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
+    func performLightBoxTransition() {
+        initialSelectedViewController.performEntranceAnimation()
+    }
+    
+    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
     }
 

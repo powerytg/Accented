@@ -38,10 +38,13 @@ class DetailLightBoxImageViewController: CardViewController, DetailEntranceProxy
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
         imageView.frame = self.view.bounds
     }
 
+    override func cardSelectionDidChange(selected: Bool) {
+        super.cardSelectionDidChange(selected)
+    }
+    
     // MARK: - Animations
     
     func entranceAnimationWillBegin() {

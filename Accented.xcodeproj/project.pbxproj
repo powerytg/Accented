@@ -26,6 +26,8 @@
 		186AF55F1D598C5000A9928F /* DetailLightBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF55E1D598C5000A9928F /* DetailLightBoxViewController.swift */; };
 		186AF5611D598C7D00A9928F /* DetailLightBoxImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5601D598C7D00A9928F /* DetailLightBoxImageViewController.swift */; };
 		186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5621D59905F00A9928F /* DetailLightBoxPresentationController.swift */; };
+		186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5641D5AD54200A9928F /* DetailLightBoxAnimation.swift */; };
+		186AF5671D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -189,6 +191,8 @@
 		186AF55E1D598C5000A9928F /* DetailLightBoxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxViewController.swift; sourceTree = "<group>"; };
 		186AF5601D598C7D00A9928F /* DetailLightBoxImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxImageViewController.swift; sourceTree = "<group>"; };
 		186AF5621D59905F00A9928F /* DetailLightBoxPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxPresentationController.swift; sourceTree = "<group>"; };
+		186AF5641D5AD54200A9928F /* DetailLightBoxAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxAnimation.swift; sourceTree = "<group>"; };
+		186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxAnimationSource.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -729,6 +733,8 @@
 				9B6677051D340DE400B89009 /* DetailPresentationController.swift */,
 				9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */,
 				186AF5621D59905F00A9928F /* DetailLightBoxPresentationController.swift */,
+				186AF5641D5AD54200A9928F /* DetailLightBoxAnimation.swift */,
+				186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -965,6 +971,7 @@
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
+				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,
@@ -1014,6 +1021,7 @@
 				9B3813EC1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.swift in Sources */,
 				1884AA5E1CEFE9BE002109A9 /* JournalPhotoCell.swift in Sources */,
 				9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */,
+				186AF5671D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift in Sources */,
 				9B3813AD1CE00DF30066D3B9 /* ThemeManagerEvents.swift in Sources */,
 				9B3813F11CE012180066D3B9 /* DefaultStreamSectionHeaderCell.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,

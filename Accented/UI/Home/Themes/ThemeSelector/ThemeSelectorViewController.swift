@@ -61,6 +61,10 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
         self.view.layer.shadowOffset = CGSizeMake(-3, 0)
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .Portrait
+    }
+    
     // MARK: UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

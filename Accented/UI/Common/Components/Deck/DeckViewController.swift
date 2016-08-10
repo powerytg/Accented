@@ -44,7 +44,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     private var totalCardCount = 0
     
     // Content view
-    private var contentView = UIView()
+    var contentView = UIView()
     
     init(initialSelectedIndex : Int = 0) {
         self.selectedIndex = initialSelectedIndex
@@ -92,6 +92,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
+    // Invoked when the selected index has changed
     func selectedIndexDidChange() {
         for card in cacheController.visibleCardViewControllers {
             card.cardSelectionDidChange(card == cacheController.selectedCardViewController)
@@ -126,9 +127,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             panGestureDidEnd(gesture)
         case .Changed:
             panGestureDidChange(gesture)
-        default:
-            // Ignore
-            print("good")
+        default: break
         }
     }
     
@@ -176,8 +175,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // MARK: - DeckLayoutControllerDelegate
     
     internal func deckLayoutDidChange() {
-        updateVisibleCardFrames()
         contentView.frame = CGRectMake(0, 0, layoutController.contentSize.width, layoutController.contentSize.height)
+        updateVisibleCardFrames()
     }
     
     // MARK: - DeckCacheControllerDelegate

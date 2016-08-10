@@ -16,8 +16,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private var descLabel = TTTAttributedLabel(frame: CGRectZero)
     
     private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
-    private let dateFont = UIFont(name: "HelveticaNeue", size: 14)
-    private let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    private let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
     private let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
     
     private let contentLeftMargin : CGFloat = 15
@@ -58,7 +57,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         // Desc label
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         descLabel.font = descFont
-        descLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
+        descLabel.textColor = descColor
         descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .ByWordWrapping
