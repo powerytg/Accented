@@ -116,9 +116,9 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     // MARK: - Private
     
     private func preferredImageUrl() -> NSURL? {
-        if let url = photo!.imageUrls[.Large] {
+        if let url = photo!.imageUrls[.Medium] {
             return NSURL(string: url)
-        } else if let url = photo!.imageUrls[.Medium] {
+        } else if let url = photo!.imageUrls[.Large] {
             return NSURL(string: url)
         } else if let url = photo!.imageUrls[.Small] {
             return NSURL(string: url)

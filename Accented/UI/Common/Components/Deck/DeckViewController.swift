@@ -8,8 +8,20 @@
 
 import UIKit
 
+// Cache initializatio policy
+enum DeckViewControllerCacheInitializationPolicy {
+    // The cache will be fully initialized
+    case Default
+    
+    // Only the selected card will be initialized
+    case Deferred
+}
+
 class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
 
+    // Cache initialization policy
+    var cacheInitializationPolicy : DeckViewControllerCacheInitializationPolicy = .Default
+    
     // Reference to the data source
     weak var dataSource : DeckViewControllerDataSource? {
         didSet {
@@ -22,7 +34,13 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             // Re-create cache and layout
             if let ds = dataSource {
                 totalCardCount = ds.numberOfCards()
-                cacheController.initializeCache(selectedIndex)
+                
+                if cacheInitializationPolicy == .Default {
+                    cacheController.initializeCache(selectedIndex)
+                } else {
+                    cacheController.initializeSelectedCard(selectedIndex)
+                }
+                
                 updateVisibleCardFrames()
             }
         }

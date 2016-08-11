@@ -19,7 +19,7 @@ class DetailLightBoxImageViewController: CardViewController {
             if photo == nil {
                 imageView.image = nil
             } else {
-                imageView.af_setImageWithURL(NSURL(string: photo!.imageUrls[.Large]!)!)
+                imageView.af_setImageWithURL(NSURL(string: photo!.imageUrls[.Medium]!)!)
             }
         }
     }
@@ -29,6 +29,12 @@ class DetailLightBoxImageViewController: CardViewController {
 
         self.view.addSubview(imageView)
         imageView.contentMode = .ScaleAspectFit
+        
+        
+        // Events
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didReceiveDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(doubleTap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,9 +51,26 @@ class DetailLightBoxImageViewController: CardViewController {
         super.cardSelectionDidChange(selected)
     }
 
-    // Entrance animation
+    // MARK: - Entrance animation
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
         return self.view.bounds
     }
+    
+    // MARK: - Events
+    @objc private func didReceiveDoubleTap(gesture : UITapGestureRecognizer) {
+        let scaleFactor : CGFloat = 2
+        var targetFrame = imageView.frame
+        let widthDiff = CGRectGetWidth(imageView.frame) * (scaleFactor - 1)
+        let heightDiff = CGRectGetHeight(imageView.frame) * (scaleFactor - 1)
+        targetFrame.size.width += widthDiff
+        targetFrame.size.height += heightDiff
+        targetFrame.origin.x -= widthDiff
+        targetFrame.origin.y -= heightDiff
+        
+        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: { [weak self] in
+            self?.imageView.frame = targetFrame
+            }, completion: nil)
+    }
+    
 }

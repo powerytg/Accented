@@ -64,6 +64,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         backButton.sizeToFit()
         
         // Setup data source
+        self.cacheInitializationPolicy = .Deferred
         self.dataSource = self
         initialSelectedViewController = cacheController.selectedCardViewController as! DetailViewController
     }

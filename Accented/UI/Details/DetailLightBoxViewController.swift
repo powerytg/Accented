@@ -85,8 +85,10 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)        
-        layoutController.containerSize = size        
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+            self?.layoutController.containerSize = size
+        }
     }
 
     // MARK: - DeckViewControllerDataSource
@@ -121,9 +123,6 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     func lightboxTransitionDidFinish() {
         contentView.hidden = false
         self.view.backgroundColor = UIColor.blackColor()
-        
-        // Create the sibling cards and perform their sliding animation
-        cacheController.initializeSelectedCardSiblings()
     }
     
     func performLightBoxTransition() {
