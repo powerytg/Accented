@@ -18,6 +18,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
     private let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
     private let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
+    private let linkPressColor = UIColor.whiteColor()
     
     private let contentLeftMargin : CGFloat = 15
     private let titleLabelTopMargin : CGFloat = 12
@@ -62,6 +63,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .ByWordWrapping
         descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleNone.rawValue]
+        descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkPressColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleNone.rawValue]
         contentView.addSubview(descLabel)
         
         // Constaints

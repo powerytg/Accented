@@ -37,9 +37,6 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         let galleryViewController = self.galleryVC!
         
         // Prepare entrance animation
-        var fromViewTransform = CATransform3DIdentity
-        fromViewTransform.m34 = -1.0 / 1000
-        
         containerView?.addSubview(toView)
         galleryViewController.entranceAnimationWillBegin()
 
@@ -54,7 +51,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         UIView.animateKeyframesWithDuration(0.4, delay: 0, options: [.CalculationModeCubic], animations: { [weak self] in
             
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
-                fromViewController?.view.layer.transform = CATransform3DTranslate(fromViewTransform, 0, 0, -300)
+                fromViewController?.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
                 proxyImageView.frame = targetPhotoViewRect
                 self?.fromView.alpha = 0
             })
@@ -69,7 +66,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
                 
                 // Restore origin view controller
                 fromViewController?.view.alpha = 1
-                fromViewController?.view.layer.transform = CATransform3DIdentity
+                fromViewController?.view.transform = CGAffineTransformIdentity
                 
                 // Remove proxy image
                 proxyImageView.removeFromSuperview()

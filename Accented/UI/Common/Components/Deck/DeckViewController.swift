@@ -100,7 +100,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    private func updateVisibleCardFrames() {
+    func updateVisibleCardFrames() {
         guard dataSource != nil else { return }
         
         // Layout visible cards
@@ -183,7 +183,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     private func performScrollingAnimation() {
-        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveLinear], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
             
@@ -205,7 +205,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // MARK: - DeckCacheControllerDelegate
     
-    internal func cardCacheDidChange() {
+    func cardCacheDidChange() {
         for card in cacheController.leftVisibleCardViewControllers {
             if !contentView.subviews.contains(card.view) {
                 contentView.addSubview(card.view)
@@ -223,5 +223,21 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
                 contentView.addSubview(card.view)
             }
         }
+    }
+    
+    func initialSiblingCardsDidFinishInitialization() {
+        for card in cacheController.leftVisibleCardViewControllers {
+            if !contentView.subviews.contains(card.view) {
+                contentView.addSubview(card.view)
+            }
+        }
+        
+        for card in cacheController.rightVisibleCardViewControllers {
+            if !contentView.subviews.contains(card.view) {
+                contentView.addSubview(card.view)
+            }
+        }
+        
+        updateVisibleCardFrames()
     }
 }

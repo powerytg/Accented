@@ -121,6 +121,9 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     func lightboxTransitionDidFinish() {
         contentView.hidden = false
         self.view.backgroundColor = UIColor.blackColor()
+        
+        // Create the sibling cards and perform their sliding animation
+        cacheController.initializeSelectedCardSiblings()
     }
     
     func performLightBoxTransition() {

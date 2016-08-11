@@ -138,10 +138,47 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     func entranceAnimationDidFinish() {
         backgroundView.entranceAnimationDidFinish()
         initialSelectedViewController.entranceAnimationDidFinish()
+        
+        // Create the sibling cards and perform their sliding animation
+        cacheController.initializeSelectedCardSiblings()
     }
     
     func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
+    }
+    
+    override func initialSiblingCardsDidFinishInitialization() {
+        for card in cacheController.leftVisibleCardViewControllers {
+            if !contentView.subviews.contains(card.view) {
+                card.view.alpha = 0
+                contentView.addSubview(card.view)
+            }
+        }
+        
+        for card in cacheController.rightVisibleCardViewControllers {
+            if !contentView.subviews.contains(card.view) {
+                card.view.alpha = 0
+                contentView.addSubview(card.view)
+            }
+        }
+        
+        updateVisibleCardFrames()
+        
+        // Make the left card visible
+        if cacheController.leftVisibleCardViewControllers.count > 0 {
+            cacheController.leftVisibleCardViewControllers[0].view.alpha = 1
+        }
+        
+        // Slide in the most adjacent right card
+        if cacheController.rightVisibleCardViewControllers.count > 0 {
+            let rightCard = cacheController.rightVisibleCardViewControllers[0].view
+            rightCard.transform = CGAffineTransformMakeTranslation(0, 100)
+            
+            UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: { 
+                rightCard.alpha = 1
+                rightCard.transform = CGAffineTransformIdentity
+                }, completion: nil)
+        }
     }
     
     // MARK: - Light box animation

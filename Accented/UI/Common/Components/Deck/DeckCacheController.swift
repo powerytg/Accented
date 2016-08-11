@@ -9,7 +9,11 @@
 import UIKit
 
 protocol DeckCacheControllerDelegate : NSObjectProtocol {
+    // Invoked when the on-screen cards has changed
     func cardCacheDidChange()
+    
+    // Invoked when the sibling cards has been created for the initial selected card
+    func initialSiblingCardsDidFinishInitialization()
 }
 
 class DeckCacheController: NSObject {
@@ -34,6 +38,39 @@ class DeckCacheController: NSObject {
     // Selected index, initially -1
     private var selectedIndex : Int = -1
     
+//    func initializeCache(initialSelectedIndex : Int) {
+//        // Remove all previous cache
+//        recycledCards.removeAll()
+//        
+//        if let ds = dataSource {
+//            // Pre-populate the cache with cards
+//            self.totalItemCount = ds.numberOfCards()
+//            selectedIndex = initialSelectedIndex
+//            
+//            // Populate the selected card and its siblings
+//            let leftSiblingCount = leftVisibleSiblingCount(initialSelectedIndex)
+//            let rightSiblingCount = rightVisibleSiblingCount(initialSelectedIndex)
+//            if leftSiblingCount > 0 {
+//                for index in (initialSelectedIndex - leftSiblingCount)...(initialSelectedIndex - 1) {
+//                    let card = ds.cardForItemIndex(index)
+//                    leftVisibleCardViewControllers.append(card)
+//                }
+//            }
+//            
+//            selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
+//
+//            if rightSiblingCount > 0 {
+//                for index in (initialSelectedIndex + 1)...(initialSelectedIndex + rightSiblingCount) {
+//                    let card = ds.cardForItemIndex(index)
+//                    rightVisibleCardViewControllers.append(card)
+//                }
+//            }
+//        }
+//        
+//        updateVisibleCardViewControllers()
+//        delegate?.cardCacheDidChange()
+//    }
+
     func initializeCache(initialSelectedIndex : Int) {
         // Remove all previous cache
         recycledCards.removeAll()
@@ -44,30 +81,35 @@ class DeckCacheController: NSObject {
             selectedIndex = initialSelectedIndex
             
             // Populate the selected card and its siblings
-            let leftSiblingCount = leftVisibleSiblingCount(initialSelectedIndex)
-            let rightSiblingCount = rightVisibleSiblingCount(initialSelectedIndex)
-            if leftSiblingCount > 0 {
-                for index in (initialSelectedIndex - leftSiblingCount)...(initialSelectedIndex - 1) {
-                    print(initialSelectedIndex)
-                    let card = ds.cardForItemIndex(index)
-                    leftVisibleCardViewControllers.append(card)
-                }
-            }
-            
             selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
-
-            if rightSiblingCount > 0 {
-                for index in (initialSelectedIndex + 1)...(initialSelectedIndex + rightSiblingCount) {
-                    let card = ds.cardForItemIndex(index)
-                    rightVisibleCardViewControllers.append(card)
-                }
+            
+            updateVisibleCardViewControllers()
+            delegate?.cardCacheDidChange()
+        }        
+    }
+    
+    func initializeSelectedCardSiblings() {
+        let leftSiblingCount = leftVisibleSiblingCount(selectedIndex)
+        let rightSiblingCount = rightVisibleSiblingCount(selectedIndex)
+        
+        if leftSiblingCount > 0 {
+            for index in (selectedIndex - leftSiblingCount)...(selectedIndex - 1) {
+                let card = dataSource!.cardForItemIndex(index)
+                leftVisibleCardViewControllers.append(card)
+            }
+        }
+        
+        if rightSiblingCount > 0 {
+            for index in (selectedIndex + 1)...(selectedIndex + rightSiblingCount) {
+                let card = dataSource!.cardForItemIndex(index)
+                rightVisibleCardViewControllers.append(card)
             }
         }
         
         updateVisibleCardViewControllers()
-        delegate?.cardCacheDidChange()
+        delegate?.initialSiblingCardsDidFinishInitialization()
     }
-
+    
     // Left visible siblings can be no more than 1 (because the selected card is always aligned to the left edge of screen)
     func leftVisibleSiblingCount(index : Int) -> Int {
         if totalItemCount == 0 || index == 0 {
