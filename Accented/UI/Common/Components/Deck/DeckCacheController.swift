@@ -93,15 +93,15 @@ class DeckCacheController: NSObject {
         let rightSiblingCount = rightVisibleSiblingCount(selectedIndex)
         
         if leftSiblingCount > 0 {
-            for index in (selectedIndex - leftSiblingCount)...(selectedIndex - 1) {
-                let card = dataSource!.cardForItemIndex(index)
+            for i in 1...leftSiblingCount {
+                let card = dataSource!.cardForItemIndex(selectedIndex - i)
                 leftVisibleCardViewControllers.append(card)
             }
         }
         
         if rightSiblingCount > 0 {
-            for index in (selectedIndex + 1)...(selectedIndex + rightSiblingCount) {
-                let card = dataSource!.cardForItemIndex(index)
+            for i in 1...rightSiblingCount {
+                let card = dataSource!.cardForItemIndex(selectedIndex + i)
                 rightVisibleCardViewControllers.append(card)
             }
         }
