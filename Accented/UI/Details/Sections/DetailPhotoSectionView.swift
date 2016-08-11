@@ -33,8 +33,10 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     override func photoModelDidChange() {
         guard photo != nil else { return }
         
-        if let imageUrl = preferredImageUrl() {
+        if let imageUrl = PhotoRenderer.preferredImageUrl(photo!) {
             photoView.af_setImageWithURL(imageUrl)
+        } else {
+            photoView.image = nil
         }
         
         // Calculate desired height
@@ -111,20 +113,6 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
         // No-op
         return CGRectZero
-    }
-    
-    // MARK: - Private
-    
-    private func preferredImageUrl() -> NSURL? {
-        if let url = photo!.imageUrls[.Medium] {
-            return NSURL(string: url)
-        } else if let url = photo!.imageUrls[.Large] {
-            return NSURL(string: url)
-        } else if let url = photo!.imageUrls[.Small] {
-            return NSURL(string: url)
-        } else {
-            return nil
-        }
     }
     
 }

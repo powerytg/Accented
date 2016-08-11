@@ -46,8 +46,12 @@ class PhotoRenderer: UIView {
                 photoModel = value
                 
                 if photoModel != nil {
-                    let url = NSURL(string: (photoModel?.imageUrls[ImageSize.Medium])!)
-                    imageView.af_setImageWithURL(url!)
+                    let url = PhotoRenderer.preferredImageUrl(photoModel)
+                    if url != nil {
+                        imageView.af_setImageWithURL(url!)
+                    } else {
+                        imageView.image = nil
+                    }
                 } else {
                     imageView.image = nil
                 }
@@ -55,6 +59,22 @@ class PhotoRenderer: UIView {
         }
     }
     
+    // MARK: - Private
+    
+    static func preferredImageUrl(photo : PhotoModel?) -> NSURL? {
+        guard photo != nil else { return nil }
+        
+        if let url = photo!.imageUrls[.Large] {
+            return NSURL(string: url)
+        } else if let url = photo!.imageUrls[.Medium] {
+            return NSURL(string: url)
+        } else if let url = photo!.imageUrls[.Small] {
+            return NSURL(string: url)
+        } else {
+            return nil
+        }
+    }
+
     func initialize() -> Void {
         imageView.contentMode = .ScaleAspectFill
         self.addSubview(imageView)

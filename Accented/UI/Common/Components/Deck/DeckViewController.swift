@@ -121,6 +121,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
+    // Update the frames for the selected view controller as well its siblings
     func updateVisibleCardFrames() {
         guard dataSource != nil else { return }
         
@@ -149,6 +150,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             panGestureDidEnd(gesture)
         case .Changed:
             panGestureDidChange(gesture)
+        case .Cancelled:
+            cancelScrolling()
         default: break
         }
     }
@@ -167,13 +170,13 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         let tx = gesture.translationInView(gesture.view).x
         var shouldConfirm : Bool
         
-        // If the velocity is sufficient enough, confirm the gesture regardlessly
-        if abs(velocity) >= animationParams.scrollTriggeringVelocity {
-            shouldConfirm = true
-        } else {
+        if (tx >= 0 && velocity <= 0) || (tx <= 0 && velocity >= 0) {
             // If the velocity and translation differs in direction, cancel the gesture if translation distance is sufficient enough
-            if (tx >= 0 && velocity <= 0) || (tx <= 0 && velocity >= 0) {
-                shouldConfirm = !(abs(tx) >= animationParams.cancelTriggeringTranslation)
+            shouldConfirm = !(abs(tx) >= animationParams.cancelTriggeringTranslation)
+        } else {
+            if abs(velocity) >= animationParams.scrollTriggeringVelocity {
+                // If the velocity is sufficient enough, confirm the gesture regardlessly
+                shouldConfirm = true
             } else {
                 // Otherwise, only confirm if translation distance is sufficient enough
                 shouldConfirm = (abs(tx) >= animationParams.cancelTriggeringTranslation)
@@ -190,6 +193,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             cancelScrolling()
         }        
     }
+    
+    // MARK: - Scrolling
     
     // Scroll to the next item
     func scrollToLeft(animated : Bool) {
@@ -227,14 +232,15 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // Cancel the scrolling and reset to the current position
     private func cancelScrolling() {
-        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveLinear], animations: { [weak self] in
+        UIView.animateWithDuration(0.3, delay: 0, options: [], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
             }, completion: nil)
     }
     
+    // Scroll to the selected view controller
     private func performScrollingAnimation() {
-        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveLinear], animations: { [weak self] in
+        UIView.animateWithDuration(032, delay: 0, options: [], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
             
@@ -246,7 +252,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             self?.selectedIndexDidChange()
         }
     }
-    
+
     // MARK: - DeckLayoutControllerDelegate
     
     internal func deckLayoutDidChange() {
@@ -291,4 +297,5 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         
         updateVisibleCardFrames()
     }
+    
 }

@@ -47,14 +47,6 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         contentView.addSubview(authorLabel)
         
         // Constraints
-//        avatarView.widthAnchor.constraintEqualToConstant(avatarSize).active = true
-//        avatarView.heightAnchor.constraintEqualToConstant(avatarSize).active = true
-//        avatarView.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: 15).active = true
-//        avatarView.bottomAnchor.constraintEqualToAnchor(self.contentView.bottomAnchor).active = true
-//        
-//        authorLabel.leadingAnchor.constraintEqualToAnchor(avatarView.trailingAnchor, constant: 15).active = true
-//        authorLabel.bottomAnchor.constraintEqualToAnchor(self.avatarView.bottomAnchor, constant: -6).active = true
-        
         authorLabel.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -2).active = true
         authorLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 30).active = true
 
