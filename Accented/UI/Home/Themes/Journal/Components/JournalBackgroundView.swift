@@ -11,7 +11,8 @@ import UIKit
 class JournalBackgroundView: ThemeableBackgroundView {
     
     var compressionRate : CGFloat = 0
-    let fullCompressionDist : CGFloat = 100
+    let compressionStartPosition : CGFloat = 100
+    let compressionEndPosition : CGFloat = 400
     
     var imageView : UIImageView = UIImageView()
     var blurView : BlurView = DefaultNavBlurView()
@@ -74,11 +75,13 @@ class JournalBackgroundView: ThemeableBackgroundView {
     }
     
     override func streamViewContentOffsetDidChange(contentOffset: CGFloat) {
-        if contentOffset <= 0 {
+        if contentOffset <= 0 || contentOffset <= compressionStartPosition {
             compressionRate = 0
+        } else {
+            compressionRate = 1 - (compressionEndPosition - contentOffset) / (compressionEndPosition - compressionStartPosition)
         }
         
-        compressionRate = 1 - (fullCompressionDist - contentOffset) / fullCompressionDist
+        
         if compressionRate < 0 {
             compressionRate = 0
         }
@@ -86,6 +89,9 @@ class JournalBackgroundView: ThemeableBackgroundView {
         if compressionRate > 1 {
             compressionRate = 1
         }
+
+        // Ease-in curve
+        compressionRate = pow(compressionRate, 2)
         
         blurView.alpha = compressionRate
         blurView.setNeedsLayout()
