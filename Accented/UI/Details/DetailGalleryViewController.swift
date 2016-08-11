@@ -148,6 +148,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     }
     
     override func initialSiblingCardsDidFinishInitialization() {
+        // After the entrance animation, create the sibling cards
         for card in cacheController.leftVisibleCardViewControllers {
             if !contentView.subviews.contains(card.view) {
                 card.view.alpha = 0
@@ -177,7 +178,12 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
             UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: { 
                 rightCard.alpha = 1
                 rightCard.transform = CGAffineTransformIdentity
-                }, completion: nil)
+            }) { [weak self] (finished) in
+                // Make the rest of siblings visible
+                if self?.cacheController.rightVisibleCardViewControllers.count > 1 {
+                    self?.cacheController.rightVisibleCardViewControllers[1].view.alpha = 1
+                }
+            }
         }
     }
     

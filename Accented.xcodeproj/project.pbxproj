@@ -28,6 +28,7 @@
 		186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5621D59905F00A9928F /* DetailLightBoxPresentationController.swift */; };
 		186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5641D5AD54200A9928F /* DetailLightBoxAnimation.swift */; };
 		186AF5671D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */; };
+		186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5681D5C18B700A9928F /* DeckAnimationParams.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -193,6 +194,7 @@
 		186AF5621D59905F00A9928F /* DetailLightBoxPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxPresentationController.swift; sourceTree = "<group>"; };
 		186AF5641D5AD54200A9928F /* DetailLightBoxAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxAnimation.swift; sourceTree = "<group>"; };
 		186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailLightBoxAnimationSource.swift; sourceTree = "<group>"; };
+		186AF5681D5C18B700A9928F /* DeckAnimationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckAnimationParams.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -748,6 +750,7 @@
 				9B89B11D1D550E1400382744 /* DeckLayoutController.swift */,
 				9B89B11F1D550F2900382744 /* DeckViewControllerDataSource.swift */,
 				186AF5581D58497200A9928F /* CardAnimation.swift */,
+				186AF5681D5C18B700A9928F /* DeckAnimationParams.swift */,
 			);
 			path = Deck;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
+				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,

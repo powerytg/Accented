@@ -46,6 +46,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // Content view
     var contentView = UIView()
     
+    // Animation configurations
+    private var animationParams = DeckAnimationParams()
+    
     init(initialSelectedIndex : Int = 0) {
         self.selectedIndex = initialSelectedIndex
         self.previousSelectedIndex = initialSelectedIndex
@@ -142,14 +145,35 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {
-        let velocity = gesture.velocityInView(gesture.view).x        
-        if velocity > 0 {
-            scrollToRight(true)
+        let velocity = gesture.velocityInView(gesture.view).x
+        let tx = gesture.translationInView(gesture.view).x
+        var shouldConfirm : Bool
+        
+        // If the velocity is sufficient enough, confirm the gesture regardlessly
+        if abs(velocity) >= animationParams.scrollTriggeringVelocity {
+            shouldConfirm = true
         } else {
-            scrollToLeft(true)
+            // If the velocity and translation differs in direction, cancel the gesture if translation distance is sufficient enough
+            if (tx >= 0 && velocity <= 0) || (tx <= 0 && velocity >= 0) {
+                shouldConfirm = !(abs(tx) >= animationParams.cancelTriggeringTranslation)
+            } else {
+                // Otherwise, only confirm if translation distance is sufficient enough
+                shouldConfirm = (abs(tx) >= animationParams.cancelTriggeringTranslation)
+            }
         }
+        
+        if shouldConfirm {
+            if velocity > 0 {
+                scrollToRight(true)
+            } else {
+                scrollToLeft(true)
+            }
+        } else {
+            cancelScrolling()
+        }        
     }
     
+    // Scroll to the next item
     func scrollToLeft(animated : Bool) {
         // Scroll to left
         if selectedIndex < totalCardCount - 1 {
@@ -166,6 +190,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
+    // Scroll to the previous item
     func scrollToRight(animated : Bool) {
         // Scroll to right
         if selectedIndex > 0 {
@@ -180,6 +205,14 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             self.updateVisibleCardFrames()
             self.selectedIndexDidChange()
         }
+    }
+    
+    // Cancel the scrolling and reset to the current position
+    private func cancelScrolling() {
+        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveLinear], animations: { [weak self] in
+            self?.contentView.transform = CGAffineTransformIdentity
+            self?.updateVisibleCardFrames()
+            }, completion: nil)
     }
     
     private func performScrollingAnimation() {
