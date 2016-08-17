@@ -8,10 +8,19 @@
 
 import UIKit
 
-class DetailLightBoxImageViewController: CardViewController {
+class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegate {
 
     // Image view
     private var imageView  = UIImageView()
+    
+    // Scroll view
+    private var scrollView = UIScrollView()
+    
+    // Normal scale factor
+    private var normalScaleFactor : CGFloat?
+    
+    // Max scale factor
+    private var maxScaleFactor : CGFloat?
     
     // Photo model
     var photo : PhotoModel? {
@@ -19,7 +28,7 @@ class DetailLightBoxImageViewController: CardViewController {
             if photo == nil {
                 imageView.image = nil
             } else {
-                imageView.af_setImageWithURL(NSURL(string: photo!.imageUrls[.Medium]!)!)
+                initializeImageView()
             }
         }
     }
@@ -27,9 +36,14 @@ class DetailLightBoxImageViewController: CardViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.addSubview(imageView)
-        imageView.contentMode = .ScaleAspectFit
+        self.view.addSubview(scrollView)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.bounces = false
+        scrollView.delegate = self
         
+        scrollView.addSubview(imageView)
+        imageView.contentMode = .ScaleAspectFit
         
         // Events
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didReceiveDoubleTap(_:)))
@@ -44,7 +58,7 @@ class DetailLightBoxImageViewController: CardViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        imageView.frame = self.view.bounds
+        scrollView.frame = self.view.bounds
     }
 
     override func cardSelectionDidChange(selected: Bool) {
@@ -58,19 +72,51 @@ class DetailLightBoxImageViewController: CardViewController {
     }
     
     // MARK: - Events
+    
     @objc private func didReceiveDoubleTap(gesture : UITapGestureRecognizer) {
-        let scaleFactor : CGFloat = 2
-        var targetFrame = imageView.frame
-        let widthDiff = CGRectGetWidth(imageView.frame) * (scaleFactor - 1)
-        let heightDiff = CGRectGetHeight(imageView.frame) * (scaleFactor - 1)
-        targetFrame.size.width += widthDiff
-        targetFrame.size.height += heightDiff
-        targetFrame.origin.x -= widthDiff
-        targetFrame.origin.y -= heightDiff
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: { [weak self] in
-            self?.imageView.frame = targetFrame
-            }, completion: nil)
+        let center = gesture.locationInView(self.scrollView)
+        let zoomRect = CGRectMake(center.x, center.y, photo!.width / 2, photo!.height / 2)
+        scrollView.zoomToRect(zoomRect, animated: true)
+    }
+
+    // MARK: - UIScrollViewDelegate
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
     }
     
+    // MARK: - Gestures
+    
+    func shouldAllowExternalPanGesture() -> Bool {
+        if scrollView.zoomScale == normalScaleFactor! {
+            return true
+        }
+        
+        if scrollView.contentOffset.x >= (photo!.width * scrollView.zoomScale / UIScreen.mainScreen().scale) {
+            return true
+        }
+        
+        return false
+    }
+    
+    // MARK: - Private
+
+    private func initializeImageView() {
+        let imageUrl = PhotoRenderer.preferredImageUrl(photo)
+        guard imageUrl != nil else { return }
+        imageView.af_setImageWithURL(imageUrl!)
+        
+        // Make the image view display the full image
+        imageView.frame = CGRectMake(0, 0, photo!.width, photo!.height)
+        scrollView.contentSize = CGSizeMake(photo!.width, photo!.height)
+        
+        // Calculate the min scale factor and max scale factor
+        let widthFactor = CGRectGetWidth(self.view.bounds) / photo!.width
+        let heightFactor = CGRectGetHeight(self.view.bounds) / photo!.height
+        normalScaleFactor = min(widthFactor, heightFactor)
+        scrollView.minimumZoomScale = normalScaleFactor! / 2
+        scrollView.maximumZoomScale = normalScaleFactor! * 2
+        scrollView.setZoomScale(normalScaleFactor!, animated: false)
+    }
+
 }

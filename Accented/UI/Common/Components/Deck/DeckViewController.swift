@@ -67,6 +67,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // Animation configurations
     private var animationParams = DeckAnimationParams()
     
+    // Pan gesture
+    var panGesture : UIPanGestureRecognizer!
+    
     init(initialSelectedIndex : Int = 0) {
         self.selectedIndex = initialSelectedIndex
         self.previousSelectedIndex = initialSelectedIndex
@@ -80,7 +83,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         self.cacheController.delegate = self
         
         // Gestures
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didReceivePanGesture(_:)))
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(didReceivePanGesture(_:)))
         self.view.addGestureRecognizer(panGesture)
     }
     
@@ -232,7 +235,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // Cancel the scrolling and reset to the current position
     private func cancelScrolling() {
-        UIView.animateWithDuration(0.3, delay: 0, options: [], animations: { [weak self] in
+        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
             }, completion: nil)
@@ -240,7 +243,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // Scroll to the selected view controller
     private func performScrollingAnimation() {
-        UIView.animateWithDuration(032, delay: 0, options: [], animations: { [weak self] in
+        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.contentView.transform = CGAffineTransformIdentity
             self?.updateVisibleCardFrames()
             

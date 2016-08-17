@@ -13,7 +13,7 @@ protocol DetailLightBoxViewControllerDelegate : NSObjectProtocol {
     func lightBoxSelectionDidChange(selectedIndex : Int)
 }
 
-class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailLightBoxAnimation {
+class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailLightBoxAnimation, UIGestureRecognizerDelegate {
 
     // Initial selected photo
     var initialSelectedPhoto : PhotoModel
@@ -63,6 +63,9 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         // Setup data source
         self.dataSource = self
         initialSelectedViewController = cacheController.selectedCardViewController as! DetailLightBoxImageViewController
+        
+        // Setup pan gesture delegate
+        panGesture.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -139,4 +142,9 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let selectedCard = cacheController.selectedCardViewController as! DetailLightBoxImageViewController
+        return selectedCard.shouldAllowExternalPanGesture()
+    }
+    
 }
