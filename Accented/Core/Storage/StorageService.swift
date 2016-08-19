@@ -10,8 +10,10 @@ import UIKit
 
 class StorageService: NSObject {
     
+    // Default page size
     static let pageSize = 20
     
+    // Parser processing GCD queue
     let parsingQueue = dispatch_queue_create("com.accented.parser", nil)
     
     // Singleton instance
@@ -26,10 +28,16 @@ class StorageService: NSObject {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    // Streams default to popular stream
+    // Stream cache
     let streamCache = NSCache()
+    
+    // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
     
+    // Photo cache
+    let photoCache = NSCache()
+    
+    // Initialize event listeners to monitor APIService results
     private func initializeEventListeners() {
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: "streamPhotosDidReturn", object: nil)

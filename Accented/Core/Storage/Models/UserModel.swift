@@ -24,6 +24,9 @@ class UserModel: NSObject {
     var firstName : String?
     var userName : String!
     var fullName : String?
+    var city : String?
+    var country : String?
+    var userPhotoUrl : String?
     
     // Avatars
     var avatarUrls = [UserAvatar : String]()
@@ -41,7 +44,9 @@ class UserModel: NSObject {
         self.firstName = json["firstname"].string
         self.fullName = json["fullname"].string
         self.userName = json["username"].string!
-        
+        self.city = json["city"].string
+        self.country = json["country"].string
+        self.userPhotoUrl = json["userpic_url"].string
         
         // Avatar urls
         if let largeAvatar = json["avatars"]["large"]["https"].string {

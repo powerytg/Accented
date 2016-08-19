@@ -10,8 +10,9 @@ import UIKit
 import SwiftyJSON
 
 class PhotoModel: NSObject {
-    var dateFormatter = NSDateFormatter()
+    private var dateFormatter = NSDateFormatter()
     
+    var photoId : String
     var imageUrls = [ImageSize : String!]()
     var width : CGFloat
     var height: CGFloat
@@ -25,9 +26,13 @@ class PhotoModel: NSObject {
     var latitude : Double?
     var tags = [String]()
     var user : UserModel
+    
     var comments = [CommentModel]()
+    var commentsCount : Int?
     
     init(json:JSON) {
+        photoId = json["id"].string!
+        
         // Image urls
         for (_, imageJson):(String, JSON) in json["images"] {
             // Parse size metadta
