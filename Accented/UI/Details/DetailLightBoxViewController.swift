@@ -91,6 +91,11 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         dispatch_async(dispatch_get_main_queue()) { [weak self] in
             self?.layoutController.containerSize = size
+            
+            // Notify each of the child cards to update their frames
+            for card in (self?.cacheController.cachedViewControllers)! {
+                card.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+            }
         }
     }
 

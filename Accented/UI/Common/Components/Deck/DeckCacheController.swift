@@ -30,16 +30,27 @@ class DeckCacheController: NSObject {
     // Total number of items
     private var totalItemCount = 0
     
+    // Currently selected card
     var selectedCardViewController : CardViewController?
+    
+    // Left siblings to the selected card
     var leftVisibleCardViewControllers = [CardViewController]()
+    
+    // Right siblings to the selected card
     var rightVisibleCardViewControllers = [CardViewController]()
+    
+    // All the on-screen cards
     var visibleCardViewControllers = [CardViewController]()
+    
+    // All cards, including those on-screen and those already recycled
+    var cachedViewControllers = [CardViewController]()
     
     // Selected index, initially -1
     private var selectedIndex : Int = -1
     
     func initializeCache(initialSelectedIndex : Int) {
         // Remove all previous cache
+        cachedViewControllers.removeAll()
         recycledCards.removeAll()
         
         if let ds = dataSource {
@@ -47,22 +58,29 @@ class DeckCacheController: NSObject {
             self.totalItemCount = ds.numberOfCards()
             selectedIndex = initialSelectedIndex
             
-            // Populate the selected card and its siblings
+            // Populate left siblings
             let leftSiblingCount = leftVisibleSiblingCount(initialSelectedIndex)
             let rightSiblingCount = rightVisibleSiblingCount(initialSelectedIndex)
             if leftSiblingCount > 0 {
                 for index in (initialSelectedIndex - leftSiblingCount)...(initialSelectedIndex - 1) {
                     let card = ds.cardForItemIndex(index)
                     leftVisibleCardViewControllers.append(card)
+                    cachedViewControllers.append(card)
                 }
             }
             
+            // Fill the selected view controller
             selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
+            if selectedCardViewController != nil {
+                cachedViewControllers.append(selectedCardViewController!)
+            }
 
+            // Populate the right siblings
             if rightSiblingCount > 0 {
                 for index in (initialSelectedIndex + 1)...(initialSelectedIndex + rightSiblingCount) {
                     let card = ds.cardForItemIndex(index)
                     rightVisibleCardViewControllers.append(card)
+                    cachedViewControllers.append(card)
                 }
             }
         }
@@ -74,6 +92,7 @@ class DeckCacheController: NSObject {
     func initializeSelectedCard(initialSelectedIndex : Int) {
         // Remove all previous cache
         recycledCards.removeAll()
+        cachedViewControllers.removeAll()
         
         if let ds = dataSource {
             // Pre-populate the cache with cards
@@ -82,6 +101,9 @@ class DeckCacheController: NSObject {
             
             // Populate the selected card and its siblings
             selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
+            if selectedCardViewController != nil {
+                cachedViewControllers.append(selectedCardViewController!)
+            }
             
             updateVisibleCardViewControllers()
             delegate?.cardCacheDidChange()
@@ -96,6 +118,7 @@ class DeckCacheController: NSObject {
             for i in 1...leftSiblingCount {
                 let card = dataSource!.cardForItemIndex(selectedIndex - i)
                 leftVisibleCardViewControllers.append(card)
+                cachedViewControllers.append(card)
             }
         }
         
@@ -103,6 +126,7 @@ class DeckCacheController: NSObject {
             for i in 1...rightSiblingCount {
                 let card = dataSource!.cardForItemIndex(selectedIndex + i)
                 rightVisibleCardViewControllers.append(card)
+                cachedViewControllers.append(card)
             }
         }
         
