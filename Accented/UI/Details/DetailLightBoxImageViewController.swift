@@ -48,6 +48,9 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didReceiveDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
         self.view.addGestureRecognizer(doubleTap)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(didReceivePinch(_:)))
+        self.view.addGestureRecognizer(pinch)
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,10 +102,16 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
             scrollView.setZoomScale(1.0, animated: true)
         } else {
             let center = gesture.locationInView(imageView)
-            let rectWidth = CGRectGetWidth(view.bounds) / scrollView.maximumZoomScale
-            let rectHeight = CGRectGetHeight(view.bounds) / scrollView.maximumZoomScale
-            let zoomRect = CGRectMake(center.x - rectWidth / 2, center.y - rectHeight / 2, rectWidth, rectHeight)
-            scrollView.zoomToRect(zoomRect, animated: true)
+            zoomToLocation(center, scale: scrollView.maximumZoomScale)
+        }
+    }
+
+    @objc private func didReceivePinch(gesture : UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .Changed:
+            pinchGestureDidChange(gesture)
+        default:
+            break
         }
     }
 
@@ -119,9 +128,9 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
             return true
         }
         
-        if scrollView.contentOffset.x >= CGRectGetWidth(view.bounds) || scrollView.contentOffset.x <= 0 {
-            return true
-        }
+//        if scrollView.contentOffset.x >= CGRectGetWidth(view.bounds) || scrollView.contentOffset.x <= 0 {
+//            return true
+//        }
         
         return false
     }
@@ -140,12 +149,32 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.contentSize = imageView.frame.size
         
         // Calculate the min scale factor and max scale factor
-        scrollView.minimumZoomScale = 0.5
+        scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 2.0
     }
 
+    private func zoomToLocation(location : CGPoint, scale : CGFloat) {
+        let rectWidth = CGRectGetWidth(view.bounds) / scale
+        let rectHeight = CGRectGetHeight(view.bounds) / scale
+        let zoomRect = CGRectMake(location.x - rectWidth / 2, location.y - rectHeight / 2, rectWidth, rectHeight)
+        scrollView.zoomToRect(zoomRect, animated: true)
+        
+        let w = CGRectGetWidth(self.view.bounds)
+        let h = CGRectGetHeight(self.view.bounds)
+        scrollView.contentOffset = CGPointMake(w / 2 - rectWidth / 2, h / 2 - rectHeight / 2)
+    }
+    
     private func resetScrollView() {
         scrollView.contentOffset = CGPointZero
         scrollView.zoomScale = 1.0
+    }
+    
+    private func pinchGestureDidChange(gesture : UIPinchGestureRecognizer) {
+        // Limit the scale range
+        var scale : CGFloat = gesture.scale
+        scale = max(scale, scrollView.minimumZoomScale)
+        scale = min(scale, scrollView.maximumZoomScale)
+        let center = gesture.locationInView(scrollView)
+        zoomToLocation(center, scale: scale)
     }
 }
