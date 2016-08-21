@@ -158,10 +158,6 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         let rectHeight = CGRectGetHeight(view.bounds) / scale
         let zoomRect = CGRectMake(location.x - rectWidth / 2, location.y - rectHeight / 2, rectWidth, rectHeight)
         scrollView.zoomToRect(zoomRect, animated: true)
-        
-        let w = CGRectGetWidth(self.view.bounds)
-        let h = CGRectGetHeight(self.view.bounds)
-        scrollView.contentOffset = CGPointMake(w / 2 - rectWidth / 2, h / 2 - rectHeight / 2)
     }
     
     private func resetScrollView() {

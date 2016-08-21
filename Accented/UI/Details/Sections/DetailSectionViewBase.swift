@@ -10,6 +10,12 @@ import UIKit
 
 class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
 
+    // Section id
+    // Each of the child class must override this id in order to properly access the cache controller
+    var sectionId : String {
+        return "base"
+    }
+    
     // Photo model
     var photoModel : PhotoModel?
     var photo : PhotoModel? {
@@ -45,12 +51,16 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     let descColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
     
+    // Shared cache controller
+    var cacheController : DetailCacheController
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(maxWidth : CGFloat) {
+    init(maxWidth : CGFloat, cacheController : DetailCacheController) {
         self.maxWidth = maxWidth
+        self.cacheController = cacheController
         super.init(frame : CGRectZero)
         
         initialize()
@@ -90,8 +100,24 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     
     // MARK: - Measurements
     
-    func estimatedHeight(width : CGFloat) -> CGFloat {
-        fatalError("init(coder:) has not been implemented")
+    func estimatedHeight(photo : PhotoModel?, width : CGFloat) -> CGFloat {
+        guard photo != nil else { return 0 }
+        
+        // Retrieve the height from cache
+        let cachedHeight = cacheController.getSectionMeasurement(self, photoId: photo!.photoId)
+        
+        // If there's no cached measurement, request the calculation
+        if cachedHeight != nil {
+            return cachedHeight!
+        } else {
+            let calculatedHeight = calculatedHeightForPhoto(photo!, width: width)
+            cacheController.setSectionMeasurement(calculatedHeight, section: self, photoId: photo!.photoId)
+            return calculatedHeight
+        }
+    }
+    
+    func calculatedHeightForPhoto(photo : PhotoModel, width : CGFloat) -> CGFloat {
+        return 0
     }
     
     // MARK: - Animations

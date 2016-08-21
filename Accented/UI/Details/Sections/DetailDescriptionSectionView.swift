@@ -11,6 +11,10 @@ import TTTAttributedLabel
 
 class DetailDescriptionSectionView: DetailSectionViewBase {
 
+    override var sectionId: String {
+        return "desc"
+    }
+    
     private var titleLabel = UILabel()
     private var dateLabel = UILabel()
     private var descLabel = TTTAttributedLabel(frame: CGRectZero)
@@ -27,11 +31,6 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private let dateLabelRightMargin : CGFloat = 120
     private let descLabelTopMargin : CGFloat = 10
     private let descLabelRightMargin : CGFloat = 30
-
-    private var calculatedSectionHeight : CGFloat = 0
-    
-    // Formatted desc string as HMTL text. If failed to parse HTML this would be nil
-    private var formattedDescString : NSAttributedString?
     
     // Constraints
     private var descLabelTopConstraint : NSLayoutConstraint?
@@ -78,9 +77,17 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     override func photoModelDidChange() {
         guard photo != nil else { return }
+        setNeedsLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()        
+        guard photo != nil else { return }
         
+        // Title
         titleLabel.text = photo!.title
         
+        // Creation date
         if let dateString = displayDateString(photo!) {
             dateLabel.text = dateString
             dateLabel.hidden = false
@@ -96,22 +103,17 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             descLabelTopConstraint?.active = true
         }
         
-        self.formattedDescString = getFormattedDescriptionString()
-        if let formattedDesc = self.formattedDescString {
+        // Descriptions
+        if let formattedDesc = formattedDescriptionString(photo!) {
             descLabel.setText(formattedDesc)
         } else {
             descLabel.text = photo!.desc
         }
-        
-        // Calculate the cache estimated section height
-        calculatedSectionHeight = estimatedSectionHeight(photo!, width: maxWidth)
-        
-        setNeedsUpdateConstraints()
     }
     
     // MARK: - Measurments
     
-    private func estimatedSectionHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(photo : PhotoModel, width : CGFloat) -> CGFloat {
         // Title
         let maxTitleWidth = width - contentLeftMargin - titleLabelRightMargin
         var titleHeight = NSString(string : photo.title).boundingRectWithSize(CGSizeMake(maxTitleWidth, CGFloat.max),
@@ -133,14 +135,14 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             dateHeight = 0
         }
         
-        
         // Descriptions
         var descHeight : CGFloat = 0
         if let desc = photo.desc {
             let maxDescWidth = width - contentLeftMargin - descLabelRightMargin
-            if self.formattedDescString != nil {
+            let formattedDesc = formattedDescriptionString(photo)
+            if formattedDesc != nil {
                 // Calculate HTML string height
-                descHeight = formattedDescString!.boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
+                descHeight = formattedDesc!.boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
                                                                        options: .UsesLineFragmentOrigin,
                                                                        context: nil).size.height
             } else {
@@ -159,31 +161,36 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         return titleHeight + dateHeight + descHeight
     }
     
-    override func estimatedHeight(width: CGFloat) -> CGFloat {
-        if photo == nil {
-            return 0
-        } else {
-            return calculatedSectionHeight
-        }
-    }
-    
     // MARK: - Private
     
-    private func getFormattedDescriptionString() -> NSAttributedString? {
-        guard photo != nil else { return nil }
-        guard let desc = photo!.desc else { return nil }
+    private func formattedDescriptionString(photo : PhotoModel) -> NSAttributedString? {
+        guard let desc = photo.desc else { return nil }
+        
+        // Try to retrieve from cache
+        let cachedDesc = cacheController.getFormattedDescription(photo.photoId)
+        if cachedDesc != nil {
+            return cachedDesc
+        }
         
         let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>", desc) as String
         guard let data = descStringWithStyles.dataUsingEncoding(NSUTF8StringEncoding) else { return nil }
         
         let options : [String : AnyObject] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
                                               NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding]
+        
+        var formattedDesc : NSAttributedString?
         do {
-            return try NSAttributedString(data: data, options: options, documentAttributes: nil)
+            formattedDesc = try NSAttributedString(data: data, options: options, documentAttributes: nil)
         } catch let error as NSError {
             print(error.localizedDescription)
-            return  nil
+            formattedDesc = nil
         }
+        
+        if formattedDesc != nil {
+            cacheController.setFormattedDescription(formattedDesc!, photoId: photo.photoId)
+        }
+        
+        return formattedDesc
     }
     
     private func displayDateString(photo : PhotoModel) -> String? {

@@ -10,6 +10,10 @@ import UIKit
 
 class DetailMetadataSectionView: DetailSectionViewBase {
 
+    override var sectionId: String {
+        return "metadata"
+    }
+
     private var contentRightMargin : CGFloat = 50
     private let contentLeftMargin : CGFloat = 15
     private var contentTopMargin : CGFloat = 0
@@ -22,7 +26,6 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     }
 
     private var exifLabel = UILabel()
-    private var calculatedSectionHeight : CGFloat = 0
     
     override func initialize() {
         super.initialize()
@@ -41,25 +44,30 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     }
     
     override func photoModelDidChange() {
-        super.photoModelDidChange()
+        guard photo != nil else { return }
+        setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard photo != nil else { return }
         
         let displayText = getDisplayEXIFText()
         exifLabel.text = displayText
-        
-        // Update measurements
+    }
+    
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
         let maxTextWidth = maxWidth - contentLeftMargin - contentRightMargin
+        let displayText = getDisplayEXIFText()
         let textHeight = NSString(string : displayText).boundingRectWithSize(CGSizeMake(maxTextWidth, CGFloat.max),
-                                                                  options: .UsesLineFragmentOrigin,
-                                                                  attributes: [NSFontAttributeName: textFont!],
-                                                                  context: nil).size.height
-        calculatedSectionHeight = textHeight + sectionTitleHeight + contentBottomMargin
+                                                                             options: .UsesLineFragmentOrigin,
+                                                                             attributes: [NSFontAttributeName: textFont!],
+                                                                             context: nil).size.height
+        return textHeight + sectionTitleHeight + contentBottomMargin
     }
     
-    override func estimatedHeight(width: CGFloat) -> CGFloat {
-        return calculatedSectionHeight
-    }
+    // MARK: - Private
     
-    // MARK : - Private
     private func getDisplayEXIFText() -> String {
         guard photo != nil else { return noEXIFText }
 

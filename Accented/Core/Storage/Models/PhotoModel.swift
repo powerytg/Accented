@@ -31,7 +31,7 @@ class PhotoModel: NSObject {
     var commentsCount : Int?
     
     init(json:JSON) {
-        photoId = json["id"].string!
+        photoId = String(json["id"].int!)
         
         // Image urls
         for (_, imageJson):(String, JSON) in json["images"] {

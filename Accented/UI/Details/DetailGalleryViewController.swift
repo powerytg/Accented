@@ -36,6 +36,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         return cacheController.selectedCardViewController as? DetailViewController
     }
     
+    // Cache controller
+    private var detailCacheController = DetailCacheController()
+    
     init(context : DetailNavigationContext) {
         self.sourceImageView = context.sourceImageView
         self.initialSelectedPhoto = context.initialSelectedPhoto
@@ -110,7 +113,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     func cardForItemIndex(itemIndex: Int) -> CardViewController {
         var card = getRecycledCardViewController() as? DetailViewController
         if card == nil {
-            card = DetailViewController(sourceImageView: sourceImageView, maxWidth: layoutController.cardWidth)
+            card = DetailViewController(sourceImageView: sourceImageView, maxWidth: layoutController.cardWidth, cacheController: detailCacheController)
         }
         
         card!.photo = photoCollection[itemIndex]

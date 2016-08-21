@@ -16,7 +16,11 @@ extension APIService {
         var params = parameters
         params["page"] = String(page)
         
-        client.get(url, parameters: params, success: { (data, response) in
+        client.get(url, parameters: params, success: { [weak self] (data, response) in
+            
+            // If the page is 1, then treat this as a 'refresh' action. We'll mark the current time as the comments' last refreshed time
+            self?.commentsLastRefreshedDateLookup[photoId] = NSDate()
+            
             let userInfo : [String : AnyObject] = ["photoId" : photoId, "page" : page, "response" : data]
             NSNotificationCenter.defaultCenter().postNotificationName("commentsDidReturn", object: nil, userInfo: userInfo)
             
@@ -32,5 +36,18 @@ extension APIService {
                 failureAction(error.localizedDescription)
             }
         }
+    }
+    
+    // Refresh a photo's comments if the previous comments in cache already expired
+    func refreshCommentsIfNecessary(photoId : String, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        // If the cache has not expired, return immediately
+        if !commentsCacheExpired(photoId) {
+            if let successAction = success {
+                successAction()
+                return
+            }
+        }
+        
+        getComments(photoId, page: 1, parameters: parameters, success: success, failure: failure)
     }
 }

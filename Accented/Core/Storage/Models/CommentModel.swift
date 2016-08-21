@@ -21,9 +21,9 @@ class CommentModel: NSObject {
     var replies : [ReplyModel]
     
     init(json:JSON) {
-        commentId = json["id"].string!
-        commentedOnUserId = json["to_whom_user_id"].string!
-        userId = json["user_id"].string!
+        commentId = String(json["id"].int!)
+        commentedOnUserId = String(json["to_whom_user_id"].int!)
+        userId = String(json["user_id"].int!)
         body = json["body"].string!
         
         // Dates

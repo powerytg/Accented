@@ -20,9 +20,9 @@ class ReplyModel: NSObject {
     var user : UserModel
     
     init(json:JSON) {
-        replyId = json["id"].string!
-        parentId = json["parent_id"].string!
-        userId = json["user_id"].string!
+        replyId = String(json["id"].int!)
+        parentId = String(json["parent_id"].int!)
+        userId = String(json["user_id"].int!)
         body = json["body"].string!
 
         // Dates

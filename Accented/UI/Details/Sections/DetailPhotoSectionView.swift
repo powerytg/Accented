@@ -10,18 +10,13 @@ import UIKit
 
 class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSource, DetailLightBoxAnimation {
 
+    override var sectionId: String {
+        return "photo"
+    }
+    
     private var photoView = UIImageView()
-    private var calculatedPhotoHeight : CGFloat = 0
     private static var leftMargin : CGFloat = 5
     private static var rightMargin : CGFloat = 0
-    
-    override init(maxWidth: CGFloat) {
-        super.init(maxWidth: maxWidth)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func initialize() {
         super.initialize()
@@ -32,40 +27,33 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     
     override func photoModelDidChange() {
         guard photo != nil else { return }
+        setNeedsLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard photo != nil else { return }
         
         if let imageUrl = PhotoRenderer.preferredImageUrl(photo!) {
             photoView.af_setImageWithURL(imageUrl)
         } else {
             photoView.image = nil
         }
-        
-        // Calculate desired height
-        calculatedPhotoHeight = DetailPhotoSectionView.estimatedPhotoViewHeight(photo!, width: maxWidth)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        guard photo != nil else { return }
-        
+
+        let h = CGRectGetHeight(self.contentView.bounds)
         let photoWidth = maxWidth - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
+        photoView.frame = CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, h)
         photoView.layer.shadowColor = UIColor.blackColor().CGColor
         photoView.layer.shadowOpacity = 0.5
         photoView.layer.shadowRadius = 5
         photoView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        photoView.layer.shadowPath = UIBezierPath(rect: CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, calculatedPhotoHeight)).CGPath
-        
-        photoView.frame = CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, calculatedPhotoHeight)
+        photoView.layer.shadowPath = UIBezierPath(rect: CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, h)).CGPath
     }
     
     // MARK: - Measurements
     
-    override func estimatedHeight(width : CGFloat) -> CGFloat {
-        if photo == nil {
-            return 0
-        }
-        
-        return calculatedPhotoHeight
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+        return DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: maxWidth)
     }
     
     private static func estimatedPhotoViewHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {

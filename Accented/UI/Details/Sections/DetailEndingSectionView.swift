@@ -10,6 +10,10 @@ import UIKit
 
 class DetailEndingSectionView: DetailSectionViewBase {
 
+    override var sectionId: String {
+        return "ending"
+    }
+
     // Fixed content size
     private let contentHeight : CGFloat = 80
 
@@ -26,7 +30,7 @@ class DetailEndingSectionView: DetailSectionViewBase {
         separatorImageView.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
     }
     
-    override func estimatedHeight(width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
         return contentHeight
     }
 }

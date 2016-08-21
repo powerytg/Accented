@@ -31,9 +31,10 @@ enum ImageSize : String {
 class APIService: NSObject {
     
     // API base url
-    let baseUrl = "https://api.500px.com/v1/"
+    internal let baseUrl = "https://api.500px.com/v1/"
     
-    let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
+    // Supported image sizes
+    internal let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
     
     // Singleton instance
     static let sharedInstance = APIService()
@@ -47,5 +48,11 @@ class APIService: NSObject {
     
     // OAuth client for making API calls
     var client : OAuthSwiftClient
+    
+    // Comments expiration time (10 min)
+    internal var commentsCacheAge : NSTimeInterval = 10 * 60
+    
+    // This dictionary keeps track of last refresh date
+    internal var commentsLastRefreshedDateLookup = [String : NSDate]()
     
 }

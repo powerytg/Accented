@@ -18,6 +18,8 @@
 		184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C06901CBB11C3008A1E37 /* MainViewController.swift */; };
 		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
+		186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186484981D6A24F800B8A9D2 /* CommentRenderer.swift */; };
+		1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */; };
 		186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */; };
 		186AF5571D5836C300A9928F /* DetailEndingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */; };
 		186AF5591D58497200A9928F /* CardAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5581D58497200A9928F /* CardAnimation.swift */; };
@@ -43,6 +45,7 @@
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */; };
 		188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */; };
+		189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D8BBD1D68BBB700247846 /* APIService+Cache.swift */; };
 		18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB00221D41CCCA00895192 /* DetailViewController.swift */; };
 		18BD571E1D56445300376DE8 /* DetailGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD571D1D56445300376DE8 /* DetailGalleryViewController.swift */; };
 		18BD57201D56454E00376DE8 /* DetailNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD571F1D56454E00376DE8 /* DetailNavigationContext.swift */; };
@@ -187,6 +190,8 @@
 		184C06901CBB11C3008A1E37 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
+		186484981D6A24F800B8A9D2 /* CommentRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRenderer.swift; sourceTree = "<group>"; };
+		1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCacheController.swift; sourceTree = "<group>"; };
 		186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMetadataSectionView.swift; sourceTree = "<group>"; };
 		186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEndingSectionView.swift; sourceTree = "<group>"; };
 		186AF5581D58497200A9928F /* CardAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimation.swift; sourceTree = "<group>"; };
@@ -212,6 +217,7 @@
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoLayoutSpec.swift; sourceTree = "<group>"; };
 		188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDescriptionSectionView.swift; sourceTree = "<group>"; };
+		189D8BBD1D68BBB700247846 /* APIService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Cache.swift"; sourceTree = "<group>"; };
 		18AB00221D41CCCA00895192 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		18BD571D1D56445300376DE8 /* DetailGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailGalleryViewController.swift; sourceTree = "<group>"; };
 		18BD571F1D56454E00376DE8 /* DetailNavigationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNavigationContext.swift; sourceTree = "<group>"; };
@@ -418,6 +424,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		186484961D6A24BC00B8A9D2 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				186484981D6A24F800B8A9D2 /* CommentRenderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
 		187082091D04AF3D00FDAAEB /* ThemeSelector */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */,
+				1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -687,6 +702,7 @@
 				9B6115DC1CCAB8F4008F5257 /* APIService+Streams.swift */,
 				9B6115D21CCA978E008F5257 /* AuthenticationService.swift */,
 				9B3BA5C11D6790DB00AF588A /* APIService+Comments.swift */,
+				189D8BBD1D68BBB700247846 /* APIService+Cache.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -718,6 +734,7 @@
 		9B6676FD1D34050500B89009 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				186484961D6A24BC00B8A9D2 /* Renderers */,
 				1872E2E21D502CD900F160F1 /* Components */,
 				9B9C9A3B1D42845D00B015F4 /* Sections */,
 				9B6677041D340D6300B89009 /* Animations */,
@@ -940,6 +957,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B6677061D340DE400B89009 /* DetailPresentationController.swift in Sources */,
+				189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */,
 				9B6115DD1CCAB8F4008F5257 /* APIService+Streams.swift in Sources */,
 				9B3813AF1CE00DFD0066D3B9 /* HomeViewController.swift in Sources */,
 				1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */,
@@ -959,6 +977,7 @@
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
+				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
 				9B89B1201D550F2900382744 /* DeckViewControllerDataSource.swift in Sources */,
@@ -986,6 +1005,7 @@
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
+				1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,

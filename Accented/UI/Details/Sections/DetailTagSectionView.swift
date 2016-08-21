@@ -10,15 +10,16 @@ import UIKit
 
 class DetailTagSectionView: DetailSectionViewBase {
 
+    override var sectionId: String {
+        return "tags"
+    }
+
     private var tagButtons = [UIButton]()
     private var noTagsLabel = UILabel()
     private let hGap : CGFloat = 6
     private let vGap : CGFloat = 6
     private let contentLeftMargin : CGFloat = 15
     private let contentRightMargin : CGFloat = 30
-    
-    // Cached section height
-    private var calculatedSectionHeight : CGFloat = 0
     
     // Fixed content height when there're no tags in the photo
     private var noTagsSectionHeight : CGFloat = 40
@@ -50,64 +51,82 @@ class DetailTagSectionView: DetailSectionViewBase {
         }
         
         tagButtons.removeAll()
-        calculatedSectionHeight = 0
         
         if photo!.tags.count > 0 {
             noTagsLabel.hidden = true
-            
-            // Create new tag buttons and calculate content size
-            var nextX : CGFloat = contentLeftMargin
-            var nextY : CGFloat = 0
-            var maxRowHeight : CGFloat = 0
-            let maxContentWidth = maxWidth - contentLeftMargin - contentRightMargin
             for tag in photo!.tags {
-                let button = UIButton(type: .Custom)
+                let button = createTagButton()
                 button.setTitle(tag, forState: .Normal)
-                button.setTitleColor(UIColor.whiteColor(), forState:.Normal)
-                button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Medium", size: 15)
-                button.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
-                button.backgroundColor = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
-                button.layer.cornerRadius = 4
-                button.layer.borderColor = UIColor.blackColor().CGColor
-                button.layer.borderWidth = 1
                 button.sizeToFit()
                 contentView.addSubview(button)
                 tagButtons.append(button)
-                
-                var f = button.frame
-                if CGRectGetHeight(f) > maxRowHeight {
-                    maxRowHeight = CGRectGetHeight(f)
-                }
-                
-                if nextX + CGRectGetWidth(f) > maxContentWidth {
-                    // Start a new row
-                    nextX = contentLeftMargin
-                    nextY += maxRowHeight + vGap
-                    maxRowHeight = CGRectGetHeight(f)
-                    f.origin.x = nextX
-                    f.origin.y = nextY
-                    nextX += CGRectGetWidth(f) + hGap
-                } else {
-                    // Put the button to the right of its sibling
-                    f.origin.x = nextX
-                    f.origin.y = nextY
-                    nextX += CGRectGetWidth(f) + hGap
-                }
-                
-                button.frame = f
-                calculatedSectionHeight = nextY + maxRowHeight
             }
         } else {
             noTagsLabel.hidden = false
-            calculatedSectionHeight = noTagsSectionHeight
         }
         
-        // Add section title height
-        calculatedSectionHeight += sectionTitleHeight
+        setNeedsLayout()
     }
 
-    override func estimatedHeight(width: CGFloat) -> CGFloat {
-        return calculatedSectionHeight
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard photo != nil else { return }
+        guard tagButtons.count == photo!.tags.count else { return }
+        
+        for (index, tagButton) in tagButtons.enumerate() {
+            let cachedFrame = cacheController.getTagButtonFrame(photo!.photoId, tagIndex: index)
+            if cachedFrame != nil {
+                tagButton.frame = cachedFrame!
+            }
+        }
+    }
+    
+    // MARK: - Measurements
+    
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+        if photo.tags.count == 0 {
+            return noTagsSectionHeight + sectionTitleHeight
+        }
+        
+        // Create a measurement tag button
+        let measurementButton = createTagButton()
+        var nextX : CGFloat = contentLeftMargin
+        var nextY : CGFloat = 0
+        var maxRowHeight : CGFloat = 0
+        let maxContentWidth = maxWidth - contentLeftMargin - contentRightMargin
+        var calculatedSectionHeight : CGFloat = 0
+        
+        for (index, tag) in photo.tags.enumerate() {
+            measurementButton.setTitle(tag, forState: .Normal)
+            measurementButton.sizeToFit()
+            
+            var f = measurementButton.frame
+            if CGRectGetHeight(f) > maxRowHeight {
+                maxRowHeight = CGRectGetHeight(f)
+            }
+            
+            if nextX + CGRectGetWidth(f) > maxContentWidth {
+                // Start a new row
+                nextX = contentLeftMargin
+                nextY += maxRowHeight + vGap
+                maxRowHeight = CGRectGetHeight(f)
+                f.origin.x = nextX
+                f.origin.y = nextY
+                nextX += CGRectGetWidth(f) + hGap
+            } else {
+                // Put the button to the right of its sibling
+                f.origin.x = nextX
+                f.origin.y = nextY
+                nextX += CGRectGetWidth(f) + hGap
+            }
+            
+            // Cache the frame for the tag button
+            cacheController.setTagButtonFrame(f, photoId: photo.photoId, tagIndex: index)
+            
+            calculatedSectionHeight = nextY + maxRowHeight
+        }
+        
+        return calculatedSectionHeight + sectionTitleHeight
     }
     
     // MARK: - Animations
@@ -124,4 +143,17 @@ class DetailTagSectionView: DetailSectionViewBase {
             })
     }
     
+    // MARK : - Private
+    
+    private func createTagButton() -> UIButton {
+        let button = UIButton(type: .Custom)
+        button.setTitleColor(UIColor.whiteColor(), forState:.Normal)
+        button.titleLabel?.font = UIFont(name: "AvenirNextCondensed-Medium", size: 15)
+        button.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        button.backgroundColor = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
+        button.layer.cornerRadius = 4
+        button.layer.borderColor = UIColor.blackColor().CGColor
+        button.layer.borderWidth = 1
+        return button
+    }
 }

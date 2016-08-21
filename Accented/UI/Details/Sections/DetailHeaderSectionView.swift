@@ -10,6 +10,10 @@ import UIKit
 
 class DetailHeaderSectionView: DetailSectionViewBase {
 
+    override var sectionId: String {
+        return "header"
+    }
+
     private var avatarView = UIImageView()
     private var authorLabel = UILabel()
 
@@ -22,14 +26,6 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     // Margin right
     private var marginRight : CGFloat = 60
     
-    override init(maxWidth: CGFloat) {
-        super.init(maxWidth: maxWidth)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func initialize() {
         super.initialize()
         
@@ -60,16 +56,22 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     override func photoModelDidChange() {
         guard photo != nil else { return }
         
-        if let avatarUrl = preferredAvatarUrl() {
-            avatarView.af_setImageWithURL(avatarUrl)
-        }
-        
-        authorLabel.text = preferredAuthorName().uppercaseString
+        setNeedsLayout()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        guard photo != nil else { return }
+
+        // Author
+        if let avatarUrl = preferredAvatarUrl() {
+            avatarView.af_setImageWithURL(avatarUrl)
+        }
+        
+        authorLabel.text = preferredAuthorName().uppercaseString
+
+        // Avatar
         avatarView.layer.shadowPath = UIBezierPath(rect: CGRectMake(0, 0, avatarSize, avatarSize)).CGPath
         avatarView.layer.shadowColor = UIColor.blackColor().CGColor
         avatarView.layer.shadowOpacity = 0.25
@@ -79,7 +81,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     
     // MARK: - Measurements
     
-    override func estimatedHeight(width : CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
         return sectionHeight
     }
     

@@ -9,52 +9,83 @@
 import UIKit
 
 class DetailCommentSectionView: DetailSectionViewBase {
+/*
+    override var sectionId: String {
+        return "comments"
+    }
 
     private var contentRightMargin : CGFloat = 50
     private let contentLeftMargin : CGFloat = 15
     private var contentTopMargin : CGFloat = 0
     private var contentBottomMargin : CGFloat = 15
-    private let commentsText = "This photo does not have comments"
+    
+    private let noCommentsText = "This photo does not have comments"
+    private let loadingText = "Loading comments..."
+    
     private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     override var title: String? {
         return "COMMENTS"
     }
     
-    private var noCommentsLabel = UILabel()
+    // Status label will be visible if there are no comments, or if the comments are being loaded
+    private var statusLabel = UILabel()
     private var loadingSpinner = UIProgressView(progressViewStyle: .Default)
+    
+    // Cached section height
     private var calculatedSectionHeight : CGFloat = 0
+    
+    // Fixed content height when there're no comments in the photo
+    private var noCommentsSectionHeight : CGFloat = 40
+
+    // Comment renderers
+    private let commentRendererCountForDisplay = 3
+    private var commentRenderers = [CommentRenderer]()
     
     override func initialize() {
         super.initialize()
         
-        contentView.addSubview(noCommentsLabel)
+        // Status label
+        contentView.addSubview(statusLabel)
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - contentRightMargin
+        statusLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
+        statusLabel.font = textFont
+        statusLabel.numberOfLines = 1
+        statusLabel.hidden = false
         
-        noCommentsLabel.translatesAutoresizingMaskIntoConstraints = false
-        noCommentsLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - contentRightMargin
-        noCommentsLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
-        noCommentsLabel.font = textFont
-        noCommentsLabel.numberOfLines = 0
-        noCommentsLabel.lineBreakMode = .ByWordWrapping
+        // Create a limited number of comment renderers ahead of time
+        for _ in 1...commentRendererCountForDisplay {
+            let renderer = CommentRenderer(frame: CGRectZero)
+            contentView.addSubview(renderer)
+            contentView.hidden = true
+        }
         
         // Constraints
-        noCommentsLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
-        noCommentsLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: contentTopMargin).active = true
+        statusLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
+        statusLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: contentTopMargin).active = true
     }
     
     override func photoModelDidChange() {
         super.photoModelDidChange()
+        guard photo != nil else { return }
         
-        let displayText = getDisplayEXIFText()
-        exifLabel.text = displayText
+        var contentHeight : CGFloat = 0
+        if photo!.commentsCount == 0 {
+            // Photo has no comments
+            statusLabel.text = noCommentsText
+            statusLabel.hidden = false
+            contentHeight = noCommentsSectionHeight
+        } else if photo!.comments.count == 0{
+            // Photo has comments, but have yet loaded
+            statusLabel.text = loadingText
+            statusLabel.hidden = false
+            contentHeight = noCommentsSectionHeight
+        } else {
+            statusLabel.hidden = true
+        }
         
-        // Update measurements
-        let maxTextWidth = maxWidth - contentLeftMargin - contentRightMargin
-        let textHeight = NSString(string : displayText).boundingRectWithSize(CGSizeMake(maxTextWidth, CGFloat.max),
-                                                                             options: .UsesLineFragmentOrigin,
-                                                                             attributes: [NSFontAttributeName: textFont!],
-                                                                             context: nil).size.height
-        calculatedSectionHeight = textHeight + sectionTitleHeight + contentBottomMargin
+        calculatedSectionHeight = contentHeight + sectionTitleHeight + contentBottomMargin
     }
     
     override func estimatedHeight(width: CGFloat) -> CGFloat {
@@ -108,5 +139,5 @@ class DetailCommentSectionView: DetailSectionViewBase {
         }
     }
 
-
+*/
 }
