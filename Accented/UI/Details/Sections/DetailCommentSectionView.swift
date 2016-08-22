@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailCommentSectionView: DetailSectionViewBase {
-/*
+
     override var sectionId: String {
         return "comments"
     }
@@ -21,6 +21,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     private let noCommentsText = "This photo does not have comments"
     private let loadingText = "Loading comments..."
+    private let errorText = "Could not retrieve comments"
     
     private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
@@ -30,16 +31,18 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     // Status label will be visible if there are no comments, or if the comments are being loaded
     private var statusLabel = UILabel()
-    private var loadingSpinner = UIProgressView(progressViewStyle: .Default)
+    private var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
     
     // Cached section height
     private var calculatedSectionHeight : CGFloat = 0
     
     // Fixed content height when there're no comments in the photo
     private var noCommentsSectionHeight : CGFloat = 40
-
+    
+    // Maximum number of comments pre-created
+    private let maxNumberOfCommentsOnScreen = 3
+    
     // Comment renderers
-    private let commentRendererCountForDisplay = 3
     private var commentRenderers = [CommentRenderer]()
     
     override func initialize() {
@@ -51,93 +54,110 @@ class DetailCommentSectionView: DetailSectionViewBase {
         statusLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - contentRightMargin
         statusLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
         statusLabel.font = textFont
-        statusLabel.numberOfLines = 1
-        statusLabel.hidden = false
+        statusLabel.hidden = true
+        
+        // Loading spinner
+        contentView.addSubview(loadingSpinner)
+        loadingSpinner.translatesAutoresizingMaskIntoConstraints = false
+        loadingSpinner.hidden = true
         
         // Create a limited number of comment renderers ahead of time
-        for _ in 1...commentRendererCountForDisplay {
+        for _ in 1...maxNumberOfCommentsOnScreen {
             let renderer = CommentRenderer(frame: CGRectZero)
             contentView.addSubview(renderer)
-            contentView.hidden = true
+            commentRenderers.append(renderer)
+            renderer.hidden = true
         }
         
         // Constraints
         statusLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
         statusLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: contentTopMargin).active = true
+        
+        loadingSpinner.leadingAnchor.constraintEqualToAnchor(statusLabel.trailingAnchor, constant: 15).active = true
+        loadingSpinner.centerYAnchor.constraintEqualToAnchor(statusLabel.centerYAnchor).active = true
+        
+        // Events
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func photoModelDidChange() {
-        super.photoModelDidChange()
-        guard photo != nil else { return }
+        // Stop loading spinner
+        loadingSpinner.stopAnimating()
         
-        var contentHeight : CGFloat = 0
+        // Refresh the photo comments in background
+        guard photo != nil else { return }
+        APIService.sharedInstance.refreshCommentsIfNecessary(photo!.photoId)
+        
+        setNeedsLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard photo != nil else { return }
+     
         if photo!.commentsCount == 0 {
             // Photo has no comments
             statusLabel.text = noCommentsText
             statusLabel.hidden = false
-            contentHeight = noCommentsSectionHeight
+            loadingSpinner.hidden = true
         } else if photo!.comments.count == 0{
             // Photo has comments, but have yet loaded
             statusLabel.text = loadingText
             statusLabel.hidden = false
-            contentHeight = noCommentsSectionHeight
+            loadingSpinner.hidden = false
+            loadingSpinner.startAnimating()
         } else {
+            // Showing the top comments
             statusLabel.hidden = true
+            loadingSpinner.hidden = true
+            
+            var nextY : CGFloat = 0
+            for (index, renderer) in commentRenderers.enumerate() {
+                if index < photo!.comments.count {
+                    let comment = photo!.comments[index]
+                    let rendererHeight = renderer.estimatedHeight(comment, width: maxWidth)
+                    renderer.frame = CGRectMake(0, nextY, maxWidth, rendererHeight)
+                    renderer.comment = photo!.comments[index]
+                    renderer.hidden = false
+                    
+                    nextY += rendererHeight
+                } else {
+                    renderer.hidden = true
+                }
+            }
         }
-        
-        calculatedSectionHeight = contentHeight + sectionTitleHeight + contentBottomMargin
     }
     
-    override func estimatedHeight(width: CGFloat) -> CGFloat {
-        return calculatedSectionHeight
-    }
-    
-    // MARK : - Private
-    private func getDisplayEXIFText() -> String {
-        guard photo != nil else { return noEXIFText }
-        
-        let aperture = displayApertureString()
-        if aperture == nil && photo!.camera == nil && photo?.lens == nil {
-            return noEXIFText
+    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+        if photo.commentsCount == 0 || photo.comments.count == 0 {
+            return sectionTitleHeight + noCommentsSectionHeight
         } else {
-            // If only aperture was available, display the aperture
-            if photo!.camera == nil && photo?.lens == nil {
-                return "Aperture was \(aperture!)"
+            var calculatedHeight : CGFloat = 0
+            let displayCommentsCount = min(photo.comments.count, maxNumberOfCommentsOnScreen)
+            for index in 0...(displayCommentsCount - 1) {
+                let comment = photo.comments[index]
+                let renderer = commentRenderers[index]
+                let commentHeight = renderer.estimatedHeight(comment, width: width)
+                
+                calculatedHeight += commentHeight
             }
             
-            // If only lens was available, display the lens
-            if photo!.camera == nil && aperture == nil {
-                return "Lens used in this photo was \(photo!.lens!)"
-            }
-            
-            var displayText = ""
-            if photo!.camera != nil {
-                displayText = "This photo was taken with \(photo!.camera!)"
-            }
-            
-            if photo!.lens != nil {
-                displayText += " and \(photo!.lens!)"
-            }
-            
-            if aperture != nil {
-                displayText += ", aperture was \(aperture!)"
-            }
-            
-            return displayText
+            return calculatedHeight
         }
     }
     
-    private func displayApertureString() -> String? {
-        if let aperture = photo?.aperture {
-            if aperture.hasPrefix("f") {
-                return aperture
-            } else {
-                return "f/\(aperture)"
-            }
-        } else {
-            return nil
-        }
+    // MARK: - Events
+    
+    @objc private func photoCommentsDidChange(notification : NSNotification) {
+        let photoId = notification.userInfo![StorageServiceEvents.photoId] as! String
+        guard photo != nil else { return }
+        guard photo!.photoId == photoId else { return }
+        
+        // Trigger an animated layout validation
+        invalidateMeasurements()
     }
-
-*/
 }

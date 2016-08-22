@@ -32,10 +32,19 @@ class CommentRenderer: UIView {
     private func initialize() {
         addSubview(contentLabel)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.preferredMaxLayoutWidth = 280
         contentLabel.textColor = UIColor.whiteColor()
+        
+        // Constraints
+        contentLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: 10).active = true
+        contentLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: 10).active = true
     }
     
     private func commentModelDidChange() {
         contentLabel.text = comment?.body
+    }
+    
+    func estimatedHeight(comment : CommentModel, width : CGFloat) -> CGFloat {
+        return 40
     }
 }

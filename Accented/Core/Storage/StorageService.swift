@@ -40,6 +40,11 @@ class StorageService: NSObject {
     // Initialize event listeners to monitor APIService results
     private func initializeEventListeners() {
         let notificationCenter = NSNotificationCenter.defaultCenter()
+        
+        // Photos returned for a stream
         notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: "streamPhotosDidReturn", object: nil)
+        
+        // Photo comments returned
+        notificationCenter.addObserver(self, selector: #selector(photoCommentsDidReturn(_:)), name: "commentsDidReturn", object: nil)
     }
 }

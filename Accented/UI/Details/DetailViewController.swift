@@ -30,7 +30,7 @@ protocol DetailViewControllerDelegate : NSObjectProtocol {
     func didCancelPinchOnPhoto(photo: PhotoModel, sourceImageView: UIImageView)
 }
 
-class DetailViewController: CardViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, UIScrollViewDelegate {
+class DetailViewController: CardViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, DetailSectionViewDelegate, UIScrollViewDelegate {
 
     // Delegate
     weak var delegate : DetailViewControllerDelegate?
@@ -112,9 +112,11 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth, cacheController: cacheController))
         sectionViews.append(DetailMetadataSectionView(maxWidth: maxWidth, cacheController: cacheController))
         sectionViews.append(DetailTagSectionView(maxWidth: maxWidth, cacheController: cacheController))
+        sectionViews.append(DetailCommentSectionView(maxWidth: maxWidth, cacheController: cacheController))
         sectionViews.append(DetailEndingSectionView(maxWidth: maxWidth, cacheController: cacheController))
         
         for section in sectionViews {
+            section.delegate = self
             contentView.addSubview(section)
         }
         
@@ -126,11 +128,16 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         photoSection.addGestureRecognizer(zoom)
     }
     
+    // MARK: - Layout
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         guard photo != nil else { return }
         
-        // Sections
+        layoutContentView()
+    }
+    
+    private func layoutContentView() {
         var nextY : CGFloat = 0
         for section in sectionViews {
             let cachedHeight = section.estimatedHeight(photo, width: maxWidth)
@@ -143,8 +150,10 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         scrollView.contentSize = CGSizeMake(maxWidth, nextY)
         scrollView.frame = self.view.bounds
         contentView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height)
-        contentView.setNeedsLayout()
+
     }
+    
+    // MARK: - Entrance animation
     
     private func setupEntranceAnimationViews() {
         for section in sectionViews {
@@ -163,8 +172,6 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    // MARK: - Entrance animation
     
     func entranceAnimationWillBegin() {
         for view in entranceAnimationViews {
@@ -214,6 +221,17 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
+    }
+    
+    // MARK: - DetailSectionViewDelegate
+    
+    func sectionViewMeasurementWillChange(section: DetailSectionViewBase) {
+        // Remove cached section view measurements
+        cacheController.removeSectionMeasurement(section, photoId: section.photo!.photoId)
+        
+        UIView.animateWithDuration(0.3) { [weak self] in
+            self?.layoutContentView()
+        }
     }
     
     // MARK: - Events

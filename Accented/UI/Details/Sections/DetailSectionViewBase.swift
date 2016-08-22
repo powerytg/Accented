@@ -8,6 +8,12 @@
 
 import UIKit
 
+// Detail section view event delegate
+protocol DetailSectionViewDelegate : NSObjectProtocol {
+    // Section view will change its height
+    func sectionViewMeasurementWillChange(section : DetailSectionViewBase)
+}
+
 class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
 
     // Section id
@@ -53,6 +59,9 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     
     // Shared cache controller
     var cacheController : DetailCacheController
+    
+    // Event delegate
+    weak var delegate : DetailSectionViewDelegate?
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -118,6 +127,11 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     
     func calculatedHeightForPhoto(photo : PhotoModel, width : CGFloat) -> CGFloat {
         return 0
+    }
+    
+    // Notify the event delegate that the section view will change its height
+    func invalidateMeasurements() {
+        delegate?.sectionViewMeasurementWillChange(self)
     }
     
     // MARK: - Animations

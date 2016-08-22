@@ -35,6 +35,12 @@ class DetailCacheController: NSObject {
         return sectionMeasurementCache[key]
     }
 
+    // Clear the cached measurement for the section for the specific photo
+    func removeSectionMeasurement(section : DetailSectionViewBase, photoId : String) {
+        let key = sectionCacheKey(section, photoId: photoId)
+        sectionMeasurementCache.removeValueForKey(key)
+    }
+    
     // Set a cached frame for the tag in the specific photo
     func setTagButtonFrame(frame: CGRect, photoId : String, tagIndex : Int) {
         let key = tagButtonCacheKey(photoId, tagIndex: tagIndex)
