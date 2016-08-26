@@ -243,6 +243,7 @@ class DeckCacheController: NSObject {
             return nil
         } else {
             let card = recycledCards.removeLast()
+            card.view.transform = CGAffineTransformIdentity
             card.prepareForReuse()
             return card
         }

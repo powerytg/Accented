@@ -131,14 +131,17 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         // Layout visible cards
         for (index, card) in cacheController.leftVisibleCardViewControllers.enumerate() {
             card.view.frame = layoutController.leftVisibleCardFrames[index]
+            card.positionX = layoutController.leftVisibleCardFrames[index].origin.x
         }
         
         if let selectedCard = cacheController.selectedCardViewController {
             selectedCard.view.frame = layoutController.selectedCardFrame
+            selectedCard.positionX = layoutController.selectedCardFrame.origin.x
         }
         
         for (index, card) in cacheController.rightVisibleCardViewControllers.enumerate() {
             card.view.frame = layoutController.rightVisibleCardFrames[index]
+            card.positionX = layoutController.rightVisibleCardFrames[index].origin.x
         }
     }
     
@@ -161,7 +164,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     private func panGestureDidChange(gesture : UIPanGestureRecognizer) {
         let tx = gesture.translationInView(gesture.view).x
-        contentView.transform = CGAffineTransformMakeTranslation(tx, 0)
+        for card in cacheController.visibleCardViewControllers {
+            card.view.transform = CGAffineTransformMakeTranslation(card.positionX + tx, 0)
+        }
     }
     
     private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {

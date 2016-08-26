@@ -10,6 +10,8 @@ import UIKit
 
 class CardViewController: UIViewController, CardAnimation {
 
+    var positionX : CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
