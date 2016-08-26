@@ -35,7 +35,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         guard photo != nil else { return }
         
         if let imageUrl = PhotoRenderer.preferredImageUrl(photo!) {
-            photoView.af_setImageWithURL(imageUrl)
+            photoView.sd_setImageWithURL(imageUrl)
         } else {
             photoView.image = nil
         }

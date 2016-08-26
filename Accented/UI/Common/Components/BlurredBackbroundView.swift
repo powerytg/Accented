@@ -7,16 +7,21 @@
 //
 
 import UIKit
-import AlamofireImage
+import SDWebImage
+import GPUImage
 
 class BlurredBackbroundView: ThemeableBackgroundView {
 
-    var imageView = UIImageView()
-    var blurView : UIVisualEffectView = UIVisualEffectView()
+    private var imageView = UIImageView()
+    private var blurView : UIVisualEffectView = UIVisualEffectView()
+    
+    private var saturationFilter = SaturationAdjustment()
     
     override func initialize() -> Void {
         super.initialize()
         
+        // Setup filters
+        saturationFilter.saturation = 0.25
         let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         blurView.effect = blurEffect
         
@@ -31,45 +36,47 @@ class BlurredBackbroundView: ThemeableBackgroundView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        guard photo != nil else { return }
+        
         imageView.frame = self.bounds
         blurView.frame = self.bounds
         
-        if photo != nil {
-            let url = NSURL(string: (photo?.imageUrls[ImageSize.Medium])!)
-            let filter = DesaturationFilter()
-            
-            if ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground {
-                imageView.af_setImageWithURL(
-                    url!,
-                    placeholderImage: nil,
-                    filter: filter,
-                    imageTransition: .CrossDissolve(0.2)
-                )
-            } else {
-                imageView.af_setImageWithURL(
-                    url!,
-                    placeholderImage: nil,
-                    imageTransition: .CrossDissolve(0.2)
-                )
-            }
-        } 
+        applyBackgroundImage(ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground)
     }
 
+    private func applyBackgroundImage(desaturated : Bool) {
+        guard photo != nil else { return }
+        let url = PhotoRenderer.preferredImageUrl(photo!)
+        guard url != nil else { return }
+        
+        imageView.alpha = 0
+        
+        let downloader = SDWebImageDownloader.sharedDownloader()
+        downloader.downloadImageWithURL(url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
+            guard image != nil && finished == true else { return }
+            self?.applyImageEffects(image, desaturated: desaturated)
+        }
+    }
+    
+    private func applyImageEffects(image : UIImage, desaturated : Bool) {
+        let input = PictureInput(image: image.CGImage!)
+        let output = PictureOutput()
+        output.imageAvailableCallback = { image in
+            dispatch_async(dispatch_get_main_queue(), { 
+                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { [weak self] in
+                    self?.imageView.image = image
+                    self?.imageView.alpha = 1
+                    }, completion: nil)
+            })
+        }
+
+        input --> saturationFilter --> output
+        input.processImage()
+    }
+    
     // MARK : - Events
     override func applyThemeChangeAnimation() {
         super.applyThemeChangeAnimation()
         self.blurView.effect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
-    }
-}
-
-// MARK: - Filters
-
-// De-saturate filter lowers the saturation of an image
-private struct DesaturationFilter: ImageFilter {
-    var filter: Image -> Image {
-        return { image in
-            let parameters = [kCIInputSaturationKey : 0.25]
-            return image.af_imageWithAppliedCoreImageFilter("CIColorControls", filterParameters: parameters) ?? image
-        }
     }
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AlamofireImage
+import SDWebImage
 
 protocol PhotoRendererDelegate : NSObjectProtocol {
     func photoRendererDidReceiveTap(renderer : PhotoRenderer)
@@ -48,7 +48,7 @@ class PhotoRenderer: UIView {
                 if photoModel != nil {
                     let url = PhotoRenderer.preferredImageUrl(photoModel)
                     if url != nil {
-                        imageView.af_setImageWithURL(url!)
+                        imageView.sd_setImageWithURL(url!)
                     } else {
                         imageView.image = nil
                     }

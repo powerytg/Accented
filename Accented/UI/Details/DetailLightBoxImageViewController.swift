@@ -140,7 +140,7 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
     private func initializeImageView() {
         let imageUrl = PhotoRenderer.preferredImageUrl(photo)
         guard imageUrl != nil else { return }
-        imageView.af_setImageWithURL(imageUrl!)
+        imageView.sd_setImageWithURL(imageUrl!)
         
         // Make the image view display the full image
         let w = CGRectGetWidth(self.view.bounds)

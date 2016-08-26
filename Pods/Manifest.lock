@@ -1,17 +1,16 @@
 PODS:
   - Alamofire (3.4.1)
-  - AlamofireImage (2.4.1):
-    - Alamofire (~> 3.3)
-  - FastImageCache (1.5.1)
   - OAuthSwift (0.5.2)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - SwiftyJSON (2.3.2)
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 3.3)
-  - AlamofireImage (~> 2.0)
-  - FastImageCache
   - OAuthSwift (~> 0.5.0)
+  - SDWebImage (~> 3.8)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
   - TTTAttributedLabel
 
@@ -26,12 +25,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AlamofireImage: 3ccf3347d9ea24580dc11fb892770a0be6a29826
-  FastImageCache: 2e7a6f677b15336eb3d1a4092a494676256c891d
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 6e7861e670b0666b9f4ff0989d3a7398887746e1
+PODFILE CHECKSUM: 62066c3e7d04373115d5e1bf668464d57aac9f56
 
 COCOAPODS: 1.0.0

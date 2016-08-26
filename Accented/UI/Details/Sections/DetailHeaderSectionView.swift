@@ -66,7 +66,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
 
         // Author
         if let avatarUrl = preferredAvatarUrl() {
-            avatarView.af_setImageWithURL(avatarUrl)
+            avatarView.sd_setImageWithURL(avatarUrl)
         }
         
         authorLabel.text = preferredAuthorName().uppercaseString

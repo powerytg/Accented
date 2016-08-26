@@ -76,8 +76,8 @@ class DetailTagSectionView: DetailSectionViewBase {
         let contentSize = cacheController.getTagSectionContentSize(photo!.photoId)
         if contentSize != nil {
             var f = tagsContentView.frame
-            f.origin.x = contentLeftMargin
-            f.size.width = contentSize!.width - contentLeftMargin - contentRightMargin
+//            f.origin.x = contentLeftMargin
+            f.size.width = contentSize!.width
             f.size.height = contentSize!.height
             tagsContentView.frame = f
         }

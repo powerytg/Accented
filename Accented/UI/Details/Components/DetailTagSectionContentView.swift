@@ -14,7 +14,7 @@ class DetailTagSectionContentView: UIView {
     private let vGap : CGFloat = 6
     private let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
     private let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
-    private let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 1)
+    private let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
     private let tagButtonBorderColor = UIColor.blackColor()
     private let tagButtonRadius : CGFloat = 4
     private let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
@@ -74,6 +74,9 @@ class DetailTagSectionContentView: UIView {
             
             // Use a background thread to render the tag buttons
             renderTagButtonsOnBackground()
+        } else {
+            tagButtonFrames = nil
+            contentViewSize = nil
         }
     }
     
@@ -129,24 +132,24 @@ class DetailTagSectionContentView: UIView {
     // MARK : - Rendering
     
     override func drawRect(rect: CGRect) {
-        guard activeTagFrame != nil else { return }
         guard cachedContentImage != nil else { return  }
         
         let ctx = UIGraphicsGetCurrentContext()
         CGContextSaveGState(ctx)
-        
         CGContextClearRect(ctx, self.bounds)
         
         // Draw the original tag images
         cachedContentImage?.drawInRect(rect)
         
         // Draw a highlighted rounded rect for the active tag button
-        let path = UIBezierPath(roundedRect: activeTagFrame!, cornerRadius: tagButtonRadius)
-        path.lineWidth = 1
-        self.tagButtonBackground.setFill()
-        self.tagButtonActiveBackground.setStroke()
-        path.fill()
-        path.stroke()
+        if activeTagFrame != nil {
+            let path = UIBezierPath(roundedRect: activeTagFrame!, cornerRadius: tagButtonRadius)
+            path.lineWidth = 1
+            self.tagButtonActiveBackground.setFill()
+            self.tagButtonBorderColor.setStroke()
+            path.fill()
+            path.stroke()
+        }
         
         CGContextRestoreGState(ctx)
     }
@@ -222,7 +225,6 @@ class DetailTagSectionContentView: UIView {
                 setNeedsDisplay()
             }
         case .Ended:
-            print(photo!.tags[activeTagIndex!])
             activeTagFrame = nil
             activeTagIndex = nil
             setNeedsDisplay()
@@ -240,8 +242,6 @@ class DetailTagSectionContentView: UIView {
         guard tagButtonFrames != nil else { return (tagIndex : nil, rect : nil) }
         for (index, rect) in tagButtonFrames!.enumerate() {
             if CGRectContainsPoint(rect, point) {
-                // Apply the content view offset to the rect
-                let rect = CGRectMake(rect.origin.x, rect.origin.y, rect.width, rect.height)
                 return (tagIndex : index, rect : rect)
             }
         }
