@@ -18,7 +18,10 @@ class DetailCacheController: NSObject {
     // Cached tag button frames
     // The key is a combination of photo id and tag index in the photo, which should be calculated with the tagButtonCacheKey() method
     // The value is the cached frame for the tag
-    private var tagButtonFrameCache = [String : CGRect]()
+    private var tagButtonFrameCache = [String : [CGRect]]()
+    
+    // Cached tag section content size
+    private var tagSectionContentSizeCache = [String : CGSize]()
     
     // Formatted text cache
     private var formattedTextCache = [String : NSAttributedString]()
@@ -41,15 +44,15 @@ class DetailCacheController: NSObject {
         sectionMeasurementCache.removeValueForKey(key)
     }
     
-    // Set a cached frame for the tag in the specific photo
-    func setTagButtonFrame(frame: CGRect, photoId : String, tagIndex : Int) {
-        let key = tagButtonCacheKey(photoId, tagIndex: tagIndex)
-        tagButtonFrameCache[key] = frame
+    // Set a list of tag frames for photo
+    func setTagButtonFrames(frames : [CGRect], photoId : String) {
+        let key = tagFramesCacheKey(photoId)
+        tagButtonFrameCache[key] = frames
     }
 
-    // Get a cached measurement for the section for the specific photo
-    func getTagButtonFrame(photoId : String, tagIndex : Int) -> CGRect? {
-        let key = tagButtonCacheKey(photoId, tagIndex : tagIndex)
+    // Get cached tag button frames for the photo
+    func getTagButtonFrames(photoId : String) -> [CGRect]? {
+        let key = tagFramesCacheKey(photoId)
         return tagButtonFrameCache[key]
     }
 
@@ -63,16 +66,30 @@ class DetailCacheController: NSObject {
         return formattedTextCache[key]
     }
     
+    // Set a cached size for the tag section content
+    func setTagSectionContentSize(size : CGSize, photoId : String) {
+        tagSectionContentSizeCache[tagSectionContentSizeCacheKey(photoId)] = size
+    }
+    
+    // Set the cached size for the tag section content
+    func getTagSectionContentSize(photoId : String) -> CGSize? {
+        return tagSectionContentSizeCache[tagSectionContentSizeCacheKey(photoId)]
+    }
+    
     // MARK: Private
     
     private func sectionCacheKey(section : DetailSectionViewBase, photoId : String) -> String {
         return "\(section.sectionId)_\(photoId)"
     }
     
-    private func tagButtonCacheKey(photoId : String, tagIndex : Int) -> String {
-        return "tag_\(photoId)_\(tagIndex)"
+    private func tagFramesCacheKey(photoId : String) -> String {
+        return "tag_frames_\(photoId)"
     }
-    
+
+    private func tagSectionContentSizeCacheKey(photoId : String) -> String {
+        return "tag_section_size_\(photoId)"
+    }
+
     private func formattedDescriptionTextCache(photoId : String) -> String {
         return "desc_\(photoId)"
     }

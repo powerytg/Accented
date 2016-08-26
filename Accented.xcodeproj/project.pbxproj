@@ -133,6 +133,8 @@
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
+		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
+		9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */; };
 		9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */; };
 		9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6261D1358AD00B178F3 /* DrawerService.swift */; };
 		9BFFB6731D136E1400B178F3 /* DrawerOpenAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */; };
@@ -306,6 +308,8 @@
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
+		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
+		9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionContentView.swift; sourceTree = "<group>"; };
 		9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationParams.swift; sourceTree = "<group>"; };
 		9BFFB6261D1358AD00B178F3 /* DrawerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerService.swift; sourceTree = "<group>"; };
 		9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenAnimator.swift; sourceTree = "<group>"; };
@@ -465,6 +469,7 @@
 			children = (
 				1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */,
 				1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */,
+				9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -751,6 +756,7 @@
 			isa = PBXGroup;
 			children = (
 				9B6677021D340B0500B89009 /* NavigationService.swift */,
+				9BFAE2C81D6F63F300F41B70 /* RenderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1026,7 +1032,9 @@
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
 				1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
+				9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */,
 				9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */,
+				9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */,
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,
 				1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */,
 				18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */,

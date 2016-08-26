@@ -51,7 +51,7 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     var sectionTitleLabel = UILabel()
     
     // Content view
-    var contentView = UIView()
+    var contentView : UIView!
     
     // Common fonts and colors
     let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
@@ -75,9 +75,16 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
         initialize()
     }
     
+    // Subclass could override this method to supply their own content views
+    func createContentView() {
+        contentView = UIView()
+    }
+    
     func initialize() {
         self.clipsToBounds = false
         
+        // Create content view and add it as child
+        createContentView()
         addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.clipsToBounds = false
