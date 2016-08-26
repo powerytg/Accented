@@ -8,11 +8,16 @@
 
 import UIKit
 
+/**
+ Event delegate
+ */
 protocol DeckLayoutControllerDelegate : NSObjectProtocol{
     func deckLayoutDidChange()
 }
 
-
+/**
+ Simple layout manager to calculate the logical position for cards
+ */
 class DeckLayoutController: NSObject {
 
     // Delegate
@@ -46,53 +51,34 @@ class DeckLayoutController: NSObject {
         }
     }
     
-    // Cached left visible card frames
-    var leftVisibleCardFrames = [CGRect]()
+    // Base origin is the logical position of the first card in the x axis
+    private var baselinePosition : CGFloat = 0
     
-    // Cached selected card frame
-    var selectedCardFrame : CGRect = CGRectZero
-    
-    // Cached right visible card frames
-    var rightVisibleCardFrames = [CGRect]()
+    // All cards actually share the same frame with origin of (0 0), their position on screen is manipulated by transforms
+    var cardSize = CGSizeZero
     
     // Cached content size
-    private var calculatedContentSize = CGSizeZero
+    var contentSize = CGSizeZero
     
     // Page width
     var cardWidth : CGFloat = 0
     
-    private func recalculateCardFrames() {
-        calculatedContentSize = CGSizeZero
-        leftVisibleCardFrames.removeAll()
-        rightVisibleCardFrames.removeAll()
-        
-        guard !CGSizeEqualToSize(containerSize, CGSizeZero) else { return }
-        
-        if let ds = dataSource {
-            let w = containerSize.width
-            let h = containerSize.height
-            cardWidth = w - gap - visibleRightChildWidth
-            
-            // Calculate the current card frame as well as its left and right siblings, regardless whether these siblings exist
-            selectedCardFrame = CGRectMake(0, 0, cardWidth, h)
-            
-            let leftVisibleFrame = CGRectMake(-w, 0, cardWidth, h)
-            leftVisibleCardFrames.append(leftVisibleFrame)
-            
-            let rightSiblingFrame1 = CGRectMake(selectedCardFrame.origin.x + cardWidth + gap , 0, cardWidth, h)
-            rightVisibleCardFrames.append(rightSiblingFrame1)
-            
-            let rightSiblingFrame2 = CGRectMake(rightSiblingFrame1.origin.x + cardWidth + gap, 0, cardWidth, h)
-            rightVisibleCardFrames.append(rightSiblingFrame2)
-            
-            calculatedContentSize = CGSizeMake(CGFloat(ds.numberOfCards()) * w, h)
-        }
-        
-        delegate?.deckLayoutDidChange()
+    // Get the position offset for a card at index, based off the selected card index
+    // NOTE: selected card is always at the center of screen, meaning that its position will be the baselinePosition
+    func offsetForCardAtIndex(index : Int, selectedCardIndex : Int) -> CGFloat {
+        return baselinePosition + (cardWidth + gap) * CGFloat(index - selectedCardIndex)
     }
     
-    var contentSize : CGSize {
-        return calculatedContentSize
+    private func recalculateCardFrames() {
+        contentSize = CGSizeZero
+        cardSize = CGSizeZero
+        guard !CGSizeEqualToSize(containerSize, CGSizeZero) else { return }
+        guard dataSource != nil else { return }
+        
+        cardWidth = containerSize.width - gap - visibleRightChildWidth
+        cardSize = CGSizeMake(cardWidth, containerSize.height)
+        contentSize = CGSizeMake(CGFloat(dataSource!.numberOfCards()) * containerSize.width, containerSize.height)
+        delegate?.deckLayoutDidChange()
     }
     
 }

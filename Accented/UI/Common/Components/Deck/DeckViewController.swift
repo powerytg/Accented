@@ -40,8 +40,6 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
                 } else {
                     cacheController.initializeSelectedCard(selectedIndex)
                 }
-                
-                updateVisibleCardFrames()
             }
         }
     }
@@ -119,39 +117,27 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // Invoked when the selected index has changed
     func selectedIndexDidChange() {
-        for card in cacheController.visibleCardViewControllers {
-            card.cardSelectionDidChange(card == cacheController.selectedCardViewController)
+        for card in cacheController.cachedCards {
+            card.cardSelectionDidChange(card.indexInDataSource == selectedIndex)
         }
     }
     
     // Update the frames for the selected view controller as well its siblings
-    func updateVisibleCardFrames() {
+    func updateVisibleCardFrames(updateOffScreenCards : Bool) {
         guard dataSource != nil else { return }
         
-        // Layout visible cards
-        for (index, card) in cacheController.leftVisibleCardViewControllers.enumerate() {
-            card.view.frame = layoutController.leftVisibleCardFrames[index]
-            card.positionX = layoutController.leftVisibleCardFrames[index].origin.x
-        }
-        
-        if let selectedCard = cacheController.selectedCardViewController {
-            selectedCard.view.frame = layoutController.selectedCardFrame
-            selectedCard.positionX = layoutController.selectedCardFrame.origin.x
-        }
-        
-        for (index, card) in cacheController.rightVisibleCardViewControllers.enumerate() {
-            card.view.frame = layoutController.rightVisibleCardFrames[index]
-            card.positionX = layoutController.rightVisibleCardFrames[index].origin.x
+        for card in cacheController.cachedCards {
+            if updateOffScreenCards {
+                layoutCard(card)
+            } else if card.withinVisibleRange {
+                layoutCard(card)
+            }
         }
     }
     
     // MARK: - Gestures
     func didReceivePanGesture(gesture : UIPanGestureRecognizer) {
         switch gesture.state {
-        case .Began:
-            for view in self.contentView.subviews {
-                view.hidden = false
-            }
         case .Ended:
             panGestureDidEnd(gesture)
         case .Changed:
@@ -164,8 +150,11 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     private func panGestureDidChange(gesture : UIPanGestureRecognizer) {
         let tx = gesture.translationInView(gesture.view).x
-        for card in cacheController.visibleCardViewControllers {
-            card.view.transform = CGAffineTransformMakeTranslation(card.positionX + tx, 0)
+        for card in cacheController.cachedCards {
+            if card.withinVisibleRange {
+                let cardOffset = layoutController.offsetForCardAtIndex(card.indexInDataSource, selectedCardIndex: selectedIndex)
+                card.view.transform = CGAffineTransformMakeTranslation(cardOffset + tx, 0)
+            }
         }
     }
     
@@ -211,8 +200,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         if animated {
             performScrollingAnimation()
         } else {
-            self.contentView.transform = CGAffineTransformIdentity
-            self.updateVisibleCardFrames()
+            self.updateVisibleCardFrames(true)
             self.selectedIndexDidChange()
         }
     }
@@ -228,8 +216,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         if animated {
             performScrollingAnimation()
         } else {
-            self.contentView.transform = CGAffineTransformIdentity
-            self.updateVisibleCardFrames()
+            cacheController.scrollingDidFinish()
+            self.updateVisibleCardFrames(true)
             self.selectedIndexDidChange()
         }
     }
@@ -237,19 +225,18 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // Cancel the scrolling and reset to the current position
     private func cancelScrolling() {
         UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
-            self?.contentView.transform = CGAffineTransformIdentity
-            self?.updateVisibleCardFrames()
+            self?.updateVisibleCardFrames(false)
             }, completion: nil)
     }
     
     // Scroll to the selected view controller
     private func performScrollingAnimation() {
         UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
-            self?.contentView.transform = CGAffineTransformIdentity
-            self?.updateVisibleCardFrames()
+            self?.updateVisibleCardFrames(false)
             
         }) { [weak self] (completed) in
             self?.selectedIndexDidChange()
+            self?.cacheController.scrollingDidFinish()
         }
     }
 
@@ -257,45 +244,51 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     internal func deckLayoutDidChange() {
         contentView.frame = CGRectMake(0, 0, layoutController.contentSize.width, layoutController.contentSize.height)
-        updateVisibleCardFrames()
+        updateVisibleCardFrames(true)
     }
     
     // MARK: - DeckCacheControllerDelegate
     
-    func cardCacheDidChange() {
-        for card in cacheController.leftVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                contentView.addSubview(card.view)
-            }
+    func cacheDidFinishInitialization() {
+        for card in cacheController.cachedCards {
+            initializeCard(card)
         }
         
-        if let selectedCard = cacheController.selectedCardViewController {
-            if !contentView.subviews.contains(selectedCard.view) {
-                contentView.addSubview(selectedCard.view)
-            }
+        updateVisibleCardFrames(true)
+    }
+    
+    func deferredSelectedCardDidFinishInitialization() {
+        initializeCard(cacheController.selectedCard)
+        layoutCard(cacheController.selectedCard)
+    }
+    
+    func deferredSiblingCardsDidFinishInitialization() {        
+        if let leftCard = cacheController.leftCard {
+            initializeCard(leftCard)
+            layoutCard(leftCard)
         }
-        
-        for card in cacheController.rightVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                contentView.addSubview(card.view)
-            }
+
+        if let rightCard = cacheController.rightCard {
+            initializeCard(rightCard)
+            layoutCard(rightCard)
         }
     }
     
-    func initialSiblingCardsDidFinishInitialization() {
-        for card in cacheController.leftVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                contentView.addSubview(card.view)
-            }
+    // MARK: - Private
+    
+    private func initializeCard(card : CardViewController) {
+        if !contentView.subviews.contains(card.view) {
+            contentView.addSubview(card.view)
         }
         
-        for card in cacheController.rightVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                contentView.addSubview(card.view)
-            }
+        if !CGSizeEqualToSize(card.view.frame.size, layoutController.cardSize) {
+            card.view.frame = CGRectMake(0, 0, layoutController.cardSize.width, layoutController.cardSize.height)
         }
-        
-        updateVisibleCardFrames()
+    }
+    
+    private func layoutCard(card : CardViewController) {
+        let cardOffset = layoutController.offsetForCardAtIndex(card.indexInDataSource, selectedCardIndex: selectedIndex)
+        card.view.transform = CGAffineTransformMakeTranslation(cardOffset, 0)
     }
     
 }

@@ -10,7 +10,11 @@ import UIKit
 
 class CardViewController: UIViewController, CardAnimation {
 
-    var positionX : CGFloat = 0
+    // Logical index in the data source
+    var indexInDataSource : Int = 0
+    
+    // Whether the card is within visible range
+    var withinVisibleRange : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +25,7 @@ class CardViewController: UIViewController, CardAnimation {
     }
     
     func prepareForReuse() {
-        // Not implemented in base class
+        withinVisibleRange = false
     }
 
     // MARK : - Animation

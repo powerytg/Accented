@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTagSectionContentView: UIView {
+class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
 
     private let hGap : CGFloat = 6
     private let vGap : CGFloat = 6
@@ -59,6 +59,7 @@ class DetailTagSectionContentView: UIView {
         // Use a long press recoginzer instead of tap recoginzer, because we want to capture the touchBegin state
         let tap = UILongPressGestureRecognizer(target: self, action: #selector(didTapOnContentView(_:)))
         tap.minimumPressDuration = 0
+        tap.delegate = self
         self.addGestureRecognizer(tap)
     }
     
@@ -247,6 +248,12 @@ class DetailTagSectionContentView: UIView {
         }
         
         return (tagIndex : nil, rect : nil)
+    }
+
+    // MARK: - UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     // MARK: - Private

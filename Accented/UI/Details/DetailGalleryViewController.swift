@@ -33,7 +33,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     // Selected detail view controller
     private var selectedDetailViewController : DetailViewController? {
-        return cacheController.selectedCardViewController as? DetailViewController
+        return cacheController.selectedCard as? DetailViewController
     }
     
     // Cache controller
@@ -69,7 +69,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         // Setup data source
         self.cacheInitializationPolicy = .Deferred
         self.dataSource = self
-        initialSelectedViewController = cacheController.selectedCardViewController as! DetailViewController
+        initialSelectedViewController = cacheController.selectedCard as! DetailViewController
     }
 
     override func viewWillLayoutSubviews() {
@@ -151,44 +151,21 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         return initialSelectedViewController.desitinationRectForProxyView(photo)
     }
     
-    override func initialSiblingCardsDidFinishInitialization() {
-        // After the entrance animation, create the sibling cards
-        for card in cacheController.leftVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                card.view.alpha = 0
-                contentView.addSubview(card.view)
-            }
-        }
-        
-        for card in cacheController.rightVisibleCardViewControllers {
-            if !contentView.subviews.contains(card.view) {
-                card.view.alpha = 0
-                contentView.addSubview(card.view)
-            }
-        }
-        
-        updateVisibleCardFrames()
-        
-        // Make the left card visible
-        if cacheController.leftVisibleCardViewControllers.count > 0 {
-            cacheController.leftVisibleCardViewControllers[0].view.alpha = 1
-        }
+    override func deferredSiblingCardsDidFinishInitialization() {
+        super.deferredSiblingCardsDidFinishInitialization()
         
         // Slide in the most adjacent right card
-        if cacheController.rightVisibleCardViewControllers.count > 0 {
-            let rightCard = cacheController.rightVisibleCardViewControllers[0].view
-            rightCard.transform = CGAffineTransformMakeTranslation(0, 100)
+        if let rightCard = cacheController.rightCard {
+            let offset = layoutController.offsetForCardAtIndex(rightCard.indexInDataSource, selectedCardIndex: selectedIndex)
+            rightCard.view.alpha = 0
+            rightCard.view.transform = CGAffineTransformMakeTranslation(offset, 100)
             
-            UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: { 
-                rightCard.alpha = 1
-                rightCard.transform = CGAffineTransformIdentity
-            }) { [weak self] (finished) in
-                // Make the rest of siblings visible
-                if self?.cacheController.rightVisibleCardViewControllers.count > 1 {
-                    self?.cacheController.rightVisibleCardViewControllers[1].view.alpha = 1
-                }
-            }
+            UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: {
+                rightCard.view.alpha = 1
+                rightCard.view.transform = CGAffineTransformMakeTranslation(offset, 0)
+                }, completion: nil)
         }
+
     }
     
     // MARK: - Light box animation

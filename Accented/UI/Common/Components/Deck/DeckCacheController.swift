@@ -9,11 +9,14 @@
 import UIKit
 
 protocol DeckCacheControllerDelegate : NSObjectProtocol {
-    // Invoked when the on-screen cards has changed
-    func cardCacheDidChange()
+    // Invoked when the cache has finished initialization (for non-deferred configuration)
+    func cacheDidFinishInitialization()
     
-    // Invoked when the sibling cards has been created for the initial selected card
-    func initialSiblingCardsDidFinishInitialization()
+    // Invoked when the initial selected card has finished initialization (for deferred configuration)
+    func deferredSelectedCardDidFinishInitialization()
+
+    // Invoked when the initial sibling cards hav finished initialization (for deferred configuration)
+    func deferredSiblingCardsDidFinishInitialization()
 }
 
 class DeckCacheController: NSObject {
@@ -21,9 +24,6 @@ class DeckCacheController: NSObject {
     // Delegate
     weak var delegate : DeckCacheControllerDelegate?
     
-    // Recycled view controllers
-    private var recycledCards = [CardViewController]()
-
     // Reference to the data source
     weak var dataSource : DeckViewControllerDataSource?
     
@@ -31,133 +31,97 @@ class DeckCacheController: NSObject {
     private var totalItemCount = 0
     
     // Currently selected card
-    var selectedCardViewController : CardViewController?
+    var selectedCard : CardViewController!
     
-    // Left siblings to the selected card
-    var leftVisibleCardViewControllers = [CardViewController]()
+    // Left sibling
+    var leftCard : CardViewController?
     
-    // Right siblings to the selected card
-    var rightVisibleCardViewControllers = [CardViewController]()
+    // Right sibling
+    var rightCard : CardViewController?
     
-    // All the on-screen cards
-    var visibleCardViewControllers = [CardViewController]()
-    
+    // Off-screen view controller for heat-up purpose
+    var offScreenCard : CardViewController?
+
+    // Recucled card
+    var recycledCard : CardViewController?
+
     // All cards, including those on-screen and those already recycled
-    var cachedViewControllers = [CardViewController]()
+    var cachedCards = [CardViewController]()
     
     // Selected index, initially -1
     private var selectedIndex : Int = -1
     
     func initializeCache(initialSelectedIndex : Int) {
-        // Remove all previous cache
-        cachedViewControllers.removeAll()
-        recycledCards.removeAll()
+        guard dataSource != nil else { return }
+        let ds = dataSource!
         
-        if let ds = dataSource {
-            // Pre-populate the cache with cards
-            self.totalItemCount = ds.numberOfCards()
-            selectedIndex = initialSelectedIndex
-            
-            // Populate left siblings
-            let leftSiblingCount = leftVisibleSiblingCount(initialSelectedIndex)
-            let rightSiblingCount = rightVisibleSiblingCount(initialSelectedIndex)
-            if leftSiblingCount > 0 {
-                for index in (initialSelectedIndex - leftSiblingCount)...(initialSelectedIndex - 1) {
-                    let card = ds.cardForItemIndex(index)
-                    leftVisibleCardViewControllers.append(card)
-                    cachedViewControllers.append(card)
-                }
-            }
-            
-            // Fill the selected view controller
-            selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
-            if selectedCardViewController != nil {
-                cachedViewControllers.append(selectedCardViewController!)
-            }
-
-            // Populate the right siblings
-            if rightSiblingCount > 0 {
-                for index in (initialSelectedIndex + 1)...(initialSelectedIndex + rightSiblingCount) {
-                    let card = ds.cardForItemIndex(index)
-                    rightVisibleCardViewControllers.append(card)
-                    cachedViewControllers.append(card)
-                }
-            }
+        // Pre-populate the cache with cards
+        totalItemCount = ds.numberOfCards()
+        selectedIndex = initialSelectedIndex
+        
+        // Populate the selected, left, right and off-screen siblings
+        selectedCard = getCardFromDataSource(initialSelectedIndex)
+        selectedCard.withinVisibleRange = true
+        
+        if hasLeftSibling(selectedIndex) {
+            leftCard = getCardFromDataSource(selectedIndex - 1)
+            leftCard!.withinVisibleRange = true
         }
         
-        updateVisibleCardViewControllers()
-        delegate?.cardCacheDidChange()
+        if hasRightSibling(selectedIndex) {
+            rightCard = getCardFromDataSource(selectedIndex + 1)
+            rightCard!.withinVisibleRange = true
+        }
+        
+        if hasOffScreenRightSibling(selectedIndex) {
+            offScreenCard = getCardFromDataSource(selectedIndex + 2)
+            offScreenCard!.withinVisibleRange = false
+        }
+        
+        delegate?.cacheDidFinishInitialization()
     }
 
     func initializeSelectedCard(initialSelectedIndex : Int) {
-        // Remove all previous cache
-        recycledCards.removeAll()
-        cachedViewControllers.removeAll()
-        
-        if let ds = dataSource {
-            // Pre-populate the cache with cards
-            self.totalItemCount = ds.numberOfCards()
-            selectedIndex = initialSelectedIndex
-            
-            // Populate the selected card and its siblings
-            selectedCardViewController = ds.cardForItemIndex(initialSelectedIndex)
-            if selectedCardViewController != nil {
-                cachedViewControllers.append(selectedCardViewController!)
-            }
-            
-            updateVisibleCardViewControllers()
-            delegate?.cardCacheDidChange()
-        }        
+        guard dataSource != nil else { return }
+        let ds = dataSource!
+        totalItemCount = ds.numberOfCards()
+        selectedIndex = initialSelectedIndex
+
+        // Populate the selected card
+        selectedCard = getCardFromDataSource(initialSelectedIndex)
+        selectedCard.withinVisibleRange = true
+        delegate?.deferredSelectedCardDidFinishInitialization()
     }
     
     func initializeSelectedCardSiblings() {
-        let leftSiblingCount = leftVisibleSiblingCount(selectedIndex)
-        let rightSiblingCount = rightVisibleSiblingCount(selectedIndex)
-        
-        if leftSiblingCount > 0 {
-            for i in 1...leftSiblingCount {
-                let card = dataSource!.cardForItemIndex(selectedIndex - i)
-                leftVisibleCardViewControllers.append(card)
-                cachedViewControllers.append(card)
-            }
+        if hasLeftSibling(selectedIndex) {
+            leftCard = getCardFromDataSource(selectedIndex - 1)
+            leftCard!.withinVisibleRange = true
         }
         
-        if rightSiblingCount > 0 {
-            for i in 1...rightSiblingCount {
-                let card = dataSource!.cardForItemIndex(selectedIndex + i)
-                rightVisibleCardViewControllers.append(card)
-                cachedViewControllers.append(card)
-            }
+        if hasRightSibling(selectedIndex) {
+            rightCard = getCardFromDataSource(selectedIndex + 1)
+            rightCard!.withinVisibleRange = true
         }
         
-        updateVisibleCardViewControllers()
-        delegate?.initialSiblingCardsDidFinishInitialization()
+        if hasOffScreenRightSibling(selectedIndex) {
+            offScreenCard = getCardFromDataSource(selectedIndex + 2)
+            offScreenCard!.withinVisibleRange = false
+        }
+
+        delegate?.deferredSiblingCardsDidFinishInitialization()
     }
     
-    // Left visible siblings can be no more than 1 (because the selected card is always aligned to the left edge of screen)
-    func leftVisibleSiblingCount(index : Int) -> Int {
-        if totalItemCount == 0 || index == 0 {
-            return 0
-        }
-        
-        return 1
+    func hasLeftSibling(index : Int) -> Bool {
+        return (totalItemCount != 0 && index != 0)
+    }
+
+    func hasRightSibling(index : Int) -> Bool {
+        return (totalItemCount != 0 && index != totalItemCount - 1)
     }
     
-    // Right visible siblings can be no more than 2 (one is visible on screen, the other prepared in case of swiping to right)
-    func rightVisibleSiblingCount(index : Int) -> Int {
-        if totalItemCount == 0 {
-            return 0
-        }
-        
-        if index == totalItemCount - 1 {
-            return 0
-        }
-        
-        if index == totalItemCount - 2 {
-            return 1
-        }
-        
-        return 2
+    func hasOffScreenRightSibling(index : Int) -> Bool {
+        return (totalItemCount != 0 && index < totalItemCount - 2)
     }
     
     func scrollToRight() {
@@ -165,38 +129,32 @@ class DeckCacheController: NSObject {
         guard totalItemCount > 0 else { return }
         guard selectedIndex > 0 else { return }
         
-        selectedIndex -= 1
-        let ds = dataSource
-        let previousSelectedViewController = selectedCardViewController!
+        let previousSelectedViewController = selectedCard
         
-        // We can recycle the previous off screen far end right sibling since it'll be two screens away
-        if rightVisibleCardViewControllers.count > 1 {
-            let recycledRightSibling = rightVisibleCardViewControllers.removeLast()
-            recycledRightSibling.view.hidden = true
-            recycledCards.append(recycledRightSibling)
+        // We can recycle the previous off-screen sibling since it'll be two screens away
+        if offScreenCard != nil {
+            recycleCard(offScreenCard!)
+            offScreenCard = nil
         }
         
         // Previous left sibling becomes the new selected view controller
-        if leftVisibleCardViewControllers.count > 0 {
-            let previousLeftSibling = leftVisibleCardViewControllers.removeLast()
-            selectedCardViewController = previousLeftSibling
-            selectedCardViewController!.view.hidden = false
+        if leftCard != nil {
+            selectedCard = leftCard
+            selectedCard.withinVisibleRange = true
+        }
+
+        // Previous selected card becomes the right card
+        rightCard = previousSelectedViewController
+        rightCard!.withinVisibleRange = true
+        
+        // Populate the left sibling
+        if hasLeftSibling(selectedIndex) {
+            leftCard = getCardFromDataSource(selectedIndex - 1)
+            leftCard!.withinVisibleRange = true
         }
         
-        // Previous selected vc becomes the first right sibling
-        previousSelectedViewController.view.hidden = false
-        rightVisibleCardViewControllers.insert(previousSelectedViewController, atIndex: 0)
-        
-        // Populate the left siblings
-        if leftVisibleSiblingCount(selectedIndex) > 0 {
-            if let newLeftSibling = ds?.cardForItemIndex(selectedIndex - 1) {
-                leftVisibleCardViewControllers.append(newLeftSibling)
-                newLeftSibling.view.hidden = true
-            }
-        }
-        
-        updateVisibleCardViewControllers()
-        delegate?.cardCacheDidChange()
+        // Update selected index
+        selectedIndex -= 1
     }
 
     func scrollToLeft() {
@@ -204,57 +162,65 @@ class DeckCacheController: NSObject {
         guard totalItemCount > 0 else { return }
         guard selectedIndex < totalItemCount - 1 else { return }
         
-        selectedIndex += 1
-        let ds = dataSource
-        let previousSelectedViewController = selectedCardViewController!
+        let previousSelectedViewController = selectedCard
         
         // We can recycle the previous left sibling since it'll be two screens away
-        if leftVisibleCardViewControllers.count > 0 {
-            let recycledLeftSibling = leftVisibleCardViewControllers.removeFirst()
-            recycledLeftSibling.view.hidden = true
-            recycledCards.append(recycledLeftSibling)
+        if leftCard != nil {
+            recycleCard(leftCard!)
         }
         
         // Previous selected vc becomes the new left sibling
-        leftVisibleCardViewControllers.append(previousSelectedViewController)
-        previousSelectedViewController.view.hidden = false
+        if hasLeftSibling(selectedIndex) {
+            leftCard = previousSelectedViewController
+            leftCard!.withinVisibleRange = true
+        } else {
+            leftCard = nil
+        }
         
         // Previous right sibling becomes the new selected view controller
-        if rightVisibleCardViewControllers.count > 0 {
-            let previousRightSibling = rightVisibleCardViewControllers.removeFirst()
-            selectedCardViewController = previousRightSibling
-            selectedCardViewController!.view.hidden = false
+        if hasRightSibling(selectedIndex) {
+            selectedCard = rightCard
+            selectedCard.withinVisibleRange = true
         }
         
-        // Populate an off-screen right sibling
-        if rightVisibleSiblingCount(selectedIndex) > 1 {
-            if let offscreenRightSibling = ds?.cardForItemIndex(selectedIndex + 2) {
-                rightVisibleCardViewControllers.append(offscreenRightSibling)
-                offscreenRightSibling.view.hidden = true
-            }
-        }
+        // Previous right off-screen sibling becomes the new right sibling
+        rightCard = offScreenCard
+        rightCard?.withinVisibleRange = true
         
-        updateVisibleCardViewControllers()
-        delegate?.cardCacheDidChange()
+        // Update selected index
+        selectedIndex += 1
     }
 
-    func getRecycledCardViewController() -> CardViewController? {
-        if recycledCards.count == 0 {
-            return nil
+    func scrollingDidFinish() {
+        // Prepare for off-screen cards
+        if hasOffScreenRightSibling(selectedIndex) {
+            offScreenCard = getCardFromDataSource(selectedIndex + 2)
+            offScreenCard?.withinVisibleRange = false
         } else {
-            let card = recycledCards.removeLast()
-            card.view.transform = CGAffineTransformIdentity
-            card.prepareForReuse()
-            return card
+            offScreenCard = nil
         }
     }
     
-    private func updateVisibleCardViewControllers() {
-        guard dataSource != nil else { return }
+    func getRecycledCardViewController() -> CardViewController? {
+        if recycledCard != nil {
+            recycledCard!.withinVisibleRange = true
+        }
+        return recycledCard
+    }
+    
+    private func getCardFromDataSource(index : Int) -> CardViewController {
+        let card = dataSource!.cardForItemIndex(index)
+        card.indexInDataSource = index
         
-        visibleCardViewControllers.removeAll()
-        visibleCardViewControllers += leftVisibleCardViewControllers
-        visibleCardViewControllers.append(selectedCardViewController!)
-        visibleCardViewControllers += rightVisibleCardViewControllers
+        if !cachedCards.contains(card) {
+            cachedCards.append(card)
+        }
+        
+        return card
+    }
+    
+    private func recycleCard(card : CardViewController) {
+        card.prepareForReuse()
+        recycledCard = card
     }
 }

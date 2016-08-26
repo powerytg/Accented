@@ -62,7 +62,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
 
         // Setup data source
         self.dataSource = self
-        initialSelectedViewController = cacheController.selectedCardViewController as! DetailLightBoxImageViewController
+        initialSelectedViewController = cacheController.selectedCard as! DetailLightBoxImageViewController
         
         // Setup pan gesture delegate
         panGesture.delegate = self
@@ -93,7 +93,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
             self?.layoutController.containerSize = size
             
             // Notify each of the child cards to update their frames
-            for card in (self?.cacheController.cachedViewControllers)! {
+            for card in self!.cacheController.cachedCards {
                 card.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
             }
         }
@@ -148,7 +148,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        let selectedCard = cacheController.selectedCardViewController as! DetailLightBoxImageViewController
+        let selectedCard = cacheController.selectedCard as! DetailLightBoxImageViewController
         return selectedCard.shouldAllowExternalPanGesture()
     }
     
