@@ -8,5 +8,5 @@ target 'Accented' do
 	pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 	pod 'AlamofireImage', '~> 2.0'
 	pod 'TTTAttributedLabel'
+	pod 'FastImageCache'
 end
-
