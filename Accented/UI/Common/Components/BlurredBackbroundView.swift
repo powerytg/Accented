@@ -16,6 +16,7 @@ class BlurredBackbroundView: ThemeableBackgroundView {
     private var blurView : UIVisualEffectView = UIVisualEffectView()
     
     private var saturationFilter = SaturationAdjustment()
+    private let output = PictureOutput()
     
     override func initialize() -> Void {
         super.initialize()
@@ -49,6 +50,7 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         let url = PhotoRenderer.preferredImageUrl(photo!)
         guard url != nil else { return }
         
+        // Initially hide the image view
         imageView.alpha = 0
         
         let downloader = SDWebImageDownloader.sharedDownloader()
@@ -60,18 +62,18 @@ class BlurredBackbroundView: ThemeableBackgroundView {
     
     private func applyImageEffects(image : UIImage, desaturated : Bool) {
         let input = PictureInput(image: image.CGImage!)
-        let output = PictureOutput()
-        output.imageAvailableCallback = { image in
+        
+        output.imageAvailableCallback = { outputImage in
             dispatch_async(dispatch_get_main_queue(), { 
                 UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { [weak self] in
-                    self?.imageView.image = image
+                    self?.imageView.image = outputImage
                     self?.imageView.alpha = 1
                     }, completion: nil)
             })
         }
 
         input --> saturationFilter --> output
-        input.processImage()
+        input.processImage(synchronously: true)
     }
     
     // MARK : - Events

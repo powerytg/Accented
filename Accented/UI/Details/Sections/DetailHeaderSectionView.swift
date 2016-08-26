@@ -54,8 +54,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     }
     
     override func photoModelDidChange() {
-        guard photo != nil else { return }
-        
+        guard photo != nil else { return }        
         setNeedsLayout()
     }
     
@@ -105,26 +104,6 @@ class DetailHeaderSectionView: DetailSectionViewBase {
             self?.avatarView.alpha = 1
             self?.avatarView.transform = CGAffineTransformIdentity
             })
-    }
-    
-    override func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
-        super.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
-        
-        avatarView.transform = CGAffineTransformMakeTranslation(translation * 1.2, 0)
-        authorLabel.transform = CGAffineTransformMakeTranslation(translation, 0)
-    }
-    
-    override func performCardTransitionAnimation() {
-        super.performCardTransitionAnimation()
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseOut, animations: { [weak self] in
-            self?.avatarView.transform = CGAffineTransformIdentity
-            self?.authorLabel.transform = CGAffineTransformIdentity
-            }, completion: nil)
-    }
-    
-    override func cardSelectionDidChange(selected: Bool) {
-        super.cardSelectionDidChange(selected)
     }
     
     // MARK: - Private

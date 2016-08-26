@@ -76,7 +76,7 @@ class DetailTagSectionView: DetailSectionViewBase {
         let contentSize = cacheController.getTagSectionContentSize(photo!.photoId)
         if contentSize != nil {
             var f = tagsContentView.frame
-//            f.origin.x = contentLeftMargin
+            f.origin.x = contentLeftMargin
             f.size.width = contentSize!.width
             f.size.height = contentSize!.height
             tagsContentView.frame = f
@@ -89,7 +89,8 @@ class DetailTagSectionView: DetailSectionViewBase {
         if photo.tags.count == 0 {
             return noTagsSectionHeight + sectionTitleHeight
         } else {
-            return tagsContentView.contentViewHeightForPhoto(photo, width: width) + sectionTitleHeight
+            let maxContentWidth = width - contentLeftMargin - contentRightMargin
+            return tagsContentView.contentViewHeightForPhoto(photo, width: maxContentWidth) + sectionTitleHeight
         }
     }
     
