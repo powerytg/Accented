@@ -255,7 +255,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // MARK: - DeckLayoutControllerDelegate
     
     internal func deckLayoutDidChange() {
-        contentView.frame = CGRectMake(0, 0, layoutController.contentSize.width, layoutController.contentSize.height)
+        contentView.frame = CGRectMake(0, 0, layoutController.containerSize.width, layoutController.contentSize.height)
         updateVisibleCardFrames(true)
     }
     
