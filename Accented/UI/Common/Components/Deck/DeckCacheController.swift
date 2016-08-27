@@ -17,6 +17,9 @@ protocol DeckCacheControllerDelegate : NSObjectProtocol {
 
     // Invoked when the initial sibling cards hav finished initialization (for deferred configuration)
     func deferredSiblingCardsDidFinishInitialization()
+    
+    // Invoked when a card has been added to cache
+    func cardDidAddToCache(card : CardViewController)
 }
 
 class DeckCacheController: NSObject {
@@ -123,13 +126,18 @@ class DeckCacheController: NSObject {
     func hasOffScreenRightSibling(index : Int) -> Bool {
         return (totalItemCount != 0 && index < totalItemCount - 2)
     }
-    
+
+    func hasOffScreenLeftSibling(index : Int) -> Bool {
+        return (totalItemCount != 0 && index > 1)
+    }
+
     func scrollToRight() {
         guard dataSource != nil else { return }
         guard totalItemCount > 0 else { return }
         guard selectedIndex > 0 else { return }
         
         let previousSelectedViewController = selectedCard
+        let targetSelectedIndex = selectedIndex - 1
         
         // We can recycle the previous off-screen sibling since it'll be two screens away
         if offScreenCard != nil {
@@ -143,18 +151,16 @@ class DeckCacheController: NSObject {
             selectedCard.withinVisibleRange = true
         }
 
+        // Previous right card becomes the new right off-screen sibling
+        offScreenCard = rightCard
+        offScreenCard?.withinVisibleRange = false
+        
         // Previous selected card becomes the right card
         rightCard = previousSelectedViewController
         rightCard!.withinVisibleRange = true
         
-        // Populate the left sibling
-        if hasLeftSibling(selectedIndex) {
-            leftCard = getCardFromDataSource(selectedIndex - 1)
-            leftCard!.withinVisibleRange = true
-        }
-        
         // Update selected index
-        selectedIndex -= 1
+        selectedIndex = targetSelectedIndex
     }
 
     func scrollToLeft() {
@@ -163,6 +169,7 @@ class DeckCacheController: NSObject {
         guard selectedIndex < totalItemCount - 1 else { return }
         
         let previousSelectedViewController = selectedCard
+        let targetSelectedIndex = selectedIndex + 1
         
         // We can recycle the previous left sibling since it'll be two screens away
         if leftCard != nil {
@@ -170,7 +177,7 @@ class DeckCacheController: NSObject {
         }
         
         // Previous selected vc becomes the new left sibling
-        if hasLeftSibling(selectedIndex) {
+        if hasLeftSibling(targetSelectedIndex) {
             leftCard = previousSelectedViewController
             leftCard!.withinVisibleRange = true
         } else {
@@ -178,20 +185,24 @@ class DeckCacheController: NSObject {
         }
         
         // Previous right sibling becomes the new selected view controller
-        if hasRightSibling(selectedIndex) {
+        if rightCard != nil {
             selectedCard = rightCard
             selectedCard.withinVisibleRange = true
         }
         
         // Previous right off-screen sibling becomes the new right sibling
-        rightCard = offScreenCard
-        rightCard?.withinVisibleRange = true
+        if hasRightSibling(targetSelectedIndex) {
+            rightCard = offScreenCard
+            rightCard?.withinVisibleRange = true
+        } else {
+            rightCard = nil
+        }
         
         // Update selected index
-        selectedIndex += 1
+        selectedIndex = targetSelectedIndex
     }
 
-    func scrollingDidFinish() {
+    func populateRightOffScreenSibling() {
         // Prepare for off-screen cards
         if hasOffScreenRightSibling(selectedIndex) {
             offScreenCard = getCardFromDataSource(selectedIndex + 2)
@@ -200,7 +211,17 @@ class DeckCacheController: NSObject {
             offScreenCard = nil
         }
     }
-    
+
+    func populateLeftOffScreenSibling() {
+        // Prepare for off-screen cards
+        if hasLeftSibling(selectedIndex) {
+            leftCard = getCardFromDataSource(selectedIndex - 1)
+            leftCard?.withinVisibleRange = true
+        } else {
+            leftCard = nil
+        }
+    }
+
     func getRecycledCardViewController() -> CardViewController? {
         if recycledCard != nil {
             recycledCard!.withinVisibleRange = true
@@ -214,6 +235,7 @@ class DeckCacheController: NSObject {
         
         if !cachedCards.contains(card) {
             cachedCards.append(card)
+            delegate?.cardDidAddToCache(card)
         }
         
         return card

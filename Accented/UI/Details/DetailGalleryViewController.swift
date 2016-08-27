@@ -163,7 +163,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
             UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: {
                 rightCard.view.alpha = 1
                 rightCard.view.transform = CGAffineTransformMakeTranslation(offset, 0)
-                }, completion: nil)
+            }, completion: nil)
         }
 
     }

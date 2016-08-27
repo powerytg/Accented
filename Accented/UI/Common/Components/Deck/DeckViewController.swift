@@ -17,6 +17,11 @@ enum DeckViewControllerCacheInitializationPolicy {
     case Deferred
 }
 
+private enum ScrollDirection {
+    case Left
+    case Right
+}
+
 class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
 
     // Cache initialization policy
@@ -198,8 +203,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
 
         if animated {
-            performScrollingAnimation()
+            performScrollingAnimation(.Left)
         } else {
+            cacheController.populateRightOffScreenSibling()
             self.updateVisibleCardFrames(true)
             self.selectedIndexDidChange()
         }
@@ -214,9 +220,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
         
         if animated {
-            performScrollingAnimation()
+            performScrollingAnimation(.Right)
         } else {
-            cacheController.scrollingDidFinish()
+            cacheController.populateLeftOffScreenSibling()
             self.updateVisibleCardFrames(true)
             self.selectedIndexDidChange()
         }
@@ -230,13 +236,19 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Scroll to the selected view controller
-    private func performScrollingAnimation() {
+    private func performScrollingAnimation(direction : ScrollDirection) {
         UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
             self?.updateVisibleCardFrames(false)
             
         }) { [weak self] (completed) in
+            if direction == .Left {
+                self?.cacheController.populateRightOffScreenSibling()
+                self?.layoutCard(self?.cacheController.offScreenCard)
+            } else {
+                self?.cacheController.populateLeftOffScreenSibling()
+                self?.layoutCard(self?.cacheController.leftCard)
+            }
             self?.selectedIndexDidChange()
-            self?.cacheController.scrollingDidFinish()
         }
     }
 
@@ -250,28 +262,29 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // MARK: - DeckCacheControllerDelegate
     
     func cacheDidFinishInitialization() {
-        for card in cacheController.cachedCards {
-            initializeCard(card)
-        }
-        
         updateVisibleCardFrames(true)
     }
     
     func deferredSelectedCardDidFinishInitialization() {
-        initializeCard(cacheController.selectedCard)
         layoutCard(cacheController.selectedCard)
     }
     
     func deferredSiblingCardsDidFinishInitialization() {        
         if let leftCard = cacheController.leftCard {
-            initializeCard(leftCard)
             layoutCard(leftCard)
         }
 
         if let rightCard = cacheController.rightCard {
-            initializeCard(rightCard)
             layoutCard(rightCard)
         }
+        
+        if let offscreenCard = cacheController.offScreenCard {
+            layoutCard(offscreenCard)
+        }
+    }
+    
+    func cardDidAddToCache(card: CardViewController) {
+        initializeCard(card)
     }
     
     // MARK: - Private
@@ -286,9 +299,10 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    private func layoutCard(card : CardViewController) {
-        let cardOffset = layoutController.offsetForCardAtIndex(card.indexInDataSource, selectedCardIndex: selectedIndex)
-        card.view.transform = CGAffineTransformMakeTranslation(cardOffset, 0)
+    private func layoutCard(card : CardViewController?) {
+        guard card != nil else { return }
+        let cardOffset = layoutController.offsetForCardAtIndex(card!.indexInDataSource, selectedCardIndex: selectedIndex)
+        card!.view.transform = CGAffineTransformMakeTranslation(cardOffset, 0)
     }
     
 }
