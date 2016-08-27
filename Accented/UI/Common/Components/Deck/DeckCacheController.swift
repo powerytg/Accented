@@ -46,7 +46,7 @@ class DeckCacheController: NSObject {
     var offScreenCard : CardViewController?
 
     // Recucled card
-    var recycledCard : CardViewController?
+    var recycledCards = [CardViewController]()
 
     // All cards, including those on-screen and those already recycled
     var cachedCards = [CardViewController]()
@@ -223,10 +223,13 @@ class DeckCacheController: NSObject {
     }
 
     func getRecycledCardViewController() -> CardViewController? {
-        if recycledCard != nil {
-            recycledCard!.withinVisibleRange = true
+        if recycledCards.count > 0 {
+            let card = recycledCards.removeFirst()
+            card.withinVisibleRange = true
+            return card
         }
-        return recycledCard
+        
+        return nil
     }
     
     private func getCardFromDataSource(index : Int) -> CardViewController {
@@ -243,6 +246,6 @@ class DeckCacheController: NSObject {
     
     private func recycleCard(card : CardViewController) {
         card.prepareForReuse()
-        recycledCard = card
+        recycledCards.append(card)
     }
 }
