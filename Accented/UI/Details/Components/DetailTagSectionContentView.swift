@@ -136,8 +136,8 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         guard cachedContentImage != nil else { return  }
         
         let ctx = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(ctx)
-        CGContextClearRect(ctx, self.bounds)
+        CGContextSaveGState(ctx!)
+        CGContextClearRect(ctx!, self.bounds)
         
         // Draw the original tag images
         cachedContentImage?.drawInRect(rect)
@@ -152,7 +152,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
             path.stroke()
         }
         
-        CGContextRestoreGState(ctx)
+        CGContextRestoreGState(ctx!)
     }
 
     private func renderTagButtonsOnBackground() {
@@ -211,7 +211,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         let renderedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return renderedImage
+        return renderedImage!
     }
     
     // MARK: - Events

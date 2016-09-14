@@ -140,7 +140,7 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
         return animationContext.interactive ? self.interactiveDismissAnimator : nil
     }
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
         return self
     }
 }

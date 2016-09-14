@@ -167,7 +167,7 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
         authorizationParameters["oauth_consumer_key"] = self.consumer_key
         authorizationParameters["oauth_timestamp"] = timestamp
         authorizationParameters["oauth_nonce"] = nonce
-        if let b = body, hash = self.version.signatureMethod.sign(b) {
+        if let b = body, let hash = self.version.signatureMethod.sign(b) {
             authorizationParameters["oauth_body_hash"] = hash.base64EncodedStringWithOptions([])
         }
         
@@ -191,7 +191,7 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
         let parameterString = parameterComponents.joinWithSeparator("&")
         let encodedParameterString = parameterString.urlEncodedStringWithEncoding(OAuthSwiftDataEncoding)
         
-        let encodedURL = url.absoluteString.urlEncodedStringWithEncoding(OAuthSwiftDataEncoding)
+        let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(OAuthSwiftDataEncoding)
         
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
         

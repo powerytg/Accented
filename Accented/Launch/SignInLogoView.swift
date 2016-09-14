@@ -63,7 +63,7 @@ class SignInLogoView: UIView {
                 let layerIndex = self.subviews.indexOf(layerView)
                 let imageIndex = self.layerCount - layerIndex!
                 
-                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.8 * Double(rand()), animations: {
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.8 * Double(arc4random()), animations: {
                     var angle:Double
                     if self.upperFlipWings.contains(imageIndex) {
                         angle = Double(imageIndex) * 1.6 * M_PI / 180.0

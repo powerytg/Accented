@@ -37,7 +37,7 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
         let toViewController = self.presentedViewController
         
         // Prepare entrance animation
-        containerView?.addSubview(toViewController.view)
+        containerView.addSubview(toViewController.view)
         fromViewController.lightBoxTransitionWillBegin()
         toViewController.lightBoxTransitionWillBegin()
         
@@ -55,7 +55,7 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
             proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
         }
         
-        containerView?.addSubview(proxyImageView)
+        containerView.addSubview(proxyImageView)
         
         UIView.animateKeyframesWithDuration(0.3, delay: 0, options: [.CalculationModeCubic], animations: {
             

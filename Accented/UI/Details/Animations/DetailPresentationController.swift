@@ -37,7 +37,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         let galleryViewController = self.galleryVC!
         
         // Prepare entrance animation
-        containerView?.addSubview(toView)
+        containerView.addSubview(toView)
         galleryViewController.entranceAnimationWillBegin()
 
         // Create a proxy image view
@@ -46,7 +46,7 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         proxyImageView.contentMode = sourceImageView.contentMode
         let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toView)
         proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
-        containerView?.addSubview(proxyImageView)
+        containerView.addSubview(proxyImageView)
 
         UIView.animateKeyframesWithDuration(0.4, delay: 0, options: [.CalculationModeCubic], animations: { [weak self] in
             

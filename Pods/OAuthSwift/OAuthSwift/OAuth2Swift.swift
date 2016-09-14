@@ -46,7 +46,7 @@ public class OAuth2Swift: OAuthSwift {
     }
     
     public convenience init?(parameters: [String:String]){
-        guard let consumerKey = parameters["consumerKey"], consumerSecret = parameters["consumerSecret"],
+        guard let consumerKey = parameters["consumerKey"], let consumerSecret = parameters["consumerSecret"],
             responseType = parameters["responseType"], authorizeUrl = parameters["authorizeUrl"] else {
                 return nil
         }
@@ -142,7 +142,7 @@ public class OAuth2Swift: OAuthSwift {
         parameters["client_secret"] = self.consumer_secret
         parameters["code"] = code
         parameters["grant_type"] = "authorization_code"
-        parameters["redirect_uri"] = callbackURL.absoluteString.safeStringByRemovingPercentEncoding
+        parameters["redirect_uri"] = callbackURL.absoluteString!.safeStringByRemovingPercentEncoding
 
         requestOAuthAccessTokenWithParameters(parameters, success: success, failure: failure)
     }
