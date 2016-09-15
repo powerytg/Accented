@@ -44,6 +44,7 @@
 		1884AA5E1CEFE9BE002109A9 /* JournalPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */; };
+		1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886201B1D8B647F00345440 /* DetailUserUtils.swift */; };
 		188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */; };
 		189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D8BBD1D68BBB700247846 /* APIService+Cache.swift */; };
 		18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB00221D41CCCA00895192 /* DetailViewController.swift */; };
@@ -218,6 +219,7 @@
 		1884AA5D1CEFE9BE002109A9 /* JournalPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoCell.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1884AA611CF009D0002109A9 /* JournalPhotoLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPhotoLayoutSpec.swift; sourceTree = "<group>"; };
+		1886201B1D8B647F00345440 /* DetailUserUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserUtils.swift; sourceTree = "<group>"; };
 		188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDescriptionSectionView.swift; sourceTree = "<group>"; };
 		189D8BBD1D68BBB700247846 /* APIService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Cache.swift"; sourceTree = "<group>"; };
 		18AB00221D41CCCA00895192 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -525,6 +527,14 @@
 			path = Renderers;
 			sourceTree = "<group>";
 		};
+		188620191D8B646300345440 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1886201B1D8B647F00345440 /* DetailUserUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		5496ED24C9331CF47B824344 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +749,7 @@
 		9B6676FD1D34050500B89009 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				188620191D8B646300345440 /* Utils */,
 				186484961D6A24BC00B8A9D2 /* Renderers */,
 				1872E2E21D502CD900F160F1 /* Components */,
 				9B9C9A3B1D42845D00B015F4 /* Sections */,
@@ -982,6 +993,7 @@
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
+				1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,

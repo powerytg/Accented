@@ -13,18 +13,21 @@ class DetailCacheController: NSObject {
     // Section height cache
     // The key is a combination of section id and photo id, which should be calculated with the sectionCacheKey() method
     // The value is the cached height for the section with the photo
-    fileprivate var sectionMeasurementCache = [String : CGFloat]()
+    private var sectionMeasurementCache = [String : CGFloat]()
     
     // Cached tag button frames
     // The key is a combination of photo id and tag index in the photo, which should be calculated with the tagButtonCacheKey() method
     // The value is the cached frame for the tag
-    fileprivate var tagButtonFrameCache = [String : [CGRect]]()
+    private var tagButtonFrameCache = [String : [CGRect]]()
     
     // Cached tag section content size
-    fileprivate var tagSectionContentSizeCache = [String : CGSize]()
+    private var tagSectionContentSizeCache = [String : CGSize]()
     
     // Formatted text cache
-    fileprivate var formattedTextCache = [String : NSAttributedString]()
+    private var formattedTextCache = [String : NSAttributedString]()
+    
+    // Comment measurement cache
+    private var commentMeasurementCache = [String : CGSize]()
     
     // Set a cached measurement for the section for the specific photo
     func setSectionMeasurement(_ height : CGFloat, section : DetailSectionViewBase, photoId : String) {
@@ -76,21 +79,35 @@ class DetailCacheController: NSObject {
         return tagSectionContentSizeCache[tagSectionContentSizeCacheKey(photoId)]
     }
     
+    // Set comment measurement
+    func setCommentMeasurement(_ size : CGSize, commentId : String) {
+        commentMeasurementCache[commentCacheKey(commentId)] = size
+    }
+    
+    func getCommentMeasurement(_ commentId : String) -> CGSize? {
+        return commentMeasurementCache[commentCacheKey(commentId)]
+    }
+    
     // MARK: Private
     
-    fileprivate func sectionCacheKey(_ section : DetailSectionViewBase, photoId : String) -> String {
+    private func sectionCacheKey(_ section : DetailSectionViewBase, photoId : String) -> String {
         return "\(section.sectionId)_\(photoId)"
     }
     
-    fileprivate func tagFramesCacheKey(_ photoId : String) -> String {
+    private func tagFramesCacheKey(_ photoId : String) -> String {
         return "tag_frames_\(photoId)"
     }
 
-    fileprivate func tagSectionContentSizeCacheKey(_ photoId : String) -> String {
+    private func tagSectionContentSizeCacheKey(_ photoId : String) -> String {
         return "tag_section_size_\(photoId)"
     }
 
-    fileprivate func formattedDescriptionTextCache(_ photoId : String) -> String {
+    private func formattedDescriptionTextCache(_ photoId : String) -> String {
         return "desc_\(photoId)"
     }
+    
+    private func commentCacheKey(_ commentId : String) -> String {
+        return "comment_\(commentId)"
+    }
+    
 }

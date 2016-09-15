@@ -24,7 +24,7 @@ class CommentModel: NSObject {
         commentId = String(json["id"].int!)
         commentedOnUserId = String(json["to_whom_user_id"].int!)
         userId = String(json["user_id"].int!)
-        body = json["body"].string!
+        body = json["body"].string!.trimmingCharacters(in: .whitespaces)
         
         // Dates
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"

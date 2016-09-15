@@ -64,11 +64,11 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         guard photo != nil else { return }
 
         // Author
-        if let avatarUrl = preferredAvatarUrl() {
+        if let avatarUrl = DetailUserUtils.preferredAvatarUrl(photo!.user) {
             avatarView.sd_setImage(with: avatarUrl)
         }
         
-        authorLabel.text = preferredAuthorName().uppercased()
+        authorLabel.text = TextUtils.preferredAuthorName(photo!.user).uppercased()
 
         // Avatar
         avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
@@ -104,36 +104,6 @@ class DetailHeaderSectionView: DetailSectionViewBase {
             self?.avatarView.alpha = 1
             self?.avatarView.transform = CGAffineTransform.identity
             })
-    }
-    
-    // MARK: - Private
-    
-    fileprivate func preferredAvatarUrl() -> URL? {
-        let user = photo!.user
-        
-        if let avatar = user.avatarUrls[.Default] {
-            return URL(string: avatar)
-        } else if let avatar = user.avatarUrls[.Large] {
-            return URL(string: avatar)
-        } else if let avatar = user.avatarUrls[.Small] {
-            return URL(string: avatar)
-        } else if let avatar = user.avatarUrls[.Tiny] {
-            return URL(string: avatar)
-        } else {
-            return nil
-        }
-    }
-    
-    fileprivate func preferredAuthorName() -> String {
-        let user = photo!.user
-
-        if let name = user.fullName {
-            return name
-        } else if let name = user.firstName {
-            return name
-        } else  {
-            return user.userName
-        }
     }
     
 }

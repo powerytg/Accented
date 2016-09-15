@@ -150,7 +150,6 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         scrollView.contentSize = CGSize(width: maxWidth, height: nextY)
         scrollView.frame = self.view.bounds
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-
     }
     
     // MARK: - Entrance animation

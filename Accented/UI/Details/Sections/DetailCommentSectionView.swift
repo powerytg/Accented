@@ -15,7 +15,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
     }
 
     fileprivate var contentRightMargin : CGFloat = 50
-    fileprivate let contentLeftMargin : CGFloat = 15
+    fileprivate let contentLeftMargin : CGFloat = 24
     fileprivate var contentTopMargin : CGFloat = 0
     fileprivate var contentBottomMargin : CGFloat = 15
     
@@ -39,8 +39,14 @@ class DetailCommentSectionView: DetailSectionViewBase {
     // Fixed content height when there're no comments in the photo
     fileprivate var noCommentsSectionHeight : CGFloat = 40
     
+    // Comment renderer vertical padding
+    private var vPadding : CGFloat = 10
+    
+    // Comment renderer indention
+    private var indention : CGFloat = 12
+    
     // Maximum number of comments pre-created
-    fileprivate let maxNumberOfCommentsOnScreen = 3
+    fileprivate let maxNumberOfCommentsOnScreen = 4
     
     // Comment renderers
     fileprivate var commentRenderers = [CommentRenderer]()
@@ -62,8 +68,10 @@ class DetailCommentSectionView: DetailSectionViewBase {
         loadingSpinner.isHidden = true
         
         // Create a limited number of comment renderers ahead of time
-        for _ in 1...maxNumberOfCommentsOnScreen {
-            let renderer = CommentRenderer(frame: CGRect.zero)
+        for index in 1...maxNumberOfCommentsOnScreen {
+            let style : CommentRendererStyle = (index % 2 == 0 ? .Dark : .Light)
+            let rendererMaxWidth = maxWidthForRendererAtIndex(index)
+            let renderer = CommentRenderer(style, maxWidth : rendererMaxWidth, cacheController : cacheController)
             contentView.addSubview(renderer)
             commentRenderers.append(renderer)
             renderer.isHidden = true
@@ -119,12 +127,13 @@ class DetailCommentSectionView: DetailSectionViewBase {
             for (index, renderer) in commentRenderers.enumerated() {
                 if index < photo!.comments.count {
                     let comment = photo!.comments[index]
-                    let rendererHeight = renderer.estimatedHeight(comment, width: maxWidth)
-                    renderer.frame = CGRect(x: 0, y: nextY, width: maxWidth, height: rendererHeight)
+                    let rendererMaxWidth = maxWidthForRendererAtIndex(index)
+                    let rendererSize = renderer.estimatedSize(comment, width: rendererMaxWidth)
+                    renderer.frame = CGRect(x: leftMarginForRendererAtIndex(index), y: nextY, width: rendererSize.width, height: rendererSize.height)
                     renderer.comment = photo!.comments[index]
                     renderer.isHidden = false
                     
-                    nextY += rendererHeight
+                    nextY += rendererSize.height + vPadding
                 } else {
                     renderer.isHidden = true
                 }
@@ -141,13 +150,23 @@ class DetailCommentSectionView: DetailSectionViewBase {
             for index in 0...(displayCommentsCount - 1) {
                 let comment = photo.comments[index]
                 let renderer = commentRenderers[index]
-                let commentHeight = renderer.estimatedHeight(comment, width: width)
+                let rendererMaxWidth = maxWidthForRendererAtIndex(index)
+                let commentHeight = renderer.estimatedSize(comment, width: rendererMaxWidth).height
                 
                 calculatedHeight += commentHeight
             }
             
-            return calculatedHeight
+            calculatedHeight += vPadding * CGFloat(displayCommentsCount - 1)
+            return calculatedHeight + sectionTitleHeight
         }
+    }
+    
+    private func leftMarginForRendererAtIndex(_ index : Int) -> CGFloat {
+        return (index % 2 == 0 ? contentLeftMargin : contentLeftMargin + indention)
+    }
+    
+    private func maxWidthForRendererAtIndex(_ index : Int) -> CGFloat {
+        return maxWidth - leftMarginForRendererAtIndex(index) - contentRightMargin
     }
     
     // MARK: - Events

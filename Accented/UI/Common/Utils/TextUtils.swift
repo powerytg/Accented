@@ -50,4 +50,15 @@ class TextUtils: NSObject {
             return "User"
         }
     }
+    
+    static func preferredAuthorName(_ user : UserModel) -> String {
+        if let name = user.fullName {
+            return name
+        } else if let name = user.firstName {
+            return name
+        } else  {
+            return user.userName
+        }
+    }
+
 }
