@@ -37,7 +37,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         super.init(coder: aDecoder)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -48,8 +48,8 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.clearColor()
-        streamCollectionView.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.clear
+        streamCollectionView.backgroundColor = UIColor.clear
 
         // Create the stream view model
         createViewModel()
@@ -71,21 +71,21 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeZero
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize.zero
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSizeZero
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize.zero
     }
     
     // MARK: - Infinite scrolling
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         streamState.scrolling = true
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         streamState.scrolling = false
         
         if streamState.dirty {
@@ -101,7 +101,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
         
         // Dispatch events
-        let visibleIndexes = streamCollectionView.indexPathsForVisibleItems()
+        let visibleIndexes = streamCollectionView.indexPathsForVisibleItems
         if visibleIndexes.count > 0 {
             let firstVisibleIndex = visibleIndexes[0]
             let firstVisiblePhoto = stream!.photos[firstVisibleIndex.item]
@@ -109,7 +109,7 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.streamViewContentOffsetDidChange(streamCollectionView.contentOffset.y)
     }
 }

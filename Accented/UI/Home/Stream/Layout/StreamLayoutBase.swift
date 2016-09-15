@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol StreamLayoutDelegate : NSObjectProtocol {
-    func streamHeaderCompressionRatioDidChange(headerCompressionRatio : CGFloat)
+    func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio : CGFloat)
 }
 
 class StreamLayoutBase: UICollectionViewFlowLayout {
@@ -49,7 +49,7 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
         fatalError("Not implemented in base class")
     }
     
-    func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+    func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         fatalError("Not implemented in base class")
     }
 

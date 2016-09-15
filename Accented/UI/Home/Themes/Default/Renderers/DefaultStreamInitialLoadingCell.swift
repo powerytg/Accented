@@ -14,7 +14,7 @@ class DefaultStreamInitialLoadingCell: UICollectionViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var retryButton: PushButton!
     
-    private let duration = 0.2
+    fileprivate let duration = 0.2
     
     // Reference to the stream view model
     weak var streamViewModel : StreamViewModel?
@@ -28,11 +28,11 @@ class DefaultStreamInitialLoadingCell: UICollectionViewCell {
         loadingIndicator.loadingIndicator.image = UIImage(named: "DarkLoadingIndicatorLarge")
     }
     
-    func showRetryState(errorMessage : String) {
+    func showRetryState(_ errorMessage : String) {
         loadingIndicator.stopLoadingAnimation()
         messageLabel.text = errorMessage
         
-        UIView.animateWithDuration(duration) { [weak self] in
+        UIView.animate(withDuration: duration) { [weak self] in
             self?.loadingIndicator.alpha = 0
             self?.messageLabel.alpha = 1
             self?.retryButton.alpha = 1
@@ -41,14 +41,14 @@ class DefaultStreamInitialLoadingCell: UICollectionViewCell {
     
     func showLoadingState() {
         loadingIndicator.startLoadingAnimation()
-        UIView.animateWithDuration(duration) { [weak self] in
+        UIView.animate(withDuration: duration) { [weak self] in
             self?.loadingIndicator.alpha = 1
             self?.messageLabel.alpha = 0
             self?.retryButton.alpha = 0
         }
     }
     
-    @IBAction func retryButtonDidTouch(sender: AnyObject) {
+    @IBAction func retryButtonDidTouch(_ sender: AnyObject) {
         showLoadingState()
         
         if let viewModel = streamViewModel {

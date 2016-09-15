@@ -809,13 +809,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 184C06881CBB1020008A1E37 /* Build configuration list for PBXNativeTarget "Accented" */;
 			buildPhases = (
-				E6CAFE10A005192502937644 /* 📦 Check Pods Manifest.lock */,
+				E6CAFE10A005192502937644 /* [CP] Check Pods Manifest.lock */,
 				184C06721CBB1020008A1E37 /* Sources */,
 				184C06731CBB1020008A1E37 /* Frameworks */,
 				184C06741CBB1020008A1E37 /* Resources */,
 				182109821CF0DE4700529610 /* CopyFiles */,
-				032B40E70724DD16AE364794 /* 📦 Embed Pods Frameworks */,
-				94FF0D2AE2613D60350956AB /* 📦 Copy Pods Resources */,
+				032B40E70724DD16AE364794 /* [CP] Embed Pods Frameworks */,
+				94FF0D2AE2613D60350956AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -839,7 +839,6 @@
 				TargetAttributes = {
 					184C06751CBB1020008A1E37 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 9V3CA3764U;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -912,14 +911,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		032B40E70724DD16AE364794 /* 📦 Embed Pods Frameworks */ = {
+		032B40E70724DD16AE364794 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -927,14 +926,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		94FF0D2AE2613D60350956AB /* 📦 Copy Pods Resources */ = {
+		94FF0D2AE2613D60350956AB /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -942,19 +941,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Accented/Pods-Accented-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E6CAFE10A005192502937644 /* 📦 Check Pods Manifest.lock */ = {
+		E6CAFE10A005192502937644 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1212,7 +1211,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.delphi.you.Accented;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1227,7 +1226,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.delphi.you.Accented;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

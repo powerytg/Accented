@@ -21,32 +21,32 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
         super.awakeFromNib()
         
         // By default, hide the ending symbol and the retry button
-        retryButton.hidden = true
-        endingView.hidden = true
+        retryButton.isHidden = true
+        endingView.isHidden = true
     }
     
     func showRetryState() {
         loadingView.stopLoadingAnimation()
-        loadingView.hidden = true
-        endingView.hidden = true
-        retryButton.hidden = false
+        loadingView.isHidden = true
+        endingView.isHidden = true
+        retryButton.isHidden = false
     }
     
     func showLoadingState() {
         loadingView.startLoadingAnimation()
-        loadingView.hidden = false
-        endingView.hidden = true
-        retryButton.hidden = true
+        loadingView.isHidden = false
+        endingView.isHidden = true
+        retryButton.isHidden = true
     }
     
     func showEndingState() {
         loadingView.stopLoadingAnimation()
-        loadingView.hidden = true
-        endingView.hidden = false
-        retryButton.hidden = true
+        loadingView.isHidden = true
+        endingView.isHidden = false
+        retryButton.isHidden = true
     }
 
-    @IBAction func retryButtonDidTouch(sender: AnyObject) {
+    @IBAction func retryButtonDidTouch(_ sender: AnyObject) {
         showLoadingState()
         
         if let viewModel = streamViewModel {

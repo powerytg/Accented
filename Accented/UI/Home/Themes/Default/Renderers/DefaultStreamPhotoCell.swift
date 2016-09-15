@@ -33,8 +33,8 @@ class DefaultStreamPhotoCell: UICollectionViewCell {
         
         // Shadow effect
         effectLayer.masksToBounds = false
-        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
-        effectLayer.shadowColor = UIColor.blackColor().CGColor
+        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+        effectLayer.shadowColor = UIColor.black.cgColor
         effectLayer.shadowOpacity = 0.25
         effectLayer.shadowRadius = 5
         effectLayer.shadowOffset = CGSize(width: 0, height: 2)
@@ -48,7 +48,7 @@ class DefaultStreamPhotoCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
+        effectLayer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
         
         renderer.photo = photo
         renderer.frame = contentView.bounds

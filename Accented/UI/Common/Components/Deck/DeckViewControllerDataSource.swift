@@ -9,6 +9,6 @@
 import UIKit
 
 protocol DeckViewControllerDataSource: NSObjectProtocol {
-    func cardForItemIndex(itemIndex : Int) -> CardViewController
+    func cardForItemIndex(_ itemIndex : Int) -> CardViewController
     func numberOfCards() -> Int
 }

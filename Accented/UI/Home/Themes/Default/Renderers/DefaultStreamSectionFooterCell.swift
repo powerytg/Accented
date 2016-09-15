@@ -41,14 +41,14 @@ class DefaultStreamSectionFooterCell: UICollectionViewCell {
                 }
                 
                 let name = (photo.user.firstName == nil) ? photo.user.fullName : photo.user.firstName
-                let trimmedName = name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                let trimmedName = name!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 if trimmedName.characters.count > 0 {
-                    names.append(trimmedName.uppercaseString)
+                    names.append(trimmedName.uppercased())
                 }
             }
             
             var displayText = "BY "
-            for (index, name) in names.enumerate() {
+            for (index, name) in names.enumerated() {
                 displayText += name
                 if index == names.count - 2 {
                     displayText += " AND "

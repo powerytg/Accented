@@ -14,37 +14,37 @@ class StorageService: NSObject {
     static let pageSize = 20
     
     // Parser processing GCD queue
-    let parsingQueue = dispatch_queue_create("com.accented.parser", nil)
+    let parsingQueue = DispatchQueue(label: "com.accented.parser", attributes: [])
     
     // Singleton instance
     static let sharedInstance = StorageService()
-    private override init() {
+    fileprivate override init() {
         super.init()
         
         initializeEventListeners()
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // Stream cache
-    let streamCache = NSCache()
+    let streamCache = NSCache<NSString, StreamModel>()
     
     // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
     
     // Photo cache
-    let photoCache = NSCache()
+    let photoCache = NSCache<NSString, PhotoModel>()
     
     // Initialize event listeners to monitor APIService results
-    private func initializeEventListeners() {
-        let notificationCenter = NSNotificationCenter.defaultCenter()
+    fileprivate func initializeEventListeners() {
+        let notificationCenter = NotificationCenter.default
         
         // Photos returned for a stream
-        notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: "streamPhotosDidReturn", object: nil)
+        notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: Notification.Name("streamPhotosDidReturn"), object: nil)
         
         // Photo comments returned
-        notificationCenter.addObserver(self, selector: #selector(photoCommentsDidReturn(_:)), name: "commentsDidReturn", object: nil)
+        notificationCenter.addObserver(self, selector: #selector(photoCommentsDidReturn(_:)), name: Notification.Name("commentsDidReturn"), object: nil)
     }
 }

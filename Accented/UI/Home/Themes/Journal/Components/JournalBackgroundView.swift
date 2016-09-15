@@ -26,11 +26,11 @@ class JournalBackgroundView: ThemeableBackgroundView {
         
         // Image view
         addSubview(imageView)
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor).active = true
-        imageView.topAnchor.constraintEqualToAnchor(self.topAnchor).active = true
-        imageView.widthAnchor.constraintEqualToAnchor(self.widthAnchor, multiplier: 0.5).active = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
             imageView.image = journalTheme.backgroundLogoImage
@@ -44,16 +44,16 @@ class JournalBackgroundView: ThemeableBackgroundView {
         
         // Perform the initial animation states
         imageView.alpha = 0
-        imageView.transform = CGAffineTransformMakeTranslation(0, -30)
+        imageView.transform = CGAffineTransform(translationX: 0, y: -30)
     }
     
-    override func performEntranceAnimation(completed: (() -> Void)) {
-        UIView.animateWithDuration(0.5, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+    override func performEntranceAnimation(_ completed: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             self?.imageView.alpha = 1
-            self?.imageView.transform = CGAffineTransformIdentity
-
-            }) { (finished) in
-                completed()
+            self?.imageView.transform = CGAffineTransform.identity
+            
+        }) { (finished) in
+            completed()
         }
     }
     
@@ -74,7 +74,7 @@ class JournalBackgroundView: ThemeableBackgroundView {
         }
     }
     
-    override func streamViewContentOffsetDidChange(contentOffset: CGFloat) {
+    override func streamViewContentOffsetDidChange(_ contentOffset: CGFloat) {
         if contentOffset <= 0 || contentOffset <= compressionStartPosition {
             compressionRate = 0
         } else {
@@ -97,6 +97,6 @@ class JournalBackgroundView: ThemeableBackgroundView {
         blurView.setNeedsLayout()
         
         let scaleFactor = 1.0 + compressionRate
-        imageView.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        imageView.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
     }
 }

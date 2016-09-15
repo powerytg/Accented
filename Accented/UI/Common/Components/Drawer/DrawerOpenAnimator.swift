@@ -10,7 +10,7 @@ import UIKit
 
 class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private var animationContext : DrawerAnimationContext
+    fileprivate var animationContext : DrawerAnimationContext
     
     init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
@@ -19,18 +19,18 @@ class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewController
     
     // MARK: UIViewControllerAnimatedTransitioning
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.2
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!        
-        let duration = self.transitionDuration(transitionContext)
-        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? .CurveLinear : .CurveEaseOut)
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: {
-            toView.transform = CGAffineTransformIdentity
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!        
+        let duration = self.transitionDuration(using: transitionContext)
+        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? .curveLinear : .curveEaseOut)
+        UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+            toView.transform = CGAffineTransform.identity
         }) { (finished) in
-            let transitionCompleted = !transitionContext.transitionWasCancelled()
+            let transitionCompleted = !transitionContext.transitionWasCancelled
             transitionContext.completeTransition(transitionCompleted)
         }
     }

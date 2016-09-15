@@ -24,7 +24,7 @@ class InlineLoadingView: UIView {
     }
     
     convenience init() {
-        self.init(frame : CGRectZero)
+        self.init(frame : CGRect.zero)
     }
 
     func initialize() {
@@ -33,9 +33,9 @@ class InlineLoadingView: UIView {
         self.addSubview(loadingIndicator)
         
         var constraints = [NSLayoutConstraint]()
-        constraints.append(NSLayoutConstraint(item: loadingIndicator, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1.0, constant: 0))
-        constraints.append(NSLayoutConstraint(item: loadingIndicator, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0))
-        NSLayoutConstraint.activateConstraints(constraints)
+        constraints.append(NSLayoutConstraint(item: loadingIndicator, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0))
+        constraints.append(NSLayoutConstraint(item: loadingIndicator, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0))
+        NSLayoutConstraint.activate(constraints)
         
         // Auto start animation
         startLoadingAnimation()
@@ -47,9 +47,9 @@ class InlineLoadingView: UIView {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = M_PI * 2
         rotationAnimation.duration = 1.0
-        rotationAnimation.cumulative = true
+        rotationAnimation.isCumulative = true
         rotationAnimation.repeatCount = Float.infinity
-        loadingIndicator.layer.addAnimation(rotationAnimation, forKey: "rotationAnimation")
+        loadingIndicator.layer.add(rotationAnimation, forKey: "rotationAnimation")
     }
     
     func stopLoadingAnimation() {

@@ -14,14 +14,14 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         return "photo"
     }
     
-    private var photoView = UIImageView()
-    private static var leftMargin : CGFloat = 5
-    private static var rightMargin : CGFloat = 0
+    fileprivate var photoView = UIImageView()
+    fileprivate static var leftMargin : CGFloat = 5
+    fileprivate static var rightMargin : CGFloat = 0
     
     override func initialize() {
         super.initialize()
         
-        photoView.contentMode = .ScaleAspectFit
+        photoView.contentMode = .scaleAspectFit
         contentView.addSubview(photoView)
     }
     
@@ -35,46 +35,46 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         guard photo != nil else { return }
         
         if let imageUrl = PhotoRenderer.preferredImageUrl(photo!) {
-            photoView.sd_setImageWithURL(imageUrl)
+            photoView.sd_setImage(with: imageUrl)
         } else {
             photoView.image = nil
         }
 
-        let h = CGRectGetHeight(self.contentView.bounds)
+        let h = self.contentView.bounds.height
         let photoWidth = maxWidth - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
-        photoView.frame = CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, h)
-        photoView.layer.shadowColor = UIColor.blackColor().CGColor
+        photoView.frame = CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: h)
+        photoView.layer.shadowColor = UIColor.black.cgColor
         photoView.layer.shadowOpacity = 0.5
         photoView.layer.shadowRadius = 5
         photoView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        photoView.layer.shadowPath = UIBezierPath(rect: CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, h)).CGPath
+        photoView.layer.shadowPath = UIBezierPath(rect: CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: h)).cgPath
     }
     
     // MARK: - Measurements
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         return DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: maxWidth)
     }
     
-    private static func estimatedPhotoViewHeight(photo : PhotoModel, width : CGFloat) -> CGFloat {
+    fileprivate static func estimatedPhotoViewHeight(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
         let photoAspectRatio = photo.height / photo.width
         return width * photoAspectRatio
     }
     
-    static func targetRectForPhotoView(photo : PhotoModel, width: CGFloat) -> CGRect {
+    static func targetRectForPhotoView(_ photo : PhotoModel, width: CGFloat) -> CGRect {
         let photoWidth = width - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
         let height = DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: photoWidth)
-        return CGRectMake(DetailPhotoSectionView.leftMargin, 0, photoWidth, height)
+        return CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: height)
     }
 
     // MARK: - Entrance Animation
     
     override func entranceAnimationWillBegin() {
-        photoView.hidden = true
+        photoView.isHidden = true
     }
     
     override func entranceAnimationDidFinish() {
-        photoView.hidden = false
+        photoView.isHidden = false
     }
     
     // MARK: - DetailLightBoxAnimationSource
@@ -87,7 +87,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     
     func lightBoxTransitionWillBegin() {
         // Hide the photo view
-        photoView.hidden = true
+        photoView.isHidden = true
     }
     
     func lightboxTransitionDidFinish() {
@@ -95,12 +95,12 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     }
     
     func performLightBoxTransition() {
-        photoView.hidden = false
+        photoView.isHidden = false
     }
     
-    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
+    func desitinationRectForSelectedLightBoxPhoto(_ photo: PhotoModel) -> CGRect {
         // No-op
-        return CGRectZero
+        return CGRect.zero
     }
     
 }

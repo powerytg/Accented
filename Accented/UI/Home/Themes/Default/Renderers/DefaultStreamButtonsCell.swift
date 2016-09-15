@@ -36,7 +36,7 @@ class DefaultStreamButtonsCell: UICollectionViewCell {
         }
     }
     
-    @IBAction func displayButtonDidTap(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.didRequestRightDrawer, object: nil)
+    @IBAction func displayButtonDidTap(_ sender: AnyObject) {
+        NotificationCenter.default.post(name: StreamEvents.didRequestRightDrawer, object: nil)
     }
 }

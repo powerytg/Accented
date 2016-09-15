@@ -9,10 +9,10 @@
 import UIKit
 
 enum AppThemeType {
-    case Light
-    case Dark
-    case JournalDark
-    case JournalLight
+    case light
+    case dark
+    case journalDark
+    case journalLight
 }
 
 class AppTheme: NSObject {
@@ -30,17 +30,17 @@ class AppTheme: NSObject {
     
     // Base background color
     var rootViewBackgroundColor : UIColor {
-        return UIColor.blackColor()
+        return UIColor.black
     }
 
     // Home stream background color
     var streamBackgroundColor : UIColor {
-        return UIColor.blackColor()
+        return UIColor.black
     }
 
     // Background blur effect
     var backgroundBlurEffect : UIBlurEffect {
-        return UIBlurEffect(style: .Dark)
+        return UIBlurEffect(style: .dark)
     }
     
     // Whether the background requires desaturated image
@@ -50,12 +50,12 @@ class AppTheme: NSObject {
     
     // Title text color
     var titleTextColor : UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
 
     // Standard text color
     var standardTextColor : UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
 
     // Description text color
@@ -85,7 +85,7 @@ class AppTheme: NSObject {
 
     // Push button border color
     var pushButtonBorderColor : UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
 
     // Push button background color
@@ -95,11 +95,11 @@ class AppTheme: NSObject {
 
     // Push button text color
     var pushButtonTextColor : UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
 
     var statusBarStyle : UIStatusBarStyle {
-        return .LightContent
+        return .lightContent
     }
     
     // Background view type

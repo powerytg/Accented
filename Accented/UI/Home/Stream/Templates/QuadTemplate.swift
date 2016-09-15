@@ -10,8 +10,8 @@ import UIKit
 
 class QuadTemplate: StreamLayoutTemplateBase {
 
-    private let maxRowHeight : CGFloat = 200
-    private let maxHorizontalRatio : CGFloat = 3.0 / 2.0
+    fileprivate let maxRowHeight : CGFloat = 200
+    fileprivate let maxHorizontalRatio : CGFloat = 3.0 / 2.0
     
     override var capacity : Int {
         return 4
@@ -25,7 +25,7 @@ class QuadTemplate: StreamLayoutTemplateBase {
         height = rowHeight1 + vGap + rowHeight2
     }
     
-    private func generateLayoutMetadataForRow(size1 : CGSize, size2 : CGSize, startY : CGFloat) -> CGFloat {
+    fileprivate func generateLayoutMetadataForRow(_ size1 : CGSize, size2 : CGSize, startY : CGFloat) -> CGFloat {
         let size1 = inputSizes[0]
         let size2 = inputSizes[1]
         
@@ -46,8 +46,8 @@ class QuadTemplate: StreamLayoutTemplateBase {
         
         let rowHeight = min(maxRowHeight, min(height1, height2))
         
-        let rect1 = CGRectMake(0, startY, width1, rowHeight)
-        let rect2 = CGRectMake(width1 + hGap, startY, width2, rowHeight)
+        let rect1 = CGRect(x: 0, y: startY, width: width1, height: rowHeight)
+        let rect2 = CGRect(x: width1 + hGap, y: startY, width: width2, height: rowHeight)
         
         frames += [rect1, rect2]
         

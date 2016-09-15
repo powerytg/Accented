@@ -16,7 +16,7 @@ class DarkTheme: AppTheme {
     }
     
     init() {
-        super.init(themeType: .Dark)
+        super.init(themeType: .dark)
     }
 
 }

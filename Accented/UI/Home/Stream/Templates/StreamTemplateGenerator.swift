@@ -21,13 +21,13 @@ class StreamTemplateGenerator : NSObject {
         self.init(maxWidth : 0)
     }
     
-    func generateLayoutMetadata(photos : [PhotoModel]) -> [StreamLayoutTemplate] {
+    func generateLayoutMetadata(_ photos : [PhotoModel]) -> [StreamLayoutTemplate] {
         fatalError("Not implemented in base class")
     }
     
     
-    func photoSize(photo : PhotoModel) -> CGSize {
-        return CGSizeMake(CGFloat(photo.width), CGFloat(photo.height))
+    func photoSize(_ photo : PhotoModel) -> CGSize {
+        return CGSize(width: CGFloat(photo.width), height: CGFloat(photo.height))
     }
     
 }

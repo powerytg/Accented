@@ -9,9 +9,9 @@
 import UIKit
 
 enum DrawerAnchor {
-    case Left
-    case Right
-    case Bottom
+    case left
+    case right
+    case bottom
 }
 
 class DrawerAnimationParams: NSObject {

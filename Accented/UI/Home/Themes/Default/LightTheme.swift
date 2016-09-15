@@ -19,11 +19,11 @@ class LightTheme: AppTheme {
     }
 
     override var streamBackgroundColor : UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
 
     override var backgroundBlurEffect : UIBlurEffect {
-        return UIBlurEffect(style: .ExtraLight)
+        return UIBlurEffect(style: .extraLight)
     }
     
     override var shouldUseDesaturatedBackground : Bool {
@@ -39,7 +39,7 @@ class LightTheme: AppTheme {
     }
     
     override var statusBarStyle : UIStatusBarStyle {
-        return .Default
+        return .default
     }
 
     override var footerTextColor : UIColor {
@@ -67,7 +67,7 @@ class LightTheme: AppTheme {
     }
 
     init() {
-        super.init(themeType: .Light)
+        super.init(themeType: .light)
     }
     
 }

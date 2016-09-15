@@ -11,21 +11,21 @@ import UIKit
 // Cache initializatio policy
 enum DeckViewControllerCacheInitializationPolicy {
     // The cache will be fully initialized
-    case Default
+    case `default`
     
     // Only the selected card will be initialized
-    case Deferred
+    case deferred
 }
 
 private enum ScrollDirection {
-    case Left
-    case Right
+    case left
+    case right
 }
 
 class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
 
     // Cache initialization policy
-    var cacheInitializationPolicy : DeckViewControllerCacheInitializationPolicy = .Default
+    var cacheInitializationPolicy : DeckViewControllerCacheInitializationPolicy = .default
     
     // Reference to the data source
     weak var dataSource : DeckViewControllerDataSource? {
@@ -40,7 +40,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
             if let ds = dataSource {
                 totalCardCount = ds.numberOfCards()
                 
-                if cacheInitializationPolicy == .Default {
+                if cacheInitializationPolicy == .default {
                     cacheController.initializeCache(selectedIndex)
                 } else {
                     cacheController.initializeSelectedCard(selectedIndex)
@@ -59,16 +59,16 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     var selectedIndex = 0
     
     // Previous selected index
-    private var previousSelectedIndex = 0
+    fileprivate var previousSelectedIndex = 0
     
     // Total number of cards
-    private var totalCardCount = 0
+    fileprivate var totalCardCount = 0
     
     // Content view
     var contentView = UIView()
     
     // Animation configurations
-    private var animationParams = DeckAnimationParams()
+    fileprivate var animationParams = DeckAnimationParams()
     
     // Pan gesture
     var panGesture : UIPanGestureRecognizer!
@@ -114,7 +114,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         return cacheController.getRecycledCardViewController()
     }
     
-    private func removeAllCards() {
+    fileprivate func removeAllCards() {
         for card in self.contentView.subviews {
             card.removeFromSuperview()
         }
@@ -128,7 +128,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Update the frames for the selected view controller as well its siblings
-    func updateVisibleCardFrames(updateOffScreenCards : Bool) {
+    func updateVisibleCardFrames(_ updateOffScreenCards : Bool) {
         guard dataSource != nil else { return }
         
         for card in cacheController.cachedCards {
@@ -141,31 +141,31 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // MARK: - Gestures
-    func didReceivePanGesture(gesture : UIPanGestureRecognizer) {
+    func didReceivePanGesture(_ gesture : UIPanGestureRecognizer) {
         switch gesture.state {
-        case .Ended:
+        case .ended:
             panGestureDidEnd(gesture)
-        case .Changed:
+        case .changed:
             panGestureDidChange(gesture)
-        case .Cancelled:
+        case .cancelled:
             cancelScrolling()
         default: break
         }
     }
     
-    private func panGestureDidChange(gesture : UIPanGestureRecognizer) {
-        let tx = gesture.translationInView(gesture.view).x
+    fileprivate func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
+        let tx = gesture.translation(in: gesture.view).x
         for card in cacheController.cachedCards {
             if card.withinVisibleRange {
                 let cardOffset = layoutController.offsetForCardAtIndex(card.indexInDataSource, selectedCardIndex: selectedIndex)
-                card.view.transform = CGAffineTransformMakeTranslation(cardOffset + tx, 0)
+                card.view.transform = CGAffineTransform(translationX: cardOffset + tx, y: 0)
             }
         }
     }
     
-    private func panGestureDidEnd(gesture : UIPanGestureRecognizer) {
-        let velocity = gesture.velocityInView(gesture.view).x
-        let tx = gesture.translationInView(gesture.view).x
+    fileprivate func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
+        let velocity = gesture.velocity(in: gesture.view).x
+        let tx = gesture.translation(in: gesture.view).x
         var shouldConfirm : Bool
         
         if (tx >= 0 && velocity <= 0) || (tx <= 0 && velocity >= 0) {
@@ -195,7 +195,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // MARK: - Scrolling
     
     // Scroll to the next item
-    func scrollToLeft(animated : Bool) {
+    func scrollToLeft(_ animated : Bool) {
         // Scroll to left
         if selectedIndex < totalCardCount - 1 {
             selectedIndex += 1
@@ -203,7 +203,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
 
         if animated {
-            performScrollingAnimation(.Left)
+            performScrollingAnimation(.left)
         } else {
             cacheController.populateRightOffScreenSibling()
             self.updateVisibleCardFrames(true)
@@ -212,7 +212,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Scroll to the previous item
-    func scrollToRight(animated : Bool) {
+    func scrollToRight(_ animated : Bool) {
         // Scroll to right
         if selectedIndex > 0 {
             selectedIndex -= 1
@@ -220,7 +220,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
         
         if animated {
-            performScrollingAnimation(.Right)
+            performScrollingAnimation(.right)
         } else {
             cacheController.populateLeftOffScreenSibling()
             self.updateVisibleCardFrames(true)
@@ -229,19 +229,19 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Cancel the scrolling and reset to the current position
-    private func cancelScrolling() {
-        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+    fileprivate func cancelScrolling() {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             self?.updateVisibleCardFrames(false)
             }, completion: nil)
     }
     
     // Scroll to the selected view controller
-    private func performScrollingAnimation(direction : ScrollDirection) {
-        UIView.animateWithDuration(0.2, delay: 0, options: [.CurveEaseOut], animations: { [weak self] in
+    fileprivate func performScrollingAnimation(_ direction : ScrollDirection) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             self?.updateVisibleCardFrames(false)
             
         }) { [weak self] (completed) in
-            if direction == .Left {
+            if direction == .left {
                 self?.cacheController.populateRightOffScreenSibling()
                 self?.layoutCard(self?.cacheController.offScreenCard)
             } else {
@@ -255,7 +255,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     // MARK: - DeckLayoutControllerDelegate
     
     internal func deckLayoutDidChange() {
-        contentView.frame = CGRectMake(0, 0, layoutController.containerSize.width, layoutController.contentSize.height)
+        contentView.frame = CGRect(x: 0, y: 0, width: layoutController.containerSize.width, height: layoutController.contentSize.height)
         updateVisibleCardFrames(true)
     }
     
@@ -283,26 +283,26 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    func cardDidAddToCache(card: CardViewController) {
+    func cardDidAddToCache(_ card: CardViewController) {
         initializeCard(card)
     }
     
     // MARK: - Private
     
-    private func initializeCard(card : CardViewController) {
+    fileprivate func initializeCard(_ card : CardViewController) {
         if !contentView.subviews.contains(card.view) {
             contentView.addSubview(card.view)
         }
         
-        if !CGSizeEqualToSize(card.view.frame.size, layoutController.cardSize) {
-            card.view.frame = CGRectMake(0, 0, layoutController.cardSize.width, layoutController.cardSize.height)
+        if !card.view.frame.size.equalTo(layoutController.cardSize) {
+            card.view.frame = CGRect(x: 0, y: 0, width: layoutController.cardSize.width, height: layoutController.cardSize.height)
         }
     }
     
-    private func layoutCard(card : CardViewController?) {
+    fileprivate func layoutCard(_ card : CardViewController?) {
         guard card != nil else { return }
         let cardOffset = layoutController.offsetForCardAtIndex(card!.indexInDataSource, selectedCardIndex: selectedIndex)
-        card!.view.transform = CGAffineTransformMakeTranslation(cardOffset, 0)
+        card!.view.transform = CGAffineTransform(translationX: cardOffset, y: 0)
     }
     
 }

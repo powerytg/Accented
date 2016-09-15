@@ -10,16 +10,16 @@ import UIKit
 
 class MainViewController: UINavigationController, DrawerOpenGestureControllerDelegate {
 
-    private var rightDrawerSize : CGSize
-    private var rightDrawerGestureController : DrawerOpenGestureController?
+    fileprivate var rightDrawerSize : CGSize
+    fileprivate var rightDrawerGestureController : DrawerOpenGestureController?
     
     // Theme selector
-    private var rightDrawer : ThemeSelectorViewController?
+    fileprivate var rightDrawer : ThemeSelectorViewController?
     
     required init?(coder aDecoder: NSCoder) {
-        let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
-        rightDrawerSize = CGSizeMake(screenWidth * ThemeSelectorViewController.drawerWidthInPercentage, screenHeight)
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        rightDrawerSize = CGSize(width: screenWidth * ThemeSelectorViewController.drawerWidthInPercentage, height: screenHeight)
 
         super.init(coder: aDecoder)
     }
@@ -33,14 +33,14 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         NavigationService.sharedInstance.initWithRootNavigationController(self)
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Retrieve OAuth tokens. If the tokens are absent, promote sign in screen
@@ -50,7 +50,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
             
             // Show the sign in screen
             let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
-            self.presentViewController(greetingsViewController, animated: false, completion: nil)
+            self.present(greetingsViewController, animated: false, completion: nil)
         } else {
             // Show the home view controller as root
             let homeViewController = HomeViewController()
@@ -63,11 +63,11 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         }
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let topVC = visibleViewController {
-            return topVC.supportedInterfaceOrientations()
+            return topVC.supportedInterfaceOrientations
         } else {
-            return UIInterfaceOrientationMask.Portrait
+            return UIInterfaceOrientationMask.portrait
         }
     }
     
@@ -79,18 +79,18 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     
     //MARK: Events
     
-    func didRequestRightDrawer(notification : NSNotification) {
+    func didRequestRightDrawer(_ notification : Notification) {
         let animationContext = self.rightDrawerAnimationContext(false)
         DrawerService.sharedInstance.presentDrawer(animationContext)
     }
     
     //MARK: Private
     
-    func rightDrawerAnimationContext(interactive : Bool) -> DrawerAnimationContext {
+    func rightDrawerAnimationContext(_ interactive : Bool) -> DrawerAnimationContext {
         let animationContext = DrawerAnimationContext(content : rightDrawer!)
         animationContext.container = self
         animationContext.drawerSize = rightDrawerSize
-        animationContext.anchor = .Right
+        animationContext.anchor = .right
         animationContext.interactive = interactive
         
         return animationContext

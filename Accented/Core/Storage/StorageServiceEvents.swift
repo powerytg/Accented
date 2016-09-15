@@ -12,10 +12,10 @@ class StorageServiceEvents: NSObject {
     // MARK: - Events
     
     // Photos retrieved for stream
-    static let streamDidUpdate = "streamDidUpdate"
+    static let streamDidUpdate = Notification.Name("streamDidUpdate")
     
     // Comments retrieved for photo
-    static let photoCommentsDidUpdate = "photoCommentsDidUpdate"
+    static let photoCommentsDidUpdate = Notification.Name("photoCommentsDidUpdate")
     
     // MARK: - Parameters
     

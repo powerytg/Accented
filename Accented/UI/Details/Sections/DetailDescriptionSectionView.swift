@@ -15,25 +15,25 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         return "desc"
     }
     
-    private var titleLabel = UILabel()
-    private var dateLabel = UILabel()
-    private var descLabel = TTTAttributedLabel(frame: CGRectZero)
+    fileprivate var titleLabel = UILabel()
+    fileprivate var dateLabel = UILabel()
+    fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
     
-    private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
-    private let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
-    private let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
-    private let linkPressColor = UIColor.whiteColor()
+    fileprivate let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
+    fileprivate let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
+    fileprivate let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
+    fileprivate let linkPressColor = UIColor.white
     
-    private let contentLeftMargin : CGFloat = 15
-    private let titleLabelTopMargin : CGFloat = 12
-    private let titleLabelRightMargin : CGFloat = 70
-    private let dateLabelTopMargin : CGFloat = 10
-    private let dateLabelRightMargin : CGFloat = 120
-    private let descLabelTopMargin : CGFloat = 10
-    private let descLabelRightMargin : CGFloat = 30
+    fileprivate let contentLeftMargin : CGFloat = 15
+    fileprivate let titleLabelTopMargin : CGFloat = 12
+    fileprivate let titleLabelRightMargin : CGFloat = 70
+    fileprivate let dateLabelTopMargin : CGFloat = 10
+    fileprivate let dateLabelRightMargin : CGFloat = 120
+    fileprivate let descLabelTopMargin : CGFloat = 10
+    fileprivate let descLabelRightMargin : CGFloat = 30
     
     // Constraints
-    private var descLabelTopConstraint : NSLayoutConstraint?
+    fileprivate var descLabelTopConstraint : NSLayoutConstraint?
     
     override func initialize() {
         super.initialize()
@@ -41,16 +41,16 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         // Title label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = titleFont
-        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.textColor = UIColor.white
         titleLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - titleLabelRightMargin
         titleLabel.numberOfLines = 0
-        titleLabel.lineBreakMode = .ByWordWrapping
+        titleLabel.lineBreakMode = .byWordWrapping
         contentView.addSubview(titleLabel)
 
         // Date label
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.font = dateFont
-        dateLabel.textColor = UIColor.whiteColor()
+        dateLabel.textColor = UIColor.white
         dateLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - dateLabelRightMargin
         contentView.addSubview(dateLabel)
         
@@ -60,19 +60,19 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         descLabel.textColor = descColor
         descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
-        descLabel.lineBreakMode = .ByWordWrapping
-        descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleNone.rawValue]
-        descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkPressColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.StyleNone.rawValue]
+        descLabel.lineBreakMode = .byWordWrapping
+        descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
+        descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkPressColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         contentView.addSubview(descLabel)
         
         // Constaints
-        titleLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
-        titleLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: titleLabelTopMargin).active = true
+        titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: contentLeftMargin).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: titleLabelTopMargin).isActive = true
         
-        dateLabel.leadingAnchor.constraintEqualToAnchor(titleLabel.leadingAnchor).active = true
-        dateLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: dateLabelTopMargin).active = true
+        dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: dateLabelTopMargin).isActive = true
 
-        descLabel.leadingAnchor.constraintEqualToAnchor(titleLabel.leadingAnchor).active = true
+        descLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
     }
     
     override func photoModelDidChange() {
@@ -90,17 +90,17 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         // Creation date
         if let dateString = displayDateString(photo!) {
             dateLabel.text = dateString
-            dateLabel.hidden = false
+            dateLabel.isHidden = false
             
-            descLabelTopConstraint?.active = false
-            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(dateLabel.bottomAnchor, constant: descLabelTopMargin)
-            descLabelTopConstraint?.active = true
+            descLabelTopConstraint?.isActive = false
+            descLabelTopConstraint = descLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: descLabelTopMargin)
+            descLabelTopConstraint?.isActive = true
         } else{
-            dateLabel.hidden = true
+            dateLabel.isHidden = true
             
-            descLabelTopConstraint?.active = false
-            descLabelTopConstraint = descLabel.topAnchor.constraintEqualToAnchor(titleLabel.bottomAnchor, constant: descLabelTopMargin)
-            descLabelTopConstraint?.active = true
+            descLabelTopConstraint?.isActive = false
+            descLabelTopConstraint = descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: descLabelTopMargin)
+            descLabelTopConstraint?.isActive = true
         }
         
         // Descriptions
@@ -113,11 +113,11 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     // MARK: - Measurments
     
-    override func calculatedHeightForPhoto(photo : PhotoModel, width : CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
         // Title
         let maxTitleWidth = width - contentLeftMargin - titleLabelRightMargin
-        var titleHeight = NSString(string : photo.title).boundingRectWithSize(CGSizeMake(maxTitleWidth, CGFloat.max),
-                                                                            options: .UsesLineFragmentOrigin,
+        var titleHeight = NSString(string : photo.title).boundingRect(with: CGSize(width: maxTitleWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                                            options: .usesLineFragmentOrigin,
                                                                             attributes: [NSFontAttributeName: titleFont!],
                                                                             context: nil).size.height
         titleHeight += titleLabelTopMargin
@@ -126,8 +126,8 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         var dateHeight : CGFloat = 0
         if let date = displayDateString(photo) {
             let maxDateWidth = width - contentLeftMargin - dateLabelRightMargin
-            dateHeight = NSString(string : date).boundingRectWithSize(CGSizeMake(maxDateWidth, CGFloat.max),
-                                                                              options: .UsesLineFragmentOrigin,
+            dateHeight = NSString(string : date).boundingRect(with: CGSize(width: maxDateWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                                              options: .usesLineFragmentOrigin,
                                                                               attributes: [NSFontAttributeName: dateFont!],
                                                                               context: nil).size.height
             dateHeight += dateLabelTopMargin
@@ -142,13 +142,13 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             let formattedDesc = formattedDescriptionString(photo)
             if formattedDesc != nil {
                 // Calculate HTML string height
-                descHeight = formattedDesc!.boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
-                                                                       options: .UsesLineFragmentOrigin,
+                descHeight = formattedDesc!.boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                                       options: .usesLineFragmentOrigin,
                                                                        context: nil).size.height
             } else {
                 // Calculate plain string height
-                descHeight = NSString(string : desc).boundingRectWithSize(CGSizeMake(maxDescWidth, CGFloat.max),
-                                                                          options: .UsesLineFragmentOrigin,
+                descHeight = NSString(string : desc).boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                                          options: .usesLineFragmentOrigin,
                                                                           attributes: [NSFontAttributeName: descFont!],
                                                                           context: nil).size.height
             }
@@ -163,7 +163,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     // MARK: - Private
     
-    private func formattedDescriptionString(photo : PhotoModel) -> NSAttributedString? {
+    fileprivate func formattedDescriptionString(_ photo : PhotoModel) -> NSAttributedString? {
         guard let desc = photo.desc else { return nil }
         
         // Try to retrieve from cache
@@ -172,11 +172,11 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             return cachedDesc
         }
         
-        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>", desc) as String
-        guard let data = descStringWithStyles.dataUsingEncoding(NSUTF8StringEncoding) else { return nil }
+        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>" as NSString, desc) as String
+        guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return nil }
         
-        let options : [String : AnyObject] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
-                                              NSCharacterEncodingDocumentAttribute:NSUTF8StringEncoding]
+        let options : [String : Any] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
+                                              NSCharacterEncodingDocumentAttribute:String.Encoding.utf8.rawValue]
         
         var formattedDesc : NSAttributedString?
         do {
@@ -193,15 +193,15 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         return formattedDesc
     }
     
-    private func displayDateString(photo : PhotoModel) -> String? {
+    fileprivate func displayDateString(_ photo : PhotoModel) -> String? {
         if photo.creationDate == nil {
             return nil
         }
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .NoStyle
-        return dateFormatter.stringFromDate(photo.creationDate!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: photo.creationDate! as Date)
     }
     
     override func entranceAnimationWillBegin() {
@@ -209,25 +209,25 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         dateLabel.alpha = 0
         descLabel.alpha = 0
         
-        titleLabel.transform = CGAffineTransformMakeTranslation(0, 30)
-        dateLabel.transform = CGAffineTransformMakeTranslation(0, 30)
-        descLabel.transform = CGAffineTransformMakeTranslation(0, 30)
+        titleLabel.transform = CGAffineTransform(translationX: 0, y: 30)
+        dateLabel.transform = CGAffineTransform(translationX: 0, y: 30)
+        descLabel.transform = CGAffineTransform(translationX: 0, y: 30)
     }
     
     override func performEntranceAnimation() {
-        UIView .addKeyframeWithRelativeStartTime(0.3, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 1, animations: { [weak self] in
             self?.titleLabel.alpha = 1
-            self?.titleLabel.transform = CGAffineTransformIdentity
+            self?.titleLabel.transform = CGAffineTransform.identity
         })
         
-        UIView .addKeyframeWithRelativeStartTime(0.5, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1, animations: { [weak self] in
             self?.dateLabel.alpha = 1
-            self?.dateLabel.transform = CGAffineTransformIdentity
+            self?.dateLabel.transform = CGAffineTransform.identity
         })
         
-        UIView .addKeyframeWithRelativeStartTime(0.7, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 1, animations: { [weak self] in
             self?.descLabel.alpha = 1
-            self?.descLabel.transform = CGAffineTransformIdentity
+            self?.descLabel.transform = CGAffineTransform.identity
         })
     }
 }

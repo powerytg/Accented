@@ -9,8 +9,8 @@
 import UIKit
 
 protocol CardAnimation : NSObjectProtocol {
-    func cardDidReceivePanGesture(translation : CGFloat, cardWidth : CGFloat)
-    func cardSelectionDidChange(selected : Bool)
+    func cardDidReceivePanGesture(_ translation : CGFloat, cardWidth : CGFloat)
+    func cardSelectionDidChange(_ selected : Bool)
     func performCardTransitionAnimation()
 }
 

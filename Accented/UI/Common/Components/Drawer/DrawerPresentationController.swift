@@ -11,10 +11,10 @@ import UIKit
 class DrawerPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate {
     
     // Animation context
-    private var animationContext : DrawerAnimationContext
+    fileprivate var animationContext : DrawerAnimationContext
     
     // Curtain view
-    private var curtainView = UIView()
+    fileprivate var curtainView = UIView()
     
     // Open animator
     var openAnimator : DrawerOpenAnimator?
@@ -29,11 +29,11 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     var interactiveDismissAnimator : DrawerDismissAnimator?
 
     // Dismissal gesture controller
-    private var dismissGestureController : DrawerDismissGestureController?
+    fileprivate var dismissGestureController : DrawerDismissGestureController?
     
     required init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
-        super.init(presentedViewController: animationContext.content, presentingViewController: animationContext.container!)
+        super.init(presentedViewController: animationContext.content, presenting: animationContext.container!)
         
         animationContext.presentationController = self
         animationContext.backgroundView = curtainView
@@ -45,7 +45,7 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
         self.interactiveDismissAnimator = DrawerDismissAnimator(animationContext : animationContext)
         
         // Initialization
-        animationContext.content.modalPresentationStyle = .Custom
+        animationContext.content.modalPresentationStyle = .custom
         animationContext.content.transitioningDelegate = self
     }
     
@@ -54,46 +54,46 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     override func presentationTransitionWillBegin() {
         // Setup curtain view
         containerView!.addSubview(curtainView)
-        curtainView.userInteractionEnabled = true
+        curtainView.isUserInteractionEnabled = true
         curtainView.alpha = 0
-        curtainView.backgroundColor = UIColor.blackColor()
+        curtainView.backgroundColor = UIColor.black
         curtainView.translatesAutoresizingMaskIntoConstraints = false
-        curtainView.widthAnchor.constraintEqualToAnchor(self.containerView!.widthAnchor).active = true
-        curtainView.heightAnchor.constraintEqualToAnchor(self.containerView!.heightAnchor).active = true
+        curtainView.widthAnchor.constraint(equalTo: self.containerView!.widthAnchor).isActive = true
+        curtainView.heightAnchor.constraint(equalTo: self.containerView!.heightAnchor).isActive = true
         
         // Setup drawer
         let contentView = presentedViewController.view
-        containerView!.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.widthAnchor.constraintEqualToConstant(animationContext.drawerSize.width).active = true
-        contentView.heightAnchor.constraintEqualToConstant(animationContext.drawerSize.height).active = true
+        containerView!.addSubview(contentView!)
+        contentView?.translatesAutoresizingMaskIntoConstraints = false
+        contentView?.widthAnchor.constraint(equalToConstant: animationContext.drawerSize.width).isActive = true
+        contentView?.heightAnchor.constraint(equalToConstant: animationContext.drawerSize.height).isActive = true
         
         switch animationContext.anchor {
-        case .Left:
-            contentView.leadingAnchor.constraintEqualToAnchor(containerView!.leadingAnchor).active = true
-        case .Right:
-            contentView.trailingAnchor.constraintEqualToAnchor(containerView!.trailingAnchor).active = true
-        case .Bottom:
-            contentView.bottomAnchor.constraintEqualToAnchor(containerView!.bottomAnchor).active = true
+        case .left:
+            contentView?.leadingAnchor.constraint(equalTo: containerView!.leadingAnchor).isActive = true
+        case .right:
+            contentView?.trailingAnchor.constraint(equalTo: containerView!.trailingAnchor).isActive = true
+        case .bottom:
+            contentView?.bottomAnchor.constraint(equalTo: containerView!.bottomAnchor).isActive = true
         }
         
         switch animationContext.anchor {
-        case .Left:
-            contentView.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(contentView.bounds), 0)
-        case .Right:
-            contentView.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(contentView.bounds), 0)
-        case .Bottom:
-            contentView.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(contentView.bounds))
+        case .left:
+            contentView?.transform = CGAffineTransform(translationX: -(contentView?.bounds.width)!, y: 0)
+        case .right:
+            contentView?.transform = CGAffineTransform(translationX: (contentView?.bounds.width)!, y: 0)
+        case .bottom:
+            contentView?.transform = CGAffineTransform(translationX: 0, y: (contentView?.bounds.height)!)
         }
 
         // Perform the curtain view animation along with the transition
         let curtainAlpha = animationContext.configurations.curtainAlpha
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ [weak self] (context) in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] (context) in
             self?.curtainView.alpha = curtainAlpha
             }, completion: nil)
     }
     
-    override func presentationTransitionDidEnd(completed: Bool) {
+    override func presentationTransitionDidEnd(_ completed: Bool) {
         if completed {
             // Reset the animation context to non-interactive
             // This is important as the interactive should only be set after a gesture detection
@@ -109,12 +109,12 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     
     override func dismissalTransitionWillBegin() {
         // Perform the curtain view animation along with the transition
-        presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ [weak self] (context) in
+        presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] (context) in
             self?.curtainView.alpha = 0
             }, completion: nil)
     }
     
-    override func dismissalTransitionDidEnd(completed: Bool) {
+    override func dismissalTransitionDidEnd(_ completed: Bool) {
         if completed {
             curtainView.removeFromSuperview()
         } else {
@@ -124,23 +124,23 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     
     //MARK: UIViewControllerTransitioningDelegate
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self.openAnimator
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self.dismissAnimator
     }
     
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return animationContext.interactive ? self.interactiveOpenAnimator : nil
     }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return animationContext.interactive ? self.interactiveDismissAnimator : nil
     }
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return self
     }
 }

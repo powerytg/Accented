@@ -10,15 +10,15 @@ import UIKit
 
 class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
 
-    private let hGap : CGFloat = 6
-    private let vGap : CGFloat = 6
-    private let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
-    private let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
-    private let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
-    private let tagButtonBorderColor = UIColor.blackColor()
-    private let tagButtonRadius : CGFloat = 4
-    private let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
-    private var tagButtonAttrs : [String : AnyObject]!
+    fileprivate let hGap : CGFloat = 6
+    fileprivate let vGap : CGFloat = 6
+    fileprivate let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
+    fileprivate let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
+    fileprivate let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
+    fileprivate let tagButtonBorderColor = UIColor.black
+    fileprivate let tagButtonRadius : CGFloat = 4
+    fileprivate let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
+    fileprivate var tagButtonAttrs : [String : AnyObject]!
 
     // Photo model
     var photoModel : PhotoModel?
@@ -36,24 +36,24 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
     }
     
     // The rect of tag that currently being tapped upon
-    private var activeTagFrame : CGRect?
-    private var activeTagIndex : Int?
+    fileprivate var activeTagFrame : CGRect?
+    fileprivate var activeTagIndex : Int?
     
     // Cached tag button frames
-    private var tagButtonFrames : [CGRect]?
+    fileprivate var tagButtonFrames : [CGRect]?
 
     // Cached content view size
-    private var contentViewSize : CGSize?
+    fileprivate var contentViewSize : CGSize?
 
     // Cached tag images
-    private var cachedContentImage : UIImage?
+    fileprivate var cachedContentImage : UIImage?
     
     // Passed through cache controller
     var cacheController : DetailCacheController!
     
     override init(frame: CGRect) {
         // Tag button drawing attributes
-        tagButtonAttrs = [NSFontAttributeName : tagButtonFont, NSForegroundColorAttributeName : UIColor.whiteColor()]
+        tagButtonAttrs = [NSFontAttributeName : tagButtonFont, NSForegroundColorAttributeName : UIColor.white]
         super.init(frame: frame)
         
         // Use a long press recoginzer instead of tap recoginzer, because we want to capture the touchBegin state
@@ -67,7 +67,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func photoModelDidChange() {
+    fileprivate func photoModelDidChange() {
         if photo!.tags.count > 0 {
             // Retrieve content view size and tag button frames from cache
             tagButtonFrames = cacheController.getTagButtonFrames(photo!.photoId)
@@ -83,38 +83,38 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Measurements
     
-    func contentViewHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    func contentViewHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         // Estimiate the content image size, as well as invidual tag button frames
         tagButtonFrames = [CGRect]()
         var nextX : CGFloat = 0
         var nextY : CGFloat = 0
         var maxRowHeight : CGFloat = 0
         var calculatedSectionHeight : CGFloat = 0
-        let maxBounds = CGSizeMake(width, CGFloat.max)
+        let maxBounds = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
         
         for tag in photo.tags {
-            let textSize = NSString(string: tag).boundingRectWithSize(maxBounds, options: .UsesLineFragmentOrigin, attributes: tagButtonAttrs, context: nil)
+            let textSize = NSString(string: tag).boundingRect(with: maxBounds, options: .usesLineFragmentOrigin, attributes: tagButtonAttrs, context: nil)
             
             // Apply the inset to the measured text size. This will be the frame for the tag button
-            var f = CGRectMake(0, 0, textSize.width + tagButtonInset.left + tagButtonInset.right, textSize.height + tagButtonInset.top + tagButtonInset.bottom)
+            var f = CGRect(x: 0, y: 0, width: textSize.width + tagButtonInset.left + tagButtonInset.right, height: textSize.height + tagButtonInset.top + tagButtonInset.bottom)
             
-            if CGRectGetHeight(f) > maxRowHeight {
-                maxRowHeight = CGRectGetHeight(f)
+            if f.height > maxRowHeight {
+                maxRowHeight = f.height
             }
             
-            if nextX + CGRectGetWidth(f) > width {
+            if nextX + f.width > width {
                 // Start a new row
                 nextX = 0
                 nextY += maxRowHeight + vGap
-                maxRowHeight = CGRectGetHeight(f)
+                maxRowHeight = f.height
                 f.origin.x = nextX
                 f.origin.y = nextY
-                nextX += CGRectGetWidth(f) + hGap
+                nextX += f.width + hGap
             } else {
                 // Put the button to the right of its sibling
                 f.origin.x = nextX
                 f.origin.y = nextY
-                nextX += CGRectGetWidth(f) + hGap
+                nextX += f.width + hGap
             }
             
             // Cache the frame for the tag button
@@ -123,7 +123,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         }
         
         // Cached the size of the content view
-        contentViewSize = CGSizeMake(width, calculatedSectionHeight)
+        contentViewSize = CGSize(width: width, height: calculatedSectionHeight)
         cacheController.setTagSectionContentSize(contentViewSize!, photoId: photo.photoId)
         cacheController.setTagButtonFrames(tagButtonFrames!, photoId: photo.photoId)
         
@@ -132,15 +132,15 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
     
     // MARK : - Rendering
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         guard cachedContentImage != nil else { return  }
         
         let ctx = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(ctx!)
-        CGContextClearRect(ctx!, self.bounds)
+        ctx?.saveGState()
+        ctx?.clear(self.bounds)
         
         // Draw the original tag images
-        cachedContentImage?.drawInRect(rect)
+        cachedContentImage?.draw(in: rect)
         
         // Draw a highlighted rounded rect for the active tag button
         if activeTagFrame != nil {
@@ -152,10 +152,10 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
             path.stroke()
         }
         
-        CGContextRestoreGState(ctx!)
+        ctx?.restoreGState()
     }
 
-    private func renderTagButtonsOnBackground() {
+    fileprivate func renderTagButtonsOnBackground() {
         let cacheKey = cachedContentViewImageKey
         guard cacheKey != nil else { return }
         let cachedEntry = RenderService.sharedInstance.getCachedImage(cacheKey!)
@@ -173,11 +173,11 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
             guard tagFrames != nil else { return }
             guard tags.count == tagButtonFrames!.count else { return }
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+            DispatchQueue.global(qos: .background).async { [weak self] in
                 let renderedImage = self?.renderTagButtonsToImage(imageSize!, tags: tags, tagFrames: tagFrames!)
                 guard renderedImage != nil else { return }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     self?.cachedContentImage = renderedImage
                     self?.setNeedsDisplay()
                     RenderService.sharedInstance.setCachedImage(cacheKey!, image: renderedImage!)
@@ -187,10 +187,10 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    private func renderTagButtonsToImage(imageSize : CGSize, tags : [String], tagFrames : [CGRect]) -> UIImage {
+    fileprivate func renderTagButtonsToImage(_ imageSize : CGSize, tags : [String], tagFrames : [CGRect]) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 0)
         
-        for (index, tag) in tags.enumerate() {
+        for (index, tag) in tags.enumerated() {
             let tagFrame = tagFrames[index]
             
             // Draw a rounded rect
@@ -205,7 +205,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
             var textRect = tagFrame
             textRect.origin.x += tagButtonInset.left
             textRect.origin.y += tagButtonInset.top
-            NSString(string: tag).drawInRect(textRect, withAttributes: tagButtonAttrs)
+            NSString(string: tag).draw(in: textRect, withAttributes: tagButtonAttrs)
         }
         
         let renderedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -216,20 +216,20 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Events
     
-    @objc func didTapOnContentView(tap : UILongPressGestureRecognizer) {
+    @objc func didTapOnContentView(_ tap : UILongPressGestureRecognizer) {
         switch tap.state {
-        case .Began:
-            let activeTagInfo = getActiveTagInfo(tap.locationInView(self))
+        case .began:
+            let activeTagInfo = getActiveTagInfo(tap.location(in: self))
             activeTagFrame = activeTagInfo.rect
             activeTagIndex = activeTagInfo.tagIndex
             if activeTagFrame != nil {
                 setNeedsDisplay()
             }
-        case .Ended:
+        case .ended:
             activeTagFrame = nil
             activeTagIndex = nil
             setNeedsDisplay()
-        case .Cancelled:
+        case .cancelled:
             activeTagFrame = nil
             activeTagIndex = nil
             setNeedsDisplay()
@@ -239,10 +239,10 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         
     }
     
-    private func getActiveTagInfo(point : CGPoint) -> (tagIndex : Int?, rect: CGRect?) {
+    fileprivate func getActiveTagInfo(_ point : CGPoint) -> (tagIndex : Int?, rect: CGRect?) {
         guard tagButtonFrames != nil else { return (tagIndex : nil, rect : nil) }
-        for (index, rect) in tagButtonFrames!.enumerate() {
-            if CGRectContainsPoint(rect, point) {
+        for (index, rect) in tagButtonFrames!.enumerated() {
+            if rect.contains(point) {
                 return (tagIndex : index, rect : rect)
             }
         }
@@ -252,13 +252,13 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizerDelegate
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
     // MARK: - Private
     
-    private var cachedContentViewImageKey : String? {
+    fileprivate var cachedContentViewImageKey : String? {
         return (photo == nil ? nil : "tag_image_\(photo!.photoId)")
     }
 

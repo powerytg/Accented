@@ -11,13 +11,13 @@ import UIKit
 class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegate {
 
     // Image view
-    private var imageView  = UIImageView()
+    fileprivate var imageView  = UIImageView()
     
     // Scroll view
-    private var scrollView = UIScrollView()
+    fileprivate var scrollView = UIScrollView()
     
     // Zooming state
-    private var imageZoomed : Bool {
+    fileprivate var imageZoomed : Bool {
         return (scrollView.zoomScale != 1.0)
     }
     
@@ -42,7 +42,7 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.delegate = self
         
         scrollView.addSubview(imageView)
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         
         // Events
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didReceiveDoubleTap(_:)))
@@ -63,14 +63,14 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.frame = self.view.bounds
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
         // Reset the scroll view content and scaling to default
-        scrollView.frame = CGRectMake(0, 0, size.width, size.height)
-        imageView.frame = CGRectMake(0, 0, size.width, size.height)
+        scrollView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         scrollView.contentSize = size
-        scrollView.contentOffset = CGPointZero
+        scrollView.contentOffset = CGPoint.zero
         scrollView.zoomScale = 1.0
     }
     
@@ -80,7 +80,7 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         resetScrollView()
     }
     
-    override func cardSelectionDidChange(selected: Bool) {
+    override func cardSelectionDidChange(_ selected: Bool) {
         super.cardSelectionDidChange(selected)
         
         // Reset the scroll view content for non-selected cards
@@ -91,24 +91,24 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
     
     // MARK: - Entrance animation
     
-    func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
+    func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
         return self.view.bounds
     }
     
     // MARK: - Events
     
-    @objc private func didReceiveDoubleTap(gesture : UITapGestureRecognizer) {
+    @objc fileprivate func didReceiveDoubleTap(_ gesture : UITapGestureRecognizer) {
         if imageZoomed {
             scrollView.setZoomScale(1.0, animated: true)
         } else {
-            let center = gesture.locationInView(imageView)
+            let center = gesture.location(in: imageView)
             zoomToLocation(center, scale: scrollView.maximumZoomScale)
         }
     }
 
-    @objc private func didReceivePinch(gesture : UIPinchGestureRecognizer) {
+    @objc fileprivate func didReceivePinch(_ gesture : UIPinchGestureRecognizer) {
         switch gesture.state {
-        case .Changed:
+        case .changed:
             pinchGestureDidChange(gesture)
         default:
             break
@@ -117,7 +117,7 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
 
     // MARK: - UIScrollViewDelegate
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
@@ -137,15 +137,15 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
     
     // MARK: - Private
 
-    private func initializeImageView() {
+    fileprivate func initializeImageView() {
         let imageUrl = PhotoRenderer.preferredImageUrl(photo)
         guard imageUrl != nil else { return }
-        imageView.sd_setImageWithURL(imageUrl!)
+        imageView.sd_setImage(with: imageUrl!)
         
         // Make the image view display the full image
-        let w = CGRectGetWidth(self.view.bounds)
-        let h = CGRectGetHeight(self.view.bounds)
-        imageView.frame = CGRectMake(0, 0, w, h)
+        let w = self.view.bounds.width
+        let h = self.view.bounds.height
+        imageView.frame = CGRect(x: 0, y: 0, width: w, height: h)
         scrollView.contentSize = imageView.frame.size
         
         // Calculate the min scale factor and max scale factor
@@ -153,24 +153,24 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.maximumZoomScale = 2.0
     }
 
-    private func zoomToLocation(location : CGPoint, scale : CGFloat) {
-        let rectWidth = CGRectGetWidth(view.bounds) / scale
-        let rectHeight = CGRectGetHeight(view.bounds) / scale
-        let zoomRect = CGRectMake(location.x - rectWidth / 2, location.y - rectHeight / 2, rectWidth, rectHeight)
-        scrollView.zoomToRect(zoomRect, animated: true)
+    fileprivate func zoomToLocation(_ location : CGPoint, scale : CGFloat) {
+        let rectWidth = view.bounds.width / scale
+        let rectHeight = view.bounds.height / scale
+        let zoomRect = CGRect(x: location.x - rectWidth / 2, y: location.y - rectHeight / 2, width: rectWidth, height: rectHeight)
+        scrollView.zoom(to: zoomRect, animated: true)
     }
     
-    private func resetScrollView() {
-        scrollView.contentOffset = CGPointZero
+    fileprivate func resetScrollView() {
+        scrollView.contentOffset = CGPoint.zero
         scrollView.zoomScale = 1.0
     }
     
-    private func pinchGestureDidChange(gesture : UIPinchGestureRecognizer) {
+    fileprivate func pinchGestureDidChange(_ gesture : UIPinchGestureRecognizer) {
         // Limit the scale range
         var scale : CGFloat = gesture.scale
         scale = max(scale, scrollView.minimumZoomScale)
         scale = min(scale, scrollView.maximumZoomScale)
-        let center = gesture.locationInView(scrollView)
+        let center = gesture.location(in: scrollView)
         zoomToLocation(center, scale: scale)
     }
 }

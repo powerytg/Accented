@@ -14,36 +14,36 @@ class DetailCommentSectionView: DetailSectionViewBase {
         return "comments"
     }
 
-    private var contentRightMargin : CGFloat = 50
-    private let contentLeftMargin : CGFloat = 15
-    private var contentTopMargin : CGFloat = 0
-    private var contentBottomMargin : CGFloat = 15
+    fileprivate var contentRightMargin : CGFloat = 50
+    fileprivate let contentLeftMargin : CGFloat = 15
+    fileprivate var contentTopMargin : CGFloat = 0
+    fileprivate var contentBottomMargin : CGFloat = 15
     
-    private let noCommentsText = "This photo does not have comments"
-    private let loadingText = "Loading comments..."
-    private let errorText = "Could not retrieve comments"
+    fileprivate let noCommentsText = "This photo does not have comments"
+    fileprivate let loadingText = "Loading comments..."
+    fileprivate let errorText = "Could not retrieve comments"
     
-    private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    fileprivate let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     override var title: String? {
         return "COMMENTS"
     }
     
     // Status label will be visible if there are no comments, or if the comments are being loaded
-    private var statusLabel = UILabel()
-    private var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    fileprivate var statusLabel = UILabel()
+    fileprivate var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     // Cached section height
-    private var calculatedSectionHeight : CGFloat = 0
+    fileprivate var calculatedSectionHeight : CGFloat = 0
     
     // Fixed content height when there're no comments in the photo
-    private var noCommentsSectionHeight : CGFloat = 40
+    fileprivate var noCommentsSectionHeight : CGFloat = 40
     
     // Maximum number of comments pre-created
-    private let maxNumberOfCommentsOnScreen = 3
+    fileprivate let maxNumberOfCommentsOnScreen = 3
     
     // Comment renderers
-    private var commentRenderers = [CommentRenderer]()
+    fileprivate var commentRenderers = [CommentRenderer]()
     
     override func initialize() {
         super.initialize()
@@ -54,34 +54,34 @@ class DetailCommentSectionView: DetailSectionViewBase {
         statusLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - contentRightMargin
         statusLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
         statusLabel.font = textFont
-        statusLabel.hidden = true
+        statusLabel.isHidden = true
         
         // Loading spinner
         contentView.addSubview(loadingSpinner)
         loadingSpinner.translatesAutoresizingMaskIntoConstraints = false
-        loadingSpinner.hidden = true
+        loadingSpinner.isHidden = true
         
         // Create a limited number of comment renderers ahead of time
         for _ in 1...maxNumberOfCommentsOnScreen {
-            let renderer = CommentRenderer(frame: CGRectZero)
+            let renderer = CommentRenderer(frame: CGRect.zero)
             contentView.addSubview(renderer)
             commentRenderers.append(renderer)
-            renderer.hidden = true
+            renderer.isHidden = true
         }
         
         // Constraints
-        statusLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
-        statusLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: contentTopMargin).active = true
+        statusLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: contentLeftMargin).isActive = true
+        statusLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: contentTopMargin).isActive = true
         
-        loadingSpinner.leadingAnchor.constraintEqualToAnchor(statusLabel.trailingAnchor, constant: 15).active = true
-        loadingSpinner.centerYAnchor.constraintEqualToAnchor(statusLabel.centerYAnchor).active = true
+        loadingSpinner.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 15).isActive = true
+        loadingSpinner.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor).isActive = true
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func photoModelDidChange() {
@@ -102,37 +102,37 @@ class DetailCommentSectionView: DetailSectionViewBase {
         if photo!.commentsCount == 0 {
             // Photo has no comments
             statusLabel.text = noCommentsText
-            statusLabel.hidden = false
-            loadingSpinner.hidden = true
+            statusLabel.isHidden = false
+            loadingSpinner.isHidden = true
         } else if photo!.comments.count == 0{
             // Photo has comments, but have yet loaded
             statusLabel.text = loadingText
-            statusLabel.hidden = false
-            loadingSpinner.hidden = false
+            statusLabel.isHidden = false
+            loadingSpinner.isHidden = false
             loadingSpinner.startAnimating()
         } else {
             // Showing the top comments
-            statusLabel.hidden = true
-            loadingSpinner.hidden = true
+            statusLabel.isHidden = true
+            loadingSpinner.isHidden = true
             
             var nextY : CGFloat = 0
-            for (index, renderer) in commentRenderers.enumerate() {
+            for (index, renderer) in commentRenderers.enumerated() {
                 if index < photo!.comments.count {
                     let comment = photo!.comments[index]
                     let rendererHeight = renderer.estimatedHeight(comment, width: maxWidth)
-                    renderer.frame = CGRectMake(0, nextY, maxWidth, rendererHeight)
+                    renderer.frame = CGRect(x: 0, y: nextY, width: maxWidth, height: rendererHeight)
                     renderer.comment = photo!.comments[index]
-                    renderer.hidden = false
+                    renderer.isHidden = false
                     
                     nextY += rendererHeight
                 } else {
-                    renderer.hidden = true
+                    renderer.isHidden = true
                 }
             }
         }
     }
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         if photo.commentsCount == 0 || photo.comments.count == 0 {
             return sectionTitleHeight + noCommentsSectionHeight
         } else {
@@ -152,8 +152,8 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     // MARK: - Events
     
-    @objc private func photoCommentsDidChange(notification : NSNotification) {
-        let photoId = notification.userInfo![StorageServiceEvents.photoId] as! String
+    @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
+        let photoId = (notification as NSNotification).userInfo![StorageServiceEvents.photoId] as! String
         guard photo != nil else { return }
         guard photo!.photoId == photoId else { return }
         

@@ -23,10 +23,10 @@ class DrawerAnimationContext: NSObject {
     var content : UIViewController
     
     // Drawer size
-    var drawerSize : CGSize = CGSizeZero
+    var drawerSize : CGSize = CGSize.zero
     
     // Anchor
-    var anchor : DrawerAnchor = .Left
+    var anchor : DrawerAnchor = .left
     
     // Presentation controller
     weak var presentationController : DrawerPresentationController?

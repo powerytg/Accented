@@ -15,5 +15,5 @@ protocol DetailEntranceAnimation : NSObjectProtocol {
 }
 
 protocol DetailEntranceProxyAnimation : DetailEntranceAnimation {
-    func desitinationRectForProxyView(photo : PhotoModel) -> CGRect
+    func desitinationRectForProxyView(_ photo : PhotoModel) -> CGRect
 }

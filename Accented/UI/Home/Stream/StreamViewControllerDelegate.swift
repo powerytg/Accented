@@ -9,6 +9,6 @@
 import UIKit
 
 protocol StreamViewControllerDelegate : NSObjectProtocol {
-    func streamViewDidFinishedScrolling(firstVisiblePhoto: PhotoModel)
-    func streamViewContentOffsetDidChange(contentOffset : CGFloat)
+    func streamViewDidFinishedScrolling(_ firstVisiblePhoto: PhotoModel)
+    func streamViewContentOffsetDidChange(_ contentOffset : CGFloat)
 }

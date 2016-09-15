@@ -11,7 +11,7 @@ import UIKit
 class JournalDarkTheme: JournalTheme {
     
     init() {
-        super.init(themeType: .JournalDark)
+        super.init(themeType: .journalDark)
     }
     
     override var displayLabel : String {

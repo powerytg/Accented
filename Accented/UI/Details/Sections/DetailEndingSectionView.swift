@@ -15,10 +15,10 @@ class DetailEndingSectionView: DetailSectionViewBase {
     }
 
     // Fixed content size
-    private let contentHeight : CGFloat = 80
+    fileprivate let contentHeight : CGFloat = 80
 
     // Separator symbol
-    private var separatorImageView = UIImageView(image : UIImage(named : "DetailEndingSymbol"))
+    fileprivate var separatorImageView = UIImageView(image : UIImage(named : "DetailEndingSymbol"))
     
     override func initialize() {
         super.initialize()
@@ -26,11 +26,11 @@ class DetailEndingSectionView: DetailSectionViewBase {
         contentView.addSubview(separatorImageView)
         separatorImageView.alpha = 0.5
         separatorImageView.translatesAutoresizingMaskIntoConstraints = false
-        separatorImageView.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
-        separatorImageView.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
+        separatorImageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
+        separatorImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
     }
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         return contentHeight
     }
 }

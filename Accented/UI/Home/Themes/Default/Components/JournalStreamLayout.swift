@@ -9,8 +9,8 @@
 import UIKit
 
 class JournalStreamLayout: StreamLayoutBase {
-    private let vGap : CGFloat = 20
-    private let backdropFadeTimingFactor : CGFloat = 0.5
+    fileprivate let vGap : CGFloat = 20
+    fileprivate let backdropFadeTimingFactor : CGFloat = 0.5
     
     override var leftMargin : CGFloat {
         return 0
@@ -21,44 +21,44 @@ class JournalStreamLayout: StreamLayoutBase {
     }
 
     // Total height of the header
-    private var headerHeight : CGFloat = 260
-    private let contentStartSection = 1
+    fileprivate var headerHeight : CGFloat = 260
+    fileprivate let contentStartSection = 1
     
-    override func prepareLayout() {
-        scrollDirection = .Vertical
+    override func prepare() {
+        scrollDirection = .vertical
         
         if collectionView != nil {
-            fullWidth = CGRectGetWidth(collectionView!.bounds)
+            fullWidth = collectionView!.bounds.width
         }
     }
     
-    override func collectionViewContentSize() -> CGSize {
+    override var collectionViewContentSize : CGSize {
         if layoutCache.count == 0 {
-            return CGSizeZero
+            return CGSize.zero
         }
         
-        return CGSizeMake(availableWidth, contentHeight)
+        return CGSize(width: availableWidth, height: contentHeight)
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in layoutCache {
-            if CGRectIntersectsRect(attributes.frame, rect) {
+            if attributes.frame.intersects(rect) {
                 layoutAttributes.append(attributes)
             }
         }
         
         if collectionView != nil {
-            let sectionCount = self.collectionView!.numberOfSections()
+            let sectionCount = self.collectionView!.numberOfSections
             
             // Backdrop layout attributes
             let contentOffset = collectionView!.contentOffset.y
-            let screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+            let screenHeight = UIScreen.main.bounds.height
             
             // Backdrop starts from the first photo
             let backdropPositionY = max(contentOffset, headerHeight)
-            let backdropFrame = CGRectMake(0, backdropPositionY, fullWidth, screenHeight)
+            let backdropFrame = CGRect(x: 0, y: backdropPositionY, width: fullWidth, height: screenHeight)
             
             // As the content scrolls, fade out the backdrop
             let backdropMaxFadeDist: CGFloat = headerHeight * backdropFadeTimingFactor
@@ -71,7 +71,7 @@ class JournalStreamLayout: StreamLayoutBase {
             
             // Only apply the backdrop or bubble decorations when there are more than one section (the first section is always the header)
             if(sectionCount > contentStartSection) {
-                let backdropAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+                let backdropAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier, with: IndexPath(item: 0, section: contentStartSection))
                 backdropAttributes.frame = backdropFrame
                 backdropAttributes.alpha = backdropAlpha
                 backdropAttributes.zIndex = -2
@@ -81,8 +81,8 @@ class JournalStreamLayout: StreamLayoutBase {
                 let bubbleWidth : CGFloat = 127
                 let bubbleHeight : CGFloat = 141
                 let bubblePositionY = contentOffset + screenHeight - bubbleHeight
-                let bubbleFrame = CGRectMake(0, bubblePositionY, bubbleWidth, bubbleHeight)
-                let bubbleAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier, withIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
+                let bubbleFrame = CGRect(x: 0, y: bubblePositionY, width: bubbleWidth, height: bubbleHeight)
+                let bubbleAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier, with: IndexPath(item: 0, section: contentStartSection))
                 bubbleAttributes.frame = bubbleFrame
                 bubbleAttributes.zIndex = -1
                 layoutAttributes.append(bubbleAttributes)   
@@ -92,25 +92,25 @@ class JournalStreamLayout: StreamLayoutBase {
         return layoutAttributes
     }
     
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
     override func generateLayoutAttributesForStreamHeader() {
         if fullWidth == 0 {
-            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+            fullWidth = UIScreen.main.bounds.width
         }
         
-        let headerCellSize = CGSizeMake(fullWidth, headerHeight)
-        let headerAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-        headerAttributes.frame = CGRectMake(0, 0, headerCellSize.width, headerCellSize.height)
+        let headerCellSize = CGSize(width: fullWidth, height: headerHeight)
+        let headerAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
+        headerAttributes.frame = CGRect(x: 0, y: 0, width: headerCellSize.width, height: headerCellSize.height)
         layoutCache.append(headerAttributes)
         contentHeight = headerHeight
     }
     
     override func generateLayoutAttributesForLoadingState() {
         if fullWidth == 0 {
-            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+            fullWidth = UIScreen.main.bounds.width
         }
         
         // Generate header layout attributes if absent
@@ -119,15 +119,15 @@ class JournalStreamLayout: StreamLayoutBase {
         }
         
         let nextY = contentHeight
-        let loadingCellSize = CGSizeMake(availableWidth, 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
-        loadingCellAttributes.frame = CGRectMake(0, nextY, availableWidth, loadingCellSize.height)
+        let loadingCellSize = CGSize(width: availableWidth, height: 150)
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: contentStartSection))
+        loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: loadingCellSize.height)
         
         contentHeight += loadingCellSize.height
         layoutCache.append(loadingCellAttributes)
     }
     
-    override func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+    override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         // Generate header layout attributes if absent
         if layoutCache.count == 0 {
             generateLayoutAttributesForStreamHeader()
@@ -137,9 +137,9 @@ class JournalStreamLayout: StreamLayoutBase {
         var currentSectionIndex = sectionStartIndex
         for template in templates {
             let frame = template.frames[0]
-            let finalRect = CGRectMake(0, frame.origin.y + nextY, availableWidth, frame.size.height)
-            let indexPath = NSIndexPath(forItem: 0, inSection: currentSectionIndex)
-            let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+            let finalRect = CGRect(x: 0, y: frame.origin.y + nextY, width: availableWidth, height: frame.size.height)
+            let indexPath = IndexPath(item: 0, section: currentSectionIndex)
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = finalRect
             layoutCache.append(attributes)
             

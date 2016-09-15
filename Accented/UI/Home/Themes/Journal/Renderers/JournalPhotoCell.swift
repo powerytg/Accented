@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class JournalPhotoCell: UICollectionViewCell {
     
@@ -19,7 +39,7 @@ class JournalPhotoCell: UICollectionViewCell {
     
     var photo : PhotoModel?
     
-    private var currentTheme : JournalTheme? {
+    fileprivate var currentTheme : JournalTheme? {
         return ThemeManager.sharedInstance.currentTheme as? JournalTheme
     }
     
@@ -32,38 +52,38 @@ class JournalPhotoCell: UICollectionViewCell {
         initialize()
     }
     
-    private func initialize() {
+    fileprivate func initialize() {
         // Title
         titleLabel.textColor = currentTheme?.titleTextColor
         titleLabel.font = JournalPhotoLayoutSpec.titleFont
         titleLabel.numberOfLines = JournalPhotoLayoutSpec.titleLabelLineCount
-        titleLabel.textAlignment = .Center
-        titleLabel.lineBreakMode = .ByTruncatingMiddle
+        titleLabel.textAlignment = .center
+        titleLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(titleLabel)
         
         // Subtitle
         subtitleLabel.textColor = UIColor(red: 147 / 255.0, green: 147 / 255.0, blue: 147 / 255.0, alpha: 1.0)
         subtitleLabel.font = JournalPhotoLayoutSpec.subtitleFont
         subtitleLabel.numberOfLines = JournalPhotoLayoutSpec.subtitleLineCount
-        subtitleLabel.textAlignment = .Center
-        subtitleLabel.lineBreakMode = .ByTruncatingMiddle
+        subtitleLabel.textAlignment = .center
+        subtitleLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(subtitleLabel)
 
         // Photo
         photoView.clipsToBounds = true
-        photoView.contentMode = .ScaleAspectFill
+        photoView.contentMode = .scaleAspectFill
         contentView.addSubview(photoView)
         
         // Descriptions
         descLabel.textColor = currentTheme?.standardTextColor
         descLabel.font = JournalPhotoLayoutSpec.descFont
         descLabel.numberOfLines = JournalPhotoLayoutSpec.descLineCount
-        descLabel.textAlignment = .Center
-        descLabel.lineBreakMode = .ByTruncatingTail
+        descLabel.textAlignment = .center
+        descLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(descLabel)
         
         // Bottom line and footer
-        footerView.contentMode = .ScaleAspectFit
+        footerView.contentMode = .scaleAspectFit
         contentView.addSubview(footerView)
         self.layer.addSublayer(bottomLine)
     }
@@ -80,7 +100,7 @@ class JournalPhotoCell: UICollectionViewCell {
         }
         
         let photoModel = photo!
-        let w = CGRectGetWidth(self.contentView.bounds)
+        let w = self.contentView.bounds.width
         
         var nextY : CGFloat = JournalPhotoLayoutSpec.topPadding
         
@@ -88,12 +108,12 @@ class JournalPhotoCell: UICollectionViewCell {
         titleLabel.textColor = currentTheme?.titleTextColor
         titleLabel.text = photoModel.title
         layoutLabel(titleLabel, width: w, originY: nextY, padding: JournalPhotoLayoutSpec.titleHPadding)
-        nextY += CGRectGetHeight(titleLabel.frame) + JournalPhotoLayoutSpec.titleVPadding
+        nextY += titleLabel.frame.height + JournalPhotoLayoutSpec.titleVPadding
 
         // Subtitle label
         subtitleLabel.text = photoModel.user.firstName
         layoutLabel(subtitleLabel, width: w, originY: nextY, padding: JournalPhotoLayoutSpec.subtitleHPadding)
-        nextY += CGRectGetHeight(subtitleLabel.frame) + JournalPhotoLayoutSpec.photoVPadding
+        nextY += subtitleLabel.frame.height + JournalPhotoLayoutSpec.photoVPadding
 
         // Photo
         let aspectRatio = photoModel.width / photoModel.height
@@ -104,11 +124,11 @@ class JournalPhotoCell: UICollectionViewCell {
         f.size.height = min(desiredHeight, JournalPhotoLayoutSpec.maxPhotoHeight)
         photoView.frame = f
         photoView.photo = photoModel
-        nextY += CGRectGetHeight(f) + JournalPhotoLayoutSpec.photoVPadding
+        nextY += f.height + JournalPhotoLayoutSpec.photoVPadding
         
         // Description
         descLabel.textColor = currentTheme?.standardTextColor
-        if let descData = photoModel.desc?.dataUsingEncoding(NSUTF8StringEncoding) {
+        if let descData = photoModel.desc?.data(using: String.Encoding.utf8) {
             do {
                 let descText = try NSAttributedString(data: descData, options: [NSDocumentTypeDocumentAttribute : NSHTMLTextDocumentType], documentAttributes: nil)
                 descLabel.text = descText.string
@@ -124,16 +144,16 @@ class JournalPhotoCell: UICollectionViewCell {
         // Display the bottom line if there are descriptions. Otherwise hide the bottom line and show the footer symbol instead
         if descLabel.text?.characters.count > 0 {
             // Make the bottom line further away from the description
-            nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.bottomPadding
-            bottomLine.frame = CGRectMake(0, nextY, w, 1)
-            bottomLine.backgroundColor = currentTheme?.separatorColor.CGColor
-            footerView.hidden = true
-            bottomLine.hidden = false
+            nextY += descLabel.frame.height + JournalPhotoLayoutSpec.bottomPadding
+            bottomLine.frame = CGRect(x: 0, y: nextY, width: w, height: 1)
+            bottomLine.backgroundColor = currentTheme?.separatorColor.cgColor
+            footerView.isHidden = true
+            bottomLine.isHidden = false
         } else {
             // Make the footer closer to the photo
-            nextY += CGRectGetHeight(descLabel.frame) + JournalPhotoLayoutSpec.bottomPadding / 2
-            footerView.hidden = false
-            bottomLine.hidden = true
+            nextY += descLabel.frame.height + JournalPhotoLayoutSpec.bottomPadding / 2
+            footerView.isHidden = false
+            bottomLine.isHidden = true
             
             f = footerView.frame
             f.size.width = w
@@ -143,7 +163,7 @@ class JournalPhotoCell: UICollectionViewCell {
         }
     }
     
-    private func layoutLabel(label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {
+    fileprivate func layoutLabel(_ label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {
         var f = label.frame
         f.origin.y = originY
         f.size.width = width - padding * 2
@@ -151,7 +171,7 @@ class JournalPhotoCell: UICollectionViewCell {
         label.sizeToFit()
 
         f = label.frame
-        f.origin.x = width / 2 - CGRectGetWidth(f) / 2
+        f.origin.x = width / 2 - f.width / 2
         label.frame = f
     }
     

@@ -30,7 +30,7 @@ class JournalHeaderTitleCell: UICollectionViewCell {
         super.layoutSubviews()
         
         if let streamModel = self.stream {
-            streamTitleView.text = TextUtils.streamCondensedDisplayName(streamModel.streamType).uppercaseString
+            streamTitleView.text = TextUtils.streamCondensedDisplayName(streamModel.streamType).uppercased()
         }
         
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
@@ -40,7 +40,7 @@ class JournalHeaderTitleCell: UICollectionViewCell {
         }
     }
     
-    @IBAction func themeButtonDidTap(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.didRequestRightDrawer, object: nil)
+    @IBAction func themeButtonDidTap(_ sender: AnyObject) {
+        NotificationCenter.default.post(name: StreamEvents.didRequestRightDrawer, object: nil)
     }
 }

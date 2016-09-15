@@ -10,8 +10,8 @@ import UIKit
 
 class SideBySideTemplate: StreamLayoutTemplateBase {
     
-    private let maxHeight : CGFloat = 200
-    private let maxHorizontalRatio : CGFloat = 3.0 / 2.0
+    fileprivate let maxHeight : CGFloat = 200
+    fileprivate let maxHorizontalRatio : CGFloat = 3.0 / 2.0
     
     override var capacity : Int {
         return 2
@@ -22,7 +22,7 @@ class SideBySideTemplate: StreamLayoutTemplateBase {
         generateLayoutMetadata()
     }
     
-    private func generateLayoutMetadata() {
+    fileprivate func generateLayoutMetadata() {
         let size1 = inputSizes[0]
         let size2 = inputSizes[1]
         
@@ -43,8 +43,8 @@ class SideBySideTemplate: StreamLayoutTemplateBase {
         
         height = min(maxHeight, min(height1, height2))
         
-        let rect1 = CGRectMake(0, 0, width1, height)
-        let rect2 = CGRectMake(width1 + hGap, 0, width2, height)
+        let rect1 = CGRect(x: 0, y: 0, width: width1, height: height)
+        let rect2 = CGRect(x: width1 + hGap, y: 0, width: width2, height: height)
         
         frames = [rect1, rect2]
     }

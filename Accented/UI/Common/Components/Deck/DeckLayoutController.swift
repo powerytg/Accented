@@ -45,39 +45,39 @@ class DeckLayoutController: NSObject {
     }
     
     // Containe size
-    var containerSize : CGSize = CGSizeZero {
+    var containerSize : CGSize = CGSize.zero {
         didSet {
             recalculateCardFrames()
         }
     }
     
     // Base origin is the logical position of the first card in the x axis
-    private var baselinePosition : CGFloat = 0
+    fileprivate var baselinePosition : CGFloat = 0
     
     // All cards actually share the same frame with origin of (0 0), their position on screen is manipulated by transforms
-    var cardSize = CGSizeZero
+    var cardSize = CGSize.zero
     
     // Cached content size
-    var contentSize = CGSizeZero
+    var contentSize = CGSize.zero
     
     // Page width
     var cardWidth : CGFloat = 0
     
     // Get the position offset for a card at index, based off the selected card index
     // NOTE: selected card is always at the center of screen, meaning that its position will be the baselinePosition
-    func offsetForCardAtIndex(index : Int, selectedCardIndex : Int) -> CGFloat {
+    func offsetForCardAtIndex(_ index : Int, selectedCardIndex : Int) -> CGFloat {
         return baselinePosition + (cardWidth + gap) * CGFloat(index - selectedCardIndex)
     }
     
-    private func recalculateCardFrames() {
-        contentSize = CGSizeZero
-        cardSize = CGSizeZero
-        guard !CGSizeEqualToSize(containerSize, CGSizeZero) else { return }
+    fileprivate func recalculateCardFrames() {
+        contentSize = CGSize.zero
+        cardSize = CGSize.zero
+        guard !containerSize.equalTo(CGSize.zero) else { return }
         guard dataSource != nil else { return }
         
         cardWidth = containerSize.width - gap - visibleRightChildWidth
-        cardSize = CGSizeMake(cardWidth, containerSize.height)
-        contentSize = CGSizeMake(CGFloat(dataSource!.numberOfCards()) * containerSize.width, containerSize.height)
+        cardSize = CGSize(width: cardWidth, height: containerSize.height)
+        contentSize = CGSize(width: CGFloat(dataSource!.numberOfCards()) * containerSize.width, height: containerSize.height)
         delegate?.deckLayoutDidChange()
     }
     

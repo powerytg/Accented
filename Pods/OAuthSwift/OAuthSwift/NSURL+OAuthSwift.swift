@@ -9,22 +9,26 @@
 import Foundation
 
 
-extension NSURL {
+extension URL {
 
-    func URLByAppendingQueryString(queryString: String) -> NSURL {
+    func URLByAppendingQueryString(_ queryString: String) -> URL {
         if queryString.utf16.count == 0 {
             return self
         }
 
-        var absoluteURLString = self.absoluteString
+        var absoluteURLString = unsafeAbsoluteString
 
-        if absoluteURLString!.hasSuffix("?") {
-            absoluteURLString = (absoluteURLString! as NSString).substringToIndex(absoluteURLString!.utf16.count - 1)
+        if absoluteURLString.hasSuffix("?") {
+            absoluteURLString = (absoluteURLString as NSString).substring(to: absoluteURLString.utf16.count - 1)
         }
 
-        let URLString = absoluteURLString! + (absoluteURLString!.rangeOfString("?") != nil ? "&" : "?") + queryString
+        let URLString = absoluteURLString + (absoluteURLString.range(of: "?") != nil ? "&" : "?") + queryString
 
-        return NSURL(string: URLString)!
+        return URL(string: URLString)!
+    }
+    
+    var unsafeAbsoluteString: String {
+        return self.absoluteString
     }
 
 }

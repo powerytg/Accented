@@ -11,7 +11,7 @@ import UIKit
 extension APIService {
     
     // Check whether a specific photo has expired comments
-    internal func commentsCacheExpired(photoId : String) -> Bool {
+    internal func commentsCacheExpired(_ photoId : String) -> Bool {
         guard let lastRefreshedDate = commentsLastRefreshedDateLookup[photoId] else { return false }
         let age = lastRefreshedDate.timeIntervalSinceNow
         return (age >= commentsCacheAge)

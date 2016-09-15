@@ -10,13 +10,13 @@ import UIKit
 
 class ThemeManager: NSObject {
     
-    private let lightTheme = LightTheme()
-    private let darkTheme = DarkTheme()
-    private let journalLightTheme = JournalLightTheme()
-    private let journalDarkTheme = JournalDarkTheme()
+    fileprivate let lightTheme = LightTheme()
+    fileprivate let darkTheme = DarkTheme()
+    fileprivate let journalLightTheme = JournalLightTheme()
+    fileprivate let journalDarkTheme = JournalDarkTheme()
     
     // Current theme, default to dark theme
-    private var theme : AppTheme;
+    fileprivate var theme : AppTheme;
     var currentTheme : AppTheme {
         get {
             return theme
@@ -25,7 +25,7 @@ class ThemeManager: NSObject {
         set(value) {
             if theme != value {
                 theme = value
-                NSNotificationCenter.defaultCenter().postNotificationName(ThemeManagerEvents.appThemeDidChange, object: nil)
+                NotificationCenter.default.post(name: ThemeManagerEvents.appThemeDidChange, object: nil)
             }
         }
     }
@@ -35,7 +35,7 @@ class ThemeManager: NSObject {
     
     // Singleton instance
     static let sharedInstance = ThemeManager()
-    private override init() {
+    fileprivate override init() {
         theme = darkTheme
         themes = [darkTheme, lightTheme, journalDarkTheme, journalLightTheme]
         super.init()

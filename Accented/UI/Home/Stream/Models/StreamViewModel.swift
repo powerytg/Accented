@@ -50,7 +50,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         createLayoutEngine()
         layoutEngine.layoutDelegate = flowLayoutDelegate
         
-        let availableWidth = UIScreen.mainScreen().bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
+        let availableWidth = UIScreen.main.bounds.size.width - layoutEngine.leftMargin - layoutEngine.rightMargin
         layoutGenerator = createLayoutTemplateGenerator(availableWidth)
         
         // Attach layout to collection view
@@ -63,7 +63,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         }
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
     }
     
     func registerCellTypes() -> Void {
@@ -74,18 +74,18 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         fatalError("Not implemented in base class")
     }
     
-    func createLayoutTemplateGenerator(maxWidth : CGFloat) -> StreamTemplateGenerator {
+    func createLayoutTemplateGenerator(_ maxWidth : CGFloat) -> StreamTemplateGenerator {
         fatalError("Not implemented in base class")
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func loadStreamIfNecessary() {
         if !stream.loaded {
             // Scroll to top of the stream
-            collectionView.setContentOffset(CGPointZero, animated: false)
+            collectionView.setContentOffset(CGPoint.zero, animated: false)
             clearCollectionView()
             
             layoutEngine.generateLayoutAttributesForLoadingState()
@@ -111,10 +111,10 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         })
     }
     
-    func streamDidUpdate(notification : NSNotification) -> Void {
-        let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
+    func streamDidUpdate(_ notification : Notification) -> Void {
+        let streamTypeString = (notification as NSNotification).userInfo![StorageServiceEvents.streamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
-        let page = notification.userInfo![StorageServiceEvents.page] as! Int
+        let page = (notification as NSNotification).userInfo![StorageServiceEvents.page] as! Int
         if streamType != stream.streamType {
             return
         }
@@ -133,7 +133,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         streamState.loading = false
     }
     
-    func streamFailedLoading(error : String) {
+    func streamFailedLoading(_ error : String) {
         debugPrint(error)
         streamState.loading = false
     }
@@ -144,7 +144,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         layoutEngine.clearLayoutCache()
     }
     
-    func updateCollectionView(shouldRefresh : Bool) {
+    func updateCollectionView(_ shouldRefresh : Bool) {
         // If stream needs refresh (page is 1), then clear all the previous layout metadata and group info
         if shouldRefresh {
             clearCollectionView()
@@ -175,15 +175,15 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     // MARK: - UICollectionViewDataSource
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         fatalError("Not implemented in base class")
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         fatalError("Not implemented in base class")
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         fatalError("Not implemented in base class")
     }
     

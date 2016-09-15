@@ -11,21 +11,21 @@ import UIKit
 class DrawerService: NSObject {
     // Singleton instance
     static let sharedInstance = DrawerService()
-    private override init() {
+    fileprivate override init() {
         super.init()
     }
 
-    func addInteractiveGesture(animationContext : DrawerAnimationContext, delegate : DrawerOpenGestureControllerDelegate) -> DrawerOpenGestureController {
+    func addInteractiveGesture(_ animationContext : DrawerAnimationContext, delegate : DrawerOpenGestureControllerDelegate) -> DrawerOpenGestureController {
         return DrawerOpenGestureController(animationContext : animationContext, delegate: delegate)
     }
     
-    func presentDrawer(animationContext : DrawerAnimationContext) {
+    func presentDrawer(_ animationContext : DrawerAnimationContext) {
         let transitionDelegate = DrawerPresentationController(animationContext : animationContext)
         guard let container = animationContext.container else {
             return
         }
         
         animationContext.content.transitioningDelegate = transitionDelegate
-        container.presentViewController(animationContext.content, animated: true, completion: nil)
+        container.present(animationContext.content, animated: true, completion: nil)
     }
 }

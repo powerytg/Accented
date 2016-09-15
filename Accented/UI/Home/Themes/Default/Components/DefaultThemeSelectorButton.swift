@@ -13,9 +13,9 @@ class DefaultThemeSelectorButton: PushButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        self.layer.borderColor = ThemeManager.sharedInstance.currentTheme.pushButtonBorderColor.CGColor
+        self.layer.borderColor = ThemeManager.sharedInstance.currentTheme.pushButtonBorderColor.cgColor
         self.backgroundColor = ThemeManager.sharedInstance.currentTheme.pushButtonBackgroundColor
-        self.setTitleColor(ThemeManager.sharedInstance.currentTheme.pushButtonTextColor, forState: .Normal)
+        self.setTitleColor(ThemeManager.sharedInstance.currentTheme.pushButtonTextColor, for: UIControlState())
     }
     
 }

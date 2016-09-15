@@ -9,7 +9,7 @@
 import UIKit
 
 class TextUtils: NSObject {
-    static func streamDisplayName(streamType : StreamType) -> String {
+    static func streamDisplayName(_ streamType : StreamType) -> String {
         switch streamType {
         case .Popular:
             return "Popular Photos"
@@ -30,7 +30,7 @@ class TextUtils: NSObject {
         }
     }
     
-    static func streamCondensedDisplayName(streamType : StreamType) -> String {
+    static func streamCondensedDisplayName(_ streamType : StreamType) -> String {
         switch streamType {
         case .Popular:
             return "Popular"

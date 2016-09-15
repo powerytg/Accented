@@ -13,23 +13,23 @@ class DefaultStreamSelectorView: UIView {
     var topLine = CALayer()
     var bottomLine = CALayer()
     
-    private let hGap : CGFloat = 20
-    private var contentWidth : CGFloat = 0
+    fileprivate let hGap : CGFloat = 20
+    fileprivate var contentWidth : CGFloat = 0
     
     var compressionRateio : CGFloat = 0
     
     let displayStreamTypes : [StreamType] = [StreamType.Popular, StreamType.FreshToday, StreamType.Upcoming, StreamType.Editors]
-    private var currentTab : UIButton?
+    fileprivate var currentTab : UIButton?
     
-    private var unselectedColor : UIColor {
+    fileprivate var unselectedColor : UIColor {
         return ThemeManager.sharedInstance.currentTheme.navButtonNormalColor
     }
     
-    private var selectedColor : UIColor {
+    fileprivate var selectedColor : UIColor {
         return ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor
     }
 
-    private var lineColor : UIColor {
+    fileprivate var lineColor : UIColor {
         return ThemeManager.sharedInstance.currentTheme.navBarBorderColor
     }
 
@@ -43,7 +43,7 @@ class DefaultStreamSelectorView: UIView {
         initialize()
     }
     
-    private func initialize() {
+    fileprivate func initialize() {
         self.layer.addSublayer(topLine)
         self.layer.addSublayer(bottomLine)
         
@@ -53,20 +53,20 @@ class DefaultStreamSelectorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let w = CGRectGetWidth(self.bounds)
-        let h = CGRectGetHeight(self.bounds)
+        let w = self.bounds.width
+        let h = self.bounds.height
         
-        topLine.frame = CGRectMake(0, 0, w, 1)
-        bottomLine.frame = CGRectMake(0, h - 1, w, 1)
-        topLine.backgroundColor = lineColor.CGColor
-        bottomLine.backgroundColor = lineColor.CGColor
+        topLine.frame = CGRect(x: 0, y: 0, width: w, height: 1)
+        bottomLine.frame = CGRect(x: 0, y: h - 1, width: w, height: 1)
+        topLine.backgroundColor = lineColor.cgColor
+        bottomLine.backgroundColor = lineColor.cgColor
 
         // Distrubute tabs
         var currentX = w / 2 - contentWidth / 2
         for tabView in self.subviews {
             var f = tabView.frame
             f.origin.x = currentX
-            f.origin.y = h / 2 - CGRectGetHeight(f) / 2
+            f.origin.y = h / 2 - f.height / 2
             tabView.frame = f
             tabView.setNeedsLayout()
             
@@ -76,22 +76,22 @@ class DefaultStreamSelectorView: UIView {
                 setToUnselectedState(tabView as! UIButton, animated: false)
             }
             
-            currentX += CGRectGetWidth(f) + hGap
+            currentX += f.width + hGap
         }
         
         // Update the top line based on compression ratio
         topLine.opacity = 1 - Float(compressionRateio)
     }
     
-    private func createTabs() {
+    fileprivate func createTabs() {
         for streamType in displayStreamTypes {
             let button = UIButton()
-            button.setTitle(displayName(streamType), forState: .Normal)
+            button.setTitle(displayName(streamType), for: UIControlState())
             button.titleLabel!.font = UIFont(name: "Futura-CondensedMedium", size: 18)
             button.sizeToFit()
             self.addSubview(button)
             
-            button.addTarget(self, action: #selector(tabDidTap(_:)), forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(tabDidTap(_:)), for: .touchUpInside)
             
             if streamType == StorageService.sharedInstance.currentStream.streamType {
                 setToSelectedState(button, animated: false)
@@ -99,13 +99,13 @@ class DefaultStreamSelectorView: UIView {
                 setToUnselectedState(button, animated: false)
             }
             
-            contentWidth += CGRectGetWidth(button.bounds)
+            contentWidth += button.bounds.width
         }
         
         contentWidth += hGap * CGFloat(displayStreamTypes.count - 1)
     }
     
-    func tabDidTap(sender : UIButton) {
+    func tabDidTap(_ sender : UIButton) {
         if sender == currentTab {
             return
         }
@@ -113,40 +113,40 @@ class DefaultStreamSelectorView: UIView {
         setToUnselectedState(currentTab!, animated: true)
         setToSelectedState(sender, animated: true, completed: { streamType in
             let userInfo = [StreamEvents.selectedStreamType : streamType.rawValue]
-            NSNotificationCenter.defaultCenter().postNotificationName(StreamEvents.streamSelectionWillChange, object: nil, userInfo: userInfo)
+            NotificationCenter.default.post(name: StreamEvents.streamSelectionWillChange, object: nil, userInfo: userInfo)
         })
     }
     
-    private func setToSelectedState(tab : UIButton, animated : Bool, completed : ((StreamType) -> Void)? = nil) {
+    fileprivate func setToSelectedState(_ tab : UIButton, animated : Bool, completed : ((StreamType) -> Void)? = nil) {
         if animated {
-            UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
-                tab.setTitleColor(self?.selectedColor, forState: .Normal)
+            UIView.transition(with: tab, duration: 0.2, options: .transitionCrossDissolve, animations: { [weak self] in
+                tab.setTitleColor(self?.selectedColor, for: UIControlState())
                 }, completion: { (finished) in
                     if let completedAction = completed {
-                        let selectedIndex = self.subviews.indexOf(tab)
+                        let selectedIndex = self.subviews.index(of: tab)
                         completedAction(self.displayStreamTypes[selectedIndex!])
                     }
             })
         } else {
-            tab.setTitleColor(self.selectedColor, forState: .Normal)
+            tab.setTitleColor(self.selectedColor, for: UIControlState())
         }
         
         currentTab = tab
     }
 
-    private func setToUnselectedState(tab : UIButton, animated : Bool) {
+    fileprivate func setToUnselectedState(_ tab : UIButton, animated : Bool) {
         if animated {
-            UIView.transitionWithView(tab, duration: 0.2, options: .TransitionCrossDissolve, animations: { [weak self] in
-                tab.setTitleColor(self?.unselectedColor, forState: .Normal)
+            UIView.transition(with: tab, duration: 0.2, options: .transitionCrossDissolve, animations: { [weak self] in
+                tab.setTitleColor(self?.unselectedColor, for: UIControlState())
                 }, completion: { (completed) in
                     // Do nothing
             })
         } else {
-            tab.setTitleColor(self.unselectedColor, forState: .Normal)
+            tab.setTitleColor(self.unselectedColor, for: UIControlState())
         }
     }
 
-    private func displayName(streamType : StreamType) -> String {
+    fileprivate func displayName(_ streamType : StreamType) -> String {
         switch streamType {
         case .Popular:
             return "POPULAR"

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.4.1)
+  - Alamofire (4.0.0)
   - OAuthSwift (0.5.2)
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
@@ -8,28 +8,35 @@ PODS:
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.3)
-  - OAuthSwift (~> 0.5.0)
+  - Alamofire (~> 4.0)
+  - OAuthSwift (from `https://github.com/skedgo/OAuthSwift.git`, branch `swift3.0`)
   - SDWebImage (~> 3.8)
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - SwiftyJSON (from `https://github.com/acegreen/SwiftyJSON.git`, branch `swift3`)
   - TTTAttributedLabel
 
 EXTERNAL SOURCES:
+  OAuthSwift:
+    :branch: swift3.0
+    :git: https://github.com/skedgo/OAuthSwift.git
   SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+    :branch: swift3
+    :git: https://github.com/acegreen/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  OAuthSwift:
+    :commit: 63bdf693004537f23436c8330cd9410e5ad88a54
+    :git: https://github.com/skedgo/OAuthSwift.git
   SwiftyJSON:
-    :commit: 73670b94292b8d8496c398a973f56ac67789ba9f
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+    :commit: 8971384559780e631b041ac91b16734a396d4c14
+    :git: https://github.com/acegreen/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 62066c3e7d04373115d5e1bf668464d57aac9f56
+PODFILE CHECKSUM: 303e0c976b74334a2b51a951eddd8f394cebc8e0
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.0.rc.2

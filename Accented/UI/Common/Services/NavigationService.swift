@@ -11,28 +11,28 @@ import UIKit
 class NavigationService: NSObject, UINavigationControllerDelegate {
 
     // root navigation controller
-    weak private var rootNavigationController : UINavigationController?
+    weak fileprivate var rootNavigationController : UINavigationController?
     
     // Singleton instance
     static let sharedInstance = NavigationService()
     
-    private override init() {
+    fileprivate override init() {
         // Do nothing
     }
 
-    func initWithRootNavigationController(navigationController : UINavigationController) {
+    func initWithRootNavigationController(_ navigationController : UINavigationController) {
         self.rootNavigationController = navigationController
         rootNavigationController?.delegate = self
     }
     
-    func navigateToDetailPage(context : DetailNavigationContext) {
+    func navigateToDetailPage(_ context : DetailNavigationContext) {
         let detailVC = DetailGalleryViewController(context: context)
         rootNavigationController?.pushViewController(detailVC, animated: true)
     }
     
     // MARK: - UINavigationControllerDelegate
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .Push && toVC is DetailGalleryViewController {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .push && toVC is DetailGalleryViewController {
             let galleryViewController = toVC as! DetailGalleryViewController
             return DetailPresentationController(photo : galleryViewController.initialSelectedPhoto, sourceImageView: galleryViewController.sourceImageView, fromViewController: fromVC, toViewController: galleryViewController)
         } else {

@@ -13,7 +13,7 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
     // Max width / height aspect ratio to allow using single line horizontal layout template
     let singleLandscapeAspectRatio : CGFloat = 1.64
 
-    override func generateLayoutMetadata(photos : [PhotoModel]) -> [StreamLayoutTemplate]{
+    override func generateLayoutMetadata(_ photos : [PhotoModel]) -> [StreamLayoutTemplate]{
         if photos.count == 0 {
             return []
         }
@@ -101,12 +101,12 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
         return templates
     }
     
-    private func shouldUseSingleLandscapeLayout(photo : PhotoModel) -> Bool {
+    fileprivate func shouldUseSingleLandscapeLayout(_ photo : PhotoModel) -> Bool {
         let aspectRatio = photo.width / photo.height
         return (aspectRatio >= singleLandscapeAspectRatio)
     }
     
-    private func shouldUseQuadLayout(photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
+    fileprivate func shouldUseQuadLayout(_ photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
         return (!shouldUseSingleLandscapeLayout(photo1)
             && !shouldUseSingleLandscapeLayout(photo2)
             && !shouldUseSingleLandscapeLayout(photo3)

@@ -10,11 +10,11 @@ import UIKit
 
 class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
 
-    private var photo : PhotoModel
-    private var sourceImageView : UIImageView
-    private var useSourceImageViewAsProxy : Bool
-    unowned private var presentingViewController : DetailGalleryViewController
-    unowned private var presentedViewController : DetailLightBoxViewController
+    fileprivate var photo : PhotoModel
+    fileprivate var sourceImageView : UIImageView
+    fileprivate var useSourceImageViewAsProxy : Bool
+    unowned fileprivate var presentingViewController : DetailGalleryViewController
+    unowned fileprivate var presentedViewController : DetailLightBoxViewController
     
     init(presentingViewController : DetailGalleryViewController, presentedViewController : DetailLightBoxViewController, photo : PhotoModel, sourceImageView : UIImageView, useSourceImageViewAsProxy : Bool) {
         self.presentingViewController = presentingViewController
@@ -27,12 +27,12 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
     
     // MARK: - UIViewControllerAnimatedTransitioning
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
         let fromViewController = self.presentingViewController
         let toViewController = self.presentedViewController
         
@@ -51,17 +51,17 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
             proxyImageView.transform = sourceImageView.transform
             proxyImageView.contentMode = sourceImageView.contentMode
                         
-            let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toViewController.view)
-            proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
+            let proxyImagePosition = sourceImageView.convert(sourceImageView.bounds.origin, to: toViewController.view)
+            proxyImageView.frame = CGRect(x: proxyImagePosition.x, y: proxyImagePosition.y, width: sourceImageView.bounds.width, height: sourceImageView.bounds.height)
         }
         
         containerView.addSubview(proxyImageView)
         
-        UIView.animateKeyframesWithDuration(0.3, delay: 0, options: [.CalculationModeCubic], animations: {
+        UIView.animateKeyframes(withDuration: 0.3, delay: 0, options: [.calculationModeCubic], animations: {
             
-            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
                 proxyImageView.frame = targetPhotoViewRect
-                proxyImageView.transform = CGAffineTransformIdentity
+                proxyImageView.transform = CGAffineTransform.identity
                 fromViewController.view.alpha = 0
             })
             
@@ -69,7 +69,7 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
             toViewController.performLightBoxTransition()
             
         }) { (finished) in
-            let transitionCompleted = !transitionContext.transitionWasCancelled()
+            let transitionCompleted = !transitionContext.transitionWasCancelled
             transitionContext.completeTransition(transitionCompleted)
             fromViewController.lightboxTransitionDidFinish()
             toViewController.lightboxTransitionDidFinish()
@@ -84,7 +84,7 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
     
     // MARK : - UIViewControllerTransitioningDelegate
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
     

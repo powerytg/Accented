@@ -12,11 +12,11 @@ import GPUImage
 
 class BlurredBackbroundView: ThemeableBackgroundView {
 
-    private var imageView = UIImageView()
-    private var blurView : UIVisualEffectView = UIVisualEffectView()
+    fileprivate var imageView = UIImageView()
+    fileprivate var blurView : UIVisualEffectView = UIVisualEffectView()
     
-    private var saturationFilter = SaturationAdjustment()
-    private let output = PictureOutput()
+    fileprivate var saturationFilter = SaturationAdjustment()
+    fileprivate let output = PictureOutput()
     
     override func initialize() -> Void {
         super.initialize()
@@ -26,12 +26,12 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         blurView.effect = blurEffect
         
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         self.addSubview(imageView)
         self.addSubview(blurView)
     }
     
-    override func performEntranceAnimation(completed: (() -> Void)) {
+    override func performEntranceAnimation(_ completed: @escaping () -> Void) {
         completed()
     }
     
@@ -45,7 +45,7 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         applyBackgroundImage(ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground)
     }
 
-    private func applyBackgroundImage(desaturated : Bool) {
+    fileprivate func applyBackgroundImage(_ desaturated : Bool) {
         guard photo != nil else { return }
         let url = PhotoRenderer.preferredImageUrl(photo!)
         guard url != nil else { return }
@@ -53,19 +53,19 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         // Initially hide the image view
         imageView.alpha = 0
         
-        let downloader = SDWebImageDownloader.sharedDownloader()
-        downloader.downloadImageWithURL(url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
+        let downloader = SDWebImageDownloader.shared()
+        _ = downloader?.downloadImage(with: url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
             guard image != nil && finished == true else { return }
-            self?.applyImageEffects(image, desaturated: desaturated)
+            self?.applyImageEffects(image!, desaturated: desaturated)
         }
     }
     
-    private func applyImageEffects(image : UIImage, desaturated : Bool) {
-        let input = PictureInput(image: image.CGImage!)
+    fileprivate func applyImageEffects(_ image : UIImage, desaturated : Bool) {
+        let input = PictureInput(image: image.cgImage!)
         
         output.imageAvailableCallback = { outputImage in
-            dispatch_async(dispatch_get_main_queue(), { 
-                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { [weak self] in
+            DispatchQueue.main.async(execute: { 
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
                     self?.imageView.image = outputImage
                     self?.imageView.alpha = 1
                     }, completion: nil)

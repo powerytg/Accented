@@ -14,42 +14,42 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         return "header"
     }
 
-    private var avatarView = UIImageView()
-    private var authorLabel = UILabel()
+    fileprivate var avatarView = UIImageView()
+    fileprivate var authorLabel = UILabel()
 
     // Fixed height
     var sectionHeight : CGFloat = 140
     
     // Fixed avatar size
-    private var avatarSize : CGFloat = 30
+    fileprivate var avatarSize : CGFloat = 30
     
     // Margin right
-    private var marginRight : CGFloat = 60
+    fileprivate var marginRight : CGFloat = 60
     
     override func initialize() {
         super.initialize()
         
         avatarView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.contentMode = .ScaleAspectFit
+        avatarView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarView)
         
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        authorLabel.textColor = UIColor.whiteColor()
-        authorLabel.font = UIFont.systemFontOfSize(16)
-        authorLabel.textAlignment = .Right
+        authorLabel.textColor = UIColor.white
+        authorLabel.font = UIFont.systemFont(ofSize: 16)
+        authorLabel.textAlignment = .right
         authorLabel.preferredMaxLayoutWidth = maxWidth - marginRight
         authorLabel.numberOfLines = 1
-        authorLabel.lineBreakMode = .ByTruncatingMiddle
+        authorLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(authorLabel)
         
         // Constraints
-        authorLabel.trailingAnchor.constraintEqualToAnchor(contentView.trailingAnchor, constant: -2).active = true
-        authorLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: 30).active = true
+        authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
+        authorLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 30).isActive = true
 
-        avatarView.widthAnchor.constraintEqualToConstant(avatarSize).active = true
-        avatarView.heightAnchor.constraintEqualToConstant(avatarSize).active = true
-        avatarView.trailingAnchor.constraintEqualToAnchor(self.authorLabel.trailingAnchor, constant: 0).active = true
-        avatarView.topAnchor.constraintEqualToAnchor(self.authorLabel.bottomAnchor, constant: 6).active = true
+        avatarView.widthAnchor.constraint(equalToConstant: avatarSize).isActive = true
+        avatarView.heightAnchor.constraint(equalToConstant: avatarSize).isActive = true
+        avatarView.trailingAnchor.constraint(equalTo: self.authorLabel.trailingAnchor, constant: 0).isActive = true
+        avatarView.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 6).isActive = true
 
     }
     
@@ -65,14 +65,14 @@ class DetailHeaderSectionView: DetailSectionViewBase {
 
         // Author
         if let avatarUrl = preferredAvatarUrl() {
-            avatarView.sd_setImageWithURL(avatarUrl)
+            avatarView.sd_setImage(with: avatarUrl)
         }
         
-        authorLabel.text = preferredAuthorName().uppercaseString
+        authorLabel.text = preferredAuthorName().uppercased()
 
         // Avatar
-        avatarView.layer.shadowPath = UIBezierPath(rect: CGRectMake(0, 0, avatarSize, avatarSize)).CGPath
-        avatarView.layer.shadowColor = UIColor.blackColor().CGColor
+        avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
+        avatarView.layer.shadowColor = UIColor.black.cgColor
         avatarView.layer.shadowOpacity = 0.25
         avatarView.layer.shadowRadius = 3
         avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -80,7 +80,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     
     // MARK: - Measurements
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         return sectionHeight
     }
     
@@ -90,41 +90,41 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         authorLabel.alpha = 0
         avatarView.alpha = 0
         
-        authorLabel.transform = CGAffineTransformMakeTranslation(30, 0)
-        avatarView.transform = CGAffineTransformMakeTranslation(50, 0)
+        authorLabel.transform = CGAffineTransform(translationX: 30, y: 0)
+        avatarView.transform = CGAffineTransform(translationX: 50, y: 0)
     }
     
     override func performEntranceAnimation() {
-        UIView .addKeyframeWithRelativeStartTime(0.3, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 1, animations: { [weak self] in
             self?.authorLabel.alpha = 1
-            self?.authorLabel.transform = CGAffineTransformIdentity
+            self?.authorLabel.transform = CGAffineTransform.identity
             })
         
-        UIView .addKeyframeWithRelativeStartTime(0.6, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 1, animations: { [weak self] in
             self?.avatarView.alpha = 1
-            self?.avatarView.transform = CGAffineTransformIdentity
+            self?.avatarView.transform = CGAffineTransform.identity
             })
     }
     
     // MARK: - Private
     
-    private func preferredAvatarUrl() -> NSURL? {
+    fileprivate func preferredAvatarUrl() -> URL? {
         let user = photo!.user
         
         if let avatar = user.avatarUrls[.Default] {
-            return NSURL(string: avatar)
+            return URL(string: avatar)
         } else if let avatar = user.avatarUrls[.Large] {
-            return NSURL(string: avatar)
+            return URL(string: avatar)
         } else if let avatar = user.avatarUrls[.Small] {
-            return NSURL(string: avatar)
+            return URL(string: avatar)
         } else if let avatar = user.avatarUrls[.Tiny] {
-            return NSURL(string: avatar)
+            return URL(string: avatar)
         } else {
             return nil
         }
     }
     
-    private func preferredAuthorName() -> String {
+    fileprivate func preferredAuthorName() -> String {
         let user = photo!.user
 
         if let name = user.fullName {

@@ -23,7 +23,7 @@ class JournalLightTheme: JournalDarkTheme {
     }
 
     override var backgroundBlurEffect : UIBlurEffect {
-        return UIBlurEffect(style: .ExtraLight)
+        return UIBlurEffect(style: .extraLight)
     }
 
     override var backgroundLogoImage : UIImage! {

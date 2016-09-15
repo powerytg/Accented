@@ -10,7 +10,7 @@ import UIKit
 
 // Event delegate for DeailLightBoxViewController
 protocol DetailLightBoxViewControllerDelegate : NSObjectProtocol {
-    func lightBoxSelectionDidChange(selectedIndex : Int)
+    func lightBoxSelectionDidChange(_ selectedIndex : Int)
 }
 
 class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSource, DetailLightBoxAnimation, UIGestureRecognizerDelegate {
@@ -22,13 +22,13 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     var photoCollection = [PhotoModel]()
     
     // Initial selected view controller
-    private var initialSelectedViewController : DetailLightBoxImageViewController!
+    fileprivate var initialSelectedViewController : DetailLightBoxImageViewController!
 
     // Initial size
-    private var initialSize : CGSize
+    fileprivate var initialSize : CGSize
     
     // Back button
-    private var backButton = UIButton(type: .Custom)
+    fileprivate var backButton = UIButton(type: .custom)
     
     // Event delegate
     weak var delegate : DetailLightBoxViewControllerDelegate?
@@ -37,7 +37,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         self.initialSize = initialSize
         self.initialSelectedPhoto = selectedPhoto
         self.photoCollection = photoCollection
-        let initialSelectedIndex = photoCollection.indexOf(initialSelectedPhoto)!
+        let initialSelectedIndex = photoCollection.index(of: initialSelectedPhoto)!
         
         super.init(initialSelectedIndex: initialSelectedIndex)
     }
@@ -56,8 +56,8 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         
         // Back button
         self.view.addSubview(backButton)
-        backButton.setImage(UIImage(named: "DetailBackButton"), forState: .Normal)
-        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        backButton.setImage(UIImage(named: "DetailBackButton"), for: UIControlState())
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
 
         // Setup data source
@@ -83,18 +83,18 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     
     // MARK: - Orientation
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.All
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.all
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        DispatchQueue.main.async { [weak self] in
             self?.layoutController.containerSize = size
             
             // Notify each of the child cards to update their frames
             for card in self!.cacheController.cachedCards {
-                card.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+                card.viewWillTransition(to: size, with: coordinator)
             }
         }
     }
@@ -105,7 +105,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
         return photoCollection.count
     }
     
-    func cardForItemIndex(itemIndex: Int) -> CardViewController {
+    func cardForItemIndex(_ itemIndex: Int) -> CardViewController {
         var card = getRecycledCardViewController() as? DetailLightBoxImageViewController
         if card == nil {
             card = DetailLightBoxImageViewController()
@@ -125,29 +125,29 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     
     func lightBoxTransitionWillBegin() {
         // Initially hide all the conent
-        contentView.hidden = true
+        contentView.isHidden = true
     }
     
     func lightboxTransitionDidFinish() {
-        contentView.hidden = false
-        self.view.backgroundColor = UIColor.blackColor()
+        contentView.isHidden = false
+        self.view.backgroundColor = UIColor.black
     }
     
     func performLightBoxTransition() {
         // Do nothing
     }
     
-    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
+    func desitinationRectForSelectedLightBoxPhoto(_ photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
     }
     
     // Events
     
-    @objc private func backButtonDidTap(sender : UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         let selectedCard = cacheController.selectedCard as! DetailLightBoxImageViewController
         return selectedCard.shouldAllowExternalPanGesture()
     }

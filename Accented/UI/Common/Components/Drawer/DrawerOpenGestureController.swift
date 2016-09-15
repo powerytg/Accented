@@ -14,22 +14,22 @@ protocol DrawerOpenGestureControllerDelegate : NSObjectProtocol {
 
 class DrawerOpenGestureController: NSObject {
     
-    private var animationContext : DrawerAnimationContext
+    fileprivate var animationContext : DrawerAnimationContext
     
-    private var screenWidth : CGFloat
-    private var screenHeight : CGFloat
-    private var maxHorizontalTranslationPercentage : CGFloat
-    private var maxVerticalTranslationPercentage : CGFloat
+    fileprivate var screenWidth : CGFloat
+    fileprivate var screenHeight : CGFloat
+    fileprivate var maxHorizontalTranslationPercentage : CGFloat
+    fileprivate var maxVerticalTranslationPercentage : CGFloat
     
     weak var delegate : DrawerOpenGestureControllerDelegate?
-    weak private var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
+    weak fileprivate var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
     
     var swipeGesture : UIScreenEdgePanGestureRecognizer!
     
     required init(animationContext : DrawerAnimationContext, delegate : DrawerOpenGestureControllerDelegate) {
         self.animationContext = animationContext
-        self.screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-        self.screenHeight = CGRectGetHeight(UIScreen.mainScreen().bounds)
+        self.screenWidth = UIScreen.main.bounds.width
+        self.screenHeight = UIScreen.main.bounds.height
         self.maxHorizontalTranslationPercentage = animationContext.drawerSize.width / screenWidth
         self.maxVerticalTranslationPercentage = animationContext.drawerSize.height / screenHeight
         self.delegate = delegate
@@ -40,20 +40,20 @@ class DrawerOpenGestureController: NSObject {
         self.swipeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(didReceiveOpenPanGesture(_:)))
         
         switch animationContext.anchor {
-        case .Left:
-            swipeGesture.edges = .Left
-        case .Right:
-            swipeGesture.edges = .Right
-        case .Bottom:
-            swipeGesture.edges = .Bottom
+        case .left:
+            swipeGesture.edges = .left
+        case .right:
+            swipeGesture.edges = .right
+        case .bottom:
+            swipeGesture.edges = .bottom
         }
         
         animationContext.container!.view.addGestureRecognizer(swipeGesture)
     }
     
-    @objc func didReceiveOpenPanGesture(gesture : UIScreenEdgePanGestureRecognizer) {
-        var tx = gesture.locationInView(gesture.view).x
-        var ty = gesture.locationInView(gesture.view).y
+    @objc func didReceiveOpenPanGesture(_ gesture : UIScreenEdgePanGestureRecognizer) {
+        var tx = gesture.location(in: gesture.view).x
+        var ty = gesture.location(in: gesture.view).y
         
         guard let delegate = self.delegate else {
             return
@@ -66,11 +66,11 @@ class DrawerOpenGestureController: NSObject {
         var percentage : CGFloat
         
         switch animationContext.anchor {
-        case .Left:
+        case .left:
             percentage = tx / animationContext.drawerSize.width
-        case .Right:
+        case .right:
             percentage = (screenWidth - tx) / animationContext.drawerSize.width
-        case .Bottom:
+        case .bottom:
             percentage = (screenHeight - ty) / animationContext.drawerSize.height
         }
         
@@ -78,62 +78,62 @@ class DrawerOpenGestureController: NSObject {
         percentage = max(0, min(1, percentage))
         
         switch gesture.state {
-        case .Began:
+        case .began:
             // Update animation context
             animationContext = delegate.drawerAnimationContextForInteractiveGesture()
             DrawerService.sharedInstance.presentDrawer(animationContext)
             self.interactiveOpenAnimator = animationContext.presentationController?.interactiveOpenAnimator
-        case .Ended:
+        case .ended:
             self.openGestureFinished(gesture)
-        case .Cancelled:
-            interactiveOpenAnimator?.cancelInteractiveTransition()
-        case .Changed:
-            interactiveOpenAnimator?.updateInteractiveTransition(percentage)
+        case .cancelled:
+            interactiveOpenAnimator?.cancel()
+        case .changed:
+            interactiveOpenAnimator?.update(percentage)
         default: break
         }
     }
     
-    private func openGestureFinished(gesture : UIScreenEdgePanGestureRecognizer) {
-        let velocity = gesture.velocityInView(gesture.view)
+    fileprivate func openGestureFinished(_ gesture : UIScreenEdgePanGestureRecognizer) {
+        let velocity = gesture.velocity(in: gesture.view)
         let travelDist : CGFloat
         let oppositeDirection : Bool
         
         switch animationContext.anchor {
-        case .Left:
+        case .left:
             oppositeDirection = (velocity.x < 0)
-            travelDist = abs(gesture.translationInView(gesture.view).x)
-        case .Right:
+            travelDist = abs(gesture.translation(in: gesture.view).x)
+        case .right:
             oppositeDirection = (velocity.x > 0)
-            travelDist = abs(gesture.translationInView(gesture.view).x)
-        case .Bottom:
+            travelDist = abs(gesture.translation(in: gesture.view).x)
+        case .bottom:
             oppositeDirection = (velocity.y > 0)
-            travelDist = abs(gesture.translationInView(gesture.view).y)
+            travelDist = abs(gesture.translation(in: gesture.view).y)
         }
         
         // If the velocity is on the opposite direction, dismiss the menu if the travel distance exceeds the threshold
         if oppositeDirection && travelDist >= animationContext.configurations.cancelTriggeringTranslation {
-            interactiveOpenAnimator?.cancelInteractiveTransition()
+            interactiveOpenAnimator?.cancel()
         } else if self.isOpeningVelocityAccepted(velocity) {
             // If the velocity exceeds threahold, open the menu regardlessly
-            interactiveOpenAnimator?.finishInteractiveTransition()
+            interactiveOpenAnimator?.finish()
         } else {
             // If the travel distance does not meet the minimal requirement, cancel the animation
             if travelDist < animationContext.configurations.openTriggeringTranslation {
-                interactiveOpenAnimator?.cancelInteractiveTransition()
+                interactiveOpenAnimator?.cancel()
             } else {
-                interactiveOpenAnimator?.finishInteractiveTransition()
+                interactiveOpenAnimator?.finish()
             }
         }
     }
     
-    private func isOpeningVelocityAccepted(velocity : CGPoint) -> Bool {
+    fileprivate func isOpeningVelocityAccepted(_ velocity : CGPoint) -> Bool {
         var v : CGFloat
         switch animationContext.anchor {
-        case .Left:
+        case .left:
             v = velocity.x
-        case .Right:
+        case .right:
             v = -velocity.x
-        case .Bottom:
+        case .bottom:
             v = -velocity.y
         }
         

@@ -10,7 +10,7 @@ import UIKit
 
 class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    private var animationContext : DrawerAnimationContext
+    fileprivate var animationContext : DrawerAnimationContext
     
     init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
@@ -19,30 +19,30 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
     
     // MARK: UIViewControllerAnimatedTransitioning
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.2
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let duration = self.transitionDuration(transitionContext)
-        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? [.CurveLinear] : [.CurveEaseOut])
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: { [weak self] in
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let duration = self.transitionDuration(using: transitionContext)
+        let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? [.curveLinear] : [.curveEaseOut])
+        UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: { [weak self] in
             self?.performDismissalAnimation()
         }) { (finished) in
-            let transitionCompleted = !transitionContext.transitionWasCancelled()
+            let transitionCompleted = !transitionContext.transitionWasCancelled
             transitionContext.completeTransition(transitionCompleted)
         }
     }
     
-    private func performDismissalAnimation() {
+    fileprivate func performDismissalAnimation() {
         let drawer = animationContext.content.view
         switch animationContext.anchor {
-        case .Left:
-            drawer.transform = CGAffineTransformMakeTranslation(-CGRectGetWidth(drawer.bounds), 0)
-        case .Right:
-            drawer.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(drawer.bounds), 0)
-        case .Bottom:
-            drawer.transform = CGAffineTransformMakeTranslation(0, CGRectGetHeight(drawer.bounds))
+        case .left:
+            drawer?.transform = CGAffineTransform(translationX: -(drawer?.bounds.width)!, y: 0)
+        case .right:
+            drawer?.transform = CGAffineTransform(translationX: (drawer?.bounds.width)!, y: 0)
+        case .bottom:
+            drawer?.transform = CGAffineTransform(translationX: 0, y: (drawer?.bounds.height)!)
         }
     }
 }

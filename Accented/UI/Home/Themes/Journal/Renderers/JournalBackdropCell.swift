@@ -19,7 +19,7 @@ class JournalBackdropCell: UICollectionReusableView {
         applyTheme()
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,7 +27,7 @@ class JournalBackdropCell: UICollectionReusableView {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func layoutSubviews() {
@@ -35,7 +35,7 @@ class JournalBackdropCell: UICollectionReusableView {
         applyTheme()
     }
     
-    private func applyTheme() {
+    fileprivate func applyTheme() {
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
             self.backgroundColor = journalTheme.streamBackdropColor
         } else {
@@ -43,7 +43,7 @@ class JournalBackdropCell: UICollectionReusableView {
         }
     }
     
-    @objc func appThemeDidChange(nitification : NSNotification) {
+    @objc func appThemeDidChange(_ nitification : Notification) {
         self.setNeedsLayout()
     }
 }

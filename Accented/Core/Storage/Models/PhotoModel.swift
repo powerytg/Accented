@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class PhotoModel: NSObject {
-    private var dateFormatter = NSDateFormatter()
+    fileprivate var dateFormatter = DateFormatter()
     
     var photoId : String
     var imageUrls = [ImageSize : String!]()
@@ -18,7 +18,7 @@ class PhotoModel: NSObject {
     var height: CGFloat
     var title : String
     var desc : String?
-    var creationDate : NSDate?
+    var creationDate : Date?
     var lens : String?
     var camera : String?
     var aperture : String?
@@ -54,7 +54,7 @@ class PhotoModel: NSObject {
         // Dates
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         let createdAt = json["created_at"].string!
-        creationDate = dateFormatter.dateFromString(createdAt)
+        creationDate = dateFormatter.date(from: createdAt)
 
         // EXIF
         camera = json["camera"].string

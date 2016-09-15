@@ -12,29 +12,29 @@ import SwiftyJSON
 extension StorageService {
 
     // Retrieve a stream
-    func getStream(streamType : StreamType) -> StreamModel {
-        if let stream = streamCache.objectForKey(streamType.rawValue) {
-            return stream as! StreamModel
+    func getStream(_ streamType : StreamType) -> StreamModel {
+        if let stream = streamCache.object(forKey: NSString(string: streamType.rawValue)) {
+            return stream
         } else {
             let stream = StreamModel(streamType: streamType)
-            streamCache.setObject(stream, forKey: streamType.rawValue)
+            streamCache.setObject(stream, forKey: NSString(string: streamType.rawValue))
             return stream
         }
     }
     
-    internal func streamPhotosDidReturn(notification : NSNotification) -> Void {
-        let jsonData : NSData = notification.userInfo!["response"] as! NSData
-        let streamType = StreamType(rawValue: notification.userInfo!["streamType"] as! String)
+    internal func streamPhotosDidReturn(_ notification : Notification) -> Void {
+        let jsonData : Data = (notification as NSNotification).userInfo!["response"] as! Data
+        let streamType = StreamType(rawValue: (notification as NSNotification).userInfo!["streamType"] as! String)
         if streamType == nil {
             debugPrint("Unrecognized stream type \(streamType)")
             return
         }
 
-        dispatch_async(parsingQueue) { [weak self] in
+        parsingQueue.async { [weak self] in
             var newPhotos = [PhotoModel]()
             
             do {
-                let jsonObject : AnyObject! = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
                 let json = JSON(jsonObject)
                 let page = json["current_page"].int!
                 let totalCount = json["total_items"].int!
@@ -51,8 +51,8 @@ extension StorageService {
         }
     }
     
-    private func mergePhotosToStream(streamType : StreamType, photos: [PhotoModel], page: Int, totalPhotos : Int) -> Void {
-        dispatch_async(dispatch_get_main_queue()) { [weak self] in
+    fileprivate func mergePhotosToStream(_ streamType : StreamType, photos: [PhotoModel], page: Int, totalPhotos : Int) -> Void {
+        DispatchQueue.main.async { [weak self] in
             let stream = self?.getStream(streamType)
             guard stream != nil else { return }
             stream!.totalCount = totalPhotos
@@ -65,11 +65,11 @@ extension StorageService {
             
             // Put the photos into cache
             for photo in photos {
-                self?.photoCache.setObject(photo, forKey: photo.photoId)
+                self?.photoCache.setObject(photo, forKey: NSString(string: photo.photoId))
             }
             
-            let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : stream!.streamType.rawValue, StorageServiceEvents.page : page]
-            NSNotificationCenter.defaultCenter().postNotificationName(StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
+            let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : stream!.streamType.rawValue as AnyObject, StorageServiceEvents.page : page as AnyObject]
+            NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
         }
     }
 }

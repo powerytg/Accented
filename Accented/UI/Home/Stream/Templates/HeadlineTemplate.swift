@@ -10,9 +10,9 @@ import UIKit
 
 class HeadlineTemplate: StreamLayoutTemplateBase {
 
-    private let maxFirstRowHeight : CGFloat = 500
-    private let maxSecondRowHeight : CGFloat = 200
-    private let maxHorizontalRatio : CGFloat = 3.0 / 2.0
+    fileprivate let maxFirstRowHeight : CGFloat = 500
+    fileprivate let maxSecondRowHeight : CGFloat = 200
+    fileprivate let maxHorizontalRatio : CGFloat = 3.0 / 2.0
     
     override var capacity : Int {
         return 3
@@ -23,12 +23,12 @@ class HeadlineTemplate: StreamLayoutTemplateBase {
         generateLayoutMetadata()
     }
     
-    private func generateLayoutMetadata() {
+    fileprivate func generateLayoutMetadata() {
         // First row
         let firstRowSize = inputSizes[0]
         let aspectRatio = width / firstRowSize.width
         let firstRowHeight = min(maxFirstRowHeight, firstRowSize.height * aspectRatio)
-        let firstRowRect = CGRectMake(0, 0, width, firstRowHeight)
+        let firstRowRect = CGRect(x: 0, y: 0, width: width, height: firstRowHeight)
         
         let size1 = inputSizes[0]
         let size2 = inputSizes[1]
@@ -50,8 +50,8 @@ class HeadlineTemplate: StreamLayoutTemplateBase {
         
         let secondRowHeight = min(maxSecondRowHeight, min(height1, height2))
         
-        let rect1 = CGRectMake(0, firstRowHeight + vGap, width1, secondRowHeight)
-        let rect2 = CGRectMake(width1 + hGap, firstRowHeight + vGap, width2, secondRowHeight)
+        let rect1 = CGRect(x: 0, y: firstRowHeight + vGap, width: width1, height: secondRowHeight)
+        let rect2 = CGRect(x: width1 + hGap, y: firstRowHeight + vGap, width: width2, height: secondRowHeight)
         
         height = firstRowHeight + vGap + secondRowHeight
         

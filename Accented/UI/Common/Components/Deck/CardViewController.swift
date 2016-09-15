@@ -30,11 +30,11 @@ class CardViewController: UIViewController, CardAnimation {
 
     // MARK : - Animation
     
-    func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
+    func cardDidReceivePanGesture(_ translation: CGFloat, cardWidth: CGFloat) {
         // Not implemented in base class
     }
     
-    func cardSelectionDidChange(selected: Bool) {
+    func cardSelectionDidChange(_ selected: Bool) {
         // Not implemented in base class
     }
     

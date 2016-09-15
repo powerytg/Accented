@@ -14,18 +14,18 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         return "metadata"
     }
 
-    private var contentRightMargin : CGFloat = 50
-    private let contentLeftMargin : CGFloat = 15
-    private var contentTopMargin : CGFloat = 0
-    private var contentBottomMargin : CGFloat = 15
-    private let noEXIFText = "This photo does not have camera info"
-    private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    fileprivate var contentRightMargin : CGFloat = 50
+    fileprivate let contentLeftMargin : CGFloat = 15
+    fileprivate var contentTopMargin : CGFloat = 0
+    fileprivate var contentBottomMargin : CGFloat = 15
+    fileprivate let noEXIFText = "This photo does not have camera info"
+    fileprivate let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     override var title: String? {
         return "EQUIPMENTS"
     }
 
-    private var exifLabel = UILabel()
+    fileprivate var exifLabel = UILabel()
     
     override func initialize() {
         super.initialize()
@@ -36,11 +36,11 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         exifLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
         exifLabel.font = textFont
         exifLabel.numberOfLines = 0
-        exifLabel.lineBreakMode = .ByWordWrapping
+        exifLabel.lineBreakMode = .byWordWrapping
         
         // Constraints
-        exifLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor, constant: contentLeftMargin).active = true
-        exifLabel.topAnchor.constraintEqualToAnchor(self.contentView.topAnchor, constant: contentTopMargin).active = true
+        exifLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: contentLeftMargin).isActive = true
+        exifLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: contentTopMargin).isActive = true
     }
     
     override func photoModelDidChange() {
@@ -56,11 +56,11 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         exifLabel.text = displayText
     }
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         let maxTextWidth = maxWidth - contentLeftMargin - contentRightMargin
         let displayText = getDisplayEXIFText()
-        let textHeight = NSString(string : displayText).boundingRectWithSize(CGSizeMake(maxTextWidth, CGFloat.max),
-                                                                             options: .UsesLineFragmentOrigin,
+        let textHeight = NSString(string : displayText).boundingRect(with: CGSize(width: maxTextWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                                             options: .usesLineFragmentOrigin,
                                                                              attributes: [NSFontAttributeName: textFont!],
                                                                              context: nil).size.height
         return textHeight + sectionTitleHeight + contentBottomMargin
@@ -68,7 +68,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     
     // MARK: - Private
     
-    private func getDisplayEXIFText() -> String {
+    fileprivate func getDisplayEXIFText() -> String {
         guard photo != nil else { return noEXIFText }
 
         let aperture = displayApertureString()
@@ -102,7 +102,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         }
     }
     
-    private func displayApertureString() -> String? {
+    fileprivate func displayApertureString() -> String? {
         if let aperture = photo?.aperture {
             if aperture.hasPrefix("f") {
                 return aperture

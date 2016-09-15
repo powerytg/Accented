@@ -11,16 +11,16 @@ import SwiftyJSON
 
 extension StorageService {
 
-    internal func photoCommentsDidReturn(notification : NSNotification) -> Void {
+    internal func photoCommentsDidReturn(_ notification : Notification) -> Void {
         // NOTE: NSCache is thread safe
-        let jsonData : NSData = notification.userInfo!["response"] as! NSData
-        let photoId = notification.userInfo!["photoId"] as! String;
+        let jsonData : Data = (notification as NSNotification).userInfo!["response"] as! Data
+        let photoId = (notification as NSNotification).userInfo!["photoId"] as! String;
         
-        dispatch_async(parsingQueue) { [weak self] in
+        parsingQueue.async { [weak self] in
             var newComments = [CommentModel]()
             
             do {
-                let jsonObject : AnyObject! = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions())
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
                 let json = JSON(jsonObject)
                 let page = json["current_page"].int!
                 let commentsCount = json["total_items"].int!
@@ -37,9 +37,9 @@ extension StorageService {
         }
     }
     
-    private func mergeCommentsToPhoto(photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
-        dispatch_async(dispatch_get_main_queue()) { [weak self] in
-            let photo = self?.photoCache.objectForKey(photoId) as? PhotoModel
+    fileprivate func mergeCommentsToPhoto(_ photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
+        DispatchQueue.main.async { [weak self] in
+            let photo = self?.photoCache.object(forKey: NSString(string : photoId))
             guard photo != nil else { return }
             photo!.commentsCount = commentsCount
             
@@ -49,8 +49,8 @@ extension StorageService {
             
             photo!.comments += comments
             
-            let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId, StorageServiceEvents.page : page]
-            NSNotificationCenter.defaultCenter().postNotificationName(StorageServiceEvents.photoCommentsDidUpdate, object: nil, userInfo: userInfo)
+            let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId as AnyObject, StorageServiceEvents.page : page as AnyObject]
+            NotificationCenter.default.post(name: StorageServiceEvents.photoCommentsDidUpdate, object: nil, userInfo: userInfo)
         }
     }
     

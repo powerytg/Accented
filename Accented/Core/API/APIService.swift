@@ -38,7 +38,7 @@ class APIService: NSObject {
     
     // Singleton instance
     static let sharedInstance = APIService()
-    private override init() {
+    fileprivate override init() {
         let authenticationService = AuthenticationService.sharedInstance
         client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
                                   consumerSecret: authenticationService.consumerSecret,
@@ -50,9 +50,9 @@ class APIService: NSObject {
     var client : OAuthSwiftClient
     
     // Comments expiration time (10 min)
-    internal var commentsCacheAge : NSTimeInterval = 10 * 60
+    internal var commentsCacheAge : TimeInterval = 10 * 60
     
     // This dictionary keeps track of last refresh date
-    internal var commentsLastRefreshedDateLookup = [String : NSDate]()
+    internal var commentsLastRefreshedDateLookup = [String : Date]()
     
 }

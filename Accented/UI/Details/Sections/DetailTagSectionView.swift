@@ -15,19 +15,19 @@ class DetailTagSectionView: DetailSectionViewBase {
     }
 
     // Label showing when there're no tags in the photo
-    private var noTagsLabel = UILabel()
+    fileprivate var noTagsLabel = UILabel()
     
-    private let contentLeftMargin : CGFloat = 15
-    private let contentRightMargin : CGFloat = 30
+    fileprivate let contentLeftMargin : CGFloat = 15
+    fileprivate let contentRightMargin : CGFloat = 30
     
     // Fixed content height when there're no tags in the photo
-    private var noTagsSectionHeight : CGFloat = 40
+    fileprivate var noTagsSectionHeight : CGFloat = 40
     
     // Cached content view size
-    private var contentViewSize : CGSize?
+    fileprivate var contentViewSize : CGSize?
     
     // Tags content view
-    private var tagsContentView : DetailTagSectionContentView!
+    fileprivate var tagsContentView : DetailTagSectionContentView!
     
     override var title: String? {
         return "TAGS"
@@ -42,9 +42,9 @@ class DetailTagSectionView: DetailSectionViewBase {
         noTagsLabel.text = "This photo has no tags"
         noTagsLabel.font = descFont
         noTagsLabel.textColor = descColor
-        noTagsLabel.leadingAnchor.constraintEqualToAnchor(self.contentView.leadingAnchor).active = true
-        noTagsLabel.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
-        noTagsLabel.hidden = true        
+        noTagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        noTagsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        noTagsLabel.isHidden = true
     }
     
     override func createContentView() {
@@ -59,11 +59,11 @@ class DetailTagSectionView: DetailSectionViewBase {
         tagsContentView.photo = photo
         
         if photo!.tags.count > 0 {
-            noTagsLabel.hidden = true
-            tagsContentView.hidden = false
+            noTagsLabel.isHidden = true
+            tagsContentView.isHidden = false
         } else {
-            noTagsLabel.hidden = false
-            tagsContentView.hidden = true
+            noTagsLabel.isHidden = false
+            tagsContentView.isHidden = true
         }
         
         setNeedsLayout()
@@ -85,7 +85,7 @@ class DetailTagSectionView: DetailSectionViewBase {
     
     // MARK: - Measurements
     
-    override func calculatedHeightForPhoto(photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
         if photo.tags.count == 0 {
             return noTagsSectionHeight + sectionTitleHeight
         } else {
@@ -98,13 +98,13 @@ class DetailTagSectionView: DetailSectionViewBase {
     
     override func entranceAnimationWillBegin() {
         self.alpha = 0
-        self.transform = CGAffineTransformMakeTranslation(30, 0)
+        self.transform = CGAffineTransform(translationX: 30, y: 0)
     }
     
     override func performEntranceAnimation() {
-        UIView .addKeyframeWithRelativeStartTime(0.5, relativeDuration: 1, animations: { [weak self] in
+        UIView .addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1, animations: { [weak self] in
             self?.alpha = 1
-            self?.transform = CGAffineTransformIdentity
+            self?.transform = CGAffineTransform.identity
             })
     }
 }

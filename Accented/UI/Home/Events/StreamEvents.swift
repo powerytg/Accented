@@ -13,13 +13,13 @@ class StreamEvents: NSObject {
     // MARK: Event names
     
     // Stream is about the change
-    static let streamSelectionWillChange = "streamSelectionWillChange"
+    static let streamSelectionWillChange = Notification.Name("streamSelectionWillChange")
     
     // Request of left drawer
-    static let didRequestLeftDrawer = "didRequestLeftDrawer"
+    static let didRequestLeftDrawer = Notification.Name("didRequestLeftDrawer")
     
     // Request of right drawer
-    static let didRequestRightDrawer = "didRequestRightDrawer"
+    static let didRequestRightDrawer = Notification.Name("didRequestRightDrawer")
     
     // MARK: Keys
     

@@ -9,18 +9,18 @@
 import UIKit
 
 class DefaultStreamLayout: StreamLayoutBase {
-    private let vGap : CGFloat = 20
+    fileprivate let vGap : CGFloat = 20
     
     // Total height of the header
-    private var headerHeight : CGFloat = 0
-    private var navBarHeight : CGFloat = 156
-    private let contentStartSection = 1
+    fileprivate var headerHeight : CGFloat = 0
+    fileprivate var navBarHeight : CGFloat = 156
+    fileprivate let contentStartSection = 1
     
     var navBarDefaultPosition : CGFloat = 0
     var navBarStickyPosition : CGFloat = 0
     
-    private var navHeaderAttributes : UICollectionViewLayoutAttributes?
-    private var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
+    fileprivate var navHeaderAttributes : UICollectionViewLayoutAttributes?
+    fileprivate var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
     
     override init() {
         super.init()
@@ -30,27 +30,27 @@ class DefaultStreamLayout: StreamLayoutBase {
         super.init(coder: aDecoder)
     }
     
-    override func prepareLayout() {
-        scrollDirection = .Vertical
+    override func prepare() {
+        scrollDirection = .vertical
         
         if collectionView != nil {
-            fullWidth = CGRectGetWidth(collectionView!.bounds)
+            fullWidth = collectionView!.bounds.width
         }
     }
     
-    override func collectionViewContentSize() -> CGSize {
+    override var collectionViewContentSize : CGSize {
         if layoutCache.count == 0 {
-            return CGSizeZero
+            return CGSize.zero
         }
         
-        return CGSizeMake(availableWidth, contentHeight)
+        return CGSize(width: availableWidth, height: contentHeight)
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in layoutCache {
-            if CGRectIntersectsRect(attributes.frame, rect) {
+            if attributes.frame.intersects(rect) {
                 layoutAttributes.append(attributes)
             }
         }
@@ -84,26 +84,26 @@ class DefaultStreamLayout: StreamLayoutBase {
         return layoutAttributes
     }
     
-    override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
+    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
     }
     
     override func generateLayoutAttributesForStreamHeader() {
         if fullWidth == 0 {
-            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+            fullWidth = UIScreen.main.bounds.width
         }
         
         var nextY : CGFloat = 0
-        let navCellSize = CGSizeMake(fullWidth, navBarHeight)
+        let navCellSize = CGSize(width: fullWidth, height: navBarHeight)
         navBarDefaultPosition = nextY
-        self.navHeaderAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: 0))
-        self.navHeaderAttributes!.frame = CGRectMake(0, nextY, navCellSize.width, navCellSize.height)
+        self.navHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
+        self.navHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: navCellSize.width, height: navCellSize.height)
         self.navHeaderAttributes?.zIndex = 1024
         nextY += navCellSize.height
 
-        let buttonsCellSize = CGSizeMake(fullWidth, 110)
-        self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 1, inSection: 0))
-        self.buttonsHeaderAttributes!.frame = CGRectMake(0, nextY, buttonsCellSize.width, buttonsCellSize.height)
+        let buttonsCellSize = CGSize(width: fullWidth, height: 110)
+        self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 1, section: 0))
+        self.buttonsHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: buttonsCellSize.width, height: buttonsCellSize.height)
         nextY += buttonsCellSize.height
         
         headerHeight = nextY
@@ -113,7 +113,7 @@ class DefaultStreamLayout: StreamLayoutBase {
     
     override func generateLayoutAttributesForLoadingState() {
         if fullWidth == 0 {
-            fullWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
+            fullWidth = UIScreen.main.bounds.width
         }
         
         // Generate header layout attributes if absent
@@ -122,15 +122,15 @@ class DefaultStreamLayout: StreamLayoutBase {
         }
         
         let nextY = contentHeight
-        let loadingCellSize = CGSizeMake(availableWidth, 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: 0, inSection: contentStartSection))
-        loadingCellAttributes.frame = CGRectMake(0, nextY, availableWidth, loadingCellSize.height)
+        let loadingCellSize = CGSize(width: availableWidth, height: 150)
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: contentStartSection))
+        loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: loadingCellSize.height)
         
         contentHeight += loadingCellSize.height
         layoutCache.append(loadingCellAttributes)
     }
     
-    override func generateLayoutAttributesForTemplates(templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+    override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         // Generate header layout attributes if absent
         if layoutCache.count == 0 {
             generateLayoutAttributesForStreamHeader()
@@ -143,16 +143,16 @@ class DefaultStreamLayout: StreamLayoutBase {
             let footerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForFooterInSection: currentSectionIndex)
             
             // Header layout
-            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withIndexPath: NSIndexPath(forItem: 0, inSection: currentSectionIndex))
-            headerAttributes.frame = CGRectMake(0, nextY, headerSize.width, headerSize.height)
+            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: currentSectionIndex))
+            headerAttributes.frame = CGRect(x: 0, y: nextY, width: headerSize.width, height: headerSize.height)
             layoutCache.append(headerAttributes)
             nextY += headerSize.height
             
             // Cell layout
-            for (itemIndex, frame) in template.frames.enumerate() {
-                let finalRect = CGRectMake(frame.origin.x + leftMargin, frame.origin.y + nextY, frame.size.width, frame.size.height)
-                let indexPath = NSIndexPath(forItem: itemIndex, inSection: currentSectionIndex)
-                let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+            for (itemIndex, frame) in template.frames.enumerated() {
+                let finalRect = CGRect(x: frame.origin.x + leftMargin, y: frame.origin.y + nextY, width: frame.size.width, height: frame.size.height)
+                let indexPath = IndexPath(item: itemIndex, section: currentSectionIndex)
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                 attributes.frame = finalRect
                 layoutCache.append(attributes)
             }
@@ -160,8 +160,8 @@ class DefaultStreamLayout: StreamLayoutBase {
             nextY += template.height
             
             // Footer layout
-            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withIndexPath: NSIndexPath(forItem: 0, inSection: currentSectionIndex))
-            footerAttributes.frame = CGRectMake(0, nextY, footerSize.width, footerSize.height)
+            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: currentSectionIndex))
+            footerAttributes.frame = CGRect(x: 0, y: nextY, width: footerSize.width, height: footerSize.height)
             layoutCache.append(footerAttributes)
             nextY += footerSize.height + vGap
             

@@ -13,7 +13,7 @@ class ThemeableBackgroundView: UIView {
     var photo : PhotoModel?
     
     required init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         initialize()
     }
     
@@ -25,28 +25,28 @@ class ThemeableBackgroundView: UIView {
         self.backgroundColor = ThemeManager.sharedInstance.currentTheme.streamBackgroundColor
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func appThemeDidChange(notification : NSNotification) {
-        UIView.animateWithDuration(0.3) { [weak self] in
+    func appThemeDidChange(_ notification : Notification) {
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.applyThemeChangeAnimation()
-        }
+        }) 
     }
     
     func applyThemeChangeAnimation() {
         self.backgroundColor = ThemeManager.sharedInstance.currentTheme.streamBackgroundColor
     }
     
-    func performEntranceAnimation(completed: (() -> Void)) -> Void {
+    func performEntranceAnimation(_ completed: @escaping () -> Void) -> Void {
         // Not implemented in base class
     }
     
-    func streamViewContentOffsetDidChange(contentOffset: CGFloat) -> Void {
+    func streamViewContentOffsetDidChange(_ contentOffset: CGFloat) -> Void {
         // Not implemented in base class
     }
 }

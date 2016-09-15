@@ -11,7 +11,7 @@ import UIKit
 // Detail section view event delegate
 protocol DetailSectionViewDelegate : NSObjectProtocol {
     // Section view will change its height
-    func sectionViewMeasurementWillChange(section : DetailSectionViewBase)
+    func sectionViewMeasurementWillChange(_ section : DetailSectionViewBase)
 }
 
 class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
@@ -70,7 +70,7 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     init(maxWidth : CGFloat, cacheController : DetailCacheController) {
         self.maxWidth = maxWidth
         self.cacheController = cacheController
-        super.init(frame : CGRectZero)
+        super.init(frame : CGRect.zero)
         
         initialize()
     }
@@ -97,17 +97,17 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
             sectionTitleLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 14)
             sectionTitleLabel.text = title
             
-            sectionTitleLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: sectionTitleLabelTopMargin).active = true
-            sectionTitleLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: sectionTitleLabelLeftMargin).active = true
+            sectionTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleLabelTopMargin).isActive = true
+            sectionTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sectionTitleLabelLeftMargin).isActive = true
             
-            contentView.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: sectionTitleHeight).active = true
+            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleHeight).isActive = true
         } else {
-            contentView.centerYAnchor.constraintEqualToAnchor(self.centerYAnchor).active = true
-            contentView.heightAnchor.constraintEqualToAnchor(self.heightAnchor).active = true
+            contentView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            contentView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         }
         
-        contentView.centerXAnchor.constraintEqualToAnchor(self.centerXAnchor).active = true
-        contentView.widthAnchor.constraintEqualToAnchor(self.widthAnchor).active = true
+        contentView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
     }
     
     func photoModelDidChange() {
@@ -116,7 +116,7 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
     
     // MARK: - Measurements
     
-    func estimatedHeight(photo : PhotoModel?, width : CGFloat) -> CGFloat {
+    func estimatedHeight(_ photo : PhotoModel?, width : CGFloat) -> CGFloat {
         guard photo != nil else { return 0 }
         
         // Retrieve the height from cache
@@ -132,7 +132,7 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
         }
     }
     
-    func calculatedHeightForPhoto(photo : PhotoModel, width : CGFloat) -> CGFloat {
+    func calculatedHeightForPhoto(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
         return 0
     }
     
@@ -155,11 +155,11 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
         // Not implemented in the base class
     }
     
-    func cardDidReceivePanGesture(translation: CGFloat, cardWidth: CGFloat) {
+    func cardDidReceivePanGesture(_ translation: CGFloat, cardWidth: CGFloat) {
         // Not implemented in the base class
     }
     
-    func cardSelectionDidChange(selected: Bool) {
+    func cardSelectionDidChange(_ selected: Bool) {
         // Not implemented in the base class
     }
     

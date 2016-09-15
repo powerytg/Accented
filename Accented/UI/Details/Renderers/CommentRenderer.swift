@@ -29,22 +29,22 @@ class CommentRenderer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func initialize() {
+    fileprivate func initialize() {
         addSubview(contentLabel)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         contentLabel.preferredMaxLayoutWidth = 280
-        contentLabel.textColor = UIColor.whiteColor()
+        contentLabel.textColor = UIColor.white
         
         // Constraints
-        contentLabel.leadingAnchor.constraintEqualToAnchor(self.leadingAnchor, constant: 10).active = true
-        contentLabel.topAnchor.constraintEqualToAnchor(self.topAnchor, constant: 10).active = true
+        contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
+        contentLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
     }
     
-    private func commentModelDidChange() {
+    fileprivate func commentModelDidChange() {
         contentLabel.text = comment?.body
     }
     
-    func estimatedHeight(comment : CommentModel, width : CGFloat) -> CGFloat {
+    func estimatedHeight(_ comment : CommentModel, width : CGFloat) -> CGFloat {
         return 40
     }
 }

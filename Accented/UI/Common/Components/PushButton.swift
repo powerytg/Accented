@@ -21,11 +21,11 @@ class PushButton: UIButton {
     }
     
     func initialize() {
-        self.layer.borderColor = UIColor.whiteColor().CGColor
+        self.layer.borderColor = UIColor.white.cgColor
         self.layer.borderWidth = 1.0
         self.backgroundColor = UIColor(red: 0 / 255.0, green: 0 / 255.0, blue: 0 / 255.0, alpha: 0.1)
         
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(UIColor.white, for: UIControlState())
         self.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
     }
 

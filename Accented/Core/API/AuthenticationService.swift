@@ -11,16 +11,16 @@ import OAuthSwift
 
 class AuthenticationService: NSObject {
     
-    typealias SuccessAction = (credentials: OAuthSwiftCredential) -> Void
-    typealias FailureAction = (error: NSError) -> Void
+    typealias SuccessAction = (_ credentials: OAuthSwiftCredential) -> Void
+    typealias FailureAction = (_ error: NSError) -> Void
     
     let consumerKey = "CF0WTWPsQXuEl83X35pfEus8VaYPOORFyjGFsIex"
     let consumerSecret = "blOsQK7uj8YHnSnZYoaSkkituD334OL51M80hV4S"
     
     static let callbackUrl = "accented-app://auth"
     
-    private static let accessTokenStoreKey = "accessToken";
-    private static let accessTokenSecretStoreKey = "accessTokenSecret"
+    fileprivate static let accessTokenStoreKey = "accessToken";
+    fileprivate static let accessTokenSecretStoreKey = "accessTokenSecret"
     var accessToken : String?
     var accessTokenSecret : String?
     
@@ -30,19 +30,19 @@ class AuthenticationService: NSObject {
     // Singleton instance
     static let sharedInstance = AuthenticationService()
     
-    private override init() {
+    fileprivate override init() {
         // Ignore
     }
 
     func retrieveStoredOAuthTokens() -> Bool {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        self.accessToken = userDefaults.stringForKey(AuthenticationService.accessTokenStoreKey)
-        self.accessTokenSecret = userDefaults.stringForKey(AuthenticationService.accessTokenSecretStoreKey)
+        let userDefaults = UserDefaults.standard
+        self.accessToken = userDefaults.string(forKey: AuthenticationService.accessTokenStoreKey)
+        self.accessTokenSecret = userDefaults.string(forKey: AuthenticationService.accessTokenSecretStoreKey)
         
         return (accessToken != nil && accessTokenSecret != nil)
     }
     
-    func startSignInRequest(urlHandler:OAuthSwiftURLHandlerType, success: SuccessAction, failure: FailureAction) {
+    func startSignInRequest(_ urlHandler:OAuthSwiftURLHandlerType, success: @escaping SuccessAction, failure: @escaping FailureAction) {
         let authenticator = OAuth1Swift(
             consumerKey:   consumerKey,
             consumerSecret: consumerSecret,
@@ -53,25 +53,25 @@ class AuthenticationService: NSObject {
         
         authenticator.authorize_url_handler = urlHandler
         authenticator.authorizeWithCallbackURL(
-            NSURL(string: "accented-app://auth")!,
+            URL(string: "accented-app://auth")!,
             success: {[weak self] credential, response, parameters in
                 // Store access token and secret
                 if let weakSelf = self {
                     weakSelf.accessToken = credential.oauth_token
                     weakSelf.accessTokenSecret = credential.oauth_token_secret
                     
-                    let userDefaults = NSUserDefaults.standardUserDefaults()
-                    userDefaults.setObject(weakSelf.accessToken, forKey: AuthenticationService.accessTokenStoreKey)
-                    userDefaults.setObject(weakSelf.accessTokenSecret, forKey: AuthenticationService.accessTokenSecretStoreKey)
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.set(weakSelf.accessToken, forKey: AuthenticationService.accessTokenStoreKey)
+                    userDefaults.set(weakSelf.accessTokenSecret, forKey: AuthenticationService.accessTokenSecretStoreKey)
                     userDefaults.synchronize()
                 }
                 
                 // Notify of success event
-                success(credentials: credential)
+                success(credential)
             },
             failure: { error in
                 print("Auth error: " + error.localizedDescription)
-                failure(error: error)
+                failure(error)
             }
         )
     }

@@ -19,7 +19,7 @@ protocol DeckCacheControllerDelegate : NSObjectProtocol {
     func deferredSiblingCardsDidFinishInitialization()
     
     // Invoked when a card has been added to cache
-    func cardDidAddToCache(card : CardViewController)
+    func cardDidAddToCache(_ card : CardViewController)
 }
 
 class DeckCacheController: NSObject {
@@ -31,7 +31,7 @@ class DeckCacheController: NSObject {
     weak var dataSource : DeckViewControllerDataSource?
     
     // Total number of items
-    private var totalItemCount = 0
+    fileprivate var totalItemCount = 0
     
     // Currently selected card
     var selectedCard : CardViewController!
@@ -52,9 +52,9 @@ class DeckCacheController: NSObject {
     var cachedCards = [CardViewController]()
     
     // Selected index, initially -1
-    private var selectedIndex : Int = -1
+    fileprivate var selectedIndex : Int = -1
     
-    func initializeCache(initialSelectedIndex : Int) {
+    func initializeCache(_ initialSelectedIndex : Int) {
         guard dataSource != nil else { return }
         let ds = dataSource!
         
@@ -84,7 +84,7 @@ class DeckCacheController: NSObject {
         delegate?.cacheDidFinishInitialization()
     }
 
-    func initializeSelectedCard(initialSelectedIndex : Int) {
+    func initializeSelectedCard(_ initialSelectedIndex : Int) {
         guard dataSource != nil else { return }
         let ds = dataSource!
         totalItemCount = ds.numberOfCards()
@@ -115,19 +115,19 @@ class DeckCacheController: NSObject {
         delegate?.deferredSiblingCardsDidFinishInitialization()
     }
     
-    func hasLeftSibling(index : Int) -> Bool {
+    func hasLeftSibling(_ index : Int) -> Bool {
         return (totalItemCount != 0 && index != 0)
     }
 
-    func hasRightSibling(index : Int) -> Bool {
+    func hasRightSibling(_ index : Int) -> Bool {
         return (totalItemCount != 0 && index != totalItemCount - 1)
     }
     
-    func hasOffScreenRightSibling(index : Int) -> Bool {
+    func hasOffScreenRightSibling(_ index : Int) -> Bool {
         return (totalItemCount != 0 && index < totalItemCount - 2)
     }
 
-    func hasOffScreenLeftSibling(index : Int) -> Bool {
+    func hasOffScreenLeftSibling(_ index : Int) -> Bool {
         return (totalItemCount != 0 && index > 1)
     }
 
@@ -229,7 +229,7 @@ class DeckCacheController: NSObject {
         return recycledCard
     }
     
-    private func getCardFromDataSource(index : Int) -> CardViewController {
+    fileprivate func getCardFromDataSource(_ index : Int) -> CardViewController {
         let card = dataSource!.cardForItemIndex(index)
         card.indexInDataSource = index
         
@@ -241,7 +241,7 @@ class DeckCacheController: NSObject {
         return card
     }
     
-    private func recycleCard(card : CardViewController) {
+    fileprivate func recycleCard(_ card : CardViewController) {
         card.prepareForReuse()
         recycledCard = card
     }

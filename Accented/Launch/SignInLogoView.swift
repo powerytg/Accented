@@ -29,8 +29,8 @@ class SignInLogoView: UIView {
         for i in 1...self.layerCount {
             let layerImage = UIImage(named: "Logo.Layer\(i)")
             let layerView = UIImageView(image: layerImage)
-            layerView.contentMode = UIViewContentMode.ScaleAspectFit
-            self.insertSubview(layerView, atIndex: 0)
+            layerView.contentMode = UIViewContentMode.scaleAspectFit
+            self.insertSubview(layerView, at: 0)
         }
         
         resetAnimations()
@@ -44,10 +44,10 @@ class SignInLogoView: UIView {
     
     func resetAnimations() -> Void {
         for layerView in self.subviews as [UIView] {
-            let layerIndex = self.subviews.indexOf(layerView)
+            let layerIndex = self.subviews.index(of: layerView)
             layerView.layer.removeAllAnimations()
             
-            layerView.layer.anchorPoint = CGPointMake(1.0, 0.55)
+            layerView.layer.anchorPoint = CGPoint(x: 1.0, y: 0.55)
             layerView.layer.transform.m34 = 1 / 3500.0
             layerView.layer.zPosition = 100.0 * CGFloat(layerCount - layerIndex!)
         }
@@ -57,13 +57,13 @@ class SignInLogoView: UIView {
         // Cancel previous animations
         resetAnimations()
         
-        let animationOptions : UIViewKeyframeAnimationOptions = [.Repeat, .Autoreverse]
-        UIView.animateKeyframesWithDuration(10, delay: 0.2, options: animationOptions, animations: {
+        let animationOptions : UIViewKeyframeAnimationOptions = [.repeat, .autoreverse]
+        UIView.animateKeyframes(withDuration: 10, delay: 0.2, options: animationOptions, animations: {
             for layerView in self.subviews as [UIView] {
-                let layerIndex = self.subviews.indexOf(layerView)
+                let layerIndex = self.subviews.index(of: layerView)
                 let imageIndex = self.layerCount - layerIndex!
                 
-                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.8 * Double(arc4random()), animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.8 * Double(arc4random()), animations: {
                     var angle:Double
                     if self.upperFlipWings.contains(imageIndex) {
                         angle = Double(imageIndex) * 1.6 * M_PI / 180.0

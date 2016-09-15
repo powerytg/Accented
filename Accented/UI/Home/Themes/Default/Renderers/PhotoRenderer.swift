@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 
 protocol PhotoRendererDelegate : NSObjectProtocol {
-    func photoRendererDidReceiveTap(renderer : PhotoRenderer)
+    func photoRendererDidReceiveTap(_ renderer : PhotoRenderer)
 }
 
 class PhotoRenderer: UIView {
@@ -29,13 +29,13 @@ class PhotoRenderer: UIView {
             super.init(coder: coder)!
         }
         else {
-            super.init(frame: CGRectZero)
+            super.init(frame: CGRect.zero)
         }
         
         initialize()
     }
     
-    private var photoModel : PhotoModel?
+    fileprivate var photoModel : PhotoModel?
     var photo : PhotoModel? {
         get {
             return photoModel
@@ -48,7 +48,7 @@ class PhotoRenderer: UIView {
                 if photoModel != nil {
                     let url = PhotoRenderer.preferredImageUrl(photoModel)
                     if url != nil {
-                        imageView.sd_setImageWithURL(url!)
+                        imageView.sd_setImage(with: url!)
                     } else {
                         imageView.image = nil
                     }
@@ -61,22 +61,22 @@ class PhotoRenderer: UIView {
     
     // MARK: - Private
     
-    static func preferredImageUrl(photo : PhotoModel?) -> NSURL? {
+    static func preferredImageUrl(_ photo : PhotoModel?) -> URL? {
         guard photo != nil else { return nil }
         
         if let url = photo!.imageUrls[.Large] {
-            return NSURL(string: url)
+            return URL(string: url)
         } else if let url = photo!.imageUrls[.Medium] {
-            return NSURL(string: url)
+            return URL(string: url)
         } else if let url = photo!.imageUrls[.Small] {
-            return NSURL(string: url)
+            return URL(string: url)
         } else {
             return nil
         }
     }
 
     func initialize() -> Void {
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         self.addSubview(imageView)
         
         // Gestures
@@ -89,7 +89,7 @@ class PhotoRenderer: UIView {
         imageView.frame = self.bounds
     }
     
-    @objc private func didReceiveTap(tap :UITapGestureRecognizer) {
+    @objc fileprivate func didReceiveTap(_ tap :UITapGestureRecognizer) {
         delegate?.photoRendererDidReceiveTap(self)
     }
 }

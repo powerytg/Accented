@@ -14,23 +14,23 @@ class RenderService: NSObject {
     static let sharedInstance = RenderService()
     
     // Render queue
-    private let renderQueue : dispatch_queue_t
+    fileprivate let renderQueue : DispatchQueue
     
     // Rendered bitmap cache. This is thread safe
-    private var renderCache : NSCache
+    fileprivate var renderCache : NSCache<AnyObject, AnyObject>
     
-    private override init() {
-        renderQueue = dispatch_queue_create("com.accented.renderer", nil)
+    fileprivate override init() {
+        renderQueue = DispatchQueue(label: "com.accented.renderer", attributes: [])
         renderCache = NSCache()
     }
 
-    func getCachedImage(identifier : String) -> (identifier : String, cachedImage : UIImage?) {
-        let cachedImage = renderCache.objectForKey(identifier) as? UIImage
+    func getCachedImage(_ identifier : String) -> (identifier : String, cachedImage : UIImage?) {
+        let cachedImage = renderCache.object(forKey: identifier as AnyObject) as? UIImage
         return (identifier : identifier, cachedImage : cachedImage)
     }
     
-    func setCachedImage(identifier : String, image : UIImage) {
-        renderCache.setObject(image, forKey: identifier)
+    func setCachedImage(_ identifier : String, image : UIImage) {
+        renderCache.setObject(image, forKey: identifier as AnyObject)
     }
     
 }

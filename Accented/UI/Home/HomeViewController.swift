@@ -18,8 +18,8 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
     // This flag will be reset after theme change
     var entranceAnimationPerformed = false
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.portrait
     }
     
     override func viewDidLoad() {
@@ -32,19 +32,19 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         backgroundView = ThemeManager.sharedInstance.currentTheme.backgroundViewClass.init()
         self.view.addSubview(backgroundView!)
         backgroundView!.frame = self.view.bounds
-        backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // Initialize stream
         createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
         // Events
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,19 +52,19 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func createStreamViewController(streamType : StreamType) {
+    private func createStreamViewController(_ streamType : StreamType) {
         stream = StorageService.sharedInstance.getStream(streamType)
         streamViewController = HomeStreamViewController()
         streamViewController!.stream = stream
         addChildViewController(streamViewController!)
         self.view.addSubview(streamViewController!.view)
         streamViewController!.view.frame = self.view.bounds
-        streamViewController!.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        streamViewController!.didMoveToParentViewController(self)
+        streamViewController!.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        streamViewController!.didMove(toParentViewController: self)
         streamViewController!.delegate = self
     }
     
-    func streamDidUpdate(notification : NSNotification) -> Void {
+    @objc private func streamDidUpdate(_ notification : Notification) {
         let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
         if streamType == stream?.streamType && stream!.photos.count != 0 {
@@ -82,7 +82,7 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
     }
     
     // MARK: - Events
-    func streamSelectionWillChange(notification : NSNotification) {
+    @objc private func streamSelectionWillChange(_ notification : Notification) {
         let streamTypeString = notification.userInfo![StreamEvents.selectedStreamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
         
@@ -96,7 +96,7 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         streamViewController?.stream = stream
     }
     
-    func appThemeDidChange(notification : NSNotification) {
+    @objc private func appThemeDidChange(_ notification : Notification) {
         applyStatusBarStyle()
         
         // Remove the previous background view and apply the new background along with entrance animation
@@ -104,10 +104,10 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         
         backgroundView! = ThemeManager.sharedInstance.currentTheme.backgroundViewClass.init()
         backgroundView!.frame = self.view.bounds
-        backgroundView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundView!.photo = stream!.photos[0]
 
-        self.view.insertSubview(backgroundView!, atIndex: 0)
+        self.view.insertSubview(backgroundView!, at: 0)
         backgroundView!.performEntranceAnimation({
             // Ignore
         })
@@ -116,16 +116,16 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
     // MARK: - Private
     
     private func applyStatusBarStyle() {
-        UIApplication.sharedApplication().statusBarStyle = ThemeManager.sharedInstance.currentTheme.statusBarStyle
+        UIApplication.shared.statusBarStyle = ThemeManager.sharedInstance.currentTheme.statusBarStyle
     }
     
     // MARK: - StreamViewControllerDelegate
-    func streamViewDidFinishedScrolling(firstVisiblePhoto: PhotoModel) {
+    func streamViewDidFinishedScrolling(_ firstVisiblePhoto: PhotoModel) {
         //        backgroundView!.photo = firstVisiblePhoto
         //        backgroundView!.setNeedsLayout()
     }
 
-    func streamViewContentOffsetDidChange(contentOffset: CGFloat) {
+    func streamViewContentOffsetDidChange(_ contentOffset: CGFloat) {
         backgroundView!.streamViewContentOffsetDidChange(contentOffset)
     }
 }

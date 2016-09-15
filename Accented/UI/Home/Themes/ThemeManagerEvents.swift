@@ -9,5 +9,5 @@
 import UIKit
 
 class ThemeManagerEvents: NSObject {
-    static let appThemeDidChange = "appThemeDidChange"
+    static let appThemeDidChange = Notification.Name("appThemeDidChange")
 }

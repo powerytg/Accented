@@ -14,13 +14,13 @@ class DefaultStreamHeaderNavCell: UICollectionViewCell {
     @IBOutlet weak var streamSelectorView: DefaultStreamSelectorView!
     @IBOutlet weak var headerImageView: UIImageView!
     
-    private let lightThemeImage = UIImage(named: "LightStreamHeader")
-    private let darkThemeImage = UIImage(named: "DarkStreamHeader")
+    fileprivate let lightThemeImage = UIImage(named: "LightStreamHeader")
+    fileprivate let darkThemeImage = UIImage(named: "DarkStreamHeader")
     
     var compressionRatio : CGFloat = 0
     
     var navBarDefaultPosition : CGFloat {
-        return CGRectGetMinY(streamSelectorView.frame) - CGRectGetHeight(UIApplication.sharedApplication().statusBarFrame)
+        return streamSelectorView.frame.minY - UIApplication.shared.statusBarFrame.height
     }
     
     override func awakeFromNib() {
@@ -31,7 +31,7 @@ class DefaultStreamHeaderNavCell: UICollectionViewCell {
         super.layoutSubviews()
         
         switch ThemeManager.sharedInstance.currentTheme.themeType {
-        case .Light:
+        case .light:
             headerImageView.image = lightThemeImage
         default:
             headerImageView.image = darkThemeImage

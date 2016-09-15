@@ -20,30 +20,30 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     var sourceImageView : UIImageView
     
     // Background view
-    private var backgroundView : DetailBackgroundView!
+    fileprivate var backgroundView : DetailBackgroundView!
     
     // Initial selected view controller
-    private var initialSelectedViewController : DetailViewController!
+    fileprivate var initialSelectedViewController : DetailViewController!
     
     // Back button
-    private var backButton = UIButton(type: .Custom)
+    fileprivate var backButton = UIButton(type: .custom)
     
     // Temporary proxy image view when pinching on the main photo view
-    private var pinchProxyImageView : UIImageView?
+    fileprivate var pinchProxyImageView : UIImageView?
     
     // Selected detail view controller
-    private var selectedDetailViewController : DetailViewController? {
+    fileprivate var selectedDetailViewController : DetailViewController? {
         return cacheController.selectedCard as? DetailViewController
     }
     
     // Cache controller
-    private var detailCacheController = DetailCacheController()
+    fileprivate var detailCacheController = DetailCacheController()
     
     init(context : DetailNavigationContext) {
         self.sourceImageView = context.sourceImageView
         self.initialSelectedPhoto = context.initialSelectedPhoto
         self.photoCollection = context.photoCollection
-        let initialSelectedIndex = photoCollection.indexOf(initialSelectedPhoto)!
+        let initialSelectedIndex = photoCollection.index(of: initialSelectedPhoto)!
         
         super.init(initialSelectedIndex: initialSelectedIndex)
     }
@@ -58,16 +58,16 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         // Background view
         self.automaticallyAdjustsScrollViewInsets = false
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
-        self.view.insertSubview(backgroundView, atIndex: 0)
+        self.view.insertSubview(backgroundView, at: 0)
         
         // Back button
         self.view.addSubview(backButton)
-        backButton.setImage(UIImage(named: "DetailBackButton"), forState: .Normal)
-        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
         
         // Setup data source
-        self.cacheInitializationPolicy = .Deferred
+        self.cacheInitializationPolicy = .deferred
         self.dataSource = self
         initialSelectedViewController = cacheController.selectedCard as! DetailViewController
     }
@@ -88,12 +88,12 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     // MARK: - Orientation
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.All
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.all
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
         guard self.presentedViewController == nil else { return }
         guard self.selectedDetailViewController != nil else { return }
@@ -101,7 +101,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         
         let lightboxViewController = DetailLightBoxViewController(selectedPhoto: selectedDetailViewController!.photo!, photoCollection: photoCollection, initialSize: size)
         lightboxViewController.delegate = self
-        self.presentViewController(lightboxViewController, animated: false, completion: nil)
+        self.present(lightboxViewController, animated: false, completion: nil)
     }
 
     // MARK: - DeckViewControllerDataSource
@@ -110,7 +110,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         return photoCollection.count
     }
     
-    func cardForItemIndex(itemIndex: Int) -> CardViewController {
+    func cardForItemIndex(_ itemIndex: Int) -> CardViewController {
         var card = getRecycledCardViewController() as? DetailViewController
         if card == nil {
             card = DetailViewController(sourceImageView: sourceImageView, maxWidth: layoutController.cardWidth, cacheController: detailCacheController)
@@ -147,7 +147,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         cacheController.initializeSelectedCardSiblings()
     }
     
-    func desitinationRectForProxyView(photo: PhotoModel) -> CGRect {
+    func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
         return initialSelectedViewController.desitinationRectForProxyView(photo)
     }
     
@@ -158,11 +158,11 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         if let rightCard = cacheController.rightCard {
             let offset = layoutController.offsetForCardAtIndex(rightCard.indexInDataSource, selectedCardIndex: selectedIndex)
             rightCard.view.alpha = 0
-            rightCard.view.transform = CGAffineTransformMakeTranslation(offset, 100)
+            rightCard.view.transform = CGAffineTransform(translationX: offset, y: 100)
             
-            UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
                 rightCard.view.alpha = 1
-                rightCard.view.transform = CGAffineTransformMakeTranslation(offset, 0)
+                rightCard.view.transform = CGAffineTransform(translationX: offset, y: 0)
             }, completion: nil)
         }
 
@@ -182,58 +182,58 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     func performLightBoxTransition() {
         selectedDetailViewController?.performLightBoxTransition()
         
-        UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1) { [weak self] in
+        UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) { [weak self] in
             self?.view.alpha = 0
         }
     }
     
-    func desitinationRectForSelectedLightBoxPhoto(photo: PhotoModel) -> CGRect {
+    func desitinationRectForSelectedLightBoxPhoto(_ photo: PhotoModel) -> CGRect {
         return selectedDetailViewController!.desitinationRectForSelectedLightBoxPhoto(photo)
     }
 
     // MARK: - DetailViewControllerDelegate
     
-    func detailViewDidScroll(offset: CGPoint, contentSize: CGSize) {
+    func detailViewDidScroll(_ offset: CGPoint, contentSize: CGSize) {
         backgroundView.applyScrollingAnimation(offset, contentSize: contentSize)
     }
     
     // MARK: - DetailPhotoSectionViewDelegate
 
-    func didTapOnPhoto(photo: PhotoModel, sourceImageView: UIImageView) {
+    func didTapOnPhoto(_ photo: PhotoModel, sourceImageView: UIImageView) {
         self.presentLightBoxViewController(photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: false)
     }
     
-    func didStartPinchOnPhoto(photo: PhotoModel, sourceImageView: UIImageView) {
+    func didStartPinchOnPhoto(_ photo: PhotoModel, sourceImageView: UIImageView) {
         // Create a proxy image view for the pinch action
         pinchProxyImageView = UIImageView(image: sourceImageView.image)
         pinchProxyImageView!.contentMode = sourceImageView.contentMode
-        let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: self.view)
-        pinchProxyImageView!.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
+        let proxyImagePosition = sourceImageView.convert(sourceImageView.bounds.origin, to: self.view)
+        pinchProxyImageView!.frame = CGRect(x: proxyImagePosition.x, y: proxyImagePosition.y, width: sourceImageView.bounds.width, height: sourceImageView.bounds.height)
         self.view.addSubview(pinchProxyImageView!)
 
-        UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: { [weak self] in
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
             self?.contentView.alpha = 0
             self?.backgroundView.alpha = 0
             }, completion: nil)
     }
     
-    func didEndPinchOnPhoto(photo: PhotoModel, sourceImageView: UIImageView) {
+    func didEndPinchOnPhoto(_ photo: PhotoModel, sourceImageView: UIImageView) {
         // Use the temporary pinch proxy image view as the source view for lightbox transition
         self.presentLightBoxViewController(photo, sourceImageView: pinchProxyImageView!, useSourceImageViewAsProxy: true)
         pinchProxyImageView?.removeFromSuperview()
     }
     
-    func photoDidReceivePinch(photo: PhotoModel, sourceImageView: UIImageView, gesture: UIPinchGestureRecognizer) {
-        pinchProxyImageView?.transform = CGAffineTransformMakeScale(gesture.scale, gesture.scale)
+    func photoDidReceivePinch(_ photo: PhotoModel, sourceImageView: UIImageView, gesture: UIPinchGestureRecognizer) {
+        pinchProxyImageView?.transform = CGAffineTransform(scaleX: gesture.scale, y: gesture.scale)
     }
     
-    func didCancelPinchOnPhoto(photo: PhotoModel, sourceImageView: UIImageView) {
-        UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseOut, animations: { [weak self] in
-            self?.pinchProxyImageView?.transform = CGAffineTransformIdentity
+    func didCancelPinchOnPhoto(_ photo: PhotoModel, sourceImageView: UIImageView) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+            self?.pinchProxyImageView?.transform = CGAffineTransform.identity
             self?.backgroundView.alpha = 1
             self?.contentView.alpha = 1
             }) { [weak self] (finished) in
-                sourceImageView.hidden = false
+                sourceImageView.isHidden = false
                 self?.pinchProxyImageView?.removeFromSuperview()
                 self?.pinchProxyImageView = nil
         }
@@ -241,7 +241,7 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
 
     // MARK: - DetailLightBoxViewControllerDelegate
     
-    func lightBoxSelectionDidChange(selectedIndex: Int) {
+    func lightBoxSelectionDidChange(_ selectedIndex: Int) {
         // Sync self selection with the light box
         if selectedIndex < self.selectedIndex {
             scrollToRight(false)
@@ -252,18 +252,18 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     
     // MARK: - Events
     
-    @objc private func backButtonDidTap(sender : UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @objc func backButtonDidTap(_ sender : UIButton) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Private
-    private func presentLightBoxViewController(photo: PhotoModel, sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
+    fileprivate func presentLightBoxViewController(_ photo: PhotoModel, sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
         let lightboxViewController = DetailLightBoxViewController(selectedPhoto: photo, photoCollection: photoCollection, initialSize: self.view.bounds.size)
         let transitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
-        lightboxViewController.modalPresentationStyle = .Custom
+        lightboxViewController.modalPresentationStyle = .custom
         lightboxViewController.transitioningDelegate = transitioningDelegate
         lightboxViewController.delegate = self
         
-        self.presentViewController(lightboxViewController, animated: true, completion: nil)
+        self.present(lightboxViewController, animated: true, completion: nil)
     }
 }

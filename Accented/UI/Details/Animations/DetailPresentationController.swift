@@ -10,10 +10,10 @@ import UIKit
 
 class DetailPresentationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    private var photo : PhotoModel
-    private var fromView : UIView
-    private var toView : UIView
-    private var sourceImageView : UIImageView
+    fileprivate var photo : PhotoModel
+    fileprivate var fromView : UIView
+    fileprivate var toView : UIView
+    fileprivate var sourceImageView : UIImageView
     weak var galleryVC : DetailGalleryViewController?
     
     init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailGalleryViewController) {
@@ -27,13 +27,13 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     
     // MARK: UIViewControllerAnimatedTransitioning
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()
-        let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let containerView = transitionContext.containerView
+        let fromViewController = transitionContext.viewController(forKey: .from)
         let galleryViewController = self.galleryVC!
         
         // Prepare entrance animation
@@ -44,14 +44,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
         let targetPhotoViewRect = galleryViewController.desitinationRectForProxyView(photo)
         let proxyImageView = UIImageView(image: sourceImageView.image)
         proxyImageView.contentMode = sourceImageView.contentMode
-        let proxyImagePosition = sourceImageView.convertPoint(sourceImageView.bounds.origin, toView: toView)
-        proxyImageView.frame = CGRectMake(proxyImagePosition.x, proxyImagePosition.y, CGRectGetWidth(sourceImageView.bounds), CGRectGetHeight(sourceImageView.bounds))
+        let proxyImagePosition = sourceImageView.convert(sourceImageView.bounds.origin, to: toView)
+        proxyImageView.frame = CGRect(x: proxyImagePosition.x, y: proxyImagePosition.y, width: sourceImageView.bounds.width, height: sourceImageView.bounds.height)
         containerView.addSubview(proxyImageView)
 
-        UIView.animateKeyframesWithDuration(0.4, delay: 0, options: [.CalculationModeCubic], animations: { [weak self] in
+        UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: [.calculationModeCubic], animations: { [weak self] in
             
-            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.5, animations: {
-                fromViewController?.view.transform = CGAffineTransformMakeScale(0.7, 0.7)
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
+                fromViewController?.view.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                 proxyImageView.frame = targetPhotoViewRect
                 self?.fromView.alpha = 0
             })
@@ -60,13 +60,13 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
             self?.galleryVC?.performEntranceAnimation()
             
             }) { (finished) in
-                let transitionCompleted = !transitionContext.transitionWasCancelled()
+                let transitionCompleted = !transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(transitionCompleted)
                 galleryViewController.entranceAnimationDidFinish()
                 
                 // Restore origin view controller
                 fromViewController?.view.alpha = 1
-                fromViewController?.view.transform = CGAffineTransformIdentity
+                fromViewController?.view.transform = CGAffineTransform.identity
                 
                 // Remove proxy image
                 proxyImageView.removeFromSuperview()

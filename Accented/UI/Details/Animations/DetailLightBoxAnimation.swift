@@ -12,6 +12,6 @@ protocol DetailLightBoxAnimation : NSObjectProtocol {
     func lightBoxTransitionWillBegin()
     func performLightBoxTransition()
     func lightboxTransitionDidFinish()
-    func desitinationRectForSelectedLightBoxPhoto(photo : PhotoModel) -> CGRect
+    func desitinationRectForSelectedLightBoxPhoto(_ photo : PhotoModel) -> CGRect
 }
 

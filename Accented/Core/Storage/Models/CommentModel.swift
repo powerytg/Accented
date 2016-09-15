@@ -10,13 +10,13 @@ import UIKit
 import SwiftyJSON
 
 class CommentModel: NSObject {
-    private var dateFormatter = NSDateFormatter()
+    fileprivate var dateFormatter = DateFormatter()
     
     var commentId : String
     var userId : String
     var commentedOnUserId : String
     var body : String
-    var creationDate : NSDate?
+    var creationDate : Date?
     var user : UserModel
     var replies : [ReplyModel]
     
@@ -29,17 +29,19 @@ class CommentModel: NSObject {
         // Dates
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         let createdAt = json["created_at"].string!
-        creationDate = dateFormatter.dateFromString(createdAt)
+        creationDate = dateFormatter.date(from: createdAt)
         
         // User
         user = UserModel(json: json["user"])
         
         // Replies
         replies = []
-        // Image urls
-        for (_, replyJSON):(String, JSON) in json["replies"] {
-            let reply = ReplyModel(json: replyJSON)
-            replies.append(reply)
+        
+        if(json["replies"] != nil) {
+            for (_, replyJSON):(String, JSON) in json["replies"] {
+                let reply = ReplyModel(json: replyJSON)
+                replies.append(reply)
+            }            
         }
 
     }

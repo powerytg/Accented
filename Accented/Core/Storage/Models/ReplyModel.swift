@@ -10,13 +10,13 @@ import UIKit
 import SwiftyJSON
 
 class ReplyModel: NSObject {
-    private var dateFormatter = NSDateFormatter()
+    fileprivate var dateFormatter = DateFormatter()
     
     var replyId : String
     var parentId : String
     var userId : String
     var body : String
-    var creationDate : NSDate?
+    var creationDate : Date?
     var user : UserModel
     
     init(json:JSON) {
@@ -28,7 +28,7 @@ class ReplyModel: NSObject {
         // Dates
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         let createdAt = json["created_at"].string!
-        creationDate = dateFormatter.dateFromString(createdAt)
+        creationDate = dateFormatter.date(from: createdAt)
         
         // User
         user = UserModel(json: json["user"])
