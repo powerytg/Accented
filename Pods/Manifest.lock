@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.0.0)
+  - AwesomeCache (3.0.1)
   - OAuthSwift (0.5.2)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
@@ -9,12 +10,16 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - AwesomeCache (from `https://github.com/notohiro/AwesomeCache.git`, branch `Swift3.0`)
   - OAuthSwift (from `https://github.com/skedgo/OAuthSwift.git`, branch `swift3.0`)
   - SDWebImage (~> 3.8)
   - SwiftyJSON (from `https://github.com/acegreen/SwiftyJSON.git`, branch `swift3`)
   - TTTAttributedLabel
 
 EXTERNAL SOURCES:
+  AwesomeCache:
+    :branch: Swift3.0
+    :git: https://github.com/notohiro/AwesomeCache.git
   OAuthSwift:
     :branch: swift3.0
     :git: https://github.com/skedgo/OAuthSwift.git
@@ -23,6 +28,9 @@ EXTERNAL SOURCES:
     :git: https://github.com/acegreen/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
+  AwesomeCache:
+    :commit: cfdd93e0d5d44de03404f85366f6dfb336c04024
+    :git: https://github.com/notohiro/AwesomeCache.git
   OAuthSwift:
     :commit: 63bdf693004537f23436c8330cd9410e5ad88a54
     :git: https://github.com/skedgo/OAuthSwift.git
@@ -32,11 +40,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  AwesomeCache: a1561c926b6cf812c5f3f4262ea22e20bf8323c1
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 303e0c976b74334a2b51a951eddd8f394cebc8e0
+PODFILE CHECKSUM: 42904d1943b70d011492528ba069e66f2a0c7b9a
 
 COCOAPODS: 1.1.0.rc.2

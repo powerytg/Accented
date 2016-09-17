@@ -8,6 +8,7 @@
 
 import UIKit
 import OAuthSwift
+import AwesomeCache
 
 // Stream definitions
 enum StreamType : String {
@@ -44,6 +45,11 @@ class APIService: NSObject {
                                   consumerSecret: authenticationService.consumerSecret,
                                   accessToken: authenticationService.accessToken!,
                                   accessTokenSecret: authenticationService.accessTokenSecret!)
+        
+        super.init()
+        
+        // Initialize cache
+        initializeCache()
     }
     
     // OAuth client for making API calls
@@ -54,5 +60,19 @@ class APIService: NSObject {
     
     // This dictionary keeps track of last refresh date
     internal var commentsLastRefreshedDateLookup = [String : Date]()
+ 
+    // HTTP cache
+    internal var cache : Cache<NSString>?
+ 
+    // On-going API requests
+    internal var pendingRequestQueue = [String]()
+    
+    private func initializeCache() {
+        do {
+            cache = try Cache<NSString>(name: "accented.cache")
+        } catch let error {
+            debugPrint("APIService: Cache initialization failed! Error: \(error)")
+        }
+    }
     
 }

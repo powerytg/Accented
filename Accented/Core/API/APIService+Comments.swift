@@ -12,6 +12,13 @@ extension APIService {
 
     // Get comments for a photo
     func getComments(_ photoId : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
+        // Check for request duplications
+        let identifier = "photos/\(photoId)/comments/\(page)"
+        if pendingRequestQueue.contains(identifier) {
+            return
+        }
+        
+        pendingRequestQueue.append(identifier)
         let url = "\(baseUrl)photos/\(photoId)/comments"
         var params = parameters
         params["page"] = String(page)
@@ -24,6 +31,8 @@ extension APIService {
             let userInfo : [String : Any] = ["photoId" : photoId, "page" : page, "response" : data]
             NotificationCenter.default.post(name: Notification.Name("commentsDidReturn"), object: nil, userInfo: userInfo)
 
+            // Remove from pending queue
+            
             if let successAction = success {
                 successAction()
             }

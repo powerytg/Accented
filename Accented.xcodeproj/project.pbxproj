@@ -122,6 +122,9 @@
 		9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */; };
 		9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */; };
 		9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */; };
+		9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832F761D8C83400069FC77 /* StorageService+Cache.swift */; };
+		9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDD1D8C97E20069FC77 /* APIRequest.swift */; };
+		9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDF1D8C98E80069FC77 /* APIEvents.swift */; };
 		9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1111D54FA8D00382744 /* DeckViewController.swift */; };
 		9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1131D54FBAC00382744 /* CardViewController.swift */; };
 		9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B11B1D55017100382744 /* DeckCacheController.swift */; };
@@ -133,6 +136,7 @@
 		9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */; };
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
+		9BC19E801D8CA85D0083734F /* APIService+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC19E7F1D8CA85D0083734F /* APIService+Queue.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
 		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
 		9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */; };
@@ -298,6 +302,9 @@
 		9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalHeaderTitleCell.swift; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.swift; sourceTree = SOURCE_ROOT; };
 		9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JournalHeaderTitleCell.xib; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.xib; sourceTree = SOURCE_ROOT; };
 		9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewModel.swift; path = Accented/UI/Home/Themes/Default/Components/JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		9B832F761D8C83400069FC77 /* StorageService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Cache.swift"; sourceTree = "<group>"; };
+		9B832FDD1D8C97E20069FC77 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		9B832FDF1D8C98E80069FC77 /* APIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEvents.swift; sourceTree = "<group>"; };
 		9B89B1111D54FA8D00382744 /* DeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckViewController.swift; sourceTree = "<group>"; };
 		9B89B1131D54FBAC00382744 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		9B89B11B1D55017100382744 /* DeckCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckCacheController.swift; sourceTree = "<group>"; };
@@ -309,6 +316,7 @@
 		9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerDismissGestureController.swift; sourceTree = "<group>"; };
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		9BC19E7F1D8CA85D0083734F /* APIService+Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Queue.swift"; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
 		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
 		9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionContentView.swift; sourceTree = "<group>"; };
@@ -713,6 +721,7 @@
 		9B6115C81CCA89A8008F5257 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9B832FD71D8C96CF0069FC77 /* Requests */,
 				9B6115CE1CCA95D3008F5257 /* APIService.swift */,
 				9B6115DC1CCAB8F4008F5257 /* APIService+Streams.swift */,
 				9B6115D21CCA978E008F5257 /* AuthenticationService.swift */,
@@ -730,6 +739,7 @@
 				9B6115E21CCAC8CE008F5257 /* StorageServiceEvents.swift */,
 				9B6115E71CCAD1D2008F5257 /* StorageService+Streams.swift */,
 				9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */,
+				9B832F761D8C83400069FC77 /* StorageService+Cache.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -782,6 +792,16 @@
 				186AF5661D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		9B832FD71D8C96CF0069FC77 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				9B832FDD1D8C97E20069FC77 /* APIRequest.swift */,
+				9B832FDF1D8C98E80069FC77 /* APIEvents.swift */,
+				9BC19E7F1D8CA85D0083734F /* APIService+Queue.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		9B89B10F1D54FA7E00382744 /* Deck */ = {
@@ -979,6 +999,7 @@
 				189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */,
 				9B6115DD1CCAB8F4008F5257 /* APIService+Streams.swift in Sources */,
 				9B3813AF1CE00DFD0066D3B9 /* HomeViewController.swift in Sources */,
+				9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */,
 				1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */,
 				9B3813EA1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.swift in Sources */,
 				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
@@ -1009,6 +1030,7 @@
 				184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */,
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
 				1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */,
+				9BC19E801D8CA85D0083734F /* APIService+Queue.swift in Sources */,
 				9B3813E61CE012180066D3B9 /* DefaultStreamButtonsCell.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
 				9B3813D21CE010770066D3B9 /* StreamLayoutTemplate.swift in Sources */,
@@ -1044,11 +1066,13 @@
 				1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */,
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
+				9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */,
 				1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
 				9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */,
 				9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */,
 				9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */,
+				9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */,
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,
 				1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */,
 				18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */,

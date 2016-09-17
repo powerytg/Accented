@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AwesomeCache
 
 extension APIService {
     

@@ -8,4 +8,5 @@ target 'Accented' do
 	pod 'SwiftyJSON', :git => 'https://github.com/acegreen/SwiftyJSON.git', :branch => 'swift3'
 	pod 'TTTAttributedLabel'
 	pod 'SDWebImage', '~>3.8'
+	pod 'AwesomeCache', :git => 'https://github.com/notohiro/AwesomeCache.git', :branch => 'Swift3.0'
 end
