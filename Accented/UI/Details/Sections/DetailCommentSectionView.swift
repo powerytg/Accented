@@ -98,7 +98,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         
         // Refresh the photo comments in background
         guard photo != nil else { return }
-        APIService.sharedInstance.refreshCommentsIfNecessary(photo!.photoId)
+        APIService.sharedInstance.getComments(photo!.photoId)
         
         setNeedsLayout()
     }

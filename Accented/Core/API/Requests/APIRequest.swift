@@ -8,20 +8,48 @@
 
 import UIKit
 
+// API success action
+typealias SuccessAction = (() -> Void)
+
+// API failure action
+typealias FailureAction = ((String) -> Void)
+
 class APIRequest: NSObject {
     
-    // Photo id
-    static let photoId = "photoId"
+    // API base url
+    static let baseUrl = "https://api.500px.com/v1/"
     
-    // Page
-    static let page = "page"
+    // Supported image sizes
+    static let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
     
-    // API response
-    static let response = "response"
+    // Success action
+    var successAction : SuccessAction?
     
-    // Stream feature (e.g. popular, fresh)
-    static let feature = "feature"
+    // Failure action
+    var failureAction : FailureAction?
     
-    // Image size
-    static let imageSize = "image_size"    
+    // Url
+    var url : String!
+    
+    // Params
+    var parameters = [String : String]()
+    
+    // Cache key
+    var cacheKey : String?
+    
+    init(success : SuccessAction?, failure : FailureAction?) {
+        super.init()
+        self.successAction = success
+        self.failureAction = failure
+    }
+    
+    func handleSuccess(data : Data, response : HTTPURLResponse?) {
+        
+    }
+    
+    func handleFailure(_ error : Error) {
+        debugPrint(error)
+    }
+
 }
+

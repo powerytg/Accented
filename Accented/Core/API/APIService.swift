@@ -31,12 +31,6 @@ enum ImageSize : String {
 
 class APIService: NSObject {
     
-    // API base url
-    internal let baseUrl = "https://api.500px.com/v1/"
-    
-    // Supported image sizes
-    internal let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
-    
     // Singleton instance
     static let sharedInstance = APIService()
     fileprivate override init() {
@@ -55,24 +49,14 @@ class APIService: NSObject {
     // OAuth client for making API calls
     var client : OAuthSwiftClient
     
-    // Comments expiration time (10 min)
-    internal var commentsCacheAge : TimeInterval = 10 * 60
-    
-    // This dictionary keeps track of last refresh date
-    internal var commentsLastRefreshedDateLookup = [String : Date]()
- 
     // HTTP cache
-    internal var cache : Cache<NSString>?
+    internal var cacheController : Cache<NSData>?
  
+    // Cache expiration
+    // Default: 5 minutes
+    internal var cacheExpiration = CacheExpiry.seconds(1000 * 10)
+    
     // On-going API requests
     internal var pendingRequestQueue = [String]()
-    
-    private func initializeCache() {
-        do {
-            cache = try Cache<NSString>(name: "accented.cache")
-        } catch let error {
-            debugPrint("APIService: Cache initialization failed! Error: \(error)")
-        }
-    }
     
 }
