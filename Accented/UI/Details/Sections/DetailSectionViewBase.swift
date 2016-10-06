@@ -86,28 +86,37 @@ class DetailSectionViewBase: UIView, DetailEntranceAnimation, CardAnimation {
         // Create content view and add it as child
         createContentView()
         addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.clipsToBounds = false
         
         // Create a title view if specified
         if title != nil {
             addSubview(sectionTitleLabel)
-            sectionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
             sectionTitleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
             sectionTitleLabel.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 14)
             sectionTitleLabel.text = title
-            
-            sectionTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleLabelTopMargin).isActive = true
-            sectionTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: sectionTitleLabelLeftMargin).isActive = true
-            
-            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleHeight).isActive = true
-        } else {
-            contentView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            contentView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+            sectionTitleLabel.sizeToFit()
         }
-        
-        contentView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        contentView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if(title != nil) {
+            // Title section
+            var f = sectionTitleLabel.frame
+            f.origin.x = sectionTitleLabelLeftMargin
+            f.origin.y = sectionTitleLabelTopMargin
+            sectionTitleLabel.frame = f
+            
+            // Content view
+            f = contentView.frame
+            f.size.width = self.bounds.size.width
+            f.origin.y = sectionTitleHeight
+            f.size.height = self.bounds.size.height - sectionTitleHeight
+            contentView.frame = f
+        } else {
+            contentView.frame = self.bounds
+        }
     }
     
     func photoModelDidChange() {

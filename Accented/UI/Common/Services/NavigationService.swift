@@ -40,4 +40,10 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         }
     }
     
+    func navigateToCommentsPage(_ photo : PhotoModel) {
+        let vc = DetailCommentsViewController()
+        vc.photo = photo
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

@@ -45,11 +45,17 @@ class DetailCommentSectionView: DetailSectionViewBase {
     // Comment renderer indention
     private var indention : CGFloat = 12
     
+    // Load-more button top margin
+    fileprivate var loadMoreMarginTop : CGFloat = 10
+    
     // Maximum number of comments pre-created
     fileprivate let maxNumberOfCommentsOnScreen = 4
     
     // Comment renderers
     fileprivate var commentRenderers = [CommentRenderer]()
+    
+    // Load more button
+    fileprivate let loadMoreButton = UIButton(type: UIButtonType.custom)
     
     override func initialize() {
         super.initialize()
@@ -77,6 +83,12 @@ class DetailCommentSectionView: DetailSectionViewBase {
             renderer.isHidden = true
         }
         
+        // Create a load-more button
+        loadMoreButton.setTitle("See more comments", for: .normal)
+        loadMoreButton.sizeToFit()
+        loadMoreButton.isHidden = true
+        contentView.addSubview(loadMoreButton)
+        
         // Constraints
         statusLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: contentLeftMargin).isActive = true
         statusLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: contentTopMargin).isActive = true
@@ -85,6 +97,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         loadingSpinner.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor).isActive = true
         
         // Events
+        loadMoreButton.addTarget(self, action: #selector(navigateToCommentsPage(_:)), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
     }
     
@@ -103,6 +116,10 @@ class DetailCommentSectionView: DetailSectionViewBase {
         setNeedsLayout()
     }
     
+    @objc fileprivate func navigateToCommentsPage(_ sender : NSObject) {
+        NavigationService.sharedInstance.navigateToCommentsPage(photo!)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         guard photo != nil else { return }
@@ -112,16 +129,19 @@ class DetailCommentSectionView: DetailSectionViewBase {
             statusLabel.text = noCommentsText
             statusLabel.isHidden = false
             loadingSpinner.isHidden = true
+            loadMoreButton.isHidden = true
         } else if photo!.comments.count == 0{
             // Photo has comments, but have yet loaded
             statusLabel.text = loadingText
             statusLabel.isHidden = false
             loadingSpinner.isHidden = false
+            loadMoreButton.isHidden = true
             loadingSpinner.startAnimating()
         } else {
             // Showing the top comments
             statusLabel.isHidden = true
             loadingSpinner.isHidden = true
+            loadMoreButton.isHidden = false
             
             var nextY : CGFloat = 0
             for (index, renderer) in commentRenderers.enumerated() {
@@ -138,6 +158,11 @@ class DetailCommentSectionView: DetailSectionViewBase {
                     renderer.isHidden = true
                 }
             }
+            
+            var f = loadMoreButton.frame
+            f.origin.x = contentLeftMargin
+            f.origin.y = nextY + loadMoreMarginTop
+            loadMoreButton.frame = f
         }
     }
     
@@ -157,6 +182,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
             }
             
             calculatedHeight += vPadding * CGFloat(displayCommentsCount - 1)
+            calculatedHeight += loadMoreButton.frame.size.height + loadMoreMarginTop
             return calculatedHeight + sectionTitleHeight
         }
     }
