@@ -29,13 +29,13 @@ class StorageService: NSObject {
     }
     
     // Stream cache
-    let streamCache = NSCache<NSString, StreamModel>()
+    var streamCache = [String : StreamModel]()
     
     // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
     
     // Photo cache
-    let photoCache = NSCache<NSString, PhotoModel>()
+    var photoCache = [String : PhotoModel]()
     
     // Initialize event listeners to monitor APIService results
     fileprivate func initializeEventListeners() {

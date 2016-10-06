@@ -39,7 +39,7 @@ extension StorageService {
     
     fileprivate func mergeCommentsToPhoto(_ photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
         DispatchQueue.main.async { [weak self] in
-            let photo = self?.photoCache.object(forKey: NSString(string : photoId))
+            let photo = self?.photoCache[photoId]
             guard photo != nil else { return }
             photo!.commentsCount = commentsCount
             
@@ -48,6 +48,9 @@ extension StorageService {
             }
             
             photo!.comments += comments
+            
+            // Merge back the photo object to cache
+            self?.photoCache[photoId] = photo
             
             let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId as AnyObject, StorageServiceEvents.page : page as AnyObject]
             NotificationCenter.default.post(name: StorageServiceEvents.photoCommentsDidUpdate, object: nil, userInfo: userInfo)
