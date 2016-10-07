@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-struct ReplyModel {
+class ReplyModel: NSObject {
     fileprivate var dateFormatter = DateFormatter()
     
     var replyId : String

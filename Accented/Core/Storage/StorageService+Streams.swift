@@ -13,17 +13,17 @@ extension StorageService {
 
     // Retrieve a stream
     func getStream(_ streamType : StreamType) -> StreamModel {
-        if let stream = streamCache[streamType.rawValue] {
+        if let stream = streamCache.object(forKey: NSString(string: streamType.rawValue)) {
             return stream
         } else {
             let stream = StreamModel(streamType: streamType)
-            streamCache[streamType.rawValue] = stream
+            streamCache.setObject(stream, forKey: NSString(string: streamType.rawValue))
             return stream
         }
     }
     
     internal func streamPhotosDidReturn(_ notification : Notification) -> Void {
-        let jsonData: Data = (notification as NSNotification).userInfo!["response"] as! Data
+        let jsonData : Data = (notification as NSNotification).userInfo!["response"] as! Data
         let streamType = StreamType(rawValue: (notification as NSNotification).userInfo!["streamType"] as! String)
         if streamType == nil {
             debugPrint("Unrecognized stream type \(streamType)")
@@ -65,11 +65,8 @@ extension StorageService {
             
             // Put the photos into cache
             for photo in photos {
-                self?.photoCache[photo.photoId] = photo
+                self?.photoCache.setObject(photo, forKey: NSString(string: photo.photoId))
             }
-            
-            // Merge back the stream to cache
-            self?.streamCache[streamType.rawValue] = stream
             
             let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : stream!.streamType.rawValue as AnyObject, StorageServiceEvents.page : page as AnyObject]
             NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)

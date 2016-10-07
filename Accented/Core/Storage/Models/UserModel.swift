@@ -9,7 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-// Standard user avatars
 enum UserAvatar : String {
     case Large = "large"
     case Default = "default"
@@ -17,8 +16,7 @@ enum UserAvatar : String {
     case Tiny = "tiny"
 }
 
-// User model definitions
-struct UserModel {
+class UserModel: NSObject {
     var userId : String!
     var followersCount : Int = 0
     var coverUrl : String?
@@ -34,6 +32,8 @@ struct UserModel {
     var avatarUrls = [UserAvatar : String]()
     
     init(json : JSON) {
+        super.init()
+        
         self.userId = String(json["id"].int!)
         if let followCount = json["followers_count"].int {
             followersCount = followCount
