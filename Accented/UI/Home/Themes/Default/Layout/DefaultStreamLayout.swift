@@ -53,6 +53,11 @@ class DefaultStreamLayout: StreamLayoutBase {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let contentOffset = collectionView!.contentOffset.y
         let refreshHeaderHeight = currentRefreshHeaderHeight(contentOffset)
+        var pullToRefreshRatio : CGFloat = 0
+        if refreshHeaderHeight != 0 {
+            pullToRefreshRatio = min(refreshHeaderHeight / refreshHeaderMaxHeight, 1.0)
+        }
+        
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in layoutCache.values {
@@ -99,6 +104,13 @@ class DefaultStreamLayout: StreamLayoutBase {
             attrs.frame = f
         }
         
+        // Calculate header compression ratio. Compression starts when the nav bar becomes sticky, and becomes fully compressed
+        let compressionStarts : CGFloat = 66
+        let compressionCompletes : CGFloat = 106
+        headerCompressionRatio = max(0, contentOffset - compressionStarts) / (compressionCompletes - compressionStarts)
+        headerCompressionRatio = min(1.0, headerCompressionRatio)
+        delegate?.streamHeaderCompressionRatioDidChange(StreamCompressionState(compressionRatio: headerCompressionRatio, pullToRefreshRatio: pullToRefreshRatio))
+
         return layoutAttributes
     }
     
@@ -115,14 +127,6 @@ class DefaultStreamLayout: StreamLayoutBase {
         }
         
         navHeaderAttributes!.frame = navFrame
-        
-        // Calculate header compression ratio. Compression starts when the nav bar becomes sticky, and becomes fully compressed
-        let compressionStarts : CGFloat = 66
-        let compressionCompletes : CGFloat = 106
-        headerCompressionRatio = max(0, contentOffset - compressionStarts) / (compressionCompletes - compressionStarts)
-        headerCompressionRatio = min(1.0, headerCompressionRatio)
-        
-        delegate?.streamHeaderCompressionRatioDidChange(headerCompressionRatio)
     }
     
     fileprivate func layoutSelectorCell(_ contentOffset : CGFloat) {

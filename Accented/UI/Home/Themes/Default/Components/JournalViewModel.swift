@@ -123,7 +123,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     
     // MARK: - StreamLayoutDelegate
     
-    func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio: CGFloat) {
+    func streamHeaderCompressionRatioDidChange(_ compressionState : StreamCompressionState) {
         // Ignore
     }
 
