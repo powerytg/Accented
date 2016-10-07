@@ -17,6 +17,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     fileprivate let headerButtonsReuseIdentifier = "headerButtons"
 
     fileprivate let cardRendererReuseIdentifier = "renderer"
+    fileprivate let pullToRefreshHeaderReuseIdentifier = "pullToRefresh"
     fileprivate let initialLoadingRendererReuseIdentifier = "initialLoading"
     fileprivate let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
     fileprivate let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
@@ -49,6 +50,10 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         // Header buttons cell
         let headerButtonsCellNib = UINib(nibName: "DefaultStreamButtonsCell", bundle: nil)
         collectionView.register(headerButtonsCellNib, forCellWithReuseIdentifier: headerButtonsReuseIdentifier)
+        
+        // Pull to refresh header cell
+        let pullToRefreshCellNib = UINib(nibName: "DefaultStreamRefreshCell", bundle: nil)
+        collectionView.register(pullToRefreshCellNib, forCellWithReuseIdentifier: pullToRefreshHeaderReuseIdentifier)
         
         // Section header
         let sectionHeaderCellNib = UINib(nibName: "DefaultStreamSectionHeaderCell", bundle: nil)
@@ -93,6 +98,9 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
                 buttonsCell.stream = stream
                 buttonsCell.setNeedsLayout()
                 return buttonsCell
+            } else if(indexPath as NSIndexPath).item == 2 {
+                let pullToRefreshCell = collectionView.dequeueReusableCell(withReuseIdentifier: pullToRefreshHeaderReuseIdentifier, for: indexPath) as! DefaultStreamRefreshCell
+                return pullToRefreshCell
             } else {
                 fatalError("There is no header cells beyond index 1")
             }
@@ -165,7 +173,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == headerSection {
-            return 2
+            return 3
         } else {
             if !stream.loaded {
                 return 1

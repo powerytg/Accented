@@ -14,13 +14,17 @@ class DefaultStreamLayout: StreamLayoutBase {
     // Total height of the header
     fileprivate var headerHeight : CGFloat = 0
     fileprivate var navBarHeight : CGFloat = 156
+    fileprivate let refreshHeaderMaxHeight : CGFloat = 50
     fileprivate let contentStartSection = 1
     
     var navBarDefaultPosition : CGFloat = 0
     var navBarStickyPosition : CGFloat = 0
+    var streamSelectorDefaultPosition : CGFloat = 0
+    var refreshHeaderDefaultPosition : CGFloat = 0
     
     fileprivate var navHeaderAttributes : UICollectionViewLayoutAttributes?
     fileprivate var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
+    fileprivate var refreshHeaderAttributes : UICollectionViewLayoutAttributes?
     
     override init() {
         super.init()
@@ -47,41 +51,109 @@ class DefaultStreamLayout: StreamLayoutBase {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        let contentOffset = collectionView!.contentOffset.y
+        let refreshHeaderHeight = currentRefreshHeaderHeight(contentOffset)
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
-        for attributes in layoutCache {
+        for attributes in layoutCache.values {
             if attributes.frame.intersects(rect) {
-                layoutAttributes.append(attributes)
+                layoutAttributes.append(attributes.copy() as! UICollectionViewLayoutAttributes)
             }
         }
 
         // Make the nav bar sticky
         if let navAttributes = self.navHeaderAttributes {
-            let contentOffset = collectionView!.contentOffset.y
             if !layoutAttributes.contains(navAttributes) {
                 layoutAttributes.append(navAttributes)
             }
             
-            var navFrame = navAttributes.frame
-
-            if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
-                navFrame.origin.y = navBarStickyPosition + contentOffset
-            } else {
-                navFrame.origin.y = navBarDefaultPosition
+            layoutHeaderCell(contentOffset)
+        }
+        
+        
+        // Make the stream selector bar sticky, but only for pulling down events
+        if let selectorAttributes = self.buttonsHeaderAttributes {
+            if !layoutAttributes.contains(selectorAttributes) {
+                layoutAttributes.append(selectorAttributes)
             }
 
-            navAttributes.frame = navFrame
+            layoutSelectorCell(contentOffset)
+        }
+        
+        // Pull to refresh header
+        if let refreshAttributes = self.refreshHeaderAttributes {
+            if !layoutAttributes.contains(refreshAttributes) {
+                layoutAttributes.append(refreshAttributes)
+            }
             
-            // Calculate header compression ratio. Compression starts when the nav bar becomes sticky, and becomes fully compressed
-            let compressionStarts : CGFloat = 66
-            let compressionCompletes : CGFloat = 106
-            headerCompressionRatio = max(0, contentOffset - compressionStarts) / (compressionCompletes - compressionStarts)
-            headerCompressionRatio = min(1.0, headerCompressionRatio)
+            layoutRefreshCell(contentOffset, currentRefreshHeaderHeight: refreshHeaderHeight)
+        }
+        
+        for attrs in layoutAttributes {
+            if attrs.indexPath.section < contentStartSection {
+                continue
+            }
             
-            delegate?.streamHeaderCompressionRatioDidChange(headerCompressionRatio)
+            var f = attrs.frame
+            f.origin.y += refreshHeaderHeight
+            attrs.frame = f
         }
         
         return layoutAttributes
+    }
+    
+    fileprivate func layoutHeaderCell(_ contentOffset : CGFloat) {
+        var navFrame = navHeaderAttributes!.frame
+        
+        if contentOffset < 0 {
+            // Pin the header to top if the offset if negative
+            navFrame.origin.y = navBarDefaultPosition + contentOffset
+        } else if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
+            navFrame.origin.y = navBarStickyPosition + contentOffset
+        } else {
+            navFrame.origin.y = navBarDefaultPosition
+        }
+        
+        navHeaderAttributes!.frame = navFrame
+        
+        // Calculate header compression ratio. Compression starts when the nav bar becomes sticky, and becomes fully compressed
+        let compressionStarts : CGFloat = 66
+        let compressionCompletes : CGFloat = 106
+        headerCompressionRatio = max(0, contentOffset - compressionStarts) / (compressionCompletes - compressionStarts)
+        headerCompressionRatio = min(1.0, headerCompressionRatio)
+        
+        delegate?.streamHeaderCompressionRatioDidChange(headerCompressionRatio)
+    }
+    
+    fileprivate func layoutSelectorCell(_ contentOffset : CGFloat) {
+        var selectorFrame = buttonsHeaderAttributes!.frame
+        if contentOffset < 0 {
+            selectorFrame.origin.y = streamSelectorDefaultPosition + contentOffset
+            buttonsHeaderAttributes!.frame = selectorFrame
+        } else {
+            selectorFrame.origin.y = streamSelectorDefaultPosition
+            buttonsHeaderAttributes!.frame = selectorFrame
+        }
+    }
+    
+    fileprivate func currentRefreshHeaderHeight(_ contentOffset : CGFloat) -> CGFloat {
+        if contentOffset >= 0 {
+            return 0
+        } else {
+            return min(refreshHeaderMaxHeight, abs(contentOffset))
+        }
+    }
+    
+    fileprivate func layoutRefreshCell(_ contentOffset : CGFloat, currentRefreshHeaderHeight : CGFloat) {
+        var refreshFrame = refreshHeaderAttributes!.frame
+        if contentOffset >= 0 {
+            refreshFrame.origin.y = refreshHeaderDefaultPosition
+        } else {
+            refreshFrame.origin.y = refreshHeaderDefaultPosition + contentOffset
+        }
+
+        refreshFrame.size.height = currentRefreshHeaderHeight
+        refreshHeaderAttributes!.frame = refreshFrame
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -93,21 +165,34 @@ class DefaultStreamLayout: StreamLayoutBase {
             fullWidth = UIScreen.main.bounds.width
         }
         
+        // Header
+        var indexPath = IndexPath(item : 0, section : 0)
         var nextY : CGFloat = 0
         let navCellSize = CGSize(width: fullWidth, height: navBarHeight)
         navBarDefaultPosition = nextY
-        self.navHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
+        self.navHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         self.navHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: navCellSize.width, height: navCellSize.height)
         self.navHeaderAttributes?.zIndex = 1024
+        layoutCache["navHeader"] = navHeaderAttributes
         nextY += navCellSize.height
 
+        // Selector
+        indexPath = IndexPath(item : 1, section : 0)
+        streamSelectorDefaultPosition = nextY
         let buttonsCellSize = CGSize(width: fullWidth, height: 110)
-        self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 1, section: 0))
+        self.buttonsHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         self.buttonsHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: buttonsCellSize.width, height: buttonsCellSize.height)
+        layoutCache["navSelector"] = buttonsHeaderAttributes
         nextY += buttonsCellSize.height
         
+        // Refresh header
+        indexPath = IndexPath(item : 2, section : 0)
+        refreshHeaderDefaultPosition = nextY
+        self.refreshHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        self.refreshHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: buttonsCellSize.width, height: 0)
+        layoutCache["refreshHeader"] = refreshHeaderAttributes
+        
         headerHeight = nextY
-        layoutCache += [self.navHeaderAttributes!, self.buttonsHeaderAttributes!]
         contentHeight = headerHeight
     }
     
@@ -121,13 +206,14 @@ class DefaultStreamLayout: StreamLayoutBase {
             generateLayoutAttributesForStreamHeader()
         }
         
+        let indexPath = IndexPath(item : 0, section : contentStartSection)
         let nextY = contentHeight
         let loadingCellSize = CGSize(width: availableWidth, height: 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: contentStartSection))
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: loadingCellSize.height)
         
         contentHeight += loadingCellSize.height
-        layoutCache.append(loadingCellAttributes)
+        layoutCache["loadingCell"] = loadingCellAttributes
     }
     
     override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
@@ -141,28 +227,34 @@ class DefaultStreamLayout: StreamLayoutBase {
         for template in templates {
             let headerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForHeaderInSection: currentSectionIndex)
             let footerSize = layoutDelegate!.collectionView!(collectionView!, layout: self, referenceSizeForFooterInSection: currentSectionIndex)
+            var cacheKey = ""
             
             // Header layout
-            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: IndexPath(item: 0, section: currentSectionIndex))
+            var indexPath = IndexPath(item: 0, section: currentSectionIndex)
+            let headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, with: indexPath)
             headerAttributes.frame = CGRect(x: 0, y: nextY, width: headerSize.width, height: headerSize.height)
-            layoutCache.append(headerAttributes)
+            cacheKey = "section_header_\(currentSectionIndex)"
+            layoutCache[cacheKey] = headerAttributes
             nextY += headerSize.height
             
             // Cell layout
             for (itemIndex, frame) in template.frames.enumerated() {
+                indexPath = IndexPath(item: itemIndex, section: currentSectionIndex)
                 let finalRect = CGRect(x: frame.origin.x + leftMargin, y: frame.origin.y + nextY, width: frame.size.width, height: frame.size.height)
-                let indexPath = IndexPath(item: itemIndex, section: currentSectionIndex)
                 let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
                 attributes.frame = finalRect
-                layoutCache.append(attributes)
+                cacheKey = "photo_\(currentSectionIndex)_\(itemIndex)"
+                layoutCache[cacheKey] = attributes
             }
             
             nextY += template.height
             
             // Footer layout
-            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: IndexPath(item: 0, section: currentSectionIndex))
+            indexPath = IndexPath(item: 0, section: currentSectionIndex)
+            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
             footerAttributes.frame = CGRect(x: 0, y: nextY, width: footerSize.width, height: footerSize.height)
-            layoutCache.append(footerAttributes)
+            cacheKey = "section_footer_\(currentSectionIndex)"
+            layoutCache[cacheKey] = footerAttributes
             nextY += footerSize.height + vGap
             
             // Advance to next section

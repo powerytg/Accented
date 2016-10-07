@@ -38,7 +38,7 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     
     // A cache that holds all the previously calculated layout attributes. The cache will remain valid until
     // explicitly cleared
-    var layoutCache : Array<UICollectionViewLayoutAttributes> = []
+    var layoutCache = [String : UICollectionViewLayoutAttributes]()
 
     func clearLayoutCache() {
         contentHeight = 0

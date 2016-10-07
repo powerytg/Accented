@@ -145,6 +145,9 @@
 		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
 		9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */; };
 		9BFC4BB91DA6DC8E004E1B21 /* DetailCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC4BB81DA6DC8E004E1B21 /* DetailCommentsViewController.swift */; };
+		9BFC4C221DA7048F004E1B21 /* PullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC4C211DA7048F004E1B21 /* PullToRefreshView.swift */; };
+		9BFC4C271DA70B47004E1B21 /* DefaultStreamRefreshCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC4C251DA70B47004E1B21 /* DefaultStreamRefreshCell.swift */; };
+		9BFC4C281DA70B47004E1B21 /* DefaultStreamRefreshCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BFC4C261DA70B47004E1B21 /* DefaultStreamRefreshCell.xib */; };
 		9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */; };
 		9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6261D1358AD00B178F3 /* DrawerService.swift */; };
 		9BFFB6731D136E1400B178F3 /* DrawerOpenAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */; };
@@ -330,6 +333,9 @@
 		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
 		9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionContentView.swift; sourceTree = "<group>"; };
 		9BFC4BB81DA6DC8E004E1B21 /* DetailCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentsViewController.swift; sourceTree = "<group>"; };
+		9BFC4C211DA7048F004E1B21 /* PullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefreshView.swift; sourceTree = "<group>"; };
+		9BFC4C251DA70B47004E1B21 /* DefaultStreamRefreshCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultStreamRefreshCell.swift; sourceTree = "<group>"; };
+		9BFC4C261DA70B47004E1B21 /* DefaultStreamRefreshCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultStreamRefreshCell.xib; sourceTree = "<group>"; };
 		9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationParams.swift; sourceTree = "<group>"; };
 		9BFFB6261D1358AD00B178F3 /* DrawerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerService.swift; sourceTree = "<group>"; };
 		9BFFB6721D136E1400B178F3 /* DrawerOpenAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenAnimator.swift; sourceTree = "<group>"; };
@@ -444,6 +450,7 @@
 				9BB590021CDAB6D700E78581 /* PushButton.swift */,
 				9BB590F51CDD33EB00E78581 /* BlurView.swift */,
 				9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */,
+				9BFC4C211DA7048F004E1B21 /* PullToRefreshView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -673,6 +680,8 @@
 				9B3813E31CE012180066D3B9 /* DefaultStreamSectionHeaderCell.swift */,
 				9B3813E41CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib */,
 				9B3813E51CE012180066D3B9 /* PhotoRenderer.swift */,
+				9BFC4C251DA70B47004E1B21 /* DefaultStreamRefreshCell.swift */,
+				9BFC4C261DA70B47004E1B21 /* DefaultStreamRefreshCell.xib */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -952,6 +961,7 @@
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
+				9BFC4C281DA70B47004E1B21 /* DefaultStreamRefreshCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1033,6 +1043,7 @@
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
+				9BFC4C271DA70B47004E1B21 /* DefaultStreamRefreshCell.swift in Sources */,
 				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
@@ -1114,6 +1125,7 @@
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
+				9BFC4C221DA7048F004E1B21 /* PullToRefreshView.swift in Sources */,
 				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
 				9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */,
 				186AF55B1D5989DB00A9928F /* DetailCommentSectionView.swift in Sources */,

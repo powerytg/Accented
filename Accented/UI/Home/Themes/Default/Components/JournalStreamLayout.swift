@@ -43,7 +43,7 @@ class JournalStreamLayout: StreamLayoutBase {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
-        for attributes in layoutCache {
+        for attributes in layoutCache.values {
             if attributes.frame.intersects(rect) {
                 layoutAttributes.append(attributes)
             }
@@ -102,9 +102,10 @@ class JournalStreamLayout: StreamLayoutBase {
         }
         
         let headerCellSize = CGSize(width: fullWidth, height: headerHeight)
-        let headerAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: 0))
+        let indexPath = IndexPath(item: 0, section: 0)
+        let headerAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         headerAttributes.frame = CGRect(x: 0, y: 0, width: headerCellSize.width, height: headerCellSize.height)
-        layoutCache.append(headerAttributes)
+        layoutCache["header"] = headerAttributes
         contentHeight = headerHeight
     }
     
@@ -119,12 +120,13 @@ class JournalStreamLayout: StreamLayoutBase {
         }
         
         let nextY = contentHeight
+        let indexPath = IndexPath(item: 0, section: contentStartSection)
         let loadingCellSize = CGSize(width: availableWidth, height: 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: 0, section: contentStartSection))
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: loadingCellSize.height)
         
         contentHeight += loadingCellSize.height
-        layoutCache.append(loadingCellAttributes)
+        layoutCache["loadingCell"] = loadingCellAttributes
     }
     
     override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
@@ -141,7 +143,8 @@ class JournalStreamLayout: StreamLayoutBase {
             let indexPath = IndexPath(item: 0, section: currentSectionIndex)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = finalRect
-            layoutCache.append(attributes)
+            let cacheKey = "cell_\(currentSectionIndex)"
+            layoutCache[cacheKey] = attributes
             
             nextY += template.height
             currentSectionIndex += 1
