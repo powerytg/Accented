@@ -14,17 +14,14 @@ class DefaultStreamLayout: StreamLayoutBase {
     // Total height of the header
     fileprivate var headerHeight : CGFloat = 0
     fileprivate var navBarHeight : CGFloat = 156
-    fileprivate let refreshHeaderMaxHeight : CGFloat = 50
     fileprivate let contentStartSection = 1
     
     var navBarDefaultPosition : CGFloat = 0
     var navBarStickyPosition : CGFloat = 0
     var streamSelectorDefaultPosition : CGFloat = 0
-    var refreshHeaderDefaultPosition : CGFloat = 0
     
     fileprivate var navHeaderAttributes : UICollectionViewLayoutAttributes?
     fileprivate var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
-    fileprivate var refreshHeaderAttributes : UICollectionViewLayoutAttributes?
     
     override init() {
         super.init()
@@ -52,7 +49,6 @@ class DefaultStreamLayout: StreamLayoutBase {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         let contentOffset = collectionView!.contentOffset.y
-        let refreshHeaderHeight = currentRefreshHeaderHeight(contentOffset)
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in layoutCache.values {
@@ -71,44 +67,13 @@ class DefaultStreamLayout: StreamLayoutBase {
         }
         
         
-        // Make the stream selector bar sticky, but only for pulling down events
-        if let selectorAttributes = self.buttonsHeaderAttributes {
-            if !layoutAttributes.contains(selectorAttributes) {
-                layoutAttributes.append(selectorAttributes)
-            }
-
-            layoutSelectorCell(contentOffset)
-        }
-        
-        // Pull to refresh header
-        if let refreshAttributes = self.refreshHeaderAttributes {
-            if !layoutAttributes.contains(refreshAttributes) {
-                layoutAttributes.append(refreshAttributes)
-            }
-            
-            layoutRefreshCell(contentOffset, currentRefreshHeaderHeight: refreshHeaderHeight)
-        }
-        
-        for attrs in layoutAttributes {
-            if attrs.indexPath.section < contentStartSection {
-                continue
-            }
-            
-            var f = attrs.frame
-            f.origin.y += refreshHeaderHeight
-            attrs.frame = f
-        }
-        
         return layoutAttributes
     }
     
     fileprivate func layoutHeaderCell(_ contentOffset : CGFloat) {
         var navFrame = navHeaderAttributes!.frame
         
-        if contentOffset < 0 {
-            // Pin the header to top if the offset if negative
-            navFrame.origin.y = navBarDefaultPosition + contentOffset
-        } else if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
+        if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
             navFrame.origin.y = navBarStickyPosition + contentOffset
         } else {
             navFrame.origin.y = navBarDefaultPosition
@@ -134,26 +99,6 @@ class DefaultStreamLayout: StreamLayoutBase {
             selectorFrame.origin.y = streamSelectorDefaultPosition
             buttonsHeaderAttributes!.frame = selectorFrame
         }
-    }
-    
-    fileprivate func currentRefreshHeaderHeight(_ contentOffset : CGFloat) -> CGFloat {
-        if contentOffset >= 0 {
-            return 0
-        } else {
-            return min(refreshHeaderMaxHeight, abs(contentOffset))
-        }
-    }
-    
-    fileprivate func layoutRefreshCell(_ contentOffset : CGFloat, currentRefreshHeaderHeight : CGFloat) {
-        var refreshFrame = refreshHeaderAttributes!.frame
-        if contentOffset >= 0 {
-            refreshFrame.origin.y = refreshHeaderDefaultPosition
-        } else {
-            refreshFrame.origin.y = refreshHeaderDefaultPosition + contentOffset
-        }
-
-        refreshFrame.size.height = currentRefreshHeaderHeight
-        refreshHeaderAttributes!.frame = refreshFrame
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -184,13 +129,6 @@ class DefaultStreamLayout: StreamLayoutBase {
         self.buttonsHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: buttonsCellSize.width, height: buttonsCellSize.height)
         layoutCache["navSelector"] = buttonsHeaderAttributes
         nextY += buttonsCellSize.height
-        
-        // Refresh header
-        indexPath = IndexPath(item : 2, section : 0)
-        refreshHeaderDefaultPosition = nextY
-        self.refreshHeaderAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-        self.refreshHeaderAttributes!.frame = CGRect(x: 0, y: nextY, width: buttonsCellSize.width, height: 0)
-        layoutCache["refreshHeader"] = refreshHeaderAttributes
         
         headerHeight = nextY
         contentHeight = headerHeight
