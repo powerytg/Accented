@@ -20,8 +20,9 @@ extension APIService {
             }
             
             // Retrieve from cache if available
-            if let cachedResponse = getFromCache(request.cacheKey!) {
+            if !request.ignoreCache , let cachedResponse = getFromCache(request.cacheKey!){
                 debugPrint("Cache hit: \(cacheKey)")
+                removeFromPendingQueue(cacheKey)
                 request.handleSuccess(data: cachedResponse, response: nil)
                 return
             } else {

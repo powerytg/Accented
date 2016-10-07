@@ -8,9 +8,15 @@
 
 import UIKit
 
-class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout, StreamViewModelDelegate {
 
     @IBOutlet weak var streamCollectionView: UICollectionView!
+    
+    // Refresh header
+    fileprivate var refreshHeaderView = RefreshHeaderView()
+    
+    // Refresh header compression percentage
+    fileprivate var refreshHeaderCompressionRatio : CGFloat = 0
     
     // Infinite scrolling threshold
     let loadingThreshold : CGFloat = 50
@@ -53,9 +59,13 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
 
         // Create the stream view model
         createViewModel()
-        
+        viewModel?.delegate = self
         streamCollectionView.dataSource = viewModel
         streamCollectionView.delegate = self
+        
+        // Create a refresh header
+        view.addSubview(refreshHeaderView)
+        refreshHeaderView.alpha = 0
         
         // Refresh stream
         if let streamModel = stream {
@@ -65,6 +75,15 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
         }
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        var f = refreshHeaderView.frame
+        f.size.width = view.bounds.size.width
+        f.size.height = RefreshHeaderView.maxHeight
+        refreshHeaderView.frame = f
+    }
+    
     func createViewModel() {
         fatalError("Not implemented in base class")
     }
@@ -83,6 +102,12 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         streamState.scrolling = true
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if refreshHeaderCompressionRatio == 1 {
+            viewModel?.refresh()
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -110,6 +135,20 @@ class StreamViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !streamState.refreshing {
+            refreshHeaderCompressionRatio = max(0, min(1, -scrollView.contentOffset.y / RefreshHeaderView.maxTravelDistance))
+            refreshHeaderView.transform = CGAffineTransform(scaleX: refreshHeaderCompressionRatio, y: 1)
+            refreshHeaderView.alpha = refreshHeaderCompressionRatio
+        }
+        
         delegate?.streamViewContentOffsetDidChange(streamCollectionView.contentOffset.y)
+    }
+    
+    // MARK : - StreamViewModelDelegate
+    
+    func viewModelDidRefresh() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.refreshHeaderView.alpha = 0
+        }
     }
 }

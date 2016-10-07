@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StreamViewModelDelegate : NSObjectProtocol {
+    func viewModelDidRefresh()
+}
+
 class StreamViewModel: NSObject, UICollectionViewDataSource {
 
     typealias PhotoGroupModel = [PhotoModel]
@@ -36,6 +40,9 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     // PhotoGroups serve as the view model for the stream. These models are in strict sync with layout templates
     var photoGroups  = [PhotoGroupModel]()
+    
+    // Delegate
+    weak var delegate : StreamViewModelDelegate?
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         self.stream = stream
@@ -98,7 +105,21 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     // MARL: - Stream loading and updating
     
-    func loadNextPage() -> Void {
+    func refresh() {
+        if streamState.refreshing {
+            return
+        }
+        
+        streamState.refreshing = true
+        let page = 1
+        let params = ["tags" : "1"]
+        APIService.sharedInstance.getPhotos(stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
+            self?.streamFailedRefreshing(errorMessage)
+        })
+
+    }
+    
+    func loadNextPage() {
         if streamState.loading {
             return
         }
@@ -131,13 +152,23 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         }
 
         streamState.loading = false
+        
+        if page == 1 {
+            streamState.refreshing = false
+            delegate?.viewModelDidRefresh()
+        }
     }
     
     func streamFailedLoading(_ error : String) {
         debugPrint(error)
         streamState.loading = false
     }
-    
+
+    func streamFailedRefreshing(_ error : String) {
+        debugPrint(error)
+        streamState.refreshing = false
+    }
+
     func clearCollectionView() {
         photoCountInCollectionView = 0
         photoGroups.removeAll()

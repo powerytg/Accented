@@ -13,6 +13,7 @@ extension APIService {
     // Get photos from stream
     func getPhotos(_ streamType : StreamType, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
         let request = GetStreamPhotosRequest(streamType, page : page, params : parameters, success : success, failure : failure)
+        request.ignoreCache = (page == 1)
         get(request: request)
     }
     

@@ -37,6 +37,9 @@ class APIRequest: NSObject {
     // Cache key
     var cacheKey : String?
     
+    // Whether this request should ignore cached data
+    var ignoreCache : Bool = false
+    
     init(success : SuccessAction?, failure : FailureAction?) {
         super.init()
         self.successAction = success

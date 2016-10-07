@@ -53,11 +53,13 @@ extension StorageService {
     
     fileprivate func mergePhotosToStream(_ streamType : StreamType, photos: [PhotoModel], page: Int, totalPhotos : Int) -> Void {
         DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
             let stream = self?.getStream(streamType)
             guard stream != nil else { return }
             stream!.totalCount = totalPhotos
             
-            if(page == 1) {
+            if page == 1 && strongSelf.hasOverlapContent(newPhotos: photos, oldPhotos: stream!.photos) {
                 stream!.photos.removeAll()
             }
             
@@ -72,4 +74,21 @@ extension StorageService {
             NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
         }
     }
+    
+    fileprivate func hasOverlapContent(newPhotos : [PhotoModel], oldPhotos : [PhotoModel]) -> Bool {
+        if newPhotos.count == 0 {
+            return false
+        }
+        
+        if oldPhotos.count == 0 {
+            return true
+        }
+        
+        if oldPhotos.contains(newPhotos.last!) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }
