@@ -185,8 +185,8 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     
     // MARK: - StreamLayoutDelegate
     
-    func streamHeaderCompressionRatioDidChange(_ compressionState : StreamCompressionState) {
-        navCell?.compressionRatio = compressionState.compressionRatio
+    func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio: CGFloat) {
+        navCell?.compressionRatio = headerCompressionRatio
         navCell?.setNeedsLayout()
     }
     

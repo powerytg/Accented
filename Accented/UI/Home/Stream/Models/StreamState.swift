@@ -10,9 +10,6 @@ import UIKit
 
 class StreamState: NSObject {
     
-    // Whether the stream is refreshing
-    var refreshing : Bool = false
-    
     // Whether the stream is scrolling
     var scrolling : Bool = false
     

@@ -8,19 +8,9 @@
 
 import UIKit
 
-// Stream scrolling state
-struct StreamCompressionState {
-    let compressionRatio : CGFloat
-    let pullToRefreshRatio : CGFloat
-    
-    init(compressionRatio : CGFloat, pullToRefreshRatio : CGFloat) {
-        self.compressionRatio = compressionRatio
-        self.pullToRefreshRatio = pullToRefreshRatio
-    }
-}
 
 protocol StreamLayoutDelegate : NSObjectProtocol {
-    func streamHeaderCompressionRatioDidChange(_ compressionState : StreamCompressionState)
+    func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio : CGFloat)
 }
 
 class StreamLayoutBase: UICollectionViewFlowLayout {
