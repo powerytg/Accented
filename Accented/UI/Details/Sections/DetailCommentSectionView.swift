@@ -76,8 +76,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         // Create a limited number of comment renderers ahead of time
         for index in 1...maxNumberOfCommentsOnScreen {
             let style : CommentRendererStyle = (index % 2 == 0 ? .Dark : .Light)
-            let rendererMaxWidth = maxWidthForRendererAtIndex(index)
-            let renderer = CommentRenderer(style, maxWidth : rendererMaxWidth, cacheController : cacheController)
+            let renderer = CommentRenderer(style)
             contentView.addSubview(renderer)
             commentRenderers.append(renderer)
             renderer.isHidden = true
@@ -148,7 +147,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
                 if index < photo!.comments.count {
                     let comment = photo!.comments[index]
                     let rendererMaxWidth = maxWidthForRendererAtIndex(index)
-                    let rendererSize = renderer.estimatedSize(comment, width: rendererMaxWidth)
+                    let rendererSize = estimatedSizeForComment(comment, maxWidth: rendererMaxWidth)
                     renderer.frame = CGRect(x: leftMarginForRendererAtIndex(index), y: nextY, width: rendererSize.width, height: rendererSize.height)
                     renderer.comment = photo!.comments[index]
                     renderer.isHidden = false
@@ -174,9 +173,8 @@ class DetailCommentSectionView: DetailSectionViewBase {
             let displayCommentsCount = min(photo.comments.count, maxNumberOfCommentsOnScreen)
             for index in 0...(displayCommentsCount - 1) {
                 let comment = photo.comments[index]
-                let renderer = commentRenderers[index]
                 let rendererMaxWidth = maxWidthForRendererAtIndex(index)
-                let commentHeight = renderer.estimatedSize(comment, width: rendererMaxWidth).height
+                let commentHeight = estimatedSizeForComment(comment, maxWidth: rendererMaxWidth).height
                 
                 calculatedHeight += commentHeight
             }
@@ -193,6 +191,16 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     private func maxWidthForRendererAtIndex(_ index : Int) -> CGFloat {
         return maxWidth - leftMarginForRendererAtIndex(index) - contentRightMargin
+    }
+    
+    private func estimatedSizeForComment(_ comment : CommentModel, maxWidth : CGFloat) -> CGSize {
+        var rendererSize = cacheController.getCommentMeasurement(comment.commentId)
+        if rendererSize == nil {
+            rendererSize = CommentRenderer.estimatedSize(comment, width: maxWidth)
+            cacheController.setCommentMeasurement(rendererSize!, commentId: comment.commentId)
+        }
+
+        return rendererSize!
     }
     
     // MARK: - Events

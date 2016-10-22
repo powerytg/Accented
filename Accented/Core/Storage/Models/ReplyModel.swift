@@ -9,29 +9,12 @@
 import UIKit
 import SwiftyJSON
 
-class ReplyModel: NSObject {
-    fileprivate var dateFormatter = DateFormatter()
+class ReplyModel: CommentModel {
+    var parentId : String!
     
-    var replyId : String
-    var parentId : String
-    var userId : String
-    var body : String
-    var creationDate : Date?
-    var user : UserModel
-    
-    init(json:JSON) {
-        replyId = String(json["id"].int!)
+    override init(json:JSON) {
+        super.init(json : json)
         parentId = String(json["parent_id"].int!)
-        userId = String(json["user_id"].int!)
-        body = json["body"].string!
-
-        // Dates
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
-        let createdAt = json["created_at"].string!
-        creationDate = dateFormatter.date(from: createdAt)
-        
-        // User
-        user = UserModel(json: json["user"])
     }
 
 }

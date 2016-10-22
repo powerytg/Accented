@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, StreamViewControllerDelegate {
+class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegate {
 
     var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
@@ -119,13 +119,9 @@ class HomeViewController: UIViewController, StreamViewControllerDelegate {
         UIApplication.shared.statusBarStyle = ThemeManager.sharedInstance.currentTheme.statusBarStyle
     }
     
-    // MARK: - StreamViewControllerDelegate
-    func streamViewDidFinishedScrolling(_ firstVisiblePhoto: PhotoModel) {
-        //        backgroundView!.photo = firstVisiblePhoto
-        //        backgroundView!.setNeedsLayout()
-    }
+    // MARK: - InfiniteLoadingViewControllerDelegate
 
-    func streamViewContentOffsetDidChange(_ contentOffset: CGFloat) {
+    func collectionViewContentOffsetDidChange(_ contentOffset: CGFloat) {
         backgroundView!.streamViewContentOffsetDidChange(contentOffset)
     }
 }

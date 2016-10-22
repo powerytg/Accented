@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol StreamViewModelDelegate : NSObjectProtocol {
-    func viewModelDidRefresh()
-}
-
-class StreamViewModel: NSObject, UICollectionViewDataSource {
+class StreamViewModel: InfiniteLoadingViewModel {
 
     typealias PhotoGroupModel = [PhotoModel]
     
@@ -26,29 +22,18 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         return 0
     }
     
-    // Reference to the collection view
-    unowned var collectionView : UICollectionView
-    
     // Layout generator
     var layoutGenerator : StreamTemplateGenerator = StreamTemplateGenerator()
     
     // Layout engine
     var layoutEngine = StreamLayoutBase()
     
-    // Stream state
-    var streamState = StreamState()
-    
     // PhotoGroups serve as the view model for the stream. These models are in strict sync with layout templates
     var photoGroups  = [PhotoGroupModel]()
     
-    // Delegate
-    weak var delegate : StreamViewModelDelegate?
-    
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
-        self.stream = stream
-        self.collectionView = collectionView
-        
-        super.init()
+        self.stream = stream        
+        super.init(collectionView)
         
         // Register renderer types
         registerCellTypes()
@@ -105,7 +90,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     
     // MARL: - Stream loading and updating
     
-    func refresh() {
+    override func refresh() {
         if streamState.refreshing {
             return
         }
@@ -119,7 +104,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
 
     }
     
-    func loadNextPage() {
+    override func loadNextPage() {
         if streamState.loading {
             return
         }
@@ -175,7 +160,7 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
         layoutEngine.clearLayoutCache()
     }
     
-    func updateCollectionView(_ shouldRefresh : Bool) {
+    override func updateCollectionView(_ shouldRefresh : Bool) {
         // If stream needs refresh (page is 1), then clear all the previous layout metadata and group info
         if shouldRefresh {
             clearCollectionView()
@@ -206,15 +191,15 @@ class StreamViewModel: NSObject, UICollectionViewDataSource {
     }
     
     // MARK: - UICollectionViewDataSource
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         fatalError("Not implemented in base class")
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         fatalError("Not implemented in base class")
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         fatalError("Not implemented in base class")
     }
     

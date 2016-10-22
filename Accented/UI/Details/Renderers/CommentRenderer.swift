@@ -23,28 +23,24 @@ class CommentRenderer: UIView {
     }
     
     var style : CommentRendererStyle
-    private var maxWidth : CGFloat
-    private var cacheController : DetailCacheController
     
     private var backgroundView = UIImageView()
     private var authorLabel = UILabel()
     private var contentLabel = UILabel()
     private var avatarView = UIImageView()
     
-    private var authorFont = UIFont(name: "AvenirNextCondensed-Bold", size: 13)!
-    private var contentFont = UIFont(name: "HelveticaNeue-LightItalic", size: 16)!
-    private var paddingLeft : CGFloat = 24
-    private var paddingRight : CGFloat = 20
-    private var paddingTop : CGFloat = 6
-    private var paddingBottom : CGFloat = 10
-    private var vPadding : CGFloat = 5
-    private var avatarSize : CGFloat = 40
-    private var backgroundMarginLeft : CGFloat = 5
+    private static let authorFont = UIFont(name: "AvenirNextCondensed-Bold", size: 13)!
+    private static let contentFont = UIFont(name: "HelveticaNeue-LightItalic", size: 16)!
+    private static let paddingLeft : CGFloat = 24
+    private static let paddingRight : CGFloat = 20
+    private static let paddingTop : CGFloat = 6
+    private static let paddingBottom : CGFloat = 18
+    private static let vPadding : CGFloat = 5
+    private static let avatarSize : CGFloat = 40
+    private static let backgroundMarginLeft : CGFloat = 5
     
-    init(_ style : CommentRendererStyle, maxWidth : CGFloat, cacheController : DetailCacheController) {
+    init(_ style : CommentRendererStyle) {
         self.style = style
-        self.maxWidth = maxWidth
-        self.cacheController = cacheController
         super.init(frame : CGRect.zero)
         initialize()
     }
@@ -54,51 +50,27 @@ class CommentRenderer: UIView {
     }
 
     fileprivate func initialize() {
-
         // Specify background
         addSubview(backgroundView)
-        switch style {
-        case .Light:
-            backgroundView.image = UIImage(named: "LightBubble")
-        case .Dark:
-            backgroundView.image = UIImage(named: "DarkBubble")
-        }
-
+        
         // Avatar
         addSubview(avatarView)
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.clipsToBounds = true
         avatarView.layer.cornerRadius = 8
         
         // Author
         addSubview(authorLabel)
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        authorLabel.preferredMaxLayoutWidth = maxWidth - paddingLeft - paddingRight
         authorLabel.textColor = UIColor.white
         authorLabel.lineBreakMode = .byWordWrapping
         authorLabel.numberOfLines = 0
-        authorLabel.font = authorFont
+        authorLabel.font = CommentRenderer.authorFont
 
         // body label
         addSubview(contentLabel)
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentLabel.preferredMaxLayoutWidth = maxWidth - paddingLeft - paddingRight
         contentLabel.textColor = UIColor(red: 170 / 255.0, green: 170 / 255.0, blue: 170 / 255.0, alpha: 1)
         contentLabel.numberOfLines = 0
         contentLabel.lineBreakMode = .byWordWrapping
-        contentLabel.font = contentFont
-    
-        // Constraints
-        avatarView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        avatarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        avatarView.widthAnchor.constraint(equalToConstant: avatarSize).isActive = true
-        avatarView.heightAnchor.constraint(equalToConstant: avatarSize).isActive = true
-        
-        authorLabel.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: paddingLeft).isActive = true
-        authorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: paddingTop).isActive = true
-        
-        contentLabel.leadingAnchor.constraint(equalTo: authorLabel.leadingAnchor).isActive = true
-        contentLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: vPadding).isActive = true
+        contentLabel.font = CommentRenderer.contentFont
     }
     
     override func layoutSubviews() {
@@ -113,46 +85,73 @@ class CommentRenderer: UIView {
         authorLabel.text = TextUtils.preferredAuthorName(comment!.user).uppercased()
         contentLabel.text = comment!.body
         
+        switch style {
+        case .Light:
+            backgroundView.image = UIImage(named: "LightBubble")
+        case .Dark:
+            backgroundView.image = UIImage(named: "DarkBubble")
+        }
+
         var f = backgroundView.frame
-        f.origin.x = avatarSize + backgroundMarginLeft
-        f.size.width = self.bounds.size.width - f.origin.x
-        f.size.height = self.bounds.size.height
+        f.origin.x = CommentRenderer.avatarSize + CommentRenderer.backgroundMarginLeft
+        f.size.width = bounds.size.width - f.origin.x
+        f.size.height = bounds.size.height
         backgroundView.frame = f
+        
+        f = avatarView.frame
+        f.size.width = CommentRenderer.avatarSize
+        f.size.height = CommentRenderer.avatarSize
+        f.origin.y = bounds.size.height - f.size.height
+        avatarView.frame = f
+        let avatarRight = f.origin.x + f.size.width
+        
+        f = authorLabel.frame
+        f.size.width = CommentRenderer.maxAvailableTextWidth(bounds.size.width)
+        f.origin.x = avatarRight + CommentRenderer.paddingLeft
+        f.origin.y = CommentRenderer.paddingTop
+        authorLabel.frame = f
+        authorLabel.sizeToFit()
+        let authorBottom = authorLabel.frame.origin.y + authorLabel.frame.size.height
+        
+        f = contentLabel.frame
+        f.size.width = CommentRenderer.maxAvailableTextWidth(bounds.size.width)
+        f.origin.x = avatarRight + CommentRenderer.paddingLeft
+        f.origin.y = authorBottom + CommentRenderer.vPadding
+        contentLabel.frame = f
+        contentLabel.sizeToFit()
     }
     
     fileprivate func commentModelDidChange() {
         setNeedsLayout()
     }
     
-    func estimatedSize(_ comment : CommentModel, width : CGFloat) -> CGSize {
-        let cachedSize = cacheController.getCommentMeasurement(comment.commentId)
-        if cachedSize != nil {
-            return cachedSize!
-        }
-        
-        let availableWidth = width - paddingLeft - paddingRight - avatarSize
+    static func estimatedSize(_ comment : CommentModel, width : CGFloat) -> CGSize {
+        let availableTextWidth = maxAvailableTextWidth(width)
         let author = TextUtils.preferredAuthorName(comment.user)
         let paramStyle = NSMutableParagraphStyle()
-        paramStyle.lineBreakMode = .byCharWrapping
+        paramStyle.lineBreakMode = .byWordWrapping
         let authorAttrs = [NSFontAttributeName: authorFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
         let bodyAttrs = [NSFontAttributeName: contentFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
         
         // Measure author
         let authorString = NSAttributedString(string: author, attributes: authorAttrs)
-        let authorSize = authorString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude),
+        let authorSize = authorString.boundingRect(with: CGSize(width: availableTextWidth, height: CGFloat.greatestFiniteMagnitude),
                                                                     options: .usesLineFragmentOrigin,
                                                                     context: nil).size
         
         // Measure body
         let bodyString = NSAttributedString(string: comment.body, attributes: bodyAttrs)
-        let bodySize = bodyString.boundingRect(with: CGSize(width: availableWidth, height: CGFloat.greatestFiniteMagnitude),
+        let bodySize = bodyString.boundingRect(with: CGSize(width: availableTextWidth, height: CGFloat.greatestFiniteMagnitude),
                                                                         options: .usesLineFragmentOrigin,
                                                                         context: nil).size
         
         let measuredWidth = max(authorSize.width, bodySize.width) + paddingLeft + paddingRight + avatarSize + backgroundMarginLeft
-        let measuredHeight = authorSize.height + bodySize.height + vPadding + paddingTop + paddingBottom
-        let measuredSize = CGSize(width: measuredWidth, height: measuredHeight)
-        cacheController.setCommentMeasurement(measuredSize, commentId: comment.commentId)
+        let measuredHeight = max(avatarSize, authorSize.height + bodySize.height + vPadding + paddingTop + paddingBottom)
+        let measuredSize = CGSize(width: measuredWidth, height: measuredHeight)        
         return measuredSize
+    }
+    
+    fileprivate static func maxAvailableTextWidth(_ maxWidth : CGFloat) -> CGFloat {
+        return maxWidth - paddingLeft - paddingRight - avatarSize - backgroundMarginLeft
     }
 }

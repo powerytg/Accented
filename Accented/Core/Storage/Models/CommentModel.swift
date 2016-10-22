@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class CommentModel: NSObject {
-    fileprivate var dateFormatter = DateFormatter()
+    var dateFormatter = DateFormatter()
     
     var commentId : String
     var userId : String

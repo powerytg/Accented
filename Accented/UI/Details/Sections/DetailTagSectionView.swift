@@ -37,13 +37,13 @@ class DetailTagSectionView: DetailSectionViewBase {
         super.initialize()
                 
         // When there're no tags defined for the image, show this label instead
-        contentView.addSubview(noTagsLabel)
+        addSubview(noTagsLabel)
         noTagsLabel.translatesAutoresizingMaskIntoConstraints = false
         noTagsLabel.text = "This photo has no tags"
         noTagsLabel.font = descFont
         noTagsLabel.textColor = descColor
-        noTagsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-        noTagsLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        noTagsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: contentLeftMargin).isActive = true
+        noTagsLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleHeight).isActive = true
         noTagsLabel.isHidden = true
     }
     
