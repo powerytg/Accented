@@ -17,7 +17,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     fileprivate var contentRightMargin : CGFloat = 50
     fileprivate let contentLeftMargin : CGFloat = 15
     fileprivate var contentTopMargin : CGFloat = 0
-    fileprivate var contentBottomMargin : CGFloat = 15
+    fileprivate var contentBottomMargin : CGFloat = 20
     fileprivate let noEXIFText = "This photo does not have camera info"
     fileprivate let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     

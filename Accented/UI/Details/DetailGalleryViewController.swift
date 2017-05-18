@@ -99,6 +99,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         guard self.selectedDetailViewController != nil else { return }
         guard self.selectedDetailViewController!.photo != nil else { return }
         
+        // Transition to lightbox only if we're in landscape mode
+        guard size.width > size.height else { return }
+        
         // We cannot present the lightbox immediately since the transition will break
         // The workaround is to animate along with the coordinator and perform the modal presentation upon animation completion
         coordinator.animate(alongsideTransition: { (context) in
@@ -180,6 +183,8 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     func lightboxTransitionDidFinish() {
         selectedDetailViewController?.lightboxTransitionDidFinish()
         self.view.alpha = 1
+        self.contentView.alpha = 1
+        self.backgroundView.alpha = 1
     }
     
     func performLightBoxTransition() {

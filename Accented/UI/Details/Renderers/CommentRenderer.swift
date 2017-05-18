@@ -34,7 +34,7 @@ class CommentRenderer: UIView {
     private static let paddingLeft : CGFloat = 24
     private static let paddingRight : CGFloat = 20
     private static let paddingTop : CGFloat = 6
-    private static let paddingBottom : CGFloat = 18
+    private static let paddingBottom : CGFloat = 8
     private static let vPadding : CGFloat = 5
     private static let avatarSize : CGFloat = 40
     private static let backgroundMarginLeft : CGFloat = 5
@@ -105,8 +105,9 @@ class CommentRenderer: UIView {
         avatarView.frame = f
         let avatarRight = f.origin.x + f.size.width
         
+        let maxWidth = CommentRenderer.maxAvailableTextWidth(bounds.size.width)
         f = authorLabel.frame
-        f.size.width = CommentRenderer.maxAvailableTextWidth(bounds.size.width)
+        f.size.width = maxWidth
         f.origin.x = avatarRight + CommentRenderer.paddingLeft
         f.origin.y = CommentRenderer.paddingTop
         authorLabel.frame = f
@@ -114,7 +115,7 @@ class CommentRenderer: UIView {
         let authorBottom = authorLabel.frame.origin.y + authorLabel.frame.size.height
         
         f = contentLabel.frame
-        f.size.width = CommentRenderer.maxAvailableTextWidth(bounds.size.width)
+        f.size.width = maxWidth
         f.origin.x = avatarRight + CommentRenderer.paddingLeft
         f.origin.y = authorBottom + CommentRenderer.vPadding
         contentLabel.frame = f
@@ -127,31 +128,44 @@ class CommentRenderer: UIView {
     
     static func estimatedSize(_ comment : CommentModel, width : CGFloat) -> CGSize {
         let availableTextWidth = maxAvailableTextWidth(width)
-        let author = TextUtils.preferredAuthorName(comment.user)
-        let paramStyle = NSMutableParagraphStyle()
-        paramStyle.lineBreakMode = .byWordWrapping
-        let authorAttrs = [NSFontAttributeName: authorFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
-        let bodyAttrs = [NSFontAttributeName: contentFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
+        let author = TextUtils.preferredAuthorName(comment.user).uppercased()
         
         // Measure author
-        let authorString = NSAttributedString(string: author, attributes: authorAttrs)
+        let authorString = NSAttributedString(string: author, attributes: authorStringAttrs)
         let authorSize = authorString.boundingRect(with: CGSize(width: availableTextWidth, height: CGFloat.greatestFiniteMagnitude),
                                                                     options: .usesLineFragmentOrigin,
                                                                     context: nil).size
         
         // Measure body
-        let bodyString = NSAttributedString(string: comment.body, attributes: bodyAttrs)
+        let bodyString = NSAttributedString(string: comment.body, attributes: contentStringAttrs)
         let bodySize = bodyString.boundingRect(with: CGSize(width: availableTextWidth, height: CGFloat.greatestFiniteMagnitude),
                                                                         options: .usesLineFragmentOrigin,
                                                                         context: nil).size
         
         let measuredWidth = max(authorSize.width, bodySize.width) + paddingLeft + paddingRight + avatarSize + backgroundMarginLeft
         let measuredHeight = max(avatarSize, authorSize.height + bodySize.height + vPadding + paddingTop + paddingBottom)
-        let measuredSize = CGSize(width: measuredWidth, height: measuredHeight)        
+        let measuredSize = CGSize(width: measuredWidth, height: measuredHeight)
+        
+        print("measure: \(author), \(authorSize)")
+        
         return measuredSize
     }
     
     fileprivate static func maxAvailableTextWidth(_ maxWidth : CGFloat) -> CGFloat {
         return maxWidth - paddingLeft - paddingRight - avatarSize - backgroundMarginLeft
+    }
+    
+    fileprivate static var paramStyle : NSParagraphStyle {
+        let paramStyle = NSMutableParagraphStyle()
+        paramStyle.lineBreakMode = .byWordWrapping
+        return paramStyle
+    }
+    
+    fileprivate static var authorStringAttrs : [String : Any] {
+        return [NSFontAttributeName: authorFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
+    }
+
+    fileprivate static var contentStringAttrs : [String : Any] {
+        return [NSFontAttributeName: contentFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
     }
 }
