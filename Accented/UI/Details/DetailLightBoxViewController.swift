@@ -144,7 +144,7 @@ class DetailLightBoxViewController: DeckViewController, DeckViewControllerDataSo
     // Events
     
     @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {

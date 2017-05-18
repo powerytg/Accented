@@ -43,14 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
-        // Remove expired cache
-        APIService.sharedInstance.removeExpiredCache()
-        
         // Handle OAuth callback url
         if (url.host == AuthenticationService.oauthHost) {
             OAuthSwift.handleOpenURL(url)
         }
         
+        // Remove expired cache if already authenticated
+        if AuthenticationService.sharedInstance.accessToken != nil {
+            APIService.sharedInstance.removeExpiredCache()
+        }
+
         return true
     }
 }

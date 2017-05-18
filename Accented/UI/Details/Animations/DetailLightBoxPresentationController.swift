@@ -87,6 +87,4 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return self
     }
-    
-    
 }

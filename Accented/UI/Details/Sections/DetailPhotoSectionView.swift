@@ -14,7 +14,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         return "photo"
     }
     
-    fileprivate var photoView = UIImageView()
+    var photoView = UIImageView()
     fileprivate static var leftMargin : CGFloat = 5
     fileprivate static var rightMargin : CGFloat = 0
     

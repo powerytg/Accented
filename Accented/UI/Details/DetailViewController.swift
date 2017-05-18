@@ -73,6 +73,11 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     // This needs to be specified ahead of time because we need to calculate a few things for a precise entrance animation
     fileprivate var maxWidth : CGFloat
     
+    // Hero photo view
+    var heroPhotoView : UIImageView {
+        return photoSection.photoView
+    }
+    
     init(sourceImageView : UIImageView, maxWidth : CGFloat, cacheController : DetailCacheController) {
         self.maxWidth = maxWidth
         self.sourceImageView = sourceImageView
@@ -212,7 +217,6 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     }
     
     func desitinationRectForSelectedLightBoxPhoto(_ photo: PhotoModel) -> CGRect {
-        // No-op
         return CGRect.zero
     }
     

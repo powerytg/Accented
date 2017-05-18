@@ -14,6 +14,5 @@ extension APIService {
     func getComments(_ photoId : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
         let request = GetCommentsRequest(photoId, page : page, params : parameters, success : success, failure : failure)
         get(request: request)
-
     }
 }

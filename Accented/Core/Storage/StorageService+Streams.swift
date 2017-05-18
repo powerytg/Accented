@@ -26,7 +26,7 @@ extension StorageService {
         let jsonData : Data = (notification as NSNotification).userInfo!["response"] as! Data
         let streamType = StreamType(rawValue: (notification as NSNotification).userInfo!["streamType"] as! String)
         if streamType == nil {
-            debugPrint("Unrecognized stream type \(streamType)")
+            debugPrint("Unrecognized stream type \(String(describing: streamType))")
             return
         }
 

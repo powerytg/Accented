@@ -99,9 +99,13 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         guard self.selectedDetailViewController != nil else { return }
         guard self.selectedDetailViewController!.photo != nil else { return }
         
-        let lightboxViewController = DetailLightBoxViewController(selectedPhoto: selectedDetailViewController!.photo!, photoCollection: photoCollection, initialSize: size)
-        lightboxViewController.delegate = self
-        self.present(lightboxViewController, animated: false, completion: nil)
+        // We cannot present the lightbox immediately since the transition will break
+        // The workaround is to animate along with the coordinator and perform the modal presentation upon animation completion
+        coordinator.animate(alongsideTransition: { (context) in
+            self.view.alpha = 0
+        }, completion: { (context) in
+            self.presentLightBoxViewController(self.selectedDetailViewController!.photo!, sourceImageView: self.selectedDetailViewController!.heroPhotoView, useSourceImageViewAsProxy: false)
+        })
     }
 
     // MARK: - DeckViewControllerDataSource
@@ -165,7 +169,6 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
                 rightCard.view.transform = CGAffineTransform(translationX: offset, y: 0)
             }, completion: nil)
         }
-
     }
     
     // MARK: - Light box animation
@@ -259,9 +262,9 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
     // MARK: - Private
     fileprivate func presentLightBoxViewController(_ photo: PhotoModel, sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
         let lightboxViewController = DetailLightBoxViewController(selectedPhoto: photo, photoCollection: photoCollection, initialSize: self.view.bounds.size)
-        let transitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
+        let lightboxTransitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
         lightboxViewController.modalPresentationStyle = .custom
-        lightboxViewController.transitioningDelegate = transitioningDelegate
+        lightboxViewController.transitioningDelegate = lightboxTransitioningDelegate
         lightboxViewController.delegate = self
         
         self.present(lightboxViewController, animated: true, completion: nil)

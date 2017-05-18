@@ -66,16 +66,16 @@ class SignInLogoView: UIView {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.8 * Double(arc4random()), animations: {
                     var angle:Double
                     if self.upperFlipWings.contains(imageIndex) {
-                        angle = Double(imageIndex) * 1.6 * M_PI / 180.0
+                        angle = Double(imageIndex) * 1.6 * Double.pi / 180.0
                         layerView.layer.transform = CATransform3DRotate(layerView.layer.transform, -CGFloat(angle), 1, 0, 0)
                     } else if self.lowerFlipWings.contains(imageIndex) {
-                        angle = Double(imageIndex) * 2.6 * M_PI / 180.0
+                        angle = Double(imageIndex) * 2.6 * Double.pi / 180.0
                         layerView.layer.transform = CATransform3DRotate(layerView.layer.transform, CGFloat(angle), 1, 0, 0)
                     } else if self.upperSlideWings.contains(imageIndex) {
-                        angle = Double(imageIndex) * 2.2 * M_PI / 180.0
+                        angle = Double(imageIndex) * 2.2 * Double.pi / 180.0
                         layerView.layer.transform = CATransform3DRotate(layerView.layer.transform, -CGFloat(angle), 0, 0, 1)
                     } else {
-                        angle = Double(imageIndex) * 1.8 * M_PI / 180.0
+                        angle = Double(imageIndex) * 1.8 * Double.pi / 180.0
                         layerView.layer.transform = CATransform3DRotate(layerView.layer.transform, CGFloat(angle), 1, 0, 1)
                     }
                     

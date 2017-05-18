@@ -45,7 +45,7 @@ class InlineLoadingView: UIView {
         loadingIndicator.layer.removeAllAnimations()
         
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = M_PI * 2
+        rotationAnimation.toValue = Double.pi * 2
         rotationAnimation.duration = 1.0
         rotationAnimation.isCumulative = true
         rotationAnimation.repeatCount = Float.infinity
