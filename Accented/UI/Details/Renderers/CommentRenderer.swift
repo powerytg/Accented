@@ -146,8 +146,6 @@ class CommentRenderer: UIView {
         let measuredHeight = max(avatarSize, authorSize.height + bodySize.height + vPadding + paddingTop + paddingBottom)
         let measuredSize = CGSize(width: measuredWidth, height: measuredHeight)
         
-        print("measure: \(author), \(authorSize)")
-        
         return measuredSize
     }
     

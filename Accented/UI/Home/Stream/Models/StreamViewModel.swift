@@ -129,13 +129,8 @@ class StreamViewModel: InfiniteLoadingViewModel {
             return
         }
 
-        if streamState.scrolling {
-            // Put the update in pending
-            streamState.dirty = true
-        } else {
-            updateCollectionView(page == 1)
-        }
-
+        // Update the stream, refresh if page is 1
+        updateCollectionView(page == 1)
         streamState.loading = false
         
         if page == 1 {

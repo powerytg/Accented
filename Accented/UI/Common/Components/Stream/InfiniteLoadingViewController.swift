@@ -105,11 +105,6 @@ class InfiniteLoadingViewController: UIViewController, UICollectionViewDelegateF
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         streamState.scrolling = false
         
-        if streamState.dirty {
-            streamState.dirty = false
-            viewModel?.updateCollectionView(false)
-        }
-        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         
@@ -120,7 +115,8 @@ class InfiniteLoadingViewController: UIViewController, UICollectionViewDelegateF
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !streamState.refreshing {
-            refreshHeaderCompressionRatio = max(0, min(1, -scrollView.contentOffset.y / RefreshHeaderView.maxTravelDistance))
+            // CGAffineTransform.scale doesn't work with value 0, so using a small number to simulate the effect
+            refreshHeaderCompressionRatio = max(0.001, min(1, -scrollView.contentOffset.y / RefreshHeaderView.maxTravelDistance))
             refreshHeaderView.transform = CGAffineTransform(scaleX: refreshHeaderCompressionRatio, y: 1)
             refreshHeaderView.alpha = refreshHeaderCompressionRatio
         }

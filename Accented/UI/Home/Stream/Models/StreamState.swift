@@ -16,9 +16,6 @@ class StreamState: NSObject {
     // Whether the stream is scrolling
     var scrolling : Bool = false
     
-    // If dirty, the stream will delay updating its content until it's no longer in scrolling state
-    var dirty : Bool = false
-    
     // Whether the stream is loading its content
     var loading : Bool = false
 }

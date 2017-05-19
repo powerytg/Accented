@@ -54,6 +54,7 @@ class HomeStreamViewController: StreamViewController {
     func appThemeDidChange(_ notification : Notification) {
         let viewModelClass = ThemeManager.sharedInstance.currentTheme.streamViewModelClass
         viewModel = viewModelClass.init(stream: stream!, collectionView: collectionView, flowLayoutDelegate: self)
+        viewModel?.delegate = self
         collectionView.dataSource = viewModel
         viewModel!.updateCollectionView(true)
     }

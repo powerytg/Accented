@@ -75,14 +75,8 @@ class CommentsViewModel: InfiniteLoadingViewModel {
         let page = (notification as NSNotification).userInfo![StorageServiceEvents.page] as! Int
         guard photo != nil else { return }
         guard photo!.photoId == photoId else { return }
-        
-        if streamState.scrolling {
-            // Put the update in pending
-            streamState.dirty = true
-        } else {
-            updateCollectionView(page == 1)
-        }
-        
+
+        updateCollectionView(page == 1)        
         streamState.loading = false
         
         if page == 1 {
