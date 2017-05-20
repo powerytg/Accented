@@ -42,9 +42,13 @@ class StorageService: NSObject {
         let notificationCenter = NotificationCenter.default
         
         // Photos returned for a stream
-        notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: Notification.Name("streamPhotosDidReturn"), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(streamPhotosDidReturn(_:)), name: APIEvents.streamPhotosDidReturn, object: nil)
         
         // Photo comments returned
-        notificationCenter.addObserver(self, selector: #selector(photoCommentsDidReturn(_:)), name: Notification.Name("commentsDidReturn"), object: nil)
+        notificationCenter.addObserver(self, selector: #selector(photoCommentsDidReturn(_:)), name: APIEvents.commentsDidReturn, object: nil)
+        
+        // Photo comment posted
+        notificationCenter.addObserver(self, selector: #selector(didPostComment(_:)), name: APIEvents.commentDidPost, object: nil)
+
     }
 }

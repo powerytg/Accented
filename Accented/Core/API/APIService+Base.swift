@@ -47,4 +47,12 @@ extension APIService {
         })
     }
     
+    func post(request : APIRequest) -> Void {
+        _ = client.post(request.url, parameters: request.parameters, headers: nil, success: { (response) in
+            request.handleSuccess(data: response.data, response: response.response)
+            }, failure: { (error) in
+                debugPrint(error)
+                request.handleFailure(error)
+        })
+    }
 }

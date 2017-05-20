@@ -73,7 +73,7 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
     }
 
     @objc func composeButtonDidTap(_ sender : UIButton) {
-        let composerViewController = DetailComposerViewController()
+        let composerViewController = DetailComposerViewController(photo : photo)
         present(composerViewController, animated: true, completion: nil)
     }
 }

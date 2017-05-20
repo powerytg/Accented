@@ -45,6 +45,8 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
         
         // Events
         NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didPostComment(_:)), name: StorageServiceEvents.didPostComment, object: nil)
     }
     
     override func refresh() {
@@ -77,13 +79,21 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
         guard photo != nil else { return }
         guard photo!.photoId == photoId else { return }
 
-        updateCollectionView(page == 1)        
+        updateCollectionView(page == 1)
         streamState.loading = false
         
         if page == 1 {
             streamState.refreshing = false
             delegate?.viewModelDidRefresh()
         }
+    }
+    
+    @objc fileprivate func didPostComment(_ notification : Notification) {
+        let photoId = (notification as NSNotification).userInfo![StorageServiceEvents.photoId] as! String
+        guard photo != nil else { return }
+        guard photo!.photoId == photoId else { return }
+
+        updateCollectionView(false)
     }
     
     func clearCollectionView() {

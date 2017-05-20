@@ -24,4 +24,10 @@ class RequestParameters: NSObject {
     
     // Image size
     static let imageSize = "image_size"
+    
+    // Error message
+    static let errorMessage = "errorMessage"
+    
+    // Comment body
+    static let body = "body"
 }

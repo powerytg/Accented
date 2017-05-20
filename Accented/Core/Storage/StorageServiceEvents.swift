@@ -16,7 +16,10 @@ class StorageServiceEvents: NSObject {
     
     // Comments retrieved for photo
     static let photoCommentsDidUpdate = Notification.Name("photoCommentsDidUpdate")
-    
+
+    // Comments posted for photo
+    static let didPostComment = Notification.Name("didPostComment")
+
     // MARK: - Parameters
     
     // Stream type

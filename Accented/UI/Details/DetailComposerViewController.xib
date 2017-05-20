@@ -14,7 +14,11 @@
                 <outlet property="backButton" destination="RR3-pD-3xS" id="YJ5-54-fgR"/>
                 <outlet property="composerHeightConstraint" destination="l9U-V7-Owh" id="Ljz-hE-MrM"/>
                 <outlet property="composerView" destination="riD-iM-QvW" id="zIt-jy-0bx"/>
+                <outlet property="errorView" destination="9lC-m3-lpk" id="9Lu-5e-d8A"/>
+                <outlet property="progressIndicator" destination="Cg2-MP-5zz" id="ago-3e-QzB"/>
+                <outlet property="progressView" destination="EqG-I9-iae" id="CHZ-iF-rfo"/>
                 <outlet property="sendButton" destination="ADQ-xf-zq6" id="roA-OZ-OEG"/>
+                <outlet property="successView" destination="V6b-8I-F6f" id="R5P-0i-7qF"/>
                 <outlet property="textView" destination="UII-Ey-4Af" id="aiH-rH-O9D"/>
                 <outlet property="titleView" destination="heP-1b-PmO" id="T7L-Q3-qW0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,7 +35,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heP-1b-PmO" userLabel="Titlebar">
                             <rect key="frame" x="0.0" y="0.0" width="343" height="34"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADQ-xf-zq6" userLabel="SendButton">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADQ-xf-zq6" userLabel="SendButton">
                                     <rect key="frame" x="313" y="6" width="16" height="22"/>
                                     <state key="normal" image="SendCommentButton"/>
                                     <connections>
@@ -90,6 +94,60 @@
                         <constraint firstItem="UII-Ey-4Af" firstAttribute="top" secondItem="riD-iM-QvW" secondAttribute="top" constant="50" id="nwM-1h-ixt"/>
                     </constraints>
                 </view>
+                <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EqG-I9-iae" userLabel="ProgressView">
+                    <rect key="frame" x="16" y="238" width="141" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Posting comment...  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7p9-c5-X9W">
+                            <rect key="frame" x="0.0" y="-1" width="111" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Cg2-MP-5zz">
+                            <rect key="frame" x="113" y="-0.5" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V6b-8I-F6f" userLabel="SuccessView">
+                    <rect key="frame" x="16" y="271" width="141" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comment posted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZx-uk-e0Q">
+                            <rect key="frame" x="30" y="0.0" width="94" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="SuccessStatus" translatesAutoresizingMaskIntoConstraints="NO" id="agu-29-Jav">
+                            <rect key="frame" x="0.0" y="2" width="16" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9lC-m3-lpk" userLabel="ErrorView">
+                    <rect key="frame" x="16" y="301" width="281" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="An error occurred while posting the comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAL-G3-A2F">
+                            <rect key="frame" x="30" y="0.0" width="245" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ErrorStatus" translatesAutoresizingMaskIntoConstraints="NO" id="YC9-vy-A7b">
+                            <rect key="frame" x="0.0" y="2" width="16" height="16"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -102,6 +160,8 @@
     </objects>
     <resources>
         <image name="Back" width="16" height="16"/>
+        <image name="ErrorStatus" width="16" height="16"/>
         <image name="SendCommentButton" width="16" height="16"/>
+        <image name="SuccessStatus" width="16" height="16"/>
     </resources>
 </document>
