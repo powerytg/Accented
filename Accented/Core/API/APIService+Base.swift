@@ -29,21 +29,22 @@ extension APIService {
                 debugPrint("Cache miss: \(cacheKey)")
             }
         }
-        
-        _ = client.get(request.url, parameters: request.parameters, success: { [weak self] (data, response) in
-            request.handleSuccess(data: data, response: response)
+
+        _ = client.get(request.url, parameters: request.parameters, headers: nil, success: { [weak self] (response) in
             if let cacheKey = request.cacheKey {
                 self?.removeFromPendingQueue(cacheKey)
-                self?.putToCache(data, forKey: cacheKey)
+                self?.putToCache(response.data, forKey: cacheKey)
             }
             
-        }) { [weak self] (error) in
+            request.handleSuccess(data: response.data, response: response.response)
+        }, failure: { [weak self] (error) in
             if let cacheKey = request.cacheKey {
                 self?.removeFromPendingQueue(cacheKey)
             }
-            
+
+            debugPrint(error)
             request.handleFailure(error)
-        }
+        })
     }
     
 }

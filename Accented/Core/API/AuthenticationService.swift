@@ -12,7 +12,7 @@ import OAuthSwift
 class AuthenticationService: NSObject {
     
     typealias SuccessAction = (_ credentials: OAuthSwiftCredential) -> Void
-    typealias FailureAction = (_ error: NSError) -> Void
+    typealias FailureAction = (_ error: Error) -> Void
     
     let consumerKey = "CF0WTWPsQXuEl83X35pfEus8VaYPOORFyjGFsIex"
     let consumerSecret = "blOsQK7uj8YHnSnZYoaSkkituD334OL51M80hV4S"
@@ -30,6 +30,9 @@ class AuthenticationService: NSObject {
     // Singleton instance
     static let sharedInstance = AuthenticationService()
     
+    // Retained authenticator
+    var authenticator : OAuth1Swift!
+    
     fileprivate override init() {
         // Ignore
     }
@@ -43,7 +46,7 @@ class AuthenticationService: NSObject {
     }
     
     func startSignInRequest(_ urlHandler:OAuthSwiftURLHandlerType, success: @escaping SuccessAction, failure: @escaping FailureAction) {
-        let authenticator = OAuth1Swift(
+        authenticator = OAuth1Swift(
             consumerKey:   consumerKey,
             consumerSecret: consumerSecret,
             requestTokenUrl: "https://api.500px.com/v1/oauth/request_token",
@@ -51,14 +54,14 @@ class AuthenticationService: NSObject {
             accessTokenUrl: "https://api.500px.com/v1/oauth/access_token"
         )
         
-        authenticator.authorize_url_handler = urlHandler
-        authenticator.authorizeWithCallbackURL(
-            URL(string: "accented-app://auth")!,
+        authenticator.authorizeURLHandler = urlHandler
+        authenticator.authorize(
+            withCallbackURL: "accented-app://auth",
             success: {[weak self] credential, response, parameters in
                 // Store access token and secret
                 if let weakSelf = self {
-                    weakSelf.accessToken = credential.oauth_token
-                    weakSelf.accessTokenSecret = credential.oauth_token_secret
+                    weakSelf.accessToken = credential.oauthToken
+                    weakSelf.accessTokenSecret = credential.oauthTokenSecret
                     
                     let userDefaults = UserDefaults.standard
                     userDefaults.set(weakSelf.accessToken, forKey: AuthenticationService.accessTokenStoreKey)
@@ -70,7 +73,7 @@ class AuthenticationService: NSObject {
                 success(credential)
             },
             failure: { error in
-                print("Auth error: " + error.localizedDescription)
+                debugPrint("Auth error: \(error)")
                 failure(error)
             }
         )

@@ -24,9 +24,9 @@ public struct OAuthSwiftMultipartData {
 
 }
 
-extension NSMutableData {
+extension Data {
 
-    public func appendMultipartData(_ multipartData: OAuthSwiftMultipartData, encoding: String.Encoding, separatorData: Data) {
+    public mutating func append(_ multipartData: OAuthSwiftMultipartData, encoding: String.Encoding, separatorData: Data) {
         var filenameClause = ""
         if let filename = multipartData.fileName {
             filenameClause = " filename=\"\(filename)\""

@@ -30,13 +30,7 @@ class BlurView: UIView {
         initialize()
     }
     
-    convenience init() {
-        self.init(frame : CGRect.zero)
-        initialize()
-    }
-
     func initialize() {
-        blurView.contentView.alpha = 0
         self.addSubview(blurView)
     }
     

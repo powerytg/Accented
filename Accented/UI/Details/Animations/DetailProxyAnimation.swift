@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol DetailEntranceAnimation : NSObjectProtocol {
-    func entranceAnimationWillBegin()
-    func performEntranceAnimation()
-    func entranceAnimationDidFinish()
-}
+protocol DetailEntranceAnimation : EntranceAnimation { }
 
 protocol DetailEntranceProxyAnimation : DetailEntranceAnimation {
     func desitinationRectForProxyView(_ photo : PhotoModel) -> CGRect

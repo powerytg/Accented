@@ -37,8 +37,9 @@ class APIService: NSObject {
         let authenticationService = AuthenticationService.sharedInstance
         client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
                                   consumerSecret: authenticationService.consumerSecret,
-                                  accessToken: authenticationService.accessToken!,
-                                  accessTokenSecret: authenticationService.accessTokenSecret!)
+                                  oauthToken: authenticationService.accessToken!,
+                                  oauthTokenSecret: authenticationService.accessTokenSecret!,
+                                  version: .oauth1)
         
         super.init()
         

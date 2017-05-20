@@ -37,7 +37,7 @@ class CommentModel: NSObject {
         // Replies
         replies = []
         
-        if(json["replies"] != nil) {
+        if(json["replies"] != JSON.null) {
             for (_, replyJSON):(String, JSON) in json["replies"] {
                 let reply = ReplyModel(json: replyJSON)
                 replies.append(reply)

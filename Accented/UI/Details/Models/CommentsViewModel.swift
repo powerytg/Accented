@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentsViewModel: InfiniteLoadingViewModel {
+class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
 
     static let darkCellIdentifier = "darkCell"
     static let lightCellIdentifier = "lightCell"
@@ -39,6 +39,7 @@ class CommentsViewModel: InfiniteLoadingViewModel {
         collectionView.register(DetailCommentCell.self, forCellWithReuseIdentifier: CommentsViewModel.darkCellIdentifier)
 
         // Initialize layout
+        layout.delegate = self
         layout.comments = comments
         collectionView.collectionViewLayout = layout
         
@@ -125,10 +126,13 @@ class CommentsViewModel: InfiniteLoadingViewModel {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentsViewModel.darkCellIdentifier, for: indexPath) as! DetailCommentCell
         cell.comment = comments[indexPath.item]
-        cell.style = (indexPath.item % 2 == 0 ? .Dark : .Light)
+        cell.style = cellStyleForItemAtIndexPath(indexPath)
         cell.setNeedsLayout()
         return cell
     }
     
-    
+    // MARK: - CommentsLayoutDelegate
+    func cellStyleForItemAtIndexPath(_ indexPath: IndexPath) -> CommentRendererStyle {
+        return (indexPath.item % 2 == 0 ? .Dark : .Light)
+    }
 }

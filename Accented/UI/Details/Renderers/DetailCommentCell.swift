@@ -10,9 +10,6 @@ import UIKit
 
 class DetailCommentCell: UICollectionViewCell {
     
-    fileprivate let darkCellMargin : CGFloat = 24
-    fileprivate let lightCellMargin : CGFloat = 36
-    
     var renderer : CommentRenderer!
     
     var comment : CommentModel? {
@@ -39,17 +36,6 @@ class DetailCommentCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         renderer.style = style
-        
-        var f = renderer.frame
-        switch style {
-        case .Dark:
-            f.origin.x = darkCellMargin
-        case .Light:
-            f.origin.x = lightCellMargin
-        }
-        
-        f.size.width = contentView.bounds.size.width - f.origin.x
-        f.size.height = contentView.bounds.size.height
-        renderer.frame = f
+        renderer.frame = contentView.bounds
     }
 }

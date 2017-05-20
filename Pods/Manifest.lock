@@ -1,51 +1,41 @@
 PODS:
-  - Alamofire (4.0.0)
-  - AwesomeCache (3.0.1)
-  - OAuthSwift (0.5.2)
+  - Alamofire (4.4.0)
+  - AwesomeCache (4.0)
+  - KMPlaceholderTextView (1.3.0)
+  - OAuthSwift (1.1.1)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SwiftyJSON (2.3.2)
+  - SwiftyJSON (3.1.4)
   - TTTAttributedLabel (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
-  - AwesomeCache (from `https://github.com/notohiro/AwesomeCache.git`, branch `Swift3.0`)
-  - OAuthSwift (from `https://github.com/skedgo/OAuthSwift.git`, branch `swift3.0`)
+  - AwesomeCache (from `https://github.com/notohiro/AwesomeCache.git`)
+  - KMPlaceholderTextView (~> 1.3.0)
+  - OAuthSwift (~> 1.1.0)
   - SDWebImage (~> 3.8)
-  - SwiftyJSON (from `https://github.com/acegreen/SwiftyJSON.git`, branch `swift3`)
+  - SwiftyJSON
   - TTTAttributedLabel
 
 EXTERNAL SOURCES:
   AwesomeCache:
-    :branch: Swift3.0
     :git: https://github.com/notohiro/AwesomeCache.git
-  OAuthSwift:
-    :branch: swift3.0
-    :git: https://github.com/skedgo/OAuthSwift.git
-  SwiftyJSON:
-    :branch: swift3
-    :git: https://github.com/acegreen/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
   AwesomeCache:
-    :commit: cfdd93e0d5d44de03404f85366f6dfb336c04024
+    :commit: 46ca50682c44be582e4918c53d496d2c19799147
     :git: https://github.com/notohiro/AwesomeCache.git
-  OAuthSwift:
-    :commit: 63bdf693004537f23436c8330cd9410e5ad88a54
-    :git: https://github.com/skedgo/OAuthSwift.git
-  SwiftyJSON:
-    :commit: 8971384559780e631b041ac91b16734a396d4c14
-    :git: https://github.com/acegreen/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
-  AwesomeCache: a1561c926b6cf812c5f3f4262ea22e20bf8323c1
-  OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AwesomeCache: bffbbf8933a8ab29e6e389827c15862c65f9ddbe
+  KMPlaceholderTextView: 2bbcd19a273648a80a61e1e48f9743a24d8930e3
+  OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 42904d1943b70d011492528ba069e66f2a0c7b9a
+PODFILE CHECKSUM: 540be3fcaca7982a5b5f23f3ba67e82e2aed4663
 
 COCOAPODS: 1.1.0.rc.2

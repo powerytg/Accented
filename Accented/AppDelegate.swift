@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         // Handle OAuth callback url
         if (url.host == AuthenticationService.oauthHost) {
-            OAuthSwift.handleOpenURL(url)
+            OAuthSwift.handle(url: url)
         }
         
         // Remove expired cache if already authenticated

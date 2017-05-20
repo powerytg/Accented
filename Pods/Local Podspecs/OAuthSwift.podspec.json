@@ -1,18 +1,19 @@
 {
   "name": "OAuthSwift",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "license": "MIT",
   "summary": "Swift based OAuth library for iOS and OSX.",
-  "homepage": "https://github.com/OAuthSwift/OAuthSwift",
+  "homepage": "https://github.com/skedgo/OAuthSwift",
   "social_media_url": "http://twitter.com/dongrify",
   "authors": {
-    "Dongri Jin": "dongrify@gmail.com"
+    "Dongri Jin": "dongrify@gmail.com",
+    "Eric Marchand": "eric.marchand.n7@gmail.com"
   },
   "source": {
-    "git": "https://github.com/OAuthSwift/OAuthSwift.git",
-    "tag": "0.5.2"
+    "git": "https://github.com/skedgo/OAuthSwift.git",
+    "tag": "1.0.0"
   },
-  "source_files": "OAuthSwift/*.swift",
+  "source_files": "Sources/*.swift",
   "platforms": {
     "ios": "8.0",
     "osx": "10.10",

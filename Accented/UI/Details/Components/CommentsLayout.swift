@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol CommentsLayoutDelegate : NSObjectProtocol {
+    func cellStyleForItemAtIndexPath(_ indexPath : IndexPath) -> CommentRendererStyle
+}
+
 class CommentsLayout: UICollectionViewFlowLayout {
 
     fileprivate var paddingTop : CGFloat = 80
-    fileprivate var leftMargin : CGFloat = 15
+    fileprivate let darkCellLeftMargin : CGFloat = 50
+    fileprivate let lightCelLeftlMargin : CGFloat = 62
     fileprivate var rightMargin : CGFloat = 15
     fileprivate var gap : CGFloat = 10
     fileprivate var availableWidth : CGFloat = 0
@@ -20,6 +25,9 @@ class CommentsLayout: UICollectionViewFlowLayout {
     
     // Layout cache
     fileprivate var layoutCache = [String : UICollectionViewLayoutAttributes]()
+    
+    // Layout delegate
+    weak var delegate : CommentsLayoutDelegate?
     
     override init() {
         super.init()
@@ -37,7 +45,7 @@ class CommentsLayout: UICollectionViewFlowLayout {
     
     override func prepare() {
         if collectionView != nil {
-            availableWidth = collectionView!.bounds.width - leftMargin - rightMargin
+            availableWidth = collectionView!.bounds.width - max(darkCellLeftMargin, lightCelLeftlMargin) - rightMargin
         }
     }
 
@@ -73,20 +81,33 @@ class CommentsLayout: UICollectionViewFlowLayout {
         guard comments.count != 0 else { return }
         guard comments.count != layoutCache.count else { return }
         
-        var nextY = contentHeight
+        var nextY : CGFloat = paddingTop
         for (index, comment) in comments.enumerated() {
             // Ignore if the comment already has a layout
-            if layoutCache[cacheKeyForComment(comment)] != nil {
-                continue
+            let cacheKey = cacheKeyForComment(comment)
+            var attrs = layoutCache[cacheKey]
+            if attrs == nil {
+                let measuredSize = CommentRenderer.estimatedSize(comment, width: availableWidth)
+                let indexPath = IndexPath(item: index, section: 0)
+                let cellStyle = delegate?.cellStyleForItemAtIndexPath(indexPath)
+                var leftMargin : CGFloat = 0
+                if let cellStyle = cellStyle {
+                    switch cellStyle {
+                    case .Dark:
+                        leftMargin = darkCellLeftMargin
+                    case .Light:
+                        leftMargin = lightCelLeftlMargin
+                    }
+                } else {
+                    leftMargin = 0
+                }
+                
+                attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+                attrs!.frame = CGRect(x: leftMargin, y: nextY, width: measuredSize.width, height: measuredSize.height)
+                layoutCache[cacheKeyForComment(comment)] = attrs!
             }
             
-            let measuredSize = CommentRenderer.estimatedSize(comment, width: availableWidth)
-            let indexPath = IndexPath(item: index, section: 0)
-            let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            attrs.frame = CGRect(x: leftMargin, y: nextY, width: measuredSize.width, height: measuredSize.height)
-            layoutCache[cacheKeyForComment(comment)] = attrs
-            
-            nextY += measuredSize.height + gap
+            nextY += attrs!.frame.size.height + gap
         }
         
         contentHeight = nextY

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailComposerViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="RR3-pD-3xS" id="YJ5-54-fgR"/>
+                <outlet property="composerHeightConstraint" destination="l9U-V7-Owh" id="Ljz-hE-MrM"/>
+                <outlet property="composerView" destination="riD-iM-QvW" id="zIt-jy-0bx"/>
+                <outlet property="sendButton" destination="ADQ-xf-zq6" id="roA-OZ-OEG"/>
+                <outlet property="textView" destination="UII-Ey-4Af" id="aiH-rH-O9D"/>
+                <outlet property="titleView" destination="heP-1b-PmO" id="T7L-Q3-qW0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="riD-iM-QvW" userLabel="ContainerView">
+                    <rect key="frame" x="16" y="40" width="343" height="180"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heP-1b-PmO" userLabel="Titlebar">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="34"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADQ-xf-zq6" userLabel="SendButton">
+                                    <rect key="frame" x="313" y="6" width="16" height="22"/>
+                                    <state key="normal" image="SendCommentButton"/>
+                                    <connections>
+                                        <action selector="sendButtonDidTap:" destination="-1" eventType="touchUpInside" id="zy5-6g-Tjv"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RR3-pD-3xS" userLabel="BackButton">
+                                    <rect key="frame" x="8" y="6" width="16" height="22"/>
+                                    <state key="normal" image="Back"/>
+                                    <connections>
+                                        <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="MJP-09-edU"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEW COMMENT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZb-sc-bIY">
+                                    <rect key="frame" x="127" y="7" width="89.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                    <size key="shadowOffset" width="0.0" height="1"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.15686274509803921" green="0.94509803921568625" blue="0.50588235294117645" alpha="0.75" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="EZb-sc-bIY" firstAttribute="centerY" secondItem="heP-1b-PmO" secondAttribute="centerY" id="6ht-3V-YW2"/>
+                                <constraint firstItem="EZb-sc-bIY" firstAttribute="centerX" secondItem="heP-1b-PmO" secondAttribute="centerX" id="6iI-O4-Eu9"/>
+                                <constraint firstAttribute="height" constant="34" id="KLC-7w-PTx"/>
+                                <constraint firstItem="RR3-pD-3xS" firstAttribute="centerY" secondItem="heP-1b-PmO" secondAttribute="centerY" id="KjF-B0-XC3"/>
+                                <constraint firstItem="RR3-pD-3xS" firstAttribute="leading" secondItem="heP-1b-PmO" secondAttribute="leading" constant="8" id="QBW-Nr-sqH"/>
+                                <constraint firstAttribute="trailing" secondItem="ADQ-xf-zq6" secondAttribute="trailing" constant="14" id="TLg-uB-tUI"/>
+                                <constraint firstItem="ADQ-xf-zq6" firstAttribute="centerY" secondItem="heP-1b-PmO" secondAttribute="centerY" id="cxE-DZ-cXN"/>
+                            </constraints>
+                        </view>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="UII-Ey-4Af" userLabel="TextView" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                            <rect key="frame" x="8" y="50" width="327" height="116"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Write your comment here"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                    <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.21176470588235294" green="0.21176470588235294" blue="0.21176470588235294" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="UII-Ey-4Af" secondAttribute="trailing" constant="8" id="Fpu-Dk-HRY"/>
+                        <constraint firstAttribute="trailing" secondItem="heP-1b-PmO" secondAttribute="trailing" id="Xqh-4s-aoT"/>
+                        <constraint firstItem="heP-1b-PmO" firstAttribute="top" secondItem="riD-iM-QvW" secondAttribute="top" id="Z3K-R2-eK8"/>
+                        <constraint firstItem="UII-Ey-4Af" firstAttribute="leading" secondItem="riD-iM-QvW" secondAttribute="leading" constant="8" id="kyx-sq-NK5"/>
+                        <constraint firstAttribute="height" constant="180" id="l9U-V7-Owh"/>
+                        <constraint firstItem="heP-1b-PmO" firstAttribute="leading" secondItem="riD-iM-QvW" secondAttribute="leading" id="liu-gk-Xfh"/>
+                        <constraint firstAttribute="bottom" secondItem="UII-Ey-4Af" secondAttribute="bottom" constant="14" id="m7q-k2-0Mo"/>
+                        <constraint firstItem="UII-Ey-4Af" firstAttribute="top" secondItem="riD-iM-QvW" secondAttribute="top" constant="50" id="nwM-1h-ixt"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="riD-iM-QvW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="1c2-Zf-jAD"/>
+                <constraint firstItem="riD-iM-QvW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="R3a-rG-lT5"/>
+                <constraint firstAttribute="trailing" secondItem="riD-iM-QvW" secondAttribute="trailing" constant="16" id="U9o-LA-adH"/>
+            </constraints>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Back" width="16" height="16"/>
+        <image name="SendCommentButton" width="16" height="16"/>
+    </resources>
+</document>
