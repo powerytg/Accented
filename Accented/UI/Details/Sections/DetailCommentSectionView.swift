@@ -83,6 +83,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         }
         
         // Create a load-more button
+        loadMoreButton.titleLabel?.font = ThemeManager.sharedInstance.currentTheme.navButtonFont
         loadMoreButton.setTitle("See more comments", for: .normal)
         loadMoreButton.sizeToFit()
         loadMoreButton.isHidden = true

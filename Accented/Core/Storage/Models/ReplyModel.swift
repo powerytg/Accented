@@ -16,5 +16,4 @@ class ReplyModel: CommentModel {
         super.init(json : json)
         parentId = String(json["parent_id"].int!)
     }
-
 }

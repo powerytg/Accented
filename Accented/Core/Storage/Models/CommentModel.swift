@@ -2,6 +2,8 @@
 //  CommentModel.swift
 //  Accented
 //
+//  Comment model for a photo
+//
 //  Created by Tiangong You on 8/8/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -9,19 +11,25 @@
 import UIKit
 import SwiftyJSON
 
-class CommentModel: NSObject {
+class CommentModel: ModelBase {
     var dateFormatter = DateFormatter()
     
-    var commentId : String
-    var userId : String
-    var commentedOnUserId : String
-    var body : String
+    var commentId : String!
+    var userId : String!
+    var commentedOnUserId : String!
+    var body : String!
     var creationDate : Date?
-    var user : UserModel
-    var replies : [ReplyModel]
+    var user : UserModel!
+    var replies = [ReplyModel]()
+    
+    override init() {
+        super.init()
+    }
     
     init(json:JSON) {
+        super.init()
         commentId = String(json["id"].int!)
+        modelId = commentId
         commentedOnUserId = String(json["to_whom_user_id"].int!)
         userId = String(json["user_id"].int!)
         body = json["body"].string!.trimmingCharacters(in: .whitespaces)
@@ -35,15 +43,23 @@ class CommentModel: NSObject {
         user = UserModel(json: json["user"])
         
         // Replies
-        replies = []
-        
         if(json["replies"] != JSON.null) {
             for (_, replyJSON):(String, JSON) in json["replies"] {
                 let reply = ReplyModel(json: replyJSON)
                 replies.append(reply)
             }            
         }
-
     }
 
+    override func copy(with zone: NSZone? = nil) -> Any {
+        let clone = CommentModel()
+        clone.commentId = self.commentId
+        clone.modelId = self.modelId
+        clone.commentedOnUserId = self.commentedOnUserId
+        clone.userId = self.userId
+        clone.creationDate = self.creationDate
+        clone.user = self.user.copy() as! UserModel
+        clone.replies = self.replies
+        return clone
+    }
 }

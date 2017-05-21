@@ -12,7 +12,6 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
 
     var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
-    var stream : StreamModel?
     
     // Whether the entrance animation has been performed
     // This flag will be reset after theme change
@@ -53,9 +52,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     }
     
     private func createStreamViewController(_ streamType : StreamType) {
-        stream = StorageService.sharedInstance.getStream(streamType)
-        streamViewController = HomeStreamViewController()
-        streamViewController!.stream = stream
+        let stream = StorageService.sharedInstance.getStream(streamType)
+        streamViewController = HomeStreamViewController(stream)
         addChildViewController(streamViewController!)
         self.view.addSubview(streamViewController!.view)
         streamViewController!.view.frame = self.view.bounds
@@ -66,13 +64,14 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     
     @objc private func streamDidUpdate(_ notification : Notification) {
         let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
+        let photos : [PhotoModel] = notification.userInfo![StorageServiceEvents.photos] as! [PhotoModel]
         let streamType = StreamType(rawValue: streamTypeString)
-        if streamType == stream?.streamType && stream!.photos.count != 0 {
-            // Perform entrance animation if necessary
+        if streamType == streamViewController?.stream.streamType && photos.count != 0 {
+            // Perform entrance animation on background view if necessary
             if !entranceAnimationPerformed {
                 entranceAnimationPerformed = true
                 
-                backgroundView!.photo = stream!.photos[0]
+                backgroundView!.photo = photos[0]
                 backgroundView!.setNeedsLayout()
                 backgroundView!.performEntranceAnimation({
                     // Ignore
@@ -83,29 +82,28 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     
     // MARK: - Events
     @objc private func streamSelectionWillChange(_ notification : Notification) {
+        guard streamViewController != nil else { return }
         let streamTypeString = notification.userInfo![StreamEvents.selectedStreamType] as! String
         let streamType = StreamType(rawValue: streamTypeString)
-        
-        if streamType == stream!.streamType {
+        if streamType == streamViewController!.stream.streamType {
             return
         }
         
         StorageService.sharedInstance.currentStream = StorageService.sharedInstance.getStream(streamType!)
-        stream = StorageService.sharedInstance.currentStream
-        
-        streamViewController?.stream = stream
+        streamViewController!.switchStream(StorageService.sharedInstance.currentStream)
     }
     
     @objc private func appThemeDidChange(_ notification : Notification) {
         applyStatusBarStyle()
         
         // Remove the previous background view and apply the new background along with entrance animation
+        let backgroundPhoto = backgroundView!.photo
         backgroundView!.removeFromSuperview()
         
         backgroundView! = ThemeManager.sharedInstance.currentTheme.backgroundViewClass.init()
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        backgroundView!.photo = stream!.photos[0]
+        backgroundView!.photo = backgroundPhoto
 
         self.view.insertSubview(backgroundView!, at: 0)
         backgroundView!.performEntranceAnimation({

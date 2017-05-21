@@ -98,6 +98,11 @@ class AppTheme: NSObject {
         return UIColor.white
     }
 
+    // Navigation button font
+    var navButtonFont : UIFont {
+        return UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
+    }
+    
     var statusBarStyle : UIStatusBarStyle {
         return .lightContent
     }

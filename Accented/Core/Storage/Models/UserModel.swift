@@ -2,6 +2,8 @@
 //  UserModel.swift
 //  Accented
 //
+//  User model
+//
 //  Created by Tiangong You on 8/6/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -9,6 +11,7 @@
 import UIKit
 import SwiftyJSON
 
+// User avatar size definition
 enum UserAvatar : String {
     case Large = "large"
     case Default = "default"
@@ -16,7 +19,7 @@ enum UserAvatar : String {
     case Tiny = "tiny"
 }
 
-class UserModel: NSObject {
+class UserModel: ModelBase {
     var userId : String!
     var followersCount : Int = 0
     var coverUrl : String?
@@ -31,10 +34,16 @@ class UserModel: NSObject {
     // Avatars
     var avatarUrls = [UserAvatar : String]()
     
+    override init() {
+        super.init()
+    }
+    
     init(json : JSON) {
         super.init()
         
         self.userId = String(json["id"].int!)
+        self.modelId = self.userId
+        
         if let followCount = json["followers_count"].int {
             followersCount = followCount
         }
@@ -64,5 +73,23 @@ class UserModel: NSObject {
         if let tinyAvatar = json["avatars"]["tiny"]["https"].string {
             avatarUrls[.Tiny] = tinyAvatar
         }
+    }
+    
+    override func copy(with zone: NSZone? = nil) -> Any {
+        let clone = UserModel()
+        clone.userId = self.userId
+        clone.modelId = self.modelId
+        clone.followersCount = self.followersCount
+        clone.coverUrl = self.coverUrl
+        clone.lastName = self.lastName
+        clone.firstName = self.firstName
+        clone.fullName = self.fullName
+        clone.userName = self.userName
+        clone.city = self.city
+        clone.country = self.country
+        clone.userPhotoUrl = self.userPhotoUrl
+        clone.avatarUrls = self.avatarUrls
+        
+        return clone
     }
 }

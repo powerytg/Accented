@@ -2,6 +2,8 @@
 //  PhotoModel.swift
 //  Accented
 //
+//  Photo view model
+//
 //  Created by You, Tiangong on 4/22/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -9,14 +11,14 @@
 import UIKit
 import SwiftyJSON
 
-class PhotoModel: NSObject {
+class PhotoModel: ModelBase {
     fileprivate var dateFormatter = DateFormatter()
     
-    var photoId : String
+    var photoId : String!
     var imageUrls = [ImageSize : String!]()
-    var width : CGFloat
-    var height: CGFloat
-    var title : String
+    var width : CGFloat!
+    var height: CGFloat!
+    var title : String!
     var desc : String?
     var creationDate : Date?
     var lens : String?
@@ -25,13 +27,19 @@ class PhotoModel: NSObject {
     var longitude : Double?
     var latitude : Double?
     var tags = [String]()
-    var user : UserModel
+    var user : UserModel!
     
     var comments = [CommentModel]()
     var commentsCount : Int?
     
+    override init() {
+        super.init()
+    }
+    
     init(json:JSON) {
+        super.init()
         photoId = String(json["id"].int!)
+        modelId = photoId
         
         // Image urls
         for (_, imageJson):(String, JSON) in json["images"] {
@@ -72,5 +80,25 @@ class PhotoModel: NSObject {
         for (_, tagJSON):(String, JSON) in json["tags"] {
             tags.append(tagJSON.string!)
         }
+    }
+    
+    override func copy(with zone: NSZone? = nil) -> Any {
+        let clone = PhotoModel()
+        clone.modelId = self.modelId
+        clone.photoId = self.photoId
+        clone.imageUrls = self.imageUrls
+        clone.width = self.width
+        clone.height = self.height
+        clone.title = self.title
+        clone.desc = self.desc
+        clone.creationDate = self.creationDate
+        clone.camera = self.camera
+        clone.lens = self.lens
+        clone.aperture = self.aperture
+        clone.longitude = self.longitude
+        clone.latitude = self.latitude
+        clone.user = self.user.copy() as! UserModel
+        clone.tags = self.tags
+        return clone
     }
 }

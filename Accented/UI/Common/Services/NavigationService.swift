@@ -45,5 +45,4 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         vc.photo = photo
         rootNavigationController?.pushViewController(vc, animated: true)
     }
-    
 }

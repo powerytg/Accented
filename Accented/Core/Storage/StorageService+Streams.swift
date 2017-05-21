@@ -51,44 +51,33 @@ extension StorageService {
         }
     }
     
+    // This method is synchronized
     fileprivate func mergePhotosToStream(_ streamType : StreamType, photos: [PhotoModel], page: Int, totalPhotos : Int) -> Void {
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            let stream = self?.getStream(streamType)
-            guard stream != nil else { return }
-            stream!.totalCount = totalPhotos
-            
-            if page == 1 && strongSelf.hasOverlapContent(newPhotos: photos, oldPhotos: stream!.photos) {
-                stream!.photos.removeAll()
-            }
-            
-            stream!.photos += photos
+        let stream = self.getStream(streamType)
+        synchronized(stream) { 
+            stream.totalCount = totalPhotos
             
             // Put the photos into cache
             for photo in photos {
-                self?.photoCache.setObject(photo, forKey: NSString(string: photo.photoId))
+                photoCache.setObject(photo, forKey: NSString(string: photo.photoId))
+            }
+
+            // If it's the first page and the new content is not strictly equal to the first page, then discard the entire stream
+            if page == 1 && !isEqualCollection(newPhotos: photos, oldPhotos: stream.photos) {
+                stream.photos = []
             }
             
-            let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : stream!.streamType.rawValue as AnyObject, StorageServiceEvents.page : page as AnyObject]
-            NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
+            // Merge all in the new photos
+            let mergedPhotos = mergeModelCollections(newModels: photos, withModels: stream.photos)
+            stream.photos = mergedPhotos
+            
+            // Broadcast the stream update event
+            DispatchQueue.main.async {
+                let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : streamType.rawValue as AnyObject,
+                                                       StorageServiceEvents.page : page as AnyObject,
+                                                       StorageServiceEvents.photos : mergedPhotos as AnyObject]
+                NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
+            }
         }
     }
-    
-    fileprivate func hasOverlapContent(newPhotos : [PhotoModel], oldPhotos : [PhotoModel]) -> Bool {
-        if newPhotos.count == 0 {
-            return false
-        }
-        
-        if oldPhotos.count == 0 {
-            return true
-        }
-        
-        if oldPhotos.contains(newPhotos.last!) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
 }

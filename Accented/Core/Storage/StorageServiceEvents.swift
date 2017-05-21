@@ -30,4 +30,7 @@ class StorageServiceEvents: NSObject {
     
     // Photo id
     static let photoId = "photoId"
+    
+    // Photos
+    static let photos = "photos"
 }

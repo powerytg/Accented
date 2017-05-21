@@ -52,10 +52,7 @@ class StreamViewModel: InfiniteLoadingViewModel {
         if !stream.loaded {
             layoutEngine.generateLayoutAttributesForLoadingState()
             collectionView.reloadData()
-        }
-        
-        // Events
-        NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
+        }        
     }
     
     func registerCellTypes() -> Void {
@@ -68,10 +65,6 @@ class StreamViewModel: InfiniteLoadingViewModel {
     
     func createLayoutTemplateGenerator(_ maxWidth : CGFloat) -> StreamTemplateGenerator {
         fatalError("Not implemented in base class")
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     func loadStreamIfNecessary() {
@@ -117,17 +110,8 @@ class StreamViewModel: InfiniteLoadingViewModel {
         })
     }
     
-    func streamDidUpdate(_ notification : Notification) -> Void {
-        let streamTypeString = (notification as NSNotification).userInfo![StorageServiceEvents.streamType] as! String
-        let streamType = StreamType(rawValue: streamTypeString)
-        let page = (notification as NSNotification).userInfo![StorageServiceEvents.page] as! Int
-        if streamType != stream.streamType {
-            return
-        }
-        
-        if stream.photos.count <= photoCountInCollectionView {
-            return
-        }
+    func streamDidUpdate(stream : StreamModel, page : Int) -> Void {
+        self.stream = stream
 
         // Update the stream, refresh if page is 1
         updateCollectionView(page == 1)

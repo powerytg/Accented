@@ -24,12 +24,19 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
     // Compose button
     fileprivate var composeButton = UIButton()
     
+    // Nav bar
+    fileprivate var navBarView = UIVisualEffectView(effect : UIBlurEffect(style : .dark))
+    
     // Margins
     fileprivate var vPadding : CGFloat = 30
     fileprivate var hPadding : CGFloat = 15
+    fileprivate var navBarHeight : CGFloat = 80
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Nav bar
+        self.view.addSubview(navBarView)
         
         // Back button
         self.view.addSubview(backButton)
@@ -40,6 +47,7 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
         // Compose button
         self.view.addSubview(composeButton)
         composeButton.setTitle("ADD COMMENT", for: .normal)
+        composeButton.titleLabel?.font = ThemeManager.sharedInstance.currentTheme.navButtonFont
         composeButton.addTarget(self, action: #selector(composeButtonDidTap(_:)), for: .touchUpInside)
         composeButton.sizeToFit()
     }
@@ -55,7 +63,12 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        var f = backButton.frame
+        var f = navBarView.frame
+        f.size.width = view.bounds.size.width
+        f.size.height = navBarHeight
+        navBarView.frame = f
+        
+        f = backButton.frame
         f.origin.x = hPadding
         f.origin.y = vPadding
         backButton.frame = f
