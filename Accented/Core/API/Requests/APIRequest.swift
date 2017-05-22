@@ -22,6 +22,10 @@ class APIRequest: NSObject {
     // Supported image sizes
     static let defaultImageSizesForStream = [ImageSize.Small, ImageSize.Medium, ImageSize.Large]
     
+    // Default excluded categories ("4" is nude content)
+    // https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#categories
+    static let defaultExcludedCategories = ["4"]
+    
     // Success action
     var successAction : SuccessAction?
     

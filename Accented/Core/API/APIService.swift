@@ -11,6 +11,7 @@ import OAuthSwift
 import AwesomeCache
 
 // Stream definitions
+// Note that this is only a psudo definition and does not necessarily match the API specification
 enum StreamType : String {
     case Popular = "popular"
     case HighestRated = "highest_rated"
@@ -19,7 +20,8 @@ enum StreamType : String {
     case FreshToday = "fresh_today"
     case FreshYesterday = "fresh_yesterday"
     case FreshWeek = "fresh_week"
-    case User = "user"
+    case User = "user"  // User photos
+    case Search = "search"  // Search result
 }
 
 // Image size definitions

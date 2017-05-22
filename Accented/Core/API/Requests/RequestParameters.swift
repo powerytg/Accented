@@ -9,6 +9,8 @@
 import UIKit
 
 class RequestParameters: NSObject {
+    // Stream type
+    static let streamType = "streamType"
     
     // Photo id
     static let photoId = "photoId"
@@ -24,6 +26,18 @@ class RequestParameters: NSObject {
     
     // Image size
     static let imageSize = "image_size"
+    
+    // Exclude
+    static let exclude = "exclude"
+    
+    // Search term
+    static let term = "term"
+    
+    // Search tag
+    static let tag = "tag"
+    
+    // Exclude nude
+    static let excludeNude = "exclude_nude"
     
     // Error message
     static let errorMessage = "errorMessage"

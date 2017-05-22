@@ -83,18 +83,41 @@ class StreamViewModel: InfiniteLoadingViewModel {
     
     // MARL: - Stream loading and updating
     
+    fileprivate func loadPage(_ page : Int) {
+        if stream is PhotoSearchStreamModel {
+            searchPhotos(page: page)
+        } else {
+            loadPhotos(page: page)
+        }
+    }
+    
+    fileprivate func loadPhotos(page : Int) {
+        let params = ["tags" : "1"]
+        APIService.sharedInstance.getPhotos(streamType: stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
+            self?.streamFailedRefreshing(errorMessage)
+        })
+    }
+    
+    fileprivate func searchPhotos(page : Int) {
+        let searchModel = stream as! PhotoSearchStreamModel
+        if let keyword = searchModel.keyword {
+            APIService.sharedInstance.searchPhotos(keyword : keyword, page: page, parameters: [:], success: nil, failure: { [weak self] (errorMessage) in
+                self?.streamFailedRefreshing(errorMessage)
+            })
+        } else if let tag = searchModel.tag {
+            APIService.sharedInstance.searchPhotos(tag : tag, page: page, parameters: [:], success: nil, failure: { [weak self] (errorMessage) in
+                self?.streamFailedRefreshing(errorMessage)
+            })
+        }
+    }
+
     override func refresh() {
         if streamState.refreshing {
             return
         }
         
         streamState.refreshing = true
-        let page = 1
-        let params = ["tags" : "1"]
-        APIService.sharedInstance.getPhotos(stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
-            self?.streamFailedRefreshing(errorMessage)
-        })
-
+        loadPage(1)
     }
     
     override func loadNextPage() {
@@ -103,11 +126,8 @@ class StreamViewModel: InfiniteLoadingViewModel {
         }
         
         streamState.loading = true
-        let page = stream.photos.count / StorageService.pageSize + 1
-        let params = ["tags" : "1"]
-        APIService.sharedInstance.getPhotos(stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
-            self?.streamFailedLoading(errorMessage)
-        })
+        let page = Int(ceil(Float(stream.photos.count) / Float(StorageService.pageSize))) + 1
+        loadPage(page)
     }
     
     func streamDidUpdate(stream : StreamModel, page : Int) -> Void {

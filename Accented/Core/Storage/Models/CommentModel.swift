@@ -12,15 +12,13 @@ import UIKit
 import SwiftyJSON
 
 class CommentModel: ModelBase {
-    var dateFormatter = DateFormatter()
-    
+    var dateFormatter = DateFormatter()    
     var commentId : String!
     var userId : String!
     var commentedOnUserId : String!
     var body : String!
     var creationDate : Date?
     var user : UserModel!
-    var replies = [ReplyModel]()
     
     override init() {
         super.init()
@@ -41,14 +39,6 @@ class CommentModel: ModelBase {
         
         // User
         user = UserModel(json: json["user"])
-        
-        // Replies
-        if(json["replies"] != JSON.null) {
-            for (_, replyJSON):(String, JSON) in json["replies"] {
-                let reply = ReplyModel(json: replyJSON)
-                replies.append(reply)
-            }            
-        }
     }
 
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -59,7 +49,6 @@ class CommentModel: ModelBase {
         clone.userId = self.userId
         clone.creationDate = self.creationDate
         clone.user = self.user.copy() as! UserModel
-        clone.replies = self.replies
         return clone
     }
 }

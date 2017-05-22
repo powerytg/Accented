@@ -11,10 +11,23 @@ import UIKit
 extension APIService {
 
     // Get photos from stream
-    func getPhotos(_ streamType : StreamType, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
+    func getPhotos(streamType : StreamType, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
         let request = GetStreamPhotosRequest(streamType, page : page, params : parameters, success : success, failure : failure)
         request.ignoreCache = (page == 1)
         get(request: request)
     }
     
+    // Search photos by keyword
+    func searchPhotos(keyword : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
+        let request = SearchPhotosRequest(keyword: keyword, page: page, params: parameters, success: success, failure: failure)
+        request.ignoreCache = (page == 1)
+        get(request: request)
+    }
+    
+    // Search photos by tag
+    func searchPhotos(tag : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
+        let request = SearchPhotosRequest(tag: tag, page: page, params: parameters, success: success, failure: failure)
+        request.ignoreCache = (page == 1)
+        get(request: request)
+    }
 }

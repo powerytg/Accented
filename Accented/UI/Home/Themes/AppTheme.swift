@@ -103,6 +103,21 @@ class AppTheme: NSObject {
         return UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
     }
     
+    // Navigation content left margin
+    var navContentLeftPadding : CGFloat {
+        return 15
+    }
+
+    // Navigation content top margin
+    var navContentTopPadding : CGFloat {
+        return 30
+    }
+
+    // Custom navigation bar height
+    var navBarHeight : CGFloat {
+        return 80
+    }
+    
     var statusBarStyle : UIStatusBarStyle {
         return .lightContent
     }
@@ -117,6 +132,16 @@ class AppTheme: NSObject {
         return DefaultViewModel.self
     }
     
+    // Selected card title font
+    var selectedCardNavFont : UIFont {
+        return UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
+    }
+
+    // Normal card title font
+    var normalCardNavFont : UIFont {
+        return UIFont(name: "AvenirNextCondensed-Medium", size: 17)!
+    }
+
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

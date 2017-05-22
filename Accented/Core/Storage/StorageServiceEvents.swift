@@ -28,6 +28,9 @@ class StorageServiceEvents: NSObject {
     // Page
     static let page = "page"
     
+    // Stream id
+    static let streamId = "streamId"
+    
     // Photo id
     static let photoId = "photoId"
     

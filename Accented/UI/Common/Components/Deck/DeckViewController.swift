@@ -22,6 +22,12 @@ private enum ScrollDirection {
     case right
 }
 
+// Event delegate
+protocol DeckViewControllerDelegate : NSObjectProtocol {
+    // Invoked when card selection has changed
+    func deckViewControllerSelectedIndexDidChange()
+}
+
 class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCacheControllerDelegate {
 
     // Cache initialization policy
@@ -72,6 +78,9 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // Pan gesture
     var panGesture : UIPanGestureRecognizer!
+    
+    // Delegate
+    weak var deckViewDelegate : DeckViewControllerDelegate?
     
     init(initialSelectedIndex : Int = 0) {
         self.selectedIndex = initialSelectedIndex
@@ -125,6 +134,8 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         for card in cacheController.cachedCards {
             card.cardSelectionDidChange(card.indexInDataSource == selectedIndex)
         }
+        
+        deckViewDelegate?.deckViewControllerSelectedIndexDidChange()
     }
     
     // Update the frames for the selected view controller as well its siblings
@@ -285,6 +296,11 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     func cardDidAddToCache(_ card: CardViewController) {
         initializeCard(card)
+    }
+    
+    func selectCardAt(_ index : Int) {
+        selectedIndex = index
+        
     }
     
     // MARK: - Private

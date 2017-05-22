@@ -18,6 +18,8 @@ extension StorageService {
         for model in oldModels {
             if let modelId = model.modelId {
                 existingModels[modelId] = model
+            } else {
+                debugPrint("Photo model id not found!")
             }
         }
         

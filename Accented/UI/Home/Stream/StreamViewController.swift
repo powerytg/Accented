@@ -61,15 +61,27 @@ class StreamViewController : InfiniteLoadingViewController {
     }
     
     func streamDidUpdate(_ notification : Notification) -> Void {
-        let streamTypeString = (notification as NSNotification).userInfo![StorageServiceEvents.streamType] as! String
-        let streamType = StreamType(rawValue: streamTypeString)
-        let page = (notification as NSNotification).userInfo![StorageServiceEvents.page] as! Int
-        if streamType != stream.streamType {
+        let streamId = notification.userInfo![StorageServiceEvents.streamId] as! String
+        let page = notification.userInfo![StorageServiceEvents.page] as! Int
+        if streamId != stream.streamId {
             return
         }
         
         // Make a protective copy of the stream object
-        let streamModel = StorageService.sharedInstance.getStream(streamType!)
+        var streamModel : StreamModel
+        if stream is PhotoSearchStreamModel {
+            let searchModel = stream as! PhotoSearchStreamModel
+            if let keyword = searchModel.keyword {
+                streamModel = StorageService.sharedInstance.getStream(keyword: keyword)
+            } else if let tag = searchModel.tag {
+                streamModel = StorageService.sharedInstance.getStream(tag: tag)
+            } else {
+                fatalError("Both keyword and tag cannot be nil")
+            }
+        } else {
+            streamModel = StorageService.sharedInstance.getStream(stream.streamType)
+        }
+        
         StorageService.sharedInstance.synchronized(streamModel) {
             self.stream = streamModel.copy() as! StreamModel
         }

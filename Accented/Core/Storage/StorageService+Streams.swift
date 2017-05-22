@@ -22,14 +22,32 @@ extension StorageService {
         }
     }
     
-    internal func streamPhotosDidReturn(_ notification : Notification) -> Void {
-        let jsonData : Data = (notification as NSNotification).userInfo!["response"] as! Data
-        let streamType = StreamType(rawValue: (notification as NSNotification).userInfo!["streamType"] as! String)
-        if streamType == nil {
-            debugPrint("Unrecognized stream type \(String(describing: streamType))")
-            return
+    // Retrieve a photo search result stream with keyword
+    func getStream(keyword : String) -> PhotoSearchStreamModel {
+        let streamId = PhotoSearchStreamModel.streamIdWithKeyword(keyword)
+        if let stream = streamCache.object(forKey: NSString(string: streamId)) {
+            return stream as! PhotoSearchStreamModel
+        } else {
+            let stream = PhotoSearchStreamModel(keyword : keyword)
+            streamCache.setObject(stream, forKey: NSString(string: streamId))
+            return stream
         }
-
+    }
+    
+    // Retrieve a photo search result stream with tag
+    func getStream(tag : String) -> PhotoSearchStreamModel {
+        let streamId = PhotoSearchStreamModel.streamIdWithTag(tag)
+        if let stream = streamCache.object(forKey: NSString(string: streamId)) {
+            return stream as! PhotoSearchStreamModel
+        } else {
+            let stream = PhotoSearchStreamModel(tag : tag)
+            streamCache.setObject(stream, forKey: NSString(string: streamId))
+            return stream
+        }
+    }
+    
+    internal func streamPhotosDidReturn(_ notification : Notification) -> Void {
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
         parsingQueue.async { [weak self] in
             var newPhotos = [PhotoModel]()
             
@@ -44,7 +62,7 @@ extension StorageService {
                     newPhotos.append(photo)
                 }
                 
-                self?.mergePhotosToStream(streamType!, photos: newPhotos, page: page, totalPhotos: totalCount)
+                self?.mergePhotosToStream(notification.userInfo!, photos: newPhotos, page: page, totalPhotos: totalCount)
             } catch {
                 print(error)
             }
@@ -52,9 +70,32 @@ extension StorageService {
     }
     
     // This method is synchronized
-    fileprivate func mergePhotosToStream(_ streamType : StreamType, photos: [PhotoModel], page: Int, totalPhotos : Int) -> Void {
-        let stream = self.getStream(streamType)
-        synchronized(stream) { 
+    fileprivate func mergePhotosToStream(_ userInfo : [AnyHashable : Any], photos: [PhotoModel], page: Int, totalPhotos : Int) {
+        // Validate results
+        let streamTypeString = userInfo[RequestParameters.streamType] as? String
+        let keyword = userInfo[RequestParameters.term] as? String
+        let tag = userInfo[RequestParameters.tag] as? String
+        
+        var stream : StreamModel
+        var streamType : StreamType?
+        if streamTypeString != nil {
+            streamType = StreamType(rawValue: streamTypeString!)
+            if streamType == nil {
+                debugPrint("Unrecognized stream type \(streamTypeString!))")
+                return
+            } else {
+                stream = self.getStream(streamType!)
+            }
+        } else if keyword != nil {
+            stream = getStream(keyword: keyword!)
+        } else if tag != nil {
+            stream = getStream(tag: tag!)
+        } else {
+            debugPrint("Stream does not have an identity))")
+            return
+        }
+        
+        synchronized(stream) {
             stream.totalCount = totalPhotos
             
             // Put the photos into cache
@@ -73,9 +114,9 @@ extension StorageService {
             
             // Broadcast the stream update event
             DispatchQueue.main.async {
-                let userInfo : [String : AnyObject] = [StorageServiceEvents.streamType : streamType.rawValue as AnyObject,
-                                                       StorageServiceEvents.page : page as AnyObject,
-                                                       StorageServiceEvents.photos : mergedPhotos as AnyObject]
+                let userInfo : [String : Any] = [StorageServiceEvents.streamId : stream.streamId,
+                                                 StorageServiceEvents.page : page,
+                                                 StorageServiceEvents.photos : mergedPhotos]
                 NotificationCenter.default.post(name: StorageServiceEvents.streamDidUpdate, object: nil, userInfo: userInfo)
             }
         }

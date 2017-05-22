@@ -11,7 +11,7 @@ import UIKit
 class DetailCommentsViewController: InfiniteLoadingViewController {
     
     // Photo model
-    var photo : PhotoModel!    
+    var photo : PhotoModel!
     
     // Collection view viewModel
     fileprivate var commentsViewModel : CommentsViewModel! {
@@ -20,20 +20,17 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
     
     // Back button
     fileprivate var backButton = UIButton(type: .custom)
-
+    
     // Compose button
     fileprivate var composeButton = UIButton()
     
     // Nav bar
     fileprivate var navBarView = UIVisualEffectView(effect : UIBlurEffect(style : .dark))
     
-    // Margins
-    fileprivate var vPadding : CGFloat = 30
-    fileprivate var hPadding : CGFloat = 15
-    fileprivate var navBarHeight : CGFloat = 80
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.black
         
         // Nav bar
         self.view.addSubview(navBarView)
@@ -51,40 +48,41 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
         composeButton.addTarget(self, action: #selector(composeButtonDidTap(_:)), for: .touchUpInside)
         composeButton.sizeToFit()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     override func createViewModel() {
         viewModel = CommentsViewModel(photo.photoId, collectionView : collectionView)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        let currentTheme = ThemeManager.sharedInstance.currentTheme
         
         var f = navBarView.frame
         f.size.width = view.bounds.size.width
-        f.size.height = navBarHeight
+        f.size.height = currentTheme.navBarHeight
         navBarView.frame = f
         
         f = backButton.frame
-        f.origin.x = hPadding
-        f.origin.y = vPadding
+        f.origin.x = currentTheme.navContentLeftPadding
+        f.origin.y = currentTheme.navContentTopPadding
         backButton.frame = f
         
         f = composeButton.frame
-        f.origin.x = view.bounds.size.width - f.size.width - hPadding
-        f.origin.y = 30
+        f.origin.x = view.bounds.size.width - f.size.width - currentTheme.navContentLeftPadding
+        f.origin.y = currentTheme.navContentTopPadding
         composeButton.frame = f
     }
-
+    
     // MARK: - Events
     
     @objc func backButtonDidTap(_ sender : UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
     }
-
+    
     @objc func composeButtonDidTap(_ sender : UIButton) {
         let composerViewController = DetailComposerViewController(photo : photo)
         present(composerViewController, animated: true, completion: nil)

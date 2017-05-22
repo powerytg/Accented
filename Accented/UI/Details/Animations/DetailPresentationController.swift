@@ -71,5 +71,5 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
                 // Remove proxy image
                 proxyImageView.removeFromSuperview()
         }
-    }
+    }    
 }

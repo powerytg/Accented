@@ -26,8 +26,11 @@ extension StorageService {
                 let commentsCount = json["total_items"].int!
                 
                 for (_, commentJSON):(String, JSON) in json["comments"] {
-                    let comment = CommentModel(json: commentJSON)
-                    newComments.append(comment)
+                    if commentJSON["parent_id"].string != nil {
+                        newComments.append(ReplyModel(json : commentJSON))
+                    } else {
+                        newComments.append(CommentModel(json : commentJSON))
+                    }
                 }
                 
                 self?.mergeCommentsToPhoto(photoId, comments: newComments, page: page, commentsCount : commentsCount)

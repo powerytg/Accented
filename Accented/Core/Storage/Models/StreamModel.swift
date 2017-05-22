@@ -2,7 +2,7 @@
 //  StreamModel.swift
 //  Accented
 //
-//  Stream data model
+//  Generic stream data model
 //
 //  Created by You, Tiangong on 4/22/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
@@ -22,11 +22,17 @@ class StreamModel: ModelBase {
         return totalCount != nil
     }
     
-    required init(streamType : StreamType) {
+    // Dynamically generated stream identifier
+    var streamId : String {
+        return streamType.rawValue
+    }
+    
+    init(streamType : StreamType) {
         self.streamType = streamType
         super.init()
+        self.modelId = self.streamId
     }
-
+    
     override func copy(with zone: NSZone? = nil) -> Any {
         let clone = StreamModel(streamType: self.streamType)
         StorageService.sharedInstance.synchronized(self) {

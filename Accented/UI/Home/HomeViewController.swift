@@ -40,6 +40,11 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+        
+        // Testing code
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { 
+            NavigationService.sharedInstance.navigateToSearchResultPage("landscape")
+        }
     }
     
     deinit {
@@ -63,10 +68,9 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     }
     
     @objc private func streamDidUpdate(_ notification : Notification) {
-        let streamTypeString = notification.userInfo![StorageServiceEvents.streamType] as! String
+        let streamId = notification.userInfo![StorageServiceEvents.streamId] as! String
         let photos : [PhotoModel] = notification.userInfo![StorageServiceEvents.photos] as! [PhotoModel]
-        let streamType = StreamType(rawValue: streamTypeString)
-        if streamType == streamViewController?.stream.streamType && photos.count != 0 {
+        if streamId == streamViewController?.stream.streamId && photos.count != 0 {
             // Perform entrance animation on background view if necessary
             if !entranceAnimationPerformed {
                 entranceAnimationPerformed = true

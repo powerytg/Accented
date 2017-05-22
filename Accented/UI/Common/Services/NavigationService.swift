@@ -45,4 +45,9 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         vc.photo = photo
         rootNavigationController?.pushViewController(vc, animated: true)
     }
+    
+    func navigateToSearchResultPage(_ keyword : String) {
+        let vc = SearchResultViewController(keyword: keyword)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
 }
