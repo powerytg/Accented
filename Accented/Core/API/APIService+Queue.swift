@@ -2,6 +2,8 @@
 //  APIService+Queue.swift
 //  Accented
 //
+//  Queue management
+//
 //  Created by You, Tiangong on 9/20/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //

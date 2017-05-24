@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         
         // Testing code
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { 
-            NavigationService.sharedInstance.navigateToSearchResultPage("landscape")
+            NavigationService.sharedInstance.navigateToSearchResultPage(keyword : "landscape")
         }
     }
     

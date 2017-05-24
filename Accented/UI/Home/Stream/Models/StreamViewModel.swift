@@ -99,13 +99,14 @@ class StreamViewModel: InfiniteLoadingViewModel {
     }
     
     fileprivate func searchPhotos(page : Int) {
+        let params = ["tags" : "1"]
         let searchModel = stream as! PhotoSearchStreamModel
         if let keyword = searchModel.keyword {
-            APIService.sharedInstance.searchPhotos(keyword : keyword, page: page, parameters: [:], success: nil, failure: { [weak self] (errorMessage) in
+            APIService.sharedInstance.searchPhotos(keyword : keyword, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
                 self?.streamFailedRefreshing(errorMessage)
             })
         } else if let tag = searchModel.tag {
-            APIService.sharedInstance.searchPhotos(tag : tag, page: page, parameters: [:], success: nil, failure: { [weak self] (errorMessage) in
+            APIService.sharedInstance.searchPhotos(tag : tag, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
                 self?.streamFailedRefreshing(errorMessage)
             })
         }
@@ -126,7 +127,7 @@ class StreamViewModel: InfiniteLoadingViewModel {
         }
         
         streamState.loading = true
-        let page = Int(ceil(Float(stream.photos.count) / Float(StorageService.pageSize))) + 1
+        let page = Int(ceil(Float(stream.items.count) / Float(StorageService.pageSize))) + 1
         loadPage(page)
     }
     
@@ -169,15 +170,15 @@ class StreamViewModel: InfiniteLoadingViewModel {
         // view, we'll use this number as start index and generate layout templates for all the images that come after the index
         let sectionStartIndex = photoStartSection + photoGroups.count
         let startIndex = photoCountInCollectionView
-        let endIndex = stream.photos.count - 1
-        let photosForProcessing = Array(stream.photos[startIndex...endIndex])
+        let endIndex = stream.items.count - 1
+        let photosForProcessing = Array(stream.items[startIndex...endIndex])
         let templates = layoutGenerator.generateLayoutMetadata(photosForProcessing)
         
         // Sync photo groups with layout templates
         var photoGroupIndex = startIndex
         for template in templates {
             let groupSize = template.frames.count
-            let group = Array(stream.photos[photoGroupIndex...photoGroupIndex + groupSize - 1])
+            let group = Array(stream.items[photoGroupIndex...photoGroupIndex + groupSize - 1])
             photoGroups.append(group)
             photoGroupIndex += groupSize
         }

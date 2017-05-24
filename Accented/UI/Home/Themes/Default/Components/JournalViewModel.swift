@@ -130,14 +130,14 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     // MARK: - PhotoRendererDelegate
     
     func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
-        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.photos, sourceImageView: renderer.imageView)
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
     
     // MARK: - Private
     
     fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.photos.count
+        return stream.totalCount! > stream.items.count
     }
 
 }

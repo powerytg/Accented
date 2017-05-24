@@ -19,7 +19,14 @@ enum UserAvatar : String {
     case Tiny = "tiny"
 }
 
+enum UpgradeStatus : Int {
+    case Basic = 0
+    case Plus = 1
+    case Awesome = 2
+}
+
 class UserModel: ModelBase {
+    var dateFormatter = DateFormatter()
     var userId : String!
     var followersCount : Int = 0
     var coverUrl : String?
@@ -30,6 +37,15 @@ class UserModel: ModelBase {
     var city : String?
     var country : String?
     var userPhotoUrl : String?
+    var about : String?
+    var registrationDate : Date?
+    var contacts : [String : String]?
+    var equipments : [String : [String]]?
+    var photoCount : Int?
+    var following : Bool?
+    var friendCount : Int?
+    var domain : String?
+    var upgradeStatus : UpgradeStatus!
     
     // Avatars
     var avatarUrls = [UserAvatar : String]()
@@ -73,6 +89,35 @@ class UserModel: ModelBase {
         if let tinyAvatar = json["avatars"]["tiny"]["https"].string {
             avatarUrls[.Tiny] = tinyAvatar
         }
+        
+        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
+        self.about = json["about"].string
+        if let regDate = json["registration_date"].string {
+            self.registrationDate = dateFormatter.date(from: regDate)
+        }
+        
+        if let _ = json["contacts"].dictionary {
+            self.contacts = [String : String]()
+            for (key, value) : (String, JSON) in json["contacts"] {
+                self.contacts![key] = value.stringValue
+            }
+        }
+        
+        if let _ = json["equipments"].dictionary {
+            self.equipments = [String : [String]]()
+            for (type, _) : (String, JSON) in json["equipments"] {
+                self.equipments![type] = []
+                for (_, gear) in json["equipments"][type] {
+                    self.equipments![type]!.append(gear.stringValue)
+                }
+            }
+        }
+        
+        self.photoCount = json["photos_count"].int
+        self.following = json["following"].bool
+        self.friendCount = json["friends_count"].int
+        self.domain = json["domain"].string
+        self.upgradeStatus = UpgradeStatus(rawValue: json["upgrade_status"].intValue)
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -89,6 +134,15 @@ class UserModel: ModelBase {
         clone.country = self.country
         clone.userPhotoUrl = self.userPhotoUrl
         clone.avatarUrls = self.avatarUrls
+        clone.about = self.about
+        clone.registrationDate = self.registrationDate
+        clone.contacts = self.contacts
+        clone.equipments = self.equipments
+        clone.photoCount = self.photoCount
+        clone.following = self.following
+        clone.friendCount = self.friendCount
+        clone.domain = self.domain
+        clone.upgradeStatus = self.upgradeStatus
         
         return clone
     }

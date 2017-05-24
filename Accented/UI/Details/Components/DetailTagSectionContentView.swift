@@ -226,9 +226,11 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
                 setNeedsDisplay()
             }
         case .ended:
+            let tag = photo?.tags[activeTagIndex!]
             activeTagFrame = nil
             activeTagIndex = nil
             setNeedsDisplay()
+            didTapOnTag(tag!)
         case .cancelled:
             activeTagFrame = nil
             activeTagIndex = nil
@@ -236,7 +238,6 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         default:
             break
         }
-        
     }
     
     fileprivate func getActiveTagInfo(_ point : CGPoint) -> (tagIndex : Int?, rect: CGRect?) {
@@ -262,4 +263,7 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
         return (photo == nil ? nil : "tag_image_\(photo!.photoId)")
     }
 
+    fileprivate func didTapOnTag(_ tag : String) {
+        NavigationService.sharedInstance.navigateToSearchResultPage(tag : tag)
+    }
 }

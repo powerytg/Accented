@@ -57,6 +57,9 @@ class DetailCommentSectionView: DetailSectionViewBase {
     // Load more button
     fileprivate let loadMoreButton = UIButton(type: UIButtonType.custom)
     
+    // Comment collection
+    fileprivate var commentCollection : CommentCollectionModel!
+    
     override func initialize() {
         super.initialize()
         
@@ -112,7 +115,9 @@ class DetailCommentSectionView: DetailSectionViewBase {
         // Refresh the photo comments in background
         guard photo != nil else { return }
         APIService.sharedInstance.getComments(photo!.photoId)
-        
+
+        // Get a copy of the comments
+        self.commentCollection = StorageService.sharedInstance.getComments(photo!.photoId)
         setNeedsLayout()
     }
     
@@ -123,14 +128,14 @@ class DetailCommentSectionView: DetailSectionViewBase {
     override func layoutSubviews() {
         super.layoutSubviews()
         guard photo != nil else { return }
-     
-        if photo!.commentsCount == 0 {
+        
+        if commentCollection.totalCount == 0 {
             // Photo has no comments
             statusLabel.text = noCommentsText
             statusLabel.isHidden = false
             loadingSpinner.isHidden = true
             loadMoreButton.isHidden = true
-        } else if photo!.comments.count == 0{
+        } else if commentCollection.items.count == 0 {
             // Photo has comments, but have yet loaded
             statusLabel.text = loadingText
             statusLabel.isHidden = false
@@ -145,12 +150,12 @@ class DetailCommentSectionView: DetailSectionViewBase {
             
             var nextY : CGFloat = 0
             for (index, renderer) in commentRenderers.enumerated() {
-                if index < photo!.comments.count {
-                    let comment = photo!.comments[index]
+                if index < commentCollection.items.count {
+                    let comment = commentCollection.items[index]
                     let rendererMaxWidth = maxWidthForRendererAtIndex(index)
                     let rendererSize = estimatedSizeForComment(comment, maxWidth: rendererMaxWidth)
                     renderer.frame = CGRect(x: leftMarginForRendererAtIndex(index), y: nextY, width: rendererSize.width, height: rendererSize.height)
-                    renderer.comment = photo!.comments[index]
+                    renderer.comment = commentCollection.items[index]
                     renderer.isHidden = false
                     
                     nextY += rendererSize.height + vPadding
@@ -167,13 +172,16 @@ class DetailCommentSectionView: DetailSectionViewBase {
     }
     
     override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
-        if photo.commentsCount == 0 || photo.comments.count == 0 {
+        // Get a copy of the comments
+        self.commentCollection = StorageService.sharedInstance.getComments(photo.photoId)
+
+        if commentCollection.totalCount == 0 || commentCollection.items.count == 0 {
             return sectionTitleHeight + noCommentsSectionHeight
         } else {
             var calculatedHeight : CGFloat = 0
-            let displayCommentsCount = min(photo.comments.count, maxNumberOfCommentsOnScreen)
+            let displayCommentsCount = min(commentCollection.items.count, maxNumberOfCommentsOnScreen)
             for index in 0...(displayCommentsCount - 1) {
-                let comment = photo.comments[index]
+                let comment = commentCollection.items[index]
                 let rendererMaxWidth = maxWidthForRendererAtIndex(index)
                 let commentHeight = estimatedSizeForComment(comment, maxWidth: rendererMaxWidth).height
                 
@@ -207,9 +215,12 @@ class DetailCommentSectionView: DetailSectionViewBase {
     // MARK: - Events
     
     @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
-        let photoId = (notification as NSNotification).userInfo![StorageServiceEvents.photoId] as! String
+        let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
         guard photo != nil else { return }
-        guard photo!.photoId == photoId else { return }
+        guard photo!.photoId == updatedPhotoId else { return }
+        
+        // Get a copy of the updated comments
+        self.commentCollection = StorageService.sharedInstance.getComments(photo!.photoId)
         
         // Trigger an animated layout validation
         invalidateMeasurements()

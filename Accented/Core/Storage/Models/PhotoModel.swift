@@ -28,8 +28,6 @@ class PhotoModel: ModelBase {
     var latitude : Double?
     var tags = [String]()
     var user : UserModel!
-    
-    var comments = [CommentModel]()
     var commentsCount : Int?
     
     override init() {

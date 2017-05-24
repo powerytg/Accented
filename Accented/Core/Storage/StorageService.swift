@@ -27,15 +27,12 @@ class StorageService: NSObject {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    // Stream cache
-    let streamCache = NSCache<NSString, StreamModel>()
-    
+
+    // Cache controller
+    let cacheController = StorageServiceCacheController()
+
     // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
-    
-    // Photo cache
-    let photoCache = NSCache<NSString, PhotoModel>()
     
     // Initialize event listeners to monitor APIService results
     fileprivate func initializeEventListeners() {

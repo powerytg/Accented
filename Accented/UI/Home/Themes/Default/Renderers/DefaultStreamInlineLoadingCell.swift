@@ -15,7 +15,7 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
     @IBOutlet weak var endingView: UIImageView!
     
     // Reference to the stream view model
-    weak var streamViewModel : StreamViewModel?
+    weak var streamViewModel : InfiniteLoadingViewModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()

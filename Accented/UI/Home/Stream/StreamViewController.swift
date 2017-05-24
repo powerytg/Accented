@@ -18,15 +18,11 @@ class StreamViewController : InfiniteLoadingViewController {
     }
     
     init(_ stream : StreamModel) {
+        self.stream = stream
         super.init()
         
         // Events
         NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
-
-        // Make a protective copy of the stream object
-        StorageService.sharedInstance.synchronized(stream) { 
-            self.stream = stream.copy() as! StreamModel
-        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,10 +44,7 @@ class StreamViewController : InfiniteLoadingViewController {
     }
     
     func switchStream(_ newStream : StreamModel) {
-        // Make a protective copy of the stream object
-        StorageService.sharedInstance.synchronized(newStream) {
-            self.stream = newStream.copy() as! StreamModel
-        }
+        self.stream = newStream
 
         // Load stream if necessary
         if let vm = streamViewModel {
@@ -63,27 +56,20 @@ class StreamViewController : InfiniteLoadingViewController {
     func streamDidUpdate(_ notification : Notification) -> Void {
         let streamId = notification.userInfo![StorageServiceEvents.streamId] as! String
         let page = notification.userInfo![StorageServiceEvents.page] as! Int
-        if streamId != stream.streamId {
-            return
-        }
+        guard streamId == stream.streamId else { return }
         
-        // Make a protective copy of the stream object
-        var streamModel : StreamModel
+        // Get a new copy of the stream
         if stream is PhotoSearchStreamModel {
             let searchModel = stream as! PhotoSearchStreamModel
             if let keyword = searchModel.keyword {
-                streamModel = StorageService.sharedInstance.getStream(keyword: keyword)
+                stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword)
             } else if let tag = searchModel.tag {
-                streamModel = StorageService.sharedInstance.getStream(tag: tag)
+                stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag)
             } else {
                 fatalError("Both keyword and tag cannot be nil")
             }
         } else {
-            streamModel = StorageService.sharedInstance.getStream(stream.streamType)
-        }
-        
-        StorageService.sharedInstance.synchronized(streamModel) {
-            self.stream = streamModel.copy() as! StreamModel
+            stream = StorageService.sharedInstance.getStream(stream.streamType)
         }
 
         if let vm = streamViewModel {

@@ -10,18 +10,9 @@
 
 import UIKit
 
-class StreamModel: ModelBase {
+class StreamModel: CollectionModel<PhotoModel> {
     let streamType : StreamType
-    var photos = [PhotoModel]()
-    
-    // If nil, then the stream has not been loaded yet
-    var totalCount : Int?
-    
-    // Whether the stream been loaded
-    var loaded : Bool {
-        return totalCount != nil
-    }
-    
+
     // Dynamically generated stream identifier
     var streamId : String {
         return streamType.rawValue
@@ -35,11 +26,8 @@ class StreamModel: ModelBase {
     
     override func copy(with zone: NSZone? = nil) -> Any {
         let clone = StreamModel(streamType: self.streamType)
-        StorageService.sharedInstance.synchronized(self) {
-            clone.totalCount = self.totalCount
-            clone.photos = photos
-        }
-        
+        clone.totalCount = self.totalCount
+        clone.items = items        
         return clone
     }
 }

@@ -87,7 +87,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
                 loadingView.streamViewModel = self
                 
                 // If there are no more items in the stream to load, show the ending status
-                if stream.photos.count >= stream.totalCount! {
+                if stream.items.count >= stream.totalCount! {
                     loadingView.showEndingState()
                 } else {
                     // Otherwise, always show the loading state, even if the previous attempt of loading failed. This is because we'll trigger loadNextPage() regardless of footer state
@@ -126,7 +126,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     // MARK: - PhotoRendererDelegate
     
     func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
-        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.photos, sourceImageView: renderer.imageView)
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
     
@@ -142,6 +142,6 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     // MARK: - Private
     
     fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.photos.count
+        return stream.totalCount! > stream.items.count
     }
 }

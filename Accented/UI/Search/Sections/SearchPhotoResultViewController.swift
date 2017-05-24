@@ -36,9 +36,9 @@ class SearchPhotoResultViewController: CardViewController {
         
         var stream : PhotoSearchStreamModel
         if let keyword = self.keyword {
-            stream = StorageService.sharedInstance.getStream(keyword: keyword)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword)
         } else if let tag = self.tag {
-            stream = StorageService.sharedInstance.getStream(tag: tag)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag)
         } else {
             fatalError("Neither tag nor keyword is specified")
         }

@@ -46,13 +46,13 @@ extension StorageService {
     }
     
     // Whether the two specified collections contain the same objects (compared by modelId)
-    internal func isEqualCollection(newPhotos : [ModelBase], oldPhotos : [ModelBase]) -> Bool {
-        if newPhotos.count != oldPhotos.count {
+    internal func isEqualCollection(newItems : [ModelBase], oldItems : [ModelBase]) -> Bool {
+        if newItems.count != oldItems.count {
             return false
         }
         
-        for (index, _) in oldPhotos.enumerated() {
-            if newPhotos[index].modelId != oldPhotos[index].modelId {
+        for (index, _) in oldItems.enumerated() {
+            if newItems[index].modelId != oldItems[index].modelId {
                 return false
             }
         }

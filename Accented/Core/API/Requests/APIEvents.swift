@@ -28,4 +28,10 @@ class APIEvents: NSObject {
     // Failed to add a comment
     static let commentFailedPost = Notification.Name("commentFailedPost")
 
+    // User search result retrieved
+    static let userSearchResultDidReturn = Notification.Name("userSearchResultDidReturn")
+    
+    // Failed to load user search results
+    static let userSearchResultFailedReturn = Notification.Name("userSearchResultFailedReturn")
+
 }

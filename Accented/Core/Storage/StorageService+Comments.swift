@@ -41,30 +41,24 @@ extension StorageService {
     }
     
     fileprivate func mergeCommentsToPhoto(_ photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
-        DispatchQueue.main.async { [weak self] in
-            let photo = self?.photoCache.object(forKey: NSString(string : photoId))
-            guard photo != nil else { return }
-            photo!.commentsCount = commentsCount
-            
-            if(page == 1) {
-                photo!.comments.removeAll()
-            }
-            
-            // Find if the new comments already exist in the photo. If so, replace the old entries with the new ones
-            var existingCommentIds = [String : CommentModel]()
-            for comment in photo!.comments {
-                existingCommentIds[comment.commentId] = comment
-            }
-            
-            for comment in comments {
-                if let oldComment = existingCommentIds[comment.commentId] {
-                    photo!.comments.remove(at: photo!.comments.index(of: oldComment)!)
-                }
-            }
-            
-            photo!.comments += comments
-            
-            let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId as AnyObject, StorageServiceEvents.page : page as AnyObject]
+        let collection = getComments(photoId)
+        collection.totalCount = commentsCount
+        
+        // If it's the first page and the new content is not strictly equal to the first page, then discard the entire stream
+        if page == 1 && !isEqualCollection(newItems: comments, oldItems: collection.items) {
+            collection.items = []
+        }
+        
+        // Merge all in the new photos
+        let mergedPhotos = mergeModelCollections(newModels: comments, withModels: collection.items)
+        collection.items = mergedPhotos
+        
+        // Put the stream back to cache
+        putCommentsToCache(collection)
+        
+        DispatchQueue.main.async {
+            let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId as AnyObject,
+                                                   StorageServiceEvents.page : page as AnyObject]
             NotificationCenter.default.post(name: StorageServiceEvents.photoCommentsDidUpdate, object: nil, userInfo: userInfo)
         }
     }
@@ -72,8 +66,7 @@ extension StorageService {
     internal func didPostComment(_ notification : Notification) {
         let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
         let photoId = (notification as NSNotification).userInfo![RequestParameters.photoId] as! String;
-        let photo = photoCache.object(forKey: NSString(string : photoId))
-        guard photo != nil else { return }
+        let collection = getComments(photoId)
 
         parsingQueue.async {
             do {
@@ -83,14 +76,17 @@ extension StorageService {
                 let comment = CommentModel(json: commentJson)
                 
                 // Append the comment to the rear of photo's comment list
-                if photo!.commentsCount != nil {
-                    photo!.commentsCount! += 1
+                if collection.totalCount != nil {
+                    collection.totalCount! += 1
                 } else {
-                    photo!.commentsCount = 1
+                    collection.totalCount = 1
                 }
                 
-                photo!.comments.append(comment)
+                collection.items.append(comment)
                 
+                // Put the stream back to cache
+                self.putCommentsToCache(collection)
+
                 DispatchQueue.main.async {
                     let userInfo : [String : AnyObject] = [StorageServiceEvents.photoId : photoId as AnyObject]
                     NotificationCenter.default.post(name: StorageServiceEvents.didPostComment, object: nil, userInfo: userInfo)

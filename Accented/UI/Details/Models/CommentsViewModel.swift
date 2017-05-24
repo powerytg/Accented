@@ -14,8 +14,7 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
     static let lightCellIdentifier = "lightCell"
 
     fileprivate var photoId : String!
-    fileprivate var comments = [CommentModel]()
-    fileprivate var photo : PhotoModel!
+    fileprivate var commentsCollection : CommentCollectionModel!
     
     // Collection view layout
     var layout = CommentsLayout()
@@ -32,20 +31,18 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
     }
     
     fileprivate func initialize() {
-        photo = StorageService.sharedInstance.photoCache.object(forKey: NSString(string :photoId))
-        comments = photo!.comments
+        commentsCollection = StorageService.sharedInstance.getComments(photoId)
 
         // Register cell types
         collectionView.register(DetailCommentCell.self, forCellWithReuseIdentifier: CommentsViewModel.darkCellIdentifier)
 
         // Initialize layout
         layout.delegate = self
-        layout.comments = comments
+        layout.comments = commentsCollection.items
         collectionView.collectionViewLayout = layout
         
         // Events
-        NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)        
         NotificationCenter.default.addObserver(self, selector: #selector(didPostComment(_:)), name: StorageServiceEvents.didPostComment, object: nil)
     }
     
@@ -67,18 +64,19 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
         }
         
         streamState.loading = true
-        let page = photo.comments.count / StorageService.pageSize + 1
+        let page = commentsCollection.items.count / StorageService.pageSize + 1
         APIService.sharedInstance.getComments(photoId, page: page, parameters: [:], success: nil) { [weak self] (errorMessage) in
             self?.streamFailedLoading(errorMessage)
         }
     }
     
     @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
-        let photoId = (notification as NSNotification).userInfo![StorageServiceEvents.photoId] as! String
-        let page = (notification as NSNotification).userInfo![StorageServiceEvents.page] as! Int
-        guard photo != nil else { return }
-        guard photo!.photoId == photoId else { return }
-
+        let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
+        let page = notification.userInfo![StorageServiceEvents.page] as! Int
+        guard updatedPhotoId == photoId else { return }
+        
+        // Get a new copy of the comment collection
+        commentsCollection = StorageService.sharedInstance.getComments(photoId)
         updateCollectionView(page == 1)
         streamState.loading = false
         
@@ -89,15 +87,16 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
     }
     
     @objc fileprivate func didPostComment(_ notification : Notification) {
-        let photoId = (notification as NSNotification).userInfo![StorageServiceEvents.photoId] as! String
-        guard photo != nil else { return }
-        guard photo!.photoId == photoId else { return }
+        let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
+        guard updatedPhotoId == photoId else { return }
 
+        // Get a new copy of the comment collection
+        commentsCollection = StorageService.sharedInstance.getComments(photoId)
         updateCollectionView(false)
     }
     
     func clearCollectionView() {
-        comments.removeAll()
+        layout.comments.removeAll()
         layout.clearLayoutCache()
     }
 
@@ -108,8 +107,7 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
         }
         
         // Update the collection view
-        comments = photo.comments
-        layout.comments = comments
+        layout.comments = commentsCollection.items
         layout.generateLayoutAttributesIfNeeded()
         collectionView.reloadData()
     }
@@ -130,12 +128,12 @@ class CommentsViewModel: InfiniteLoadingViewModel, CommentsLayoutDelegate {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comments.count
+        return commentsCollection.items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentsViewModel.darkCellIdentifier, for: indexPath) as! DetailCommentCell
-        cell.comment = comments[indexPath.item]
+        cell.comment = commentsCollection.items[indexPath.item]
         cell.style = cellStyleForItemAtIndexPath(indexPath)
         cell.setNeedsLayout()
         return cell

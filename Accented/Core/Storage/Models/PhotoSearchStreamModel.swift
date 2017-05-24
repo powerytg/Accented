@@ -16,11 +16,11 @@ class PhotoSearchStreamModel: StreamModel {
     var tag : String?
     
     static func streamIdWithKeyword(_ keyword : String) -> String {
-        return "photo_search_\(keyword)"
+        return keyword
     }
 
     static func streamIdWithTag(_ tag : String) -> String {
-        return "photo_search_\(tag)"
+        return tag
     }
 
     override var streamId: String {
@@ -53,11 +53,8 @@ class PhotoSearchStreamModel: StreamModel {
             fatalError("Neither tag nor keyword is present")
         }
         
-        StorageService.sharedInstance.synchronized(self) {
-            clone.totalCount = self.totalCount
-            clone.photos = photos
-        }
-        
+        clone.totalCount = self.totalCount
+        clone.items = items
         return clone
     }
 }
