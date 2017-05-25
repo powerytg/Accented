@@ -2,51 +2,70 @@
 //  UserSearchResultViewModel.swift
 //  Accented
 //
+//  User search result stream view model
+//
 //  Created by Tiangong You on 5/22/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class UserSearchResultViewModel: InfiniteLoadingViewModel {
-    /*
+class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
+    
     fileprivate let rendererIdentifier = "renderer"
-    fileprivate let initialLoadingRendererReuseIdentifier = "initialLoading"
-    fileprivate let loadingFooterRendererReuseIdentifier = "loadingFooter"
     
-    // Search result model
-    fileprivate var stream : UserSearchResultModel
-    
-    // Inline infinite loading cell
-    var loadingCell : DefaultStreamInlineLoadingCell?
-    required init(stream : UserSearchResultModel, collectionView : UICollectionView) {
-        self.stream = stream
-        super.init(collectionView)
+    required init(collection : UserSearchResultModel, collectionView : UICollectionView) {
+        super.init(collection: collection, collectionView: collectionView)
         
         let rendererNib = UINib(nibName: "UserSearchResultRenderer", bundle: nil)
         collectionView.register(rendererNib, forCellWithReuseIdentifier: rendererIdentifier)
         
-        // Inline loading
-        let loadingCellNib = UINib(nibName: "DefaultStreamInlineLoadingCell", bundle: nil)
-        collectionView.register(loadingCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier)
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(userSearchResultDidUpdate(_:)), name: StorageServiceEvents.userSearchResultDidUpdate, object: nil)
         
-        // Initial loading
-        let initialLoadingCellNib = UINib(nibName: "DefaultStreamInitialLoadingCell", bundle: nil)
-        collectionView.register(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
+        // Load first page
+        loadIfNecessary()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func createCollectionViewLayout() {
+        layout = UserSearchResultLayout(width: collectionView.bounds.size.width)
+    }
+    
+    override func loadPageAt(_ page : Int) {
+        APIService.sharedInstance.searchUsers(keyword: collection.modelId!, page: page, success: nil) { [weak self] (errorMessage) in
+            self?.collectionFailedLoading(errorMessage)
+        }
+    }
+
+    // Events
+    @objc fileprivate func userSearchResultDidUpdate(_ notification : Notification) {
+        let updatedKeyword = notification.userInfo![StorageServiceEvents.keyword] as! String
+        let page = notification.userInfo![StorageServiceEvents.page] as! Int
+        guard updatedKeyword == collection.modelId else { return }
         
-        // Create layout
-        let layout = UserSearchResultLayout(width: collectionView.bounds.size.width)
-        collectionView.collectionViewLayout = layout
+        // Get a new copy of the search results
+        collection = StorageService.sharedInstance.getUserSearchResult(keyword: collection.modelId!)
+        updateCollectionView(page == 1)
+        streamState.loading = false
+        
+        if page == 1 {
+            streamState.refreshing = false
+            delegate?.viewModelDidRefresh()
+        }
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if !stream.loaded {
+        if !collection.loaded {
             let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
             return loadingCell
         } else {
-            let user = stream.users[indexPath.item]
+            let user = collection.items[indexPath.item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: rendererIdentifier, for: indexPath) as! UserSearchResultRenderer
             cell.user = user
             cell.setNeedsLayout()
@@ -60,10 +79,10 @@ class UserSearchResultViewModel: InfiniteLoadingViewModel {
             let totalSectionCount = self.numberOfSections(in: collectionView)
             if (indexPath as NSIndexPath).section == totalSectionCount - 1 && canLoadMore() {
                 let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
-                loadingView.streamViewModel = self
+                loadingView.viewModel = self
                 
                 // If there are no more items in the stream to load, show the ending status
-                if stream.users.count >= stream.totalCount! {
+                if collection.items.count >= collection.totalCount! {
                     loadingView.showEndingState()
                 } else {
                     // Otherwise, always show the loading state, even if the previous attempt of loading failed. This is because we'll trigger loadNextPage() regardless of footer state
@@ -86,28 +105,10 @@ class UserSearchResultViewModel: InfiniteLoadingViewModel {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !stream.loaded {
+        if !collection.loaded {
             return 1
         } else {
-            return stream.users.count
+            return collection.items.count
         }
     }
-    
-    // MARK: - Events
-    
-    fileprivate func streamFailedLoading(_ error: String) {
-        debugPrint(error)
-        streamState.loading = false
-
-        if let loadingView = self.loadingCell {
-            loadingView.showRetryState()
-        }
-    }
-    
-    // MARK: - Private
-    
-    fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.users.count
-    }
- */
 }

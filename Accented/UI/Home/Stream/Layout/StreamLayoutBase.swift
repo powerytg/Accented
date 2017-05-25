@@ -8,12 +8,11 @@
 
 import UIKit
 
-
 protocol StreamLayoutDelegate : NSObjectProtocol {
     func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio : CGFloat)
 }
 
-class StreamLayoutBase: UICollectionViewFlowLayout {
+class StreamLayoutBase: InfiniteLoadingLayout<PhotoModel> {
     
     var leftMargin : CGFloat {
         return 15
@@ -23,7 +22,6 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
         return 15
     }
     
-    var contentHeight : CGFloat = 0
     var fullWidth : CGFloat = 0
     var availableWidth : CGFloat {
         return fullWidth - leftMargin - rightMargin
@@ -35,19 +33,6 @@ class StreamLayoutBase: UICollectionViewFlowLayout {
     var headerCompressionRatio : CGFloat = 0
 
     weak var layoutDelegate : UICollectionViewDelegateFlowLayout?
-    
-    // A cache that holds all the previously calculated layout attributes. The cache will remain valid until
-    // explicitly cleared
-    var layoutCache = [String : UICollectionViewLayoutAttributes]()
-
-    func clearLayoutCache() {
-        contentHeight = 0
-        layoutCache.removeAll()
-    }
-    
-    func generateLayoutAttributesForLoadingState() {
-        fatalError("Not implemented in base class")
-    }
     
     func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         fatalError("Not implemented in base class")

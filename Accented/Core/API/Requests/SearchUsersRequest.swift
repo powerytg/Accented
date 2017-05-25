@@ -20,14 +20,14 @@ class SearchUsersRequest: APIRequest {
         
         cacheKey = "search_users/\(keyword)/\(page)"
         url = "\(APIRequest.baseUrl)users/search"
-        var parameters = [String : String]()
+        parameters = [String : String]()
         parameters[RequestParameters.term] = keyword
         parameters[RequestParameters.page] = String(page)
     }
     
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
-        var userInfo : [String : Any] = [RequestParameters.page : page,
+        let userInfo : [String : Any] = [RequestParameters.page : page,
                                          RequestParameters.response : data,
                                          RequestParameters.term : keyword]
         

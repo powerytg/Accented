@@ -10,7 +10,7 @@
 
 import UIKit
 
-class StreamModel: CollectionModel<PhotoModel> {
+class StreamModel : CollectionModel<PhotoModel> {
     let streamType : StreamType
 
     // Dynamically generated stream identifier

@@ -12,7 +12,7 @@ protocol CommentsLayoutDelegate : NSObjectProtocol {
     func cellStyleForItemAtIndexPath(_ indexPath : IndexPath) -> CommentRendererStyle
 }
 
-class CommentsLayout: UICollectionViewFlowLayout {
+class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
 
     fileprivate var paddingTop : CGFloat = 80
     fileprivate let darkCellLeftMargin : CGFloat = 50
@@ -20,11 +20,6 @@ class CommentsLayout: UICollectionViewFlowLayout {
     fileprivate var rightMargin : CGFloat = 15
     fileprivate var gap : CGFloat = 10
     fileprivate var availableWidth : CGFloat = 0
-    fileprivate var contentHeight : CGFloat = 0
-    var comments = [CommentModel]()
-    
-    // Layout cache
-    fileprivate var layoutCache = [String : UICollectionViewLayoutAttributes]()
     
     // Layout delegate
     weak var delegate : CommentsLayoutDelegate?
@@ -47,10 +42,6 @@ class CommentsLayout: UICollectionViewFlowLayout {
         if collectionView != nil {
             availableWidth = collectionView!.bounds.width - max(darkCellLeftMargin, lightCelLeftlMargin) - rightMargin
         }
-    }
-
-    override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
     }
 
     override var collectionViewContentSize : CGSize {
@@ -77,12 +68,13 @@ class CommentsLayout: UICollectionViewFlowLayout {
         return layoutAttributes
     }
     
-    func generateLayoutAttributesIfNeeded() {
-        guard comments.count != 0 else { return }
-        guard comments.count != layoutCache.count else { return }
+    override func generateLayoutAttributesIfNeeded() {
+        guard collection != nil else { return }
+        guard collection!.items.count != 0 else { return }
+        guard collection!.items.count != layoutCache.count else { return }
         
         var nextY : CGFloat = paddingTop
-        for (index, comment) in comments.enumerated() {
+        for (index, comment) in collection!.items.enumerated() {
             // Ignore if the comment already has a layout
             let cacheKey = cacheKeyForComment(comment)
             var attrs = layoutCache[cacheKey]
@@ -115,10 +107,5 @@ class CommentsLayout: UICollectionViewFlowLayout {
     
     fileprivate func cacheKeyForComment(_ comment : CommentModel) -> String {
         return "comment_\(comment.commentId)"
-    }
-    
-    func clearLayoutCache() {
-        contentHeight = 0
-        layoutCache.removeAll()
     }
 }

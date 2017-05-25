@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StreamViewController : InfiniteLoadingViewController {
+class StreamViewController : InfiniteLoadingViewController<PhotoModel> {
     // Data model
     var stream : StreamModel!
 
@@ -38,8 +38,8 @@ class StreamViewController : InfiniteLoadingViewController {
         
         // Load stream if necessary
         if let vm = streamViewModel {
-            vm.stream = stream
-            vm.loadStreamIfNecessary()
+            vm.collection = stream
+            vm.loadIfNecessary()
         }
     }
     
@@ -48,8 +48,8 @@ class StreamViewController : InfiniteLoadingViewController {
 
         // Load stream if necessary
         if let vm = streamViewModel {
-            vm.stream = stream
-            vm.loadStreamIfNecessary()
+            vm.collection = newStream
+            vm.loadIfNecessary()
         }
     }
     
@@ -73,7 +73,7 @@ class StreamViewController : InfiniteLoadingViewController {
         }
 
         if let vm = streamViewModel {
-            vm.streamDidUpdate(stream: stream, page: page)
+            vm.collecitonDidUpdate(collection: stream, page: page)
         }
     }
 }

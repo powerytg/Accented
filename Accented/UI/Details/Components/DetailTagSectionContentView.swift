@@ -226,11 +226,13 @@ class DetailTagSectionContentView: UIView, UIGestureRecognizerDelegate {
                 setNeedsDisplay()
             }
         case .ended:
-            let tag = photo?.tags[activeTagIndex!]
-            activeTagFrame = nil
-            activeTagIndex = nil
-            setNeedsDisplay()
-            didTapOnTag(tag!)
+            if let activeTagIndex = self.activeTagIndex {
+                let tag = photo?.tags[activeTagIndex]
+                activeTagFrame = nil
+                self.activeTagIndex = nil
+                setNeedsDisplay()
+                didTapOnTag(tag!)
+            }
         case .cancelled:
             activeTagFrame = nil
             activeTagIndex = nil

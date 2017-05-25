@@ -10,17 +10,9 @@ import UIKit
 
 class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     fileprivate let cardRendererReuseIdentifier = "renderer"
-    fileprivate let initialLoadingRendererReuseIdentifier = "initialLoading"
     fileprivate let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
     fileprivate let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
-    fileprivate let loadingFooterRendererReuseIdentifier = "loadingFooter"
     
-    override var photoStartSection : Int {
-        return 0
-    }
-    
-    // Inline infinite loading cell
-    var loadingCell : DefaultStreamInlineLoadingCell?
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
     }
@@ -35,20 +27,12 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
         // Section footer
         let sectionFooterCellNib = UINib(nibName: "DefaultStreamSectionFooterCell", bundle: nil)
         collectionView.register(sectionFooterCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: cardSectionFooterRendererReuseIdentifier)
-        
-        // Inline loading
-        let loadingCellNib = UINib(nibName: "DefaultStreamInlineLoadingCell", bundle: nil)
-        collectionView.register(loadingCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier)
-        
-        // Initial loading
-        let initialLoadingCellNib = UINib(nibName: "DefaultStreamInitialLoadingCell", bundle: nil)
-        collectionView.register(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
     }
     
-    override func createLayoutEngine() {
-        layoutEngine = PhotoSearchResultLayout()
-        layoutEngine.headerReferenceSize = CGSize(width: 50, height: 50)
-        layoutEngine.footerReferenceSize = CGSize(width: 50, height: 50)
+    override func createCollectionViewLayout() {
+        layout = PhotoSearchResultLayout()
+        layout.headerReferenceSize = CGSize(width: 50, height: 50)
+        layout.footerReferenceSize = CGSize(width: 50, height: 50)
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
@@ -58,11 +42,11 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if !stream.loaded {
+        if !collection.loaded {
             let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
             return loadingCell
         } else {
-            let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
+            let group = photoGroups[(indexPath as NSIndexPath).section]
             let photo = group[(indexPath as NSIndexPath).item]
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
             cell.photo = photo
@@ -74,7 +58,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: IndexPath) -> UICollectionReusableView {
-        let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
+        let group = photoGroups[(indexPath as NSIndexPath).section]
         
         if kind == UICollectionElementKindSectionHeader {
             let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: cardSectionHeaderRendererReuseIdentifier, for: indexPath) as! DefaultStreamSectionHeaderCell
@@ -84,7 +68,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
             let totalSectionCount = self.numberOfSections(in: collectionView)
             if (indexPath as NSIndexPath).section == totalSectionCount - 1 && canLoadMore() {
                 let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
-                loadingView.streamViewModel = self
+                loadingView.viewModel = self
                 
                 // If there are no more items in the stream to load, show the ending status
                 if stream.items.count >= stream.totalCount! {
@@ -108,40 +92,26 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if !stream.loaded {
-            return photoStartSection + 1
+        if !collection.loaded {
+            return 1
         } else {
-            return photoGroups.count + photoStartSection
+            return photoGroups.count
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !stream.loaded {
+        if !collection.loaded {
             return 1
         } else {
-            return photoGroups[section - photoStartSection].count
+            return photoGroups[section].count
         }
     }
     
     // MARK: - PhotoRendererDelegate
     
     func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
-        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: collection.items, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
     
-    // MARK: - Events
-    
-    override func streamFailedLoading(_ error: String) {
-        super.streamFailedLoading(error)
-        if let loadingView = self.loadingCell {
-            loadingView.showRetryState()
-        }
-    }
-    
-    // MARK: - Private
-    
-    fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.items.count
-    }
 }

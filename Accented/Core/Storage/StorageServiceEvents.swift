@@ -20,6 +20,9 @@ class StorageServiceEvents: NSObject {
     // Comments posted for photo
     static let didPostComment = Notification.Name("didPostComment")
 
+    // User search result updated
+    static let userSearchResultDidUpdate = Notification.Name("userSearchResultDidUpdate")
+    
     // MARK: - Parameters
     
     // Stream type
@@ -36,4 +39,7 @@ class StorageServiceEvents: NSObject {
     
     // Photos
     static let photos = "photos"
+    
+    // Keyword
+    static let keyword = "keyword"
 }

@@ -11,10 +11,28 @@
 import UIKit
 
 class SearchUserResultViewController: CardViewController {
-
+    var streamViewController : UserSearchResultStreamViewController!
+    var keyword : String
+    
+    init(keyword : String) {
+        self.keyword = keyword
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "PEOPLE"
-        view.backgroundColor = UIColor.blue
+        
+        let stream : UserSearchResultModel = StorageService.sharedInstance.getUserSearchResult(keyword: keyword)
+        streamViewController = UserSearchResultStreamViewController(stream)
+        addChildViewController(streamViewController)
+        self.view.addSubview(streamViewController.view)
+        streamViewController.view.frame = self.view.bounds
+        streamViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        streamViewController.didMove(toParentViewController: self)
     }
 }

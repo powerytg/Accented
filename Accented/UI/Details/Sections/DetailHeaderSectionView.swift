@@ -24,7 +24,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     fileprivate var avatarSize : CGFloat = 30
     
     // Margin right
-    fileprivate var marginRight : CGFloat = 60
+    fileprivate var marginRight : CGFloat = 120
     
     override func initialize() {
         super.initialize()
@@ -37,12 +37,13 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         authorLabel.textColor = UIColor.white
         authorLabel.font = UIFont.systemFont(ofSize: 16)
         authorLabel.textAlignment = .right
-        authorLabel.preferredMaxLayoutWidth = maxWidth - marginRight
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(authorLabel)
         
         // Constraints
+        let maxAuthorWidth = maxWidth - marginRight
+        authorLabel.widthAnchor.constraint(lessThanOrEqualToConstant: maxAuthorWidth).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
         authorLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 30).isActive = true
 
@@ -50,7 +51,6 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         avatarView.heightAnchor.constraint(equalToConstant: avatarSize).isActive = true
         avatarView.trailingAnchor.constraint(equalTo: self.authorLabel.trailingAnchor, constant: 0).isActive = true
         avatarView.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 6).isActive = true
-
     }
     
     override func photoModelDidChange() {

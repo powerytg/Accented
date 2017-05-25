@@ -10,13 +10,13 @@
 
 import UIKit
 
-class UserSearchResultLayout: UICollectionViewFlowLayout {
-    fileprivate let vGap : CGFloat = 20
-    fileprivate let itemHeight : CGFloat = 40
+class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
+    fileprivate let vGap : CGFloat = 8
+    fileprivate let itemHeight : CGFloat = 50
     fileprivate let footerHeight : CGFloat = 50
     fileprivate var width : CGFloat
-    fileprivate var layoutCache = [String : UICollectionViewLayoutAttributes]()
-    fileprivate var contentHeight : CGFloat = 0
+    fileprivate let leftMargin : CGFloat = 15
+    fileprivate let rightMargin : CGFloat = 15
     
     init(width : CGFloat) {
         self.width = width
@@ -47,41 +47,32 @@ class UserSearchResultLayout: UICollectionViewFlowLayout {
         return layoutAttributes
     }
     
-    fileprivate func generateLayoutAttributesForLoadingState() {
-        let indexPath = IndexPath(item : 0, section : 0)
-        let nextY = contentHeight
-        let loadingCellSize = CGSize(width: width, height: 150)
-        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-        loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: width, height: loadingCellSize.height)
+    override func generateLayoutAttributesIfNeeded() {
+        guard collection != nil else { return }
+        guard collection!.items.count != 0 else { return }
+        guard collection!.items.count != layoutCache.count else { return }
         
-        contentHeight += loadingCellSize.height
-        layoutCache["loadingCell"] = loadingCellAttributes
-    }
-    
-    func generateLayoutAttributes(startIndex : Int, endIndex : Int) {
-        var nextY = contentHeight
-        
-        for itemIndex in startIndex...endIndex {
-            var cacheKey = ""
+        var nextY : CGFloat = 0
+        for (index, user) in collection!.items.enumerated() {
+            // Ignore if the comment already has a layout
+            let cacheKey = cacheKeyForUser(user)
+            var attrs = layoutCache[cacheKey]
+            if attrs == nil {
+                let cellSize = CGSize(width: width - leftMargin - rightMargin, height: itemHeight)
+                let indexPath = IndexPath(item: index, section: 0)
+                attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+                attrs!.frame = CGRect(x: leftMargin, y: nextY, width: cellSize.width, height: cellSize.height)
+                layoutCache[cacheKey] = attrs!
+            }
             
-            // Cell layout
-            let indexPath = IndexPath(item: itemIndex, section: 0)
-            let itemRect = CGRect(x: 0, y: nextY, width: width, height: itemHeight)
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-            attributes.frame = itemRect
-            cacheKey = "item_\(itemIndex)"
-            layoutCache[cacheKey] = attributes
-            nextY += itemHeight
-            
-            // Footer layout
-            let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
-            footerAttributes.frame = CGRect(x: 0, y: nextY, width: width, height: footerHeight)
-            cacheKey = "section_footer_\(itemIndex)"
-            layoutCache[cacheKey] = footerAttributes
-            nextY += footerHeight + vGap
+            nextY += attrs!.frame.size.height + vGap
         }
         
-        // Update content height
         contentHeight = nextY
     }
+    
+    fileprivate func cacheKeyForUser(_ user : UserModel) -> String {
+        return "user_\(user.userId)"
+    }
+
 }

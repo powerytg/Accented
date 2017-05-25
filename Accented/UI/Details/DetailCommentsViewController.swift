@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailCommentsViewController: InfiniteLoadingViewController {
+class DetailCommentsViewController: InfiniteLoadingViewController<CommentModel> {
     
     // Photo model
     var photo : PhotoModel!
@@ -54,7 +54,8 @@ class DetailCommentsViewController: InfiniteLoadingViewController {
     }
     
     override func createViewModel() {
-        viewModel = CommentsViewModel(photo.photoId, collectionView : collectionView)
+        let comments = StorageService.sharedInstance.getComments(photo.photoId)
+        viewModel = CommentsViewModel(collection: comments, collectionView: collectionView)
     }
     
     override func viewWillLayoutSubviews() {

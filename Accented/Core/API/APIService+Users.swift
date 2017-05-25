@@ -17,5 +17,4 @@ extension APIService {
         let request = SearchUsersRequest(keyword : keyword, page : page, success : success, failure : failure)
         get(request: request)
     }
-
 }

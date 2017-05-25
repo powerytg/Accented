@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InfiniteLoadingViewController: UIViewController, UICollectionViewDelegateFlowLayout, InfiniteLoadingViewModelDelegate {
+class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollectionViewDelegateFlowLayout, InfiniteLoadingViewModelDelegate {
 
     var collectionView : UICollectionView!
     
@@ -22,7 +22,7 @@ class InfiniteLoadingViewController: UIViewController, UICollectionViewDelegateF
     let loadingThreshold : CGFloat = 50
     
     // View model
-    var viewModel : InfiniteLoadingViewModel?
+    var viewModel : InfiniteLoadingViewModel<T>?
     var streamState : StreamState {
         return viewModel!.streamState
     }

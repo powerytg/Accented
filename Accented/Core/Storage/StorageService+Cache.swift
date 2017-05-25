@@ -37,6 +37,13 @@ extension StorageService {
         })
     }
     
+    // Retrieve a copy of the specific user search result stream with keyword
+    func getUserSearchResult(keyword : String) -> UserSearchResultModel {
+        return cacheController.getCachedResource(cacheKey: keyword, inCache: cacheController.userSearchResultCache, creationCallback: { () -> UserSearchResultModel in
+            return UserSearchResultModel(keyword: keyword)
+        })
+    }
+
     // Put a stream to cache
     func putStreamToCache(_ collection : StreamModel) {
         let cacheKey = NSString(string: collection.modelId!)
@@ -53,5 +60,11 @@ extension StorageService {
     func putCommentsToCache(_ collection : CommentCollectionModel) {
         let cacheKey = NSString(string: collection.modelId!)
         cacheController.commentsCache.setObject(collection, forKey: cacheKey)
+    }
+
+    // Put a user search result to cache
+    func putUserSearchResultToCache(_ collection : UserSearchResultModel) {
+        let cacheKey = NSString(string: collection.modelId!)
+        cacheController.userSearchResultCache.setObject(collection, forKey: cacheKey)
     }
 }

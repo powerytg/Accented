@@ -59,4 +59,13 @@ extension StorageService {
         
         return true
     }
+    
+    // Get the first page of a given colleciton
+    internal func getFirstPage(_ items : [ModelBase]) -> [ModelBase] {
+        if items.count == 0 {
+            return items
+        } else {
+            return Array(items[0...min(items.count - 1, StorageService.pageSize - 1)])
+        }        
+    }
 }

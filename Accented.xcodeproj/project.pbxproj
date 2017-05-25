@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18180B751ED5522A003F0054 /* InfiniteLoadingLayout.swift */; };
+		18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18180B771ED679F1003F0054 /* InfiniteLoadable.swift */; };
 		182109811CF0DE3100529610 /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1821097C1CF0DE0000529610 /* GPUImage.framework */; };
 		182109831CF0DE5800529610 /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1821097C1CF0DE0000529610 /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109871CF0E72600529610 /* JournalBackdropCell.swift */; };
@@ -83,6 +85,8 @@
 		18D0BF351ED5211B008677FE /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF341ED5211B008677FE /* CollectionModel.swift */; };
 		18D0BF381ED52259008677FE /* CommentCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF371ED52259008677FE /* CommentCollectionModel.swift */; };
 		18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */; };
+		18EED5E51ED68A0400507D6D /* UserSearchResultStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EED5E41ED68A0400507D6D /* UserSearchResultStreamViewController.swift */; };
+		18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */; };
 		9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */; };
@@ -223,6 +227,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18180B751ED5522A003F0054 /* InfiniteLoadingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingLayout.swift; sourceTree = "<group>"; };
+		18180B771ED679F1003F0054 /* InfiniteLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadable.swift; sourceTree = "<group>"; };
 		182109761CF0DE0000529610 /* GPUImage-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "GPUImage-iOS.xcodeproj"; path = "../../Downloads/GPUImage2-master/framework/GPUImage-iOS.xcodeproj"; sourceTree = "<group>"; };
 		182109871CF0E72600529610 /* JournalBackdropCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackdropCell.swift; sourceTree = "<group>"; };
 		182109891CF1076800529610 /* JournalBubbleDecoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBubbleDecoCell.swift; sourceTree = "<group>"; };
@@ -300,6 +306,8 @@
 		18D0BF341ED5211B008677FE /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		18D0BF371ED52259008677FE /* CommentCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionModel.swift; sourceTree = "<group>"; };
 		18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageServiceCacheController.swift; sourceTree = "<group>"; };
+		18EED5E41ED68A0400507D6D /* UserSearchResultStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchResultStreamViewController.swift; sourceTree = "<group>"; };
+		18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Users.swift"; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
@@ -596,6 +604,7 @@
 				187BA0641ED290C4000E181E /* PhotoSearchResultLayout.swift */,
 				187BA06F1ED3D5D3000E181E /* UserSearchResultViewModel.swift */,
 				187BA0711ED4030C000E181E /* UserSearchResultLayout.swift */,
+				18EED5E41ED68A0400507D6D /* UserSearchResultStreamViewController.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -884,6 +893,7 @@
 				9B6115E71CCAD1D2008F5257 /* StorageService+Streams.swift */,
 				9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */,
 				9B832F761D8C83400069FC77 /* StorageService+Cache.swift */,
+				18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -999,6 +1009,8 @@
 				9B9E9E931DBAD664009D5D19 /* InfiniteLoadingViewController.swift */,
 				9B9E9E951DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift */,
 				9B9E9E971DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift */,
+				18180B751ED5522A003F0054 /* InfiniteLoadingLayout.swift */,
+				18180B771ED679F1003F0054 /* InfiniteLoadable.swift */,
 			);
 			path = Stream;
 			sourceTree = "<group>";
@@ -1187,6 +1199,7 @@
 				187BA0761ED40BF1000E181E /* SearchUsersRequest.swift in Sources */,
 				187BA0551ED25757000E181E /* SearchPhotoResultViewController.swift in Sources */,
 				187BA0611ED28A11000E181E /* PhotoSearchResultStreamViewController.swift in Sources */,
+				18EED5E51ED68A0400507D6D /* UserSearchResultStreamViewController.swift in Sources */,
 				9B3814011CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift in Sources */,
 				9B3813D11CE010770066D3B9 /* StreamCardLayoutGenerator.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
@@ -1196,6 +1209,7 @@
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				187BA0631ED28F97000E181E /* PhotoSearchResultViewModel.swift in Sources */,
+				18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */,
 				187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */,
 				187BA0651ED290C4000E181E /* PhotoSearchResultLayout.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
@@ -1206,6 +1220,7 @@
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
 				1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */,
 				9B3813CD1CE010770066D3B9 /* HeadlineTemplate.swift in Sources */,
+				18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */,
 				9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */,
 				9B9E9E961DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift in Sources */,
 				9B3814021CE01E4D0066D3B9 /* DefaultThemeSelectorButton.swift in Sources */,
@@ -1263,6 +1278,7 @@
 				9B3813F31CE012180066D3B9 /* PhotoRenderer.swift in Sources */,
 				184951CD1ED0D7E5006301E8 /* EntranceAnimation.swift in Sources */,
 				9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */,
+				18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */,
 				9B3813CE1CE010770066D3B9 /* QuadTemplate.swift in Sources */,
 				1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */,
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,

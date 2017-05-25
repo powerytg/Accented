@@ -2,6 +2,8 @@
 //  JournalViewModel.swift
 //  Accented
 //
+//  Journal theme view model
+//
 //  Created by You, Tiangong on 5/19/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -12,8 +14,6 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
 
     fileprivate let headerReuseIdentifier = "journalHeader"
     fileprivate let photoRendererReuseIdentifier = "journalPhotoRenderer"
-    fileprivate let initialLoadingRendererReuseIdentifier = "journalTnitialLoading"
-    fileprivate let loadingFooterRendererReuseIdentifier = "journalLoadingFooter"
     static let backdropDecorIdentifier = "journalBackdrop"
     static let bubbleDecorIdentifier = "journalBubble"
     
@@ -23,9 +23,6 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     override var photoStartSection : Int {
         return 1
     }
-    
-    // Inline infinite loading cell
-    var loadingCell : DefaultStreamInlineLoadingCell?
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
@@ -38,23 +35,17 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         // Header cell
         let headerCellNib = UINib(nibName: "JournalHeaderTitleCell", bundle: nil)
         collectionView.register(headerCellNib, forCellWithReuseIdentifier: headerReuseIdentifier)
-        
-        // Inline loading
-        let loadingCellNib = UINib(nibName: "DefaultStreamInlineLoadingCell", bundle: nil)
-        collectionView.register(loadingCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier)
-        
-        // Initial loading
-        let initialLoadingCellNib = UINib(nibName: "DefaultStreamInitialLoadingCell", bundle: nil)
-        collectionView.register(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
     }
     
-    override func createLayoutEngine() {
-        layoutEngine = JournalStreamLayout()
-        layoutEngine.delegate = self
+    override func createCollectionViewLayout() {
+        let journalLayout = JournalStreamLayout()
+        journalLayout.delegate = self
         
+        layout = journalLayout
+
         // Register backdrop as decoration class
-        layoutEngine.register(JournalBackdropCell.self, forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier)
-        layoutEngine.register(JournalBubbleDecoCell.self, forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier)
+        layout.register(JournalBackdropCell.self, forDecorationViewOfKind: JournalViewModel.backdropDecorIdentifier)
+        layout.register(JournalBubbleDecoCell.self, forDecorationViewOfKind: JournalViewModel.bubbleDecorIdentifier)
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
@@ -93,7 +84,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if !stream.loaded {
+        if !collection.loaded {
             return photoStartSection + 1
         } else {
             return photoGroups.count + photoStartSection
@@ -112,15 +103,6 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         }
     }
     
-    // MARK: - Events
-    
-    override func streamFailedLoading(_ error: String) {
-        super.streamFailedLoading(error)
-        if let loadingView = self.loadingCell {
-            loadingView.showRetryState()
-        }
-    }
-    
     // MARK: - StreamLayoutDelegate
     
     func streamHeaderCompressionRatioDidChange(_ headerCompressionRatio: CGFloat) {
@@ -133,11 +115,4 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
-    
-    // MARK: - Private
-    
-    fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.items.count
-    }
-
 }

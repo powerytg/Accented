@@ -15,7 +15,7 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
     @IBOutlet weak var endingView: UIImageView!
     
     // Reference to the stream view model
-    weak var streamViewModel : InfiniteLoadingViewModel?
+    weak var viewModel : InfiniteLoadable?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,7 +49,7 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
     @IBAction func retryButtonDidTouch(_ sender: AnyObject) {
         showLoadingState()
         
-        if let viewModel = streamViewModel {
+        if let viewModel = self.viewModel {
             viewModel.loadNextPage()
         }
     }

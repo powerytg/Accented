@@ -17,7 +17,7 @@ class UserSearchResultModel: CollectionModel<UserModel> {
     init(keyword : String) {
         self.keyword = keyword
         super.init()
-        self.modelId = "user_search_result_\(keyword)"
+        self.modelId = keyword
     }
 
     override func copy(with zone: NSZone? = nil) -> Any {

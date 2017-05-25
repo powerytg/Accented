@@ -52,7 +52,7 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
         if let keyword = self.keyword {
             titleLabel.text = keyword
             photoCard = SearchPhotoResultViewController(keyword: keyword)
-            userCard = SearchUserResultViewController()
+            userCard = SearchUserResultViewController(keyword: keyword)
         } else {
             titleLabel.text = "#\(tag!)"
             photoCard = SearchPhotoResultViewController(tag : tag!)

@@ -45,13 +45,13 @@ extension StorageService {
         collection.totalCount = commentsCount
         
         // If it's the first page and the new content is not strictly equal to the first page, then discard the entire stream
-        if page == 1 && !isEqualCollection(newItems: comments, oldItems: collection.items) {
+        if page == 1 && !isEqualCollection(newItems: comments, oldItems: getFirstPage(collection.items)) {
             collection.items = []
         }
         
         // Merge all in the new photos
-        let mergedPhotos = mergeModelCollections(newModels: comments, withModels: collection.items)
-        collection.items = mergedPhotos
+        let mergedComments = mergeModelCollections(newModels: comments, withModels: collection.items)
+        collection.items = mergedComments
         
         // Put the stream back to cache
         putCommentsToCache(collection)

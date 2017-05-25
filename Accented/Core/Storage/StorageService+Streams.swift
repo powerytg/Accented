@@ -62,7 +62,7 @@ extension StorageService {
         stream.totalCount = totalPhotos
         
         // If it's the first page and the new content is not strictly equal to the first page, then discard the entire stream
-        if page == 1 && !isEqualCollection(newItems: photos, oldItems: stream.items) {
+        if page == 1 && !isEqualCollection(newItems: photos, oldItems: getFirstPage(stream.items)) {
             stream.items = []
         }
         

@@ -47,5 +47,7 @@ class StorageService: NSObject {
         // Photo comment posted
         notificationCenter.addObserver(self, selector: #selector(didPostComment(_:)), name: APIEvents.commentDidPost, object: nil)
 
+        // User search returned
+        notificationCenter.addObserver(self, selector: #selector(userSearchDidReturn(_:)), name: APIEvents.userSearchResultDidReturn, object: nil)
     }
 }

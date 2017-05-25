@@ -17,10 +17,8 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     fileprivate let headerButtonsReuseIdentifier = "headerButtons"
 
     fileprivate let cardRendererReuseIdentifier = "renderer"
-    fileprivate let initialLoadingRendererReuseIdentifier = "initialLoading"
     fileprivate let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
     fileprivate let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
-    fileprivate let loadingFooterRendererReuseIdentifier = "loadingFooter"
     
     // Header section, which includes the logo, the nav bar and the buttons
     fileprivate let headerSection = 0
@@ -29,9 +27,6 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         return 1
     }
 
-    // Inline infinite loading cell
-    var loadingCell : DefaultStreamInlineLoadingCell?
-    
     // Navigation cell
     fileprivate var navCell : DefaultStreamHeaderNavCell?
     
@@ -57,21 +52,14 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         // Section footer
         let sectionFooterCellNib = UINib(nibName: "DefaultStreamSectionFooterCell", bundle: nil)
         collectionView.register(sectionFooterCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: cardSectionFooterRendererReuseIdentifier)
-        
-        // Inline loading
-        let loadingCellNib = UINib(nibName: "DefaultStreamInlineLoadingCell", bundle: nil)
-        collectionView.register(loadingCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier)
-        
-        // Initial loading
-        let initialLoadingCellNib = UINib(nibName: "DefaultStreamInitialLoadingCell", bundle: nil)
-        collectionView.register(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
     }
     
-    override func createLayoutEngine() {
-        layoutEngine = DefaultStreamLayout()
-        layoutEngine.delegate = self
-        layoutEngine.headerReferenceSize = CGSize(width: 50, height: 50)
-        layoutEngine.footerReferenceSize = CGSize(width: 50, height: 50)
+    override func createCollectionViewLayout() {
+        let defaultLayout = DefaultStreamLayout()
+        defaultLayout.delegate = self
+        layout = defaultLayout
+        layout.headerReferenceSize = CGSize(width: 50, height: 50)
+        layout.footerReferenceSize = CGSize(width: 50, height: 50)        
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
@@ -85,7 +73,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
             // Stream headers
             if (indexPath as NSIndexPath).item == 0 {
                 navCell = collectionView.dequeueReusableCell(withReuseIdentifier: headerNavReuseIdentifier, for: indexPath) as? DefaultStreamHeaderNavCell
-                let cardLayout = layoutEngine as! DefaultStreamLayout
+                let cardLayout = layout as! DefaultStreamLayout
                 cardLayout.navBarStickyPosition = -navCell!.navBarDefaultPosition
                 return navCell!
             } else if (indexPath as NSIndexPath).item == 1 {
@@ -132,7 +120,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
             let totalSectionCount = self.numberOfSections(in: collectionView)
             if (indexPath as NSIndexPath).section == totalSectionCount - 1 && canLoadMore() {
                 let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
-                loadingView.streamViewModel = self
+                loadingView.viewModel = self
                 
                 // If there are no more items in the stream to load, show the ending status
                 if stream.items.count >= stream.totalCount! {
@@ -188,20 +176,4 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
         let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
-    
-    // MARK: - Events
-    
-    override func streamFailedLoading(_ error: String) {
-        super.streamFailedLoading(error)
-        if let loadingView = self.loadingCell {
-            loadingView.showRetryState()
-        }
-    }
-    
-    // MARK: - Private
-    
-    fileprivate func canLoadMore() -> Bool {
-        return stream.totalCount! > stream.items.count
-    }
-    
 }
