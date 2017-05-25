@@ -18,8 +18,4 @@ class ModelBase: NSObject, NSCopying {
         clone.modelId = self.modelId
         return clone
     }
-    
-    public static func == (lhs: ModelBase, rhs: ModelBase) -> Bool {
-        return lhs.modelId == rhs.modelId
-    }
 }

@@ -44,7 +44,15 @@ class DetailGalleryViewController: DeckViewController, DeckViewControllerDataSou
         self.initialSelectedPhoto = context.initialSelectedPhoto
         self.photoCollection = context.photoCollection
 
-        let initialSelectedIndex = photoCollection.index(of: initialSelectedPhoto)!        
+        // Find the initial selection index
+        var initialSelectedIndex = 0
+        for photo in photoCollection {
+            if photo.photoId == initialSelectedPhoto.photoId {
+                initialSelectedIndex = photoCollection.index(of: photo)!
+                break
+            }
+        }
+        
         super.init(initialSelectedIndex: initialSelectedIndex)
     }
     
