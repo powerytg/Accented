@@ -32,7 +32,7 @@ class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
     }
     
     override func createCollectionViewLayout() {
-        layout = UserSearchResultLayout(width: collectionView.bounds.size.width)
+        layout = UserSearchResultLayout()
     }
     
     override func loadPageAt(_ page : Int) {

@@ -59,23 +59,25 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
         }
         
         // Setup cards
+        let screenHeight = UIScreen.main.bounds.height
         addChildViewController(deck)
         view.addSubview(deck.view)
         deck.view.frame = CGRect(x: 0,
                                  y: deckPaddingTop,
                                  width: view.bounds.size.width,
-                                 height: view.bounds.size.height - deckPaddingTop)
+                                 height: screenHeight - deckPaddingTop)
         deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         deck.didMove(toParentViewController: self)
         deck.dataSource = self
         deck.deckViewDelegate = self
+        deck.invalidateLayout()
         
         navView.dataSource = self
         navView.delegate = self
     }
 
     @IBAction func backButtonDidTap(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
 
     @IBAction func searchButtonDidTap(_ sender: Any) {

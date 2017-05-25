@@ -14,12 +14,11 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     fileprivate let vGap : CGFloat = 8
     fileprivate let itemHeight : CGFloat = 50
     fileprivate let footerHeight : CGFloat = 50
-    fileprivate var width : CGFloat
+    fileprivate var width : CGFloat = 0
     fileprivate let leftMargin : CGFloat = 15
     fileprivate let rightMargin : CGFloat = 15
     
-    init(width : CGFloat) {
-        self.width = width
+    override init() {
         super.init()
     }
     
@@ -29,6 +28,10 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     
     override func prepare() {
         scrollDirection = .vertical
+        
+        if collectionView != nil {
+            width = collectionView!.bounds.width
+        }
     }
     
     override var collectionViewContentSize : CGSize {

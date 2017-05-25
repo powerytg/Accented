@@ -117,6 +117,10 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         super.didReceiveMemoryWarning()
     }
     
+    func invalidateLayout() {
+        layoutController.containerSize = self.view.bounds.size
+    }
+    
     // MARK: - Card management
     
     func getRecycledCardViewController() -> CardViewController? {

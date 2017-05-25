@@ -32,7 +32,6 @@ class SearchUserResultViewController: CardViewController {
         addChildViewController(streamViewController)
         self.view.addSubview(streamViewController.view)
         streamViewController.view.frame = self.view.bounds
-        streamViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         streamViewController.didMove(toParentViewController: self)
     }
 }
