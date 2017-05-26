@@ -42,4 +42,7 @@ class StorageServiceEvents: NSObject {
     
     // Keyword
     static let keyword = "keyword"
+    
+    // Sort
+    static let sort = "sort"
 }

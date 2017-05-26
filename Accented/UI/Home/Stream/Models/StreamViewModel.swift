@@ -59,34 +59,12 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
     // MARL: - Stream loading and updating
     
     override func loadPageAt(_ page : Int) {
-        if collection is PhotoSearchStreamModel {
-            searchPhotos(page: page)
-        } else {
-            loadPhotos(page: page)
-        }
-    }
-    
-    fileprivate func loadPhotos(page : Int) {
         let params = ["tags" : "1"]
         APIService.sharedInstance.getPhotos(streamType: stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
         })
     }
     
-    fileprivate func searchPhotos(page : Int) {
-        let params = ["tags" : "1"]
-        let searchModel = stream as! PhotoSearchStreamModel
-        if let keyword = searchModel.keyword {
-            APIService.sharedInstance.searchPhotos(keyword : keyword, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
-                self?.collectionFailedRefreshing(errorMessage)
-            })
-        } else if let tag = searchModel.tag {
-            APIService.sharedInstance.searchPhotos(tag : tag, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
-                self?.collectionFailedRefreshing(errorMessage)
-            })
-        }
-    }
-
     override func clearCollectionView() {
         super.clearCollectionView()
         photoCountInCollectionView = 0

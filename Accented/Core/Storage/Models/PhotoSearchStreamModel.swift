@@ -11,44 +11,46 @@
 import UIKit
 
 class PhotoSearchStreamModel: StreamModel {
-
+    let sort : PhotoSearchSortingOptions
     var keyword : String?
     var tag : String?
     
-    static func streamIdWithKeyword(_ keyword : String) -> String {
-        return keyword
+    static func streamIdWithKeyword(keyword : String, sort : PhotoSearchSortingOptions) -> String {
+        return "\(keyword)_\(sort.rawValue)"
     }
 
-    static func streamIdWithTag(_ tag : String) -> String {
-        return tag
+    static func streamIdWithTag(tag : String, sort : PhotoSearchSortingOptions) -> String {
+        return "\(tag)_\(sort.rawValue)"
     }
 
     override var streamId: String {
         if keyword != nil {
-            return PhotoSearchStreamModel.streamIdWithKeyword(keyword!)
+            return PhotoSearchStreamModel.streamIdWithKeyword(keyword : keyword!, sort: sort)
         } else if tag != nil {
-            return PhotoSearchStreamModel.streamIdWithKeyword(tag!)
+            return PhotoSearchStreamModel.streamIdWithTag(tag : tag!, sort : sort)
         } else {
             fatalError("Neither tag nor keyword is present")
         }
     }
     
-    init(keyword : String) {
+    init(keyword : String, sort : PhotoSearchSortingOptions) {
         self.keyword = keyword
+        self.sort = sort
         super.init(streamType: .Search)
     }
     
-    init(tag : String) {
+    init(tag : String, sort : PhotoSearchSortingOptions) {
         self.tag = tag
+        self.sort = sort
         super.init(streamType: .Search)
     }
 
     override func copy(with zone: NSZone? = nil) -> Any {
         var clone : PhotoSearchStreamModel
         if keyword != nil {
-            clone = PhotoSearchStreamModel(keyword : self.keyword!)
+            clone = PhotoSearchStreamModel(keyword : self.keyword!, sort : sort)
         } else if tag != nil {
-            clone = PhotoSearchStreamModel(tag : self.tag!)
+            clone = PhotoSearchStreamModel(tag : self.tag!, sort : sort)
         } else {
             fatalError("Neither tag nor keyword is present")
         }

@@ -40,9 +40,9 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
         
         var stream : PhotoSearchStreamModel
         if let keyword = self.keyword {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword, sort : sortingModel.selectedOption)
         } else if let tag = self.tag {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag, sort : sortingModel.selectedOption)
         } else {
             fatalError("Neither tag nor keyword is specified")
         }
@@ -89,6 +89,9 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
             sortingModel.selectedOption = option
             StorageService.sharedInstance.currentPhotoSearchSortingOption = option
             sortingOptionsViewController.view.setNeedsLayout()
+            
+            // Notify the steam to update
+            streamViewController.sortConditionDidChange(sort : option)
         }
     }
 }

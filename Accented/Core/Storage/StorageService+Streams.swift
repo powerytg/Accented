@@ -39,6 +39,7 @@ extension StorageService {
         let streamTypeString = userInfo[RequestParameters.streamType] as? String
         let keyword = userInfo[RequestParameters.term] as? String
         let tag = userInfo[RequestParameters.tag] as? String
+        let sort = userInfo[RequestParameters.sort] as? PhotoSearchSortingOptions
         
         var stream : StreamModel
         var streamType : StreamType?
@@ -51,9 +52,9 @@ extension StorageService {
                 stream = self.getStream(streamType!)
             }
         } else if keyword != nil {
-            stream = self.getPhotoSearchResult(keyword: keyword!)
+            stream = getPhotoSearchResult(keyword: keyword!, sort : sort!)
         } else if tag != nil {
-            stream = getPhotoSearchResult(tag: tag!)
+            stream = getPhotoSearchResult(tag: tag!, sort : sort!)
         } else {
             debugPrint("Stream does not have an identity))")
             return

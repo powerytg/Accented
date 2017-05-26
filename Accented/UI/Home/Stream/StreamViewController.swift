@@ -59,19 +59,9 @@ class StreamViewController : InfiniteLoadingViewController<PhotoModel> {
         guard streamId == stream.streamId else { return }
         
         // Get a new copy of the stream
-        if stream is PhotoSearchStreamModel {
-            let searchModel = stream as! PhotoSearchStreamModel
-            if let keyword = searchModel.keyword {
-                stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword)
-            } else if let tag = searchModel.tag {
-                stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag)
-            } else {
-                fatalError("Both keyword and tag cannot be nil")
-            }
-        } else {
-            stream = StorageService.sharedInstance.getStream(stream.streamType)
-        }
-
+        stream = StorageService.sharedInstance.getStream(stream.streamType)
+        
+        // Notify view model to update
         if let vm = streamViewModel {
             vm.collecitonDidUpdate(collection: stream, page: page)
         }

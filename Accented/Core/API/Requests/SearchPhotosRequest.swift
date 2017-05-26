@@ -10,13 +10,15 @@ import UIKit
 
 class SearchPhotosRequest: APIRequest {
 
-    private var keyword : String?
-    private var tag : String?
-    private var page : Int
+    fileprivate var keyword : String?
+    fileprivate var tag : String?
+    fileprivate var page : Int
+    fileprivate var sorting : PhotoSearchSortingOptions
     
-    init(keyword : String, page : Int = 1, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
+    init(keyword : String, page : Int = 1, sort : PhotoSearchSortingOptions, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
         self.keyword = keyword
         self.page = page
+        self.sorting = sort
         
         super.init(success: success, failure: failure)
         
@@ -25,13 +27,14 @@ class SearchPhotosRequest: APIRequest {
         parameters = params
         parameters[RequestParameters.term] = keyword
         parameters[RequestParameters.page] = String(page)
+        parameters[RequestParameters.sort] = sort.rawValue
         
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in
                 return size.rawValue
             }).joined(separator: ",")
         }
-
+        
         // By default, exclude node content
         parameters[RequestParameters.excludeNude] = "1"
         
@@ -41,9 +44,10 @@ class SearchPhotosRequest: APIRequest {
         }
     }
     
-    init(tag : String, page : Int = 1, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
+    init(tag : String, page : Int = 1, sort : PhotoSearchSortingOptions, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
         self.tag = tag
         self.page = page
+        self.sorting = sort
         
         super.init(success: success, failure: failure)
         
@@ -52,6 +56,7 @@ class SearchPhotosRequest: APIRequest {
         parameters = params
         parameters[RequestParameters.tag] = tag
         parameters[RequestParameters.page] = String(page)
+        parameters[RequestParameters.sort] = sort.rawValue
         
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in
@@ -71,7 +76,8 @@ class SearchPhotosRequest: APIRequest {
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
         var userInfo : [String : Any] = [RequestParameters.page : page,
-                                         RequestParameters.response : data]
+                                         RequestParameters.response : data,
+                                         RequestParameters.sort : sorting]
         
         if keyword != nil {
             userInfo[RequestParameters.term] = keyword!

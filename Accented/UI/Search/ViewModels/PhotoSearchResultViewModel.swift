@@ -2,6 +2,8 @@
 //  PhotoSearchResultViewModel.swift
 //  Accented
 //
+//  Photo search result view model
+//
 //  Created by Tiangong You on 5/21/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
@@ -37,6 +39,31 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
         return StreamCardLayoutGenerator(maxWidth: maxWidth)
+    }
+    
+    // MARK: - Loading
+    override func loadPageAt(_ page : Int) {
+        let params = ["tags" : "1"]
+        let searchModel = stream as! PhotoSearchStreamModel
+        if let keyword = searchModel.keyword {
+            APIService.sharedInstance.searchPhotos(keyword : keyword,
+                                                   page: page,
+                                                   sort : searchModel.sort,
+                                                   parameters: params,
+                                                   success: nil,
+                                                   failure: { [weak self] (errorMessage) in
+                self?.collectionFailedRefreshing(errorMessage)
+                })
+        } else if let tag = searchModel.tag {
+            APIService.sharedInstance.searchPhotos(tag : tag,
+                                                   page: page,
+                                                   sort : searchModel.sort,
+                                                   parameters: params,
+                                                   success: nil,
+                                                   failure: { [weak self] (errorMessage) in
+                self?.collectionFailedRefreshing(errorMessage)
+                })
+        }
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

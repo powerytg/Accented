@@ -24,16 +24,18 @@ extension StorageService {
     }
     
     // Retrieve a copy of the specific photo search result stream with keyword
-    func getPhotoSearchResult(keyword : String) -> PhotoSearchStreamModel {
-        return cacheController.getCachedResource(cacheKey: keyword, inCache: cacheController.photoSearchResultCache, creationCallback: { () -> PhotoSearchStreamModel in
-            return PhotoSearchStreamModel(keyword: keyword)
+    func getPhotoSearchResult(keyword : String, sort : PhotoSearchSortingOptions) -> PhotoSearchStreamModel {
+        let cacheKey = PhotoSearchStreamModel.streamIdWithKeyword(keyword: keyword, sort: sort)
+        return cacheController.getCachedResource(cacheKey: cacheKey, inCache: cacheController.photoSearchResultCache, creationCallback: { () -> PhotoSearchStreamModel in
+            return PhotoSearchStreamModel(keyword: keyword, sort : sort)
         })
     }
     
     // Retrieve a copy of the specific photo search result stream with tag
-    func getPhotoSearchResult(tag : String) -> PhotoSearchStreamModel {
-        return cacheController.getCachedResource(cacheKey: tag, inCache: cacheController.photoSearchResultCache, creationCallback: { () -> PhotoSearchStreamModel in
-            return PhotoSearchStreamModel(tag: tag)
+    func getPhotoSearchResult(tag : String, sort : PhotoSearchSortingOptions) -> PhotoSearchStreamModel {
+        let cacheKey = PhotoSearchStreamModel.streamIdWithTag(tag: tag, sort: sort)
+        return cacheController.getCachedResource(cacheKey: cacheKey, inCache: cacheController.photoSearchResultCache, creationCallback: { () -> PhotoSearchStreamModel in
+            return PhotoSearchStreamModel(tag: tag, sort : sort)
         })
     }
     

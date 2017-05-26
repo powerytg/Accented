@@ -44,4 +44,7 @@ class RequestParameters: NSObject {
     
     // Comment body
     static let body = "body"
+    
+    // Sorting option
+    static let sort = "sort"
 }
