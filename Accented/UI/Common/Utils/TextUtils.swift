@@ -65,4 +65,16 @@ class TextUtils: NSObject {
         }
     }
 
+    static func sortOptionDisplayName(_ option : PhotoSearchSortingOptions) -> String {
+        switch option {
+        case .createdAt:
+            return "Latest"
+        case .highestRating:
+            return "Top Rated"
+        case .rating:
+            return "Most Popular"
+        case .timesViewed:
+            return "Most Viewed"
+        }
+    }    
 }

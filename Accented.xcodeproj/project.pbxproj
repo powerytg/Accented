@@ -44,6 +44,13 @@
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
 		187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */; };
 		1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082291D13B08C00FDAAEB /* DrawerAnimationContext.swift */; };
+		1872B7F51ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B7F41ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift */; };
+		1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B7F61ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift */; };
+		1872B7F91ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B7F71ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib */; };
+		1872B7FC1ED7E781009B6FC8 /* SearchResultFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B7FA1ED7E781009B6FC8 /* SearchResultFilterViewController.swift */; };
+		1872B7FD1ED7E781009B6FC8 /* SearchResultFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B7FB1ED7E781009B6FC8 /* SearchResultFilterViewController.xib */; };
+		1872B8001ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B7FE1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift */; };
+		1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B7FF1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib */; };
 		1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */; };
 		187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA0461ED23AEE000E181E /* DetailCommentsViewController.swift */; };
 		187BA0511ED25485000E181E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA04F1ED25485000E181E /* SearchResultViewController.swift */; };
@@ -281,6 +288,13 @@
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
 		187082211D07DD9000FDAAEB /* ThemeSelectorRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorRenderer.xib; sourceTree = "<group>"; };
 		187082291D13B08C00FDAAEB /* DrawerAnimationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationContext.swift; sourceTree = "<group>"; };
+		1872B7F41ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSearchFilterModel.swift; sourceTree = "<group>"; };
+		1872B7F61ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultSortingBottomSheetViewController.swift; sourceTree = "<group>"; };
+		1872B7F71ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultSortingBottomSheetViewController.xib; sourceTree = "<group>"; };
+		1872B7FA1ED7E781009B6FC8 /* SearchResultFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultFilterViewController.swift; sourceTree = "<group>"; };
+		1872B7FB1ED7E781009B6FC8 /* SearchResultFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultFilterViewController.xib; sourceTree = "<group>"; };
+		1872B7FE1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultSortingOptionRenderer.swift; sourceTree = "<group>"; };
+		1872B7FF1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultSortingOptionRenderer.xib; sourceTree = "<group>"; };
 		1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBackgroundView.swift; sourceTree = "<group>"; };
 		187BA0461ED23AEE000E181E /* DetailCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentsViewController.swift; sourceTree = "<group>"; };
 		187BA04F1ED25485000E181E /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +591,25 @@
 			path = Drawer;
 			sourceTree = "<group>";
 		};
+		1872B7E61ED7D049009B6FC8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1872B7FA1ED7E781009B6FC8 /* SearchResultFilterViewController.swift */,
+				1872B7FB1ED7E781009B6FC8 /* SearchResultFilterViewController.xib */,
+				1872B7F61ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift */,
+				1872B7F71ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1872B7F31ED7D4CB009B6FC8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1872B7F41ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1872E2E21D502CD900F160F1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -591,6 +624,8 @@
 		187BA04A1ED23CA8000E181E /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				1872B7F31ED7D4CB009B6FC8 /* Models */,
+				1872B7E61ED7D049009B6FC8 /* Components */,
 				9BDF19151ED77B6A003159E8 /* Layouts */,
 				9BDF19141ED77B63003159E8 /* ViewModels */,
 				187BA0661ED3D36D000E181E /* Renderers */,
@@ -615,6 +650,8 @@
 			children = (
 				187BA06B1ED3D3B2000E181E /* UserSearchResultRenderer.swift */,
 				187BA06C1ED3D3B2000E181E /* UserSearchResultRenderer.xib */,
+				1872B7FE1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift */,
+				1872B7FF1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib */,
 			);
 			path = Renderers;
 			sourceTree = "<group>";
@@ -1162,11 +1199,14 @@
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9B76AB551D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib in Resources */,
 				9B3813E71CE012180066D3B9 /* DefaultStreamButtonsCell.xib in Resources */,
+				1872B7F91ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib in Resources */,
+				1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				187BA0521ED25485000E181E /* SearchResultViewController.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
+				1872B7FD1ED7E781009B6FC8 /* SearchResultFilterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1235,6 +1275,7 @@
 				18D0BF381ED52259008677FE /* CommentCollectionModel.swift in Sources */,
 				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
 				9BFFB7511D147BA200B178F3 /* DrawerPresentationController.swift in Sources */,
+				1872B8001ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift in Sources */,
 				18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */,
 				18BD57201D56454E00376DE8 /* DetailNavigationContext.swift in Sources */,
 				9B6677031D340B0500B89009 /* NavigationService.swift in Sources */,
@@ -1298,6 +1339,7 @@
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
+				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */,
@@ -1344,6 +1386,7 @@
 				9B3813C71CE010770066D3B9 /* StreamLayoutBase.swift in Sources */,
 				18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */,
 				9BFC4C2A1DA7474E004E1B21 /* RefreshHeaderView.swift in Sources */,
+				1872B7F51ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift in Sources */,
 				9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */,
 				9B3813EE1CE012180066D3B9 /* DefaultStreamPhotoCell.swift in Sources */,
 				9B3813C81CE010770066D3B9 /* StreamState.swift in Sources */,
@@ -1362,6 +1405,7 @@
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
+				1872B7FC1ED7E781009B6FC8 /* SearchResultFilterViewController.swift in Sources */,
 				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
 				9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */,
 				9BDF191E1ED77BB9003159E8 /* PhotoSearchResultStreamViewController.swift in Sources */,

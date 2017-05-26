@@ -40,6 +40,10 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         }
     }
     
+    func topViewController() -> UIViewController? {
+        return rootNavigationController?.topViewController
+    }
+    
     func navigateToCommentsPage(_ photo : PhotoModel) {
         let vc = DetailCommentsViewController()
         vc.photo = photo

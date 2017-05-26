@@ -31,6 +31,19 @@ enum ImageSize : String {
     case Large = "4"    // 900px on the longest side
 }
 
+// Photo Search Sorting options
+enum PhotoSearchSortingOptions : String {
+    case createdAt = "created_at" // Default: sort by time of upload, most recent first
+    case rating = "rating" // Sort by current rating, highest rated first
+    case highestRating = "highest_rating" // Sort by highest rating achieved, highest rated first
+    case timesViewed = "times_viewed" // Sort by the number of views, most viewed first
+    
+    // Below options are not supported by the app
+    // case score = "_score" // Sort by query score, best match first
+    // case votesCount = "votes_count" // Sort by the number of votes, most voted on first
+    // case commentsCount = "comments_count" // Sort by the number of comments, most commented first
+}
+
 class APIService: NSObject {
     
     // Singleton instance

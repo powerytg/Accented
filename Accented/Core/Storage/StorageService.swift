@@ -34,6 +34,9 @@ class StorageService: NSObject {
     // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
     
+    // Currently selected sorting option for photo search, default to "currently most popular"
+    var currentPhotoSearchSortingOption : PhotoSearchSortingOptions = .highestRating
+    
     // Initialize event listeners to monitor APIService results
     fileprivate func initializeEventListeners() {
         let notificationCenter = NotificationCenter.default

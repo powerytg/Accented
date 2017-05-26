@@ -12,7 +12,7 @@ import UIKit
 
 class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     fileprivate let vGap : CGFloat = 8
-    fileprivate let itemHeight : CGFloat = 50
+    fileprivate let itemHeight : CGFloat = 60
     fileprivate let footerHeight : CGFloat = 50
     fileprivate var width : CGFloat = 0
     fileprivate let leftMargin : CGFloat = 15

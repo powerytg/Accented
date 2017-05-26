@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchResultSortingBottomSheetViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="V7L-MZ-wAL" id="TU2-aF-Ndq"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="493" height="266"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SORTING OPTIONS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="586-Wl-JM2">
+                    <rect key="frame" x="111" y="11" width="270" height="14.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="V7L-MZ-wAL">
+                    <rect key="frame" x="0.0" y="45.5" width="493" height="220.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
+                    <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkJournalBubble" translatesAutoresizingMaskIntoConstraints="NO" id="0Zf-jh-Fap">
+                    <rect key="frame" x="0.0" y="250" width="16" height="16"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84688035102739723" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="0Zf-jh-Fap" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="14x-gu-IZK"/>
+                <constraint firstItem="V7L-MZ-wAL" firstAttribute="top" secondItem="586-Wl-JM2" secondAttribute="bottom" constant="20" id="34j-TY-lzi"/>
+                <constraint firstAttribute="bottom" secondItem="0Zf-jh-Fap" secondAttribute="bottom" id="DQs-cj-E3N"/>
+                <constraint firstAttribute="trailing" secondItem="V7L-MZ-wAL" secondAttribute="trailing" id="FUL-FX-GNV"/>
+                <constraint firstAttribute="bottom" secondItem="V7L-MZ-wAL" secondAttribute="bottom" id="Me9-6E-6nM"/>
+                <constraint firstAttribute="trailing" secondItem="586-Wl-JM2" secondAttribute="trailing" constant="112" id="ezh-US-cYO"/>
+                <constraint firstItem="586-Wl-JM2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="11" id="nx8-ix-SeM"/>
+                <constraint firstItem="V7L-MZ-wAL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="un6-eb-AhS"/>
+                <constraint firstItem="586-Wl-JM2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="111" id="xLw-NV-SIq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="104.5" y="-111"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="DarkJournalBubble" width="16" height="16"/>
+    </resources>
+</document>
