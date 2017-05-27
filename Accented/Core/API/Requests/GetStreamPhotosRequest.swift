@@ -24,6 +24,8 @@ class GetStreamPhotosRequest: APIRequest {
         parameters = params
         parameters[RequestParameters.feature] = streamType.rawValue
         parameters[RequestParameters.page] = String(page)
+        parameters[RequestParameters.includeStates] = "1"
+        
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in
                 return size.rawValue

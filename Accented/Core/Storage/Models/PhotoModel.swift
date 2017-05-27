@@ -29,6 +29,7 @@ class PhotoModel: ModelBase {
     var tags = [String]()
     var user : UserModel!
     var commentsCount : Int?
+    var voted : Bool!
     
     override init() {
         super.init()
@@ -78,6 +79,9 @@ class PhotoModel: ModelBase {
         for (_, tagJSON):(String, JSON) in json["tags"] {
             tags.append(tagJSON.string!)
         }
+        
+        // Like status
+        voted = json["voted"].boolValue
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -97,6 +101,7 @@ class PhotoModel: ModelBase {
         clone.latitude = self.latitude
         clone.user = self.user.copy() as! UserModel
         clone.tags = self.tags
+        clone.voted = self.voted
         return clone
     }
 }

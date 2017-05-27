@@ -28,6 +28,7 @@ class SearchPhotosRequest: APIRequest {
         parameters[RequestParameters.term] = keyword
         parameters[RequestParameters.page] = String(page)
         parameters[RequestParameters.sort] = sort.rawValue
+        parameters[RequestParameters.includeStates] = "1"
         
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in
@@ -57,6 +58,7 @@ class SearchPhotosRequest: APIRequest {
         parameters[RequestParameters.tag] = tag
         parameters[RequestParameters.page] = String(page)
         parameters[RequestParameters.sort] = sort.rawValue
+        parameters[RequestParameters.includeStates] = "1"
         
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in

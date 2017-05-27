@@ -109,11 +109,13 @@ class DetailCommentSectionView: DetailSectionViewBase {
     }
     
     override func photoModelDidChange() {
-        // Stop loading spinner
+        // Stop and hide loading spinner
         loadingSpinner.stopAnimating()
+        loadingSpinner.isHidden = true
         
         // Refresh the photo comments in background
         guard photo != nil else { return }
+        
         APIService.sharedInstance.getComments(photo!.photoId)
 
         // Get a copy of the comments

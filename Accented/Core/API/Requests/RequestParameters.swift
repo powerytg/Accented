@@ -47,4 +47,7 @@ class RequestParameters: NSObject {
     
     // Sorting option
     static let sort = "sort"
+    
+    // Include like status of a photo
+    static let includeStates = "include_states"
 }
