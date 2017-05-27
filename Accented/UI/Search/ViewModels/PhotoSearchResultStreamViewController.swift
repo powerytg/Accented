@@ -51,15 +51,5 @@ class PhotoSearchResultStreamViewController: StreamViewController {
         if newStream != nil {
             switchStream(newStream!)
         }
-    }
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
-    
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 8)
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 26)
-    }
+    }    
 }

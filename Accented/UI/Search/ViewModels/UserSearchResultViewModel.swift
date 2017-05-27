@@ -92,12 +92,13 @@ class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
                 self.loadingCell = loadingView
                 return loadingView
             } else {
-                // If we can no longer load, then return an empty view as footer
-                return UICollectionViewCell()
+                // For any other sections, show a non-visible placeholder footer
+                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: invisiblePlaceholderFooterReuseIdentifier, for: indexPath)
             }
         }
         
-        return UICollectionViewCell()
+        // Should not reach this line
+        fatalError("Element type not supported!")
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

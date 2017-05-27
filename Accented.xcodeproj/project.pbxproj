@@ -185,6 +185,7 @@
 		9BDF191F1ED77BB9003159E8 /* PhotoSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF191B1ED77BB9003159E8 /* PhotoSearchResultViewModel.swift */; };
 		9BDF19201ED77BB9003159E8 /* UserSearchResultStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF191C1ED77BB9003159E8 /* UserSearchResultStreamViewController.swift */; };
 		9BDF19211ED77BB9003159E8 /* UserSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF191D1ED77BB9003159E8 /* UserSearchResultViewModel.swift */; };
+		9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
 		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
 		9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */; };
@@ -428,6 +429,7 @@
 		9BDF191B1ED77BB9003159E8 /* PhotoSearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSearchResultViewModel.swift; sourceTree = "<group>"; };
 		9BDF191C1ED77BB9003159E8 /* UserSearchResultStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchResultStreamViewController.swift; sourceTree = "<group>"; };
 		9BDF191D1ED77BB9003159E8 /* UserSearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchResultViewModel.swift; sourceTree = "<group>"; };
+		9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGroupStreamLayout.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
 		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
 		9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionContentView.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 			isa = PBXGroup;
 			children = (
 				9B3813B71CE010770066D3B9 /* StreamLayoutBase.swift */,
+				9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */,
 			);
 			path = Layout;
 			sourceTree = "<group>";
@@ -1289,6 +1292,7 @@
 				9BDF19201ED77BB9003159E8 /* UserSearchResultStreamViewController.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */,
+				9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,

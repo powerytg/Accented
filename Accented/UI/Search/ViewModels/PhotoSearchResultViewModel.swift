@@ -12,8 +12,6 @@ import UIKit
 
 class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     fileprivate let cardRendererReuseIdentifier = "renderer"
-    fileprivate let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
-    fileprivate let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
@@ -21,19 +19,10 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     
     override func registerCellTypes() {
         collectionView.register(DefaultStreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
-        
-        // Section header
-        let sectionHeaderCellNib = UINib(nibName: "DefaultStreamSectionHeaderCell", bundle: nil)
-        collectionView.register(sectionHeaderCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: cardSectionHeaderRendererReuseIdentifier)
-        
-        // Section footer
-        let sectionFooterCellNib = UINib(nibName: "DefaultStreamSectionFooterCell", bundle: nil)
-        collectionView.register(sectionFooterCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: cardSectionFooterRendererReuseIdentifier)
     }
     
     override func createCollectionViewLayout() {
         layout = PhotoSearchResultLayout()
-        layout.headerReferenceSize = CGSize(width: 50, height: 50)
         layout.footerReferenceSize = CGSize(width: 50, height: 50)
     }
     
@@ -85,16 +74,12 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: IndexPath) -> UICollectionReusableView {
-        let group = photoGroups[(indexPath as NSIndexPath).section]
-        
-        if kind == UICollectionElementKindSectionHeader {
-            let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: cardSectionHeaderRendererReuseIdentifier, for: indexPath) as! DefaultStreamSectionHeaderCell
-            return sectionHeaderView
-        } else if kind == UICollectionElementKindSectionFooter {
+        if kind == UICollectionElementKindSectionFooter {
+            let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
+
             // If the stream has more content, show the loading cell for the last section
             let totalSectionCount = self.numberOfSections(in: collectionView)
             if (indexPath as NSIndexPath).section == totalSectionCount - 1 && canLoadMore() {
-                let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
                 loadingView.viewModel = self
                 
                 // If there are no more items in the stream to load, show the ending status
@@ -108,14 +93,13 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
                 self.loadingCell = loadingView
                 return loadingView
             } else {
-                let sectionFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: cardSectionFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamSectionFooterCell
-                sectionFooterView.photoGroup = group
-                sectionFooterView.setNeedsLayout()
-                return sectionFooterView
+                // For any other sections, show a non-visible placeholder footer
+                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: invisiblePlaceholderFooterReuseIdentifier, for: indexPath)
             }
         }
         
-        return UICollectionViewCell()
+        // Should not reach this line
+        fatalError("Element type not supported!")
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

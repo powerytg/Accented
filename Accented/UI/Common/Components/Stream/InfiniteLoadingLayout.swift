@@ -10,6 +10,12 @@ import UIKit
 
 class InfiniteLoadingLayout<T : ModelBase>: UICollectionViewFlowLayout {
     
+    // Loading indicator cachd key
+    let loadingIndicatorCacheKey = "loadingIndicator"
+    
+    // Default infinite loading footer height
+    let defaultLoadingIndicatorHeight : CGFloat = 50
+    
     // Data model
     var collection : CollectionModel<T>?
 

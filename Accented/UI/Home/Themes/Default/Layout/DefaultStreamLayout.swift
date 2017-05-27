@@ -2,6 +2,9 @@
 //  GatewayCardLayout.swift
 //  Accented
 //
+//  Home stream layout for the default theme
+//  In this layout, photos are organized into groups, and the group footer lists  the names of the photographers
+//
 //  Created by Tiangong You on 5/2/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //

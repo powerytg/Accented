@@ -17,6 +17,8 @@ protocol InfiniteLoadingViewModelDelegate : NSObjectProtocol {
 class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSource, InfiniteLoadable {
     let initialLoadingRendererReuseIdentifier = "initialLoading"
     let loadingFooterRendererReuseIdentifier = "loadingFooter"
+    let invisiblePlaceholderFooterReuseIdentifier = "placeholderFooter"
+    let invisiblePlaceholderHeaderReuseIdentifier = "placeholderHeader"
 
     // Reference to the collection view
     var collectionView : UICollectionView
@@ -49,6 +51,10 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
         // Initial loading
         let initialLoadingCellNib = UINib(nibName: "DefaultStreamInitialLoadingCell", bundle: nil)
         collectionView.register(initialLoadingCellNib, forCellWithReuseIdentifier: initialLoadingRendererReuseIdentifier)
+        
+        // Invisible header and footer used as a placeholder
+        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: invisiblePlaceholderHeaderReuseIdentifier)
+        collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: invisiblePlaceholderFooterReuseIdentifier)
         
         // Create layout engine
         createCollectionViewLayout()
