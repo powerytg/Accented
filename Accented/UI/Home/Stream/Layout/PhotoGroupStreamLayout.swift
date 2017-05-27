@@ -71,15 +71,7 @@ class PhotoGroupStreamLayout: StreamLayoutBase {
     
     override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
         // If there's a previous loading indicator, reset its section height to 0
-        if let previousLoadingFooterAttrs = layoutCache[loadingIndicatorCacheKey] {
-            var f = previousLoadingFooterAttrs.frame
-            let loadingIndicatorHeight = f.size.height
-            f.size.height = 0
-            previousLoadingFooterAttrs.frame = f
-            
-            // Update content height
-            contentHeight -= loadingIndicatorHeight
-        }
+        updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
         
         var nextY = contentHeight
         var currentSectionIndex = sectionStartIndex
@@ -94,10 +86,12 @@ class PhotoGroupStreamLayout: StreamLayoutBase {
                 layoutCache[cellCacheKey] = attributes
             }
             
+            nextY += template.height
+
             // Footer layout
             let isLastSection = (templateIndex == templates.count - 1)
             let footerHeight = isLastSection ? defaultLoadingIndicatorHeight : 0
-            var footerCacheKey = isLastSection ? loadingIndicatorCacheKey : "section_footer_\(currentSectionIndex)"
+            let footerCacheKey = isLastSection ? loadingIndicatorCacheKey : "section_footer_\(currentSectionIndex)"
             let indexPath = IndexPath(item: 0, section: currentSectionIndex)
             let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
             footerAttributes.frame = CGRect(x: 0, y: nextY, width: fullWidth, height: footerHeight)
@@ -105,7 +99,6 @@ class PhotoGroupStreamLayout: StreamLayoutBase {
             nextY += footerHeight + vGap
 
             // Advance to next section
-            nextY += template.height
             currentSectionIndex += 1
         }
         

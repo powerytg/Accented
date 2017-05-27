@@ -159,15 +159,41 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
     }
 
     // MARK: - UICollectionViewDataSource
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        fatalError("Not implemented in base class")
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        fatalError("Not implemented in base class")
+        return collection.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         fatalError("Not implemented in base class")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionFooter {
+            // If the stream has more content, show the loading cell for the last section
+            let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
+            loadingView.viewModel = self
+            self.loadingCell = loadingView
+            if canLoadMore() {
+                // If there are no more items in the stream to load, show the ending status
+                if collection.items.count >= collection.totalCount! {
+                    loadingView.showEndingState()
+                } else {
+                    // Otherwise, always show the loading state, even if the previous attempt of loading failed. This is because we'll trigger loadNextPage() regardless of footer state
+                    loadingView.showLoadingState()
+                }
+            } else {
+                loadingView.showEndingState()
+            }
+            
+            return loadingView
+        }
+        
+        // Should never reach this line
+        fatalError("Unsupported element type!")
     }
 }

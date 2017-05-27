@@ -72,44 +72,4 @@ class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
             return cell
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionFooter {
-            // If the stream has more content, show the loading cell for the last section
-            let totalSectionCount = self.numberOfSections(in: collectionView)
-            if (indexPath as NSIndexPath).section == totalSectionCount - 1 && canLoadMore() {
-                let loadingView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loadingFooterRendererReuseIdentifier, for: indexPath) as! DefaultStreamInlineLoadingCell
-                loadingView.viewModel = self
-                
-                // If there are no more items in the stream to load, show the ending status
-                if collection.items.count >= collection.totalCount! {
-                    loadingView.showEndingState()
-                } else {
-                    // Otherwise, always show the loading state, even if the previous attempt of loading failed. This is because we'll trigger loadNextPage() regardless of footer state
-                    loadingView.showLoadingState()
-                }
-                
-                self.loadingCell = loadingView
-                return loadingView
-            } else {
-                // For any other sections, show a non-visible placeholder footer
-                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: invisiblePlaceholderFooterReuseIdentifier, for: indexPath)
-            }
-        }
-        
-        // Should not reach this line
-        fatalError("Element type not supported!")
-    }
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !collection.loaded {
-            return 1
-        } else {
-            return collection.items.count
-        }
-    }
 }

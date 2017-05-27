@@ -37,4 +37,17 @@ class InfiniteLoadingLayout<T : ModelBase>: UICollectionViewFlowLayout {
         contentHeight = 0
         layoutCache.removeAll()
     }
+    
+    func updateCachedLayoutHeight(cacheKey : String, toHeight : CGFloat) {
+        if let cachedAttrs = layoutCache[cacheKey] {
+            var f = cachedAttrs.frame
+            let previousHeight = f.size.height
+            f.size.height = toHeight
+            cachedAttrs.frame = f
+            
+            // Update content height
+            contentHeight -= previousHeight
+            contentHeight += toHeight
+        }
+    }
 }

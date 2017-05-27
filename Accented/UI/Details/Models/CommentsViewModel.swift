@@ -72,14 +72,6 @@ class CommentsViewModel : InfiniteLoadingViewModel<CommentModel>, CommentsLayout
     
     // MARK: - UICollectionViewDataSource
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collection.items.count
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentsViewModel.darkCellIdentifier, for: indexPath) as! DetailCommentCell
         cell.comment = collection.items[indexPath.item]

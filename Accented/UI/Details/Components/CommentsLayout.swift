@@ -70,8 +70,9 @@ class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
     
     override func generateLayoutAttributesIfNeeded() {
         guard collection != nil else { return }
-        guard collection!.items.count != 0 else { return }
-        guard collection!.items.count != layoutCache.count else { return }
+
+        // If there's a previous loading indicator, reset its section height to 0
+        updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
         
         var nextY : CGFloat = paddingTop
         for (index, comment) in collection!.items.enumerated() {
@@ -101,6 +102,16 @@ class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
             
             nextY += attrs!.frame.size.height + gap
         }
+        
+        // Always show the footer regardless of the loading state
+        // If not loading, then the footer is simply not visible
+        let footerHeight = defaultLoadingIndicatorHeight
+        let footerCacheKey = loadingIndicatorCacheKey
+        let indexPath = IndexPath(item: 0, section: 0)
+        let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
+        footerAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: footerHeight)
+        layoutCache[footerCacheKey] = footerAttributes
+        nextY += footerHeight + gap
         
         contentHeight = nextY
     }

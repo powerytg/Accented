@@ -52,12 +52,13 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     
     override func generateLayoutAttributesIfNeeded() {
         guard collection != nil else { return }
-        guard collection!.items.count != 0 else { return }
-        guard collection!.items.count != layoutCache.count else { return }
         
+        // If there's a previous loading indicator, reset its section height to 0
+        updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
+
         var nextY : CGFloat = 0
         for (index, user) in collection!.items.enumerated() {
-            // Ignore if the comment already has a layout
+            // Ignore if the user already has a layout
             let cacheKey = cacheKeyForUser(user)
             var attrs = layoutCache[cacheKey]
             if attrs == nil {
@@ -70,6 +71,16 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
             
             nextY += attrs!.frame.size.height + vGap
         }
+        
+        // Always show the footer regardless of the loading state
+        // If not loading, then the footer is simply not visible
+        let footerHeight = defaultLoadingIndicatorHeight
+        let footerCacheKey = loadingIndicatorCacheKey
+        let indexPath = IndexPath(item: 0, section: 0)
+        let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
+        footerAttributes.frame = CGRect(x: 0, y: nextY, width: width, height: footerHeight)
+        layoutCache[footerCacheKey] = footerAttributes
+        nextY += footerHeight + vGap
         
         contentHeight = nextY
     }
