@@ -11,6 +11,14 @@
 		18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18180B771ED679F1003F0054 /* InfiniteLoadable.swift */; };
 		182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109871CF0E72600529610 /* JournalBackdropCell.swift */; };
 		1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109891CF1076800529610 /* JournalBubbleDecoCell.swift */; };
+		18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A091EDB5FE300F0F02E /* PagerViewController.swift */; };
+		18222A0E1EDB65BB00F0F02E /* UserAboutSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */; };
+		18222A0F1EDB65BB00F0F02E /* UserAboutSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */; };
+		18222A121EDB65C800F0F02E /* UserPhotosSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */; };
+		18222A131EDB65C800F0F02E /* UserPhotosSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */; };
+		18222A161EDB65D800F0F02E /* UserFollowersSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */; };
+		18222A171EDB65D800F0F02E /* UserFollowersSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */; };
+		18222A191EDB7B6F00F0F02E /* GetUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */; };
 		184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */; };
 		184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */; };
 		184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */; };
@@ -51,6 +59,8 @@
 		1872B7FD1ED7E781009B6FC8 /* SearchResultFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B7FB1ED7E781009B6FC8 /* SearchResultFilterViewController.xib */; };
 		1872B8001ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B7FE1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift */; };
 		1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B7FF1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib */; };
+		1872B8091EDA7B46009B6FC8 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */; };
+		1872B80A1EDA7B46009B6FC8 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */; };
 		1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */; };
 		187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA0461ED23AEE000E181E /* DetailCommentsViewController.swift */; };
 		187BA0511ED25485000E181E /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187BA04F1ED25485000E181E /* SearchResultViewController.swift */; };
@@ -254,6 +264,14 @@
 		182109761CF0DE0000529610 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = "../../Downloads/GPUImage2-master/framework/GPUImage.xcodeproj"; sourceTree = "<group>"; };
 		182109871CF0E72600529610 /* JournalBackdropCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackdropCell.swift; sourceTree = "<group>"; };
 		182109891CF1076800529610 /* JournalBubbleDecoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBubbleDecoCell.swift; sourceTree = "<group>"; };
+		18222A091EDB5FE300F0F02E /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
+		18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAboutSectionViewController.swift; sourceTree = "<group>"; };
+		18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAboutSectionViewController.xib; sourceTree = "<group>"; };
+		18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosSectionViewController.swift; sourceTree = "<group>"; };
+		18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPhotosSectionViewController.xib; sourceTree = "<group>"; };
+		18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersSectionViewController.swift; sourceTree = "<group>"; };
+		18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFollowersSectionViewController.xib; sourceTree = "<group>"; };
+		18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserInfoRequest.swift; sourceTree = "<group>"; };
 		184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerViewController.swift; sourceTree = "<group>"; };
 		184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailComposerViewController.xib; sourceTree = "<group>"; };
 		184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerPresentationController.swift; sourceTree = "<group>"; };
@@ -296,6 +314,8 @@
 		1872B7FB1ED7E781009B6FC8 /* SearchResultFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultFilterViewController.xib; sourceTree = "<group>"; };
 		1872B7FE1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultSortingOptionRenderer.swift; sourceTree = "<group>"; };
 		1872B7FF1ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultSortingOptionRenderer.xib; sourceTree = "<group>"; };
+		1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 		1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailBackgroundView.swift; sourceTree = "<group>"; };
 		187BA0461ED23AEE000E181E /* DetailCommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentsViewController.swift; sourceTree = "<group>"; };
 		187BA04F1ED25485000E181E /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
@@ -458,6 +478,7 @@
 		18093AFA1CCB3AB500EFCE44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1872B8031EDA7B2B009B6FC8 /* User */,
 				187BA04A1ED23CA8000E181E /* Search */,
 				9B6676FD1D34050500B89009 /* Details */,
 				9B3813A01CE00DF30066D3B9 /* Home */,
@@ -481,6 +502,27 @@
 			children = (
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		18222A051EDB5FD300F0F02E /* Pager */ = {
+			isa = PBXGroup;
+			children = (
+				18222A091EDB5FE300F0F02E /* PagerViewController.swift */,
+			);
+			path = Pager;
+			sourceTree = "<group>";
+		};
+		18222A0B1EDB658900F0F02E /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */,
+				18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */,
+				18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */,
+				18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */,
+				18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */,
+				18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */,
+			);
+			path = Sections;
 			sourceTree = "<group>";
 		};
 		184951CA1ED0D7CC006301E8 /* Animation */ = {
@@ -542,6 +584,7 @@
 		185514A51CD447D900B572CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				18222A051EDB5FD300F0F02E /* Pager */,
 				184951CA1ED0D7CC006301E8 /* Animation */,
 				9B9E9E901DBAD628009D5D19 /* Stream */,
 				9B89B10F1D54FA7E00382744 /* Deck */,
@@ -610,6 +653,16 @@
 				1872B7F41ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		1872B8031EDA7B2B009B6FC8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				18222A0B1EDB658900F0F02E /* Sections */,
+				1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */,
+				1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		1872E2E21D502CD900F160F1 /* Components */ = {
@@ -1010,6 +1063,7 @@
 				184951D01ED0E769006301E8 /* AddCommentRequest.swift */,
 				187BA05E1ED27AF5000E181E /* SearchPhotosRequest.swift */,
 				187BA0751ED40BF1000E181E /* SearchUsersRequest.swift */,
+				18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1190,11 +1244,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				187BA06E1ED3D3B2000E181E /* UserSearchResultRenderer.xib in Resources */,
+				1872B80A1EDA7B46009B6FC8 /* UserProfileViewController.xib in Resources */,
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
 				9B3813E91CE012180066D3B9 /* DefaultStreamHeaderNavCell.xib in Resources */,
+				18222A131EDB65C800F0F02E /* UserPhotosSectionViewController.xib in Resources */,
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
+				18222A171EDB65D800F0F02E /* UserFollowersSectionViewController.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
+				18222A0F1EDB65BB00F0F02E /* UserAboutSectionViewController.xib in Resources */,
 				1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */,
 				184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */,
 				9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */,
@@ -1299,6 +1357,7 @@
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */,
 				187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */,
+				1872B8091EDA7B46009B6FC8 /* UserProfileViewController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
 				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
@@ -1306,6 +1365,7 @@
 				9B89B1201D550F2900382744 /* DeckViewControllerDataSource.swift in Sources */,
 				9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */,
 				1884AA621CF009D0002109A9 /* JournalPhotoLayoutSpec.swift in Sources */,
+				18222A191EDB7B6F00F0F02E /* GetUserInfoRequest.swift in Sources */,
 				9BDF19211ED77BB9003159E8 /* UserSearchResultViewModel.swift in Sources */,
 				9B3813CD1CE010770066D3B9 /* HeadlineTemplate.swift in Sources */,
 				18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */,
@@ -1362,6 +1422,7 @@
 				9B3814051CE01EBE0066D3B9 /* DefaultStreamLayout.swift in Sources */,
 				9BDF191F1ED77BB9003159E8 /* PhotoSearchResultViewModel.swift in Sources */,
 				18BD57261D56772A00376DE8 /* DetailPhotoSectionView.swift in Sources */,
+				18222A161EDB65D800F0F02E /* UserFollowersSectionViewController.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
@@ -1371,6 +1432,7 @@
 				18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */,
 				9B3813CE1CE010770066D3B9 /* QuadTemplate.swift in Sources */,
 				1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */,
+				18222A121EDB65C800F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
 				9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */,
@@ -1383,6 +1445,7 @@
 				9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */,
 				9BC6C3CF1D9229C900DCC92E /* APIService+Base.swift in Sources */,
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,
+				18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */,
 				1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */,
 				18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */,
 				187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */,
@@ -1403,6 +1466,7 @@
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				18BD571E1D56445300376DE8 /* DetailGalleryViewController.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
+				18222A0E1EDB65BB00F0F02E /* UserAboutSectionViewController.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,

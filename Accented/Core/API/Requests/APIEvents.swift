@@ -34,4 +34,10 @@ class APIEvents: NSObject {
     // Failed to load user search results
     static let userSearchResultFailedReturn = Notification.Name("userSearchResultFailedReturn")
 
+    // User profile retrieved
+    static let userProfileDidReturn = Notification.Name("userProfileDidReturn")
+    
+    // Failed to load user profile
+    static let userProfileFailedReturn = Notification.Name("userProfileFailedReturn")
+
 }

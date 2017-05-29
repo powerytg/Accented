@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,6 +23,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="O3T-cb-9Jo">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fkf-1E-9fV" userLabel="BackButton">
                     <rect key="frame" x="15" y="30" width="16" height="22"/>
                     <state key="normal" image="DetailBackButton"/>
@@ -53,20 +56,25 @@
             </subviews>
             <color key="backgroundColor" red="0.10980392156862745" green="0.11764705882352941" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="O3T-cb-9Jo" secondAttribute="trailing" id="0O8-yb-W6Y"/>
                 <constraint firstAttribute="trailing" secondItem="Hhx-Dt-EbN" secondAttribute="trailing" constant="15" id="3dw-oI-xwz"/>
                 <constraint firstItem="FvH-jU-4gr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="4bG-WX-64F"/>
                 <constraint firstAttribute="trailing" secondItem="FvH-jU-4gr" secondAttribute="trailing" id="8f2-Dd-1vH"/>
+                <constraint firstItem="O3T-cb-9Jo" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GZ1-6R-i8h"/>
                 <constraint firstItem="fkf-1E-9fV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="PJp-kw-mnY"/>
                 <constraint firstItem="GWE-44-iGj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="Ptd-Ls-Qas"/>
+                <constraint firstItem="O3T-cb-9Jo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ub8-bE-kfD"/>
                 <constraint firstItem="FvH-jU-4gr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="ZS9-eE-RMR"/>
                 <constraint firstItem="Hhx-Dt-EbN" firstAttribute="centerY" secondItem="GWE-44-iGj" secondAttribute="centerY" id="e9R-o1-uFj"/>
                 <constraint firstItem="fkf-1E-9fV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="ln5-ze-lWk"/>
+                <constraint firstAttribute="bottom" secondItem="O3T-cb-9Jo" secondAttribute="bottom" id="wC5-ba-tp4"/>
                 <constraint firstItem="Hhx-Dt-EbN" firstAttribute="leading" secondItem="GWE-44-iGj" secondAttribute="trailing" constant="25" id="wbE-HH-yOi"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
     <resources>
+        <image name="DarkButterfly" width="16" height="16"/>
         <image name="DetailBackButton" width="16" height="16"/>
         <image name="SearchButton" width="16" height="16"/>
     </resources>

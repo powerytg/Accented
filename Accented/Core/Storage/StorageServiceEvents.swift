@@ -22,7 +22,10 @@ class StorageServiceEvents: NSObject {
 
     // User search result updated
     static let userSearchResultDidUpdate = Notification.Name("userSearchResultDidUpdate")
-    
+
+    // User profile retrieved
+    static let userProfileDidUpdate = Notification.Name("userProfileDidUpdate")
+
     // MARK: - Parameters
     
     // Stream type
@@ -36,6 +39,9 @@ class StorageServiceEvents: NSObject {
     
     // Photo id
     static let photoId = "photoId"
+    
+    // User id
+    static let userId = "userId"
     
     // Photos
     static let photos = "photos"

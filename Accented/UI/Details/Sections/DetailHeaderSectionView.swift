@@ -51,6 +51,14 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         avatarView.heightAnchor.constraint(equalToConstant: avatarSize).isActive = true
         avatarView.trailingAnchor.constraint(equalTo: self.authorLabel.trailingAnchor, constant: 0).isActive = true
         avatarView.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 6).isActive = true
+        
+        // Gestures
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnUserProfile(_:)))
+        authorLabel.isUserInteractionEnabled = true
+        authorLabel.addGestureRecognizer(tap)
+        
+        avatarView.isUserInteractionEnabled = true
+        avatarView.addGestureRecognizer(tap)
     }
     
     override func photoModelDidChange() {
@@ -106,4 +114,8 @@ class DetailHeaderSectionView: DetailSectionViewBase {
             })
     }
     
+    // MARK : - Events
+    @objc fileprivate func didTapOnUserProfile(_ tap : UITapGestureRecognizer) {
+        NavigationService.sharedInstance.navigateToUserProfilePage(user: photo!.user)
+    }
 }

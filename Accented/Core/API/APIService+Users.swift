@@ -17,4 +17,10 @@ extension APIService {
         let request = SearchUsersRequest(keyword : keyword, page : page, success : success, failure : failure)
         get(request: request)
     }
+    
+    // Get user profile
+    func getUserProfile(userId : String, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = GetUserInfoRequest(userId : userId, success : success, failure : failure)
+        get(request: request)
+    }
 }

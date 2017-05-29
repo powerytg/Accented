@@ -34,6 +34,27 @@ extension StorageService {
         }
     }
     
+    internal func userProfileDidReturn(_ notification : Notification) -> Void {
+        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
+        let userId = (notification as NSNotification).userInfo![RequestParameters.userId] as! String;
+        
+        parsingQueue.async { [weak self] in
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+                let json = JSON(jsonObject)
+                let user = UserModel(json: json["user"])
+                self?.putUserProfileToCache(user)
+                
+                DispatchQueue.main.async {
+                    let userInfo : [String : AnyObject] = [StorageServiceEvents.userId : userId as AnyObject]
+                    NotificationCenter.default.post(name: StorageServiceEvents.userProfileDidUpdate, object: nil, userInfo: userInfo)
+                }
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
+
     fileprivate func mergeUserSearchResult(_ keyword : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
         let collection = getUserSearchResult(keyword: keyword)
         collection.totalCount = totalCount

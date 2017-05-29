@@ -59,4 +59,9 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         let vc = SearchResultViewController(tag: tag)
         rootNavigationController?.pushViewController(vc, animated: true)
     }
+
+    func navigateToUserProfilePage(user : UserModel) {
+        let vc = UserProfileViewController(user: user)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
 }

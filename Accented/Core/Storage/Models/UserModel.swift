@@ -28,7 +28,7 @@ enum UpgradeStatus : Int {
 class UserModel: ModelBase {
     var dateFormatter = DateFormatter()
     var userId : String!
-    var followersCount : Int = 0
+    var followersCount : Int?
     var coverUrl : String?
     var lastName : String?
     var firstName : String?

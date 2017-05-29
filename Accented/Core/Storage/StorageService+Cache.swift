@@ -46,6 +46,11 @@ extension StorageService {
         })
     }
 
+    // Retrieve a user profile
+    func getUserProfile(userId : String) -> UserModel? {
+        return cacheController.userProfileCache.object(forKey: NSString(string : userId))
+    }
+    
     // Put a stream to cache
     func putStreamToCache(_ collection : StreamModel) {
         let cacheKey = NSString(string: collection.modelId!)
@@ -68,5 +73,11 @@ extension StorageService {
     func putUserSearchResultToCache(_ collection : UserSearchResultModel) {
         let cacheKey = NSString(string: collection.modelId!)
         cacheController.userSearchResultCache.setObject(collection, forKey: cacheKey)
+    }
+    
+    // Put a user profile to cache
+    func putUserProfileToCache(_ user : UserModel) {
+        let cacheKey = NSString(string: user.userId)
+        cacheController.userProfileCache.setObject(user, forKey: cacheKey)
     }
 }

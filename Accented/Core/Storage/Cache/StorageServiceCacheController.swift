@@ -26,6 +26,9 @@ class StorageServiceCacheController: NSObject {
     // User search result cache
     let userSearchResultCache = NSCache<NSString, UserSearchResultModel>()
     
+    // User profile cache
+    let userProfileCache = NSCache<NSString, UserModel>()
+    
     // Get a cached object. If the object is not cached then create a new one and put it into the cache
     func getCachedResource<T : NSCopying>(cacheKey : String,
                            inCache cache : NSCache<NSString, T>,
