@@ -193,7 +193,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         }
         
         let saturationFilter = SaturationAdjustment()
-        saturationFilter.saturation = 0.25
+        saturationFilter.saturation = 0.4
 
         input --> saturationFilter --> output
         input.processImage(synchronously: true)
