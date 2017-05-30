@@ -17,7 +17,9 @@ class UserDescSectionView: UserSectionViewBase {
     fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
     fileprivate var formattedDescription : NSAttributedString?
     fileprivate var descSize : CGSize?
-    
+    fileprivate let descFont = UIFont(name: "HelveticaNeue-Light", size: 15)
+    fileprivate let descColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
+
     override func createContentView() {
         super.createContentView()
         
@@ -69,5 +71,12 @@ class UserDescSectionView: UserSectionViewBase {
             descSize = formattedDesc!.boundingRect(with: availableSize, options: .usesLineFragmentOrigin, context: nil).size
             height = descSize!.height + contentTopPadding + contentBottomPadding
         }
+    }
+    
+    override func adjustTextClarity() {
+        descLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        descLabel.layer.shadowOpacity = 1
+        descLabel.layer.shadowRadius = 1
+        descLabel.layer.shadowOpacity = 0.6
     }
 }

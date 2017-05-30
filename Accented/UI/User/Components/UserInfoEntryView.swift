@@ -60,4 +60,17 @@ class UserInfoEntryView: UIView {
         f.origin.y = bounds.size.height / 2 - f.size.height / 2
         valueLabel.frame = f
     }
+    
+    func adjustTextClarity() {
+        nameLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        nameLabel.layer.shadowOpacity = 1
+        nameLabel.layer.shadowRadius = 1
+        nameLabel.layer.shadowOpacity = 0.6
+        
+        valueLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        valueLabel.layer.shadowOpacity = 1
+        valueLabel.layer.shadowRadius = 1
+        valueLabel.layer.shadowOpacity = 0.6
+        valueLabel.textColor = UIColor(red: 180 / 255.0, green: 180 / 255.0, blue: 180 / 255.0, alpha: 1.0)
+    }
 }

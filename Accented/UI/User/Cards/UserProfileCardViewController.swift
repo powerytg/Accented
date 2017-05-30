@@ -30,4 +30,8 @@ class UserProfileCardViewController: CardViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func adjustTextClarity() {
+        // Base class do nothing
+    }
 }

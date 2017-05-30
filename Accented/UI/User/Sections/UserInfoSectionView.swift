@@ -108,4 +108,10 @@ class UserInfoSectionView: UserSectionViewBase {
             nextY += f.size.height
         }
     }
+    
+    override func adjustTextClarity() {
+        for renderer in renderers {
+            renderer.adjustTextClarity()
+        }
+    }
 }

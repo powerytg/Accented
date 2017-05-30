@@ -9,6 +9,8 @@
 //
 
 import UIKit
+import SDWebImage
+import GPUImage
 
 class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate {
 
@@ -17,12 +19,13 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var navView: DeckNavigationBar!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var backgroundView: UIImageView!
     
     fileprivate let deckPaddingTop : CGFloat = 150
     fileprivate let avatarSize = 30
     fileprivate var user : UserModel
     fileprivate var loadingView : LoadingViewController?
-    
+
     var deck : PagerViewController!
     var cards = [UserProfileCardViewController]()
     
@@ -155,5 +158,64 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         // Show the user profile cards
         initializeCards()
         self.view.setNeedsLayout()
+        
+        // If the user has a cover image, use it in place of default background
+        showUserCoverImageIfApplicable()
+    }
+    
+    fileprivate func showUserCoverImageIfApplicable() {
+        guard let coverUrlString = user.coverUrl else { return }
+        let url = URL(string: coverUrlString)
+        guard url != nil else { return }
+        
+        let downloader = SDWebImageDownloader.shared()
+        _ = downloader?.downloadImage(with: url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
+            guard image != nil && finished == true else { return }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.performCoverImageAnimation(image!)
+            }
+        }
+    }
+    
+    fileprivate func performCoverImageAnimation(_ image : UIImage) {
+        let input = PictureInput(image: image.cgImage!)
+        let output = PictureOutput()
+        
+        output.imageAvailableCallback = { outputImage in
+            DispatchQueue.main.async { [weak self] in
+                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+                    self?.backgroundView.alpha = 0
+                }, completion: { [weak self](finished) in
+                    self?.fadeInCoverImage(outputImage)
+                })
+            }
+        }
+        
+        let saturationFilter = SaturationAdjustment()
+        saturationFilter.saturation = 0.25
+
+        input --> saturationFilter --> output
+        input.processImage(synchronously: true)
+    }
+    
+    fileprivate func fadeInCoverImage(_ image : UIImage) {
+        backgroundView.image = image
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            self?.backgroundView.alpha = 0.4
+            
+            }, completion: { [weak self] (finished) in
+                // Since we now use a full screen user cover image, we must adjust text clarity
+                self?.adjustTextClarity()
+        })
+    }
+    
+    fileprivate func adjustTextClarity() {
+        navView.adjustTextClarity()
+        
+        for card in cards {
+            card.adjustTextClarity()
+        }
     }
 }

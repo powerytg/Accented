@@ -67,4 +67,10 @@ class UserAboutSectionViewController: UserProfileCardViewController {
             nextY += section.height
         }
     }
+    
+    override func adjustTextClarity() {
+        for section in sections {
+            section.adjustTextClarity()
+        }
+    }
 }

@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="avatarView" destination="57t-SW-MoH" id="1EM-xi-cTw"/>
                 <outlet property="backButton" destination="10j-Ir-aVQ" id="OP6-Jw-HLT"/>
+                <outlet property="backgroundView" destination="FBp-4Q-HGJ" id="Blq-so-h1o"/>
                 <outlet property="nameLabel" destination="cdh-FA-E2f" id="fUQ-tJ-bK1"/>
                 <outlet property="navView" destination="rgL-6o-V8h" id="SpZ-sy-Jc1"/>
                 <outlet property="subtitleLabel" destination="xSo-HK-Zqu" id="m2M-EY-PLo"/>
@@ -50,13 +51,6 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="57t-SW-MoH" userLabel="AvatarView">
-                    <rect key="frame" x="320" y="26" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="LBo-K3-Rjx"/>
-                        <constraint firstAttribute="width" constant="40" id="YOE-Oo-0hc"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSo-HK-Zqu" userLabel="SubtitleLabel">
                     <rect key="frame" x="270" y="46" width="24.5" height="18"/>
                     <constraints>
@@ -66,8 +60,15 @@
                     <color key="textColor" red="0.63529411764705879" green="0.6588235294117647" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="57t-SW-MoH" userLabel="AvatarView">
+                    <rect key="frame" x="320" y="26" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="LBo-K3-Rjx"/>
+                        <constraint firstAttribute="width" constant="40" id="YOE-Oo-0hc"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.10980392156862745" green="0.11764705882352941" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="FBp-4Q-HGJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1oJ-FA-kbw"/>
                 <constraint firstItem="xSo-HK-Zqu" firstAttribute="top" secondItem="cdh-FA-E2f" secondAttribute="bottom" constant="-0.5" id="5fQ-5i-geR"/>
@@ -85,7 +86,7 @@
                 <constraint firstItem="57t-SW-MoH" firstAttribute="leading" secondItem="cdh-FA-E2f" secondAttribute="trailing" constant="25" id="uJu-mU-0ft"/>
                 <constraint firstItem="rgL-6o-V8h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="ung-y7-OZJ"/>
             </constraints>
-            <point key="canvasLocation" x="5" y="38"/>
+            <point key="canvasLocation" x="4.5" y="37.5"/>
         </view>
     </objects>
     <resources>

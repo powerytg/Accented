@@ -33,7 +33,9 @@ class DeckNavigationBar: UIView {
     fileprivate let indicatorPaddingRight : CGFloat = 10
     fileprivate let gap : CGFloat = 25
     fileprivate let unselectedColor = UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
+    fileprivate let unselectedHighContrastColor = UIColor(red: 190 / 255.0, green: 190 / 255.0, blue: 190 / 255.0, alpha: 1)
     fileprivate let selectedColor = UIColor.white
+    fileprivate var highContrastMode = false
     
     weak var delegate : DeckNavigationBarDelegate?
     
@@ -84,6 +86,8 @@ class DeckNavigationBar: UIView {
         super.layoutSubviews()
         guard navButtons.count > 0 else { return }
         
+        let normalColor = highContrastMode ? self.unselectedHighContrastColor : self.unselectedColor
+        
         var nextX : CGFloat = indicatorPaddingLeft
         for (index, button) in navButtons.enumerated() {
             let selected = (index == selectedIndex)
@@ -91,7 +95,7 @@ class DeckNavigationBar: UIView {
                 ThemeManager.sharedInstance.currentTheme.selectedCardNavFont
                 : ThemeManager.sharedInstance.currentTheme.normalCardNavFont
             
-            let titleColor = selected ? selectedColor : unselectedColor
+            let titleColor = selected ? selectedColor : normalColor
             button.setTitleColor(titleColor, for: .normal)
             button.sizeToFit()
             
@@ -123,5 +127,18 @@ class DeckNavigationBar: UIView {
         
         delegate?.navButtonSelectedIndexDidChange(fromIndex: selectedIndex, toIndex: toIndex!)
         selectedIndex = toIndex!
+    }
+    
+    func adjustTextClarity() {
+        highContrastMode = true
+        
+        for button in navButtons {
+            button.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 0)
+            button.titleLabel?.layer.shadowOpacity = 1
+            button.titleLabel?.layer.shadowRadius = 1
+            button.titleLabel?.layer.shadowOpacity = 0.6
+        }
+        
+        setNeedsLayout()
     }
 }

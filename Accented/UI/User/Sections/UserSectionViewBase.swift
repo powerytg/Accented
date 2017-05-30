@@ -32,10 +32,6 @@ class UserSectionViewBase: UIView {
     // Content view
     var contentView : UIView!
     
-    // Common fonts and colors
-    let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 16)
-    let descColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
-    
     // Overall width and height
     var width : CGFloat = 0
     var height : CGFloat = 0
@@ -91,5 +87,9 @@ class UserSectionViewBase: UIView {
         } else {
             contentView.frame = self.bounds
         }
-    }    
+    }
+    
+    func adjustTextClarity() {
+        // Base class do nothing
+    }
 }
