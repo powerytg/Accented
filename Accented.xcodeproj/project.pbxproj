@@ -12,13 +12,20 @@
 		182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109871CF0E72600529610 /* JournalBackdropCell.swift */; };
 		1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109891CF1076800529610 /* JournalBubbleDecoCell.swift */; };
 		18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A091EDB5FE300F0F02E /* PagerViewController.swift */; };
-		18222A0E1EDB65BB00F0F02E /* UserAboutSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */; };
-		18222A0F1EDB65BB00F0F02E /* UserAboutSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */; };
-		18222A121EDB65C800F0F02E /* UserPhotosSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */; };
-		18222A131EDB65C800F0F02E /* UserPhotosSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */; };
-		18222A161EDB65D800F0F02E /* UserFollowersSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */; };
-		18222A171EDB65D800F0F02E /* UserFollowersSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */; };
 		18222A191EDB7B6F00F0F02E /* GetUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */; };
+		18222A1C1EDBC98600F0F02E /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */; };
+		18222A1D1EDBC98600F0F02E /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */; };
+		18222A331EDCD45100F0F02E /* UserAboutSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */; };
+		18222A341EDCD45100F0F02E /* UserAboutSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */; };
+		18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */; };
+		18222A361EDCD45100F0F02E /* UserFollowersSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */; };
+		18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */; };
+		18222A381EDCD45100F0F02E /* UserPhotosSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */; };
+		18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */; };
+		18222A3A1EDCD45100F0F02E /* UserDescSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A301EDCD45100F0F02E /* UserDescSectionView.swift */; };
+		18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */; };
+		18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */; };
+		18222A3F1EDCD46800F0F02E /* UserInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */; };
 		184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */; };
 		184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */; };
 		184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */; };
@@ -265,13 +272,20 @@
 		182109871CF0E72600529610 /* JournalBackdropCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackdropCell.swift; sourceTree = "<group>"; };
 		182109891CF1076800529610 /* JournalBubbleDecoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBubbleDecoCell.swift; sourceTree = "<group>"; };
 		18222A091EDB5FE300F0F02E /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerViewController.swift; sourceTree = "<group>"; };
-		18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAboutSectionViewController.swift; sourceTree = "<group>"; };
-		18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAboutSectionViewController.xib; sourceTree = "<group>"; };
-		18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosSectionViewController.swift; sourceTree = "<group>"; };
-		18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPhotosSectionViewController.xib; sourceTree = "<group>"; };
-		18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersSectionViewController.swift; sourceTree = "<group>"; };
-		18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFollowersSectionViewController.xib; sourceTree = "<group>"; };
 		18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserInfoRequest.swift; sourceTree = "<group>"; };
+		18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAboutSectionViewController.swift; sourceTree = "<group>"; };
+		18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAboutSectionViewController.xib; sourceTree = "<group>"; };
+		18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersSectionViewController.swift; sourceTree = "<group>"; };
+		18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFollowersSectionViewController.xib; sourceTree = "<group>"; };
+		18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosSectionViewController.swift; sourceTree = "<group>"; };
+		18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPhotosSectionViewController.xib; sourceTree = "<group>"; };
+		18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCardViewController.swift; sourceTree = "<group>"; };
+		18222A301EDCD45100F0F02E /* UserDescSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDescSectionView.swift; sourceTree = "<group>"; };
+		18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoSectionView.swift; sourceTree = "<group>"; };
+		18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSectionViewBase.swift; sourceTree = "<group>"; };
+		18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoEntryView.swift; sourceTree = "<group>"; };
 		184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerViewController.swift; sourceTree = "<group>"; };
 		184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailComposerViewController.xib; sourceTree = "<group>"; };
 		184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerPresentationController.swift; sourceTree = "<group>"; };
@@ -512,17 +526,36 @@
 			path = Pager;
 			sourceTree = "<group>";
 		};
-		18222A0B1EDB658900F0F02E /* Sections */ = {
+		18222A271EDCD45100F0F02E /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				18222A0C1EDB65BB00F0F02E /* UserAboutSectionViewController.swift */,
-				18222A0D1EDB65BB00F0F02E /* UserAboutSectionViewController.xib */,
-				18222A101EDB65C800F0F02E /* UserPhotosSectionViewController.swift */,
-				18222A111EDB65C800F0F02E /* UserPhotosSectionViewController.xib */,
-				18222A141EDB65D800F0F02E /* UserFollowersSectionViewController.swift */,
-				18222A151EDB65D800F0F02E /* UserFollowersSectionViewController.xib */,
+				18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */,
+				18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */,
+				18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */,
+				18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */,
+				18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */,
+				18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */,
+				18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		18222A2F1EDCD45100F0F02E /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				18222A301EDCD45100F0F02E /* UserDescSectionView.swift */,
+				18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */,
+				18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */,
 			);
 			path = Sections;
+			sourceTree = "<group>";
+		};
+		18222A3D1EDCD45C00F0F02E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		184951CA1ED0D7CC006301E8 /* Animation */ = {
@@ -595,6 +628,8 @@
 				9BB590F51CDD33EB00E78581 /* BlurView.swift */,
 				9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */,
 				9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */,
+				18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */,
+				18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -658,7 +693,9 @@
 		1872B8031EDA7B2B009B6FC8 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				18222A0B1EDB658900F0F02E /* Sections */,
+				18222A3D1EDCD45C00F0F02E /* Components */,
+				18222A271EDCD45100F0F02E /* Cards */,
+				18222A2F1EDCD45100F0F02E /* Sections */,
 				1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */,
 				1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */,
 			);
@@ -1247,13 +1284,12 @@
 				1872B80A1EDA7B46009B6FC8 /* UserProfileViewController.xib in Resources */,
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
 				9B3813E91CE012180066D3B9 /* DefaultStreamHeaderNavCell.xib in Resources */,
-				18222A131EDB65C800F0F02E /* UserPhotosSectionViewController.xib in Resources */,
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
-				18222A171EDB65D800F0F02E /* UserFollowersSectionViewController.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
+				18222A361EDCD45100F0F02E /* UserFollowersSectionViewController.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
-				18222A0F1EDB65BB00F0F02E /* UserAboutSectionViewController.xib in Resources */,
 				1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */,
+				18222A1D1EDBC98600F0F02E /* LoadingViewController.xib in Resources */,
 				184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */,
 				9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
@@ -1264,8 +1300,10 @@
 				1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				187BA0521ED25485000E181E /* SearchResultViewController.xib in Resources */,
+				18222A381EDCD45100F0F02E /* UserPhotosSectionViewController.xib in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
+				18222A341EDCD45100F0F02E /* UserAboutSectionViewController.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
 				1872B7FD1ED7E781009B6FC8 /* SearchResultFilterViewController.xib in Resources */,
 			);
@@ -1357,6 +1395,7 @@
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */,
 				187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */,
+				18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */,
 				1872B8091EDA7B46009B6FC8 /* UserProfileViewController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
 				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
@@ -1377,6 +1416,7 @@
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
 				1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */,
 				9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */,
+				18222A331EDCD45100F0F02E /* UserAboutSectionViewController.swift in Sources */,
 				9B3813E61CE012180066D3B9 /* DefaultStreamButtonsCell.swift in Sources */,
 				9B9E9E981DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
@@ -1394,13 +1434,16 @@
 				9B3813CF1CE010770066D3B9 /* SideBySideTemplate.swift in Sources */,
 				186AF55F1D598C5000A9928F /* DetailLightBoxViewController.swift in Sources */,
 				186AF5591D58497200A9928F /* CardAnimation.swift in Sources */,
+				18222A1C1EDBC98600F0F02E /* LoadingViewController.swift in Sources */,
 				9B3BA5C71D67A58D00AF588A /* ReplyModel.swift in Sources */,
 				9B9E9E8F1DBAA476009D5D19 /* CommentsLayout.swift in Sources */,
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
 				9BDF19191ED77B9E003159E8 /* UserSearchResultLayout.swift in Sources */,
 				187BA0781ED40CD6000E181E /* APIService+Users.swift in Sources */,
+				18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
+				18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
@@ -1422,23 +1465,23 @@
 				9B3814051CE01EBE0066D3B9 /* DefaultStreamLayout.swift in Sources */,
 				9BDF191F1ED77BB9003159E8 /* PhotoSearchResultViewModel.swift in Sources */,
 				18BD57261D56772A00376DE8 /* DetailPhotoSectionView.swift in Sources */,
-				18222A161EDB65D800F0F02E /* UserFollowersSectionViewController.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
 				9B3813F31CE012180066D3B9 /* PhotoRenderer.swift in Sources */,
 				184951CD1ED0D7E5006301E8 /* EntranceAnimation.swift in Sources */,
+				18222A3F1EDCD46800F0F02E /* UserInfoEntryView.swift in Sources */,
 				9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */,
 				18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */,
 				9B3813CE1CE010770066D3B9 /* QuadTemplate.swift in Sources */,
 				1884AA501CEE07D1002109A9 /* JournalBackgroundView.swift in Sources */,
-				18222A121EDB65C800F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
 				9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */,
 				1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
 				184951D71ED14226006301E8 /* StorageService+Utils.swift in Sources */,
+				18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */,
 				9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */,
 				9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */,
 				9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */,
@@ -1466,15 +1509,16 @@
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				18BD571E1D56445300376DE8 /* DetailGalleryViewController.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
-				18222A0E1EDB65BB00F0F02E /* UserAboutSectionViewController.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
+				18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
 				1872B7FC1ED7E781009B6FC8 /* SearchResultFilterViewController.swift in Sources */,
 				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
+				18222A3A1EDCD45100F0F02E /* UserDescSectionView.swift in Sources */,
 				9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */,
 				9BDF191E1ED77BB9003159E8 /* PhotoSearchResultStreamViewController.swift in Sources */,
 				9BDF19181ED77B9E003159E8 /* PhotoSearchResultLayout.swift in Sources */,

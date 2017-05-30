@@ -21,8 +21,8 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     fileprivate let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
     fileprivate let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
-    fileprivate let linkColor = UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
-    fileprivate let linkPressColor = UIColor.white
+    fileprivate let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
+    fileprivate let linkPressColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
     
     fileprivate let contentLeftMargin : CGFloat = 15
     fileprivate let titleLabelTopMargin : CGFloat = 12

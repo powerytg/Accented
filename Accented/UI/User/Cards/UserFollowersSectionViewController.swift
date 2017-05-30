@@ -10,7 +10,7 @@
 
 import UIKit
 
-class UserFollowersSectionViewController: CardViewController {
+class UserFollowersSectionViewController: UserProfileCardViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

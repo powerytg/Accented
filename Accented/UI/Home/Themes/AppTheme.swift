@@ -142,6 +142,16 @@ class AppTheme: NSObject {
         return UIFont(name: "AvenirNextCondensed-Medium", size: 17)!
     }
 
+    // Link color
+    var linkColor : UIColor {
+        return UIColor(red: 92 / 255.0, green: 125 / 255.0, blue: 161 / 255.0, alpha: 1)
+    }
+    
+    // Link highlight color
+    var linkHighlightColor : UIColor {
+        return UIColor.white
+    }
+
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

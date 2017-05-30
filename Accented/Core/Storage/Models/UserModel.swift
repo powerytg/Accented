@@ -46,6 +46,8 @@ class UserModel: ModelBase {
     var friendCount : Int?
     var domain : String?
     var upgradeStatus : UpgradeStatus!
+    var affection : Int?
+    var galleryCount : Int?
     
     // Avatars
     var avatarUrls = [UserAvatar : String]()
@@ -118,6 +120,8 @@ class UserModel: ModelBase {
         self.friendCount = json["friends_count"].int
         self.domain = json["domain"].string
         self.upgradeStatus = UpgradeStatus(rawValue: json["upgrade_status"].intValue)
+        self.affection = json["affection"].int
+        self.galleryCount = json["galleries_count"].int
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -143,6 +147,8 @@ class UserModel: ModelBase {
         clone.friendCount = self.friendCount
         clone.domain = self.domain
         clone.upgradeStatus = self.upgradeStatus
+        clone.affection = self.affection
+        clone.galleryCount = self.galleryCount
         
         return clone
     }

@@ -18,12 +18,13 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     @IBOutlet weak var navView: DeckNavigationBar!
     @IBOutlet weak var subtitleLabel: UILabel!
     
-    fileprivate let deckPaddingTop : CGFloat = 170
+    fileprivate let deckPaddingTop : CGFloat = 150
     fileprivate let avatarSize = 30
     fileprivate var user : UserModel
+    fileprivate var loadingView : LoadingViewController?
     
     var deck : PagerViewController!
-    var cards = [CardViewController]()
+    var cards = [UserProfileCardViewController]()
     
     init(user : UserModel) {
         self.user = user
@@ -37,28 +38,26 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Setup cards
-        cards.append(UserAboutSectionViewController())
-        cards.append(UserPhotosSectionViewController())
-        cards.append(UserFollowersSectionViewController())
+        // Initialize the loading progress view
+        loadingView = LoadingViewController()
+        loadingView!.loadingText = "Retrieving user profile"
+        loadingView!.errorText = "Cannot load user profile"
+        loadingView!.retryAction = { [weak self] in
+            self?.loadUserProfile()
+        }
         
-        deck = PagerViewController(cards: cards)
-        let screenHeight = UIScreen.main.bounds.height
-        addChildViewController(deck)
-        view.addSubview(deck.view)
-        deck.view.frame = CGRect(x: 0,
-                                 y: deckPaddingTop,
-                                 width: view.bounds.size.width,
-                                 height: screenHeight - deckPaddingTop - 10)
-        deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        deck.didMove(toParentViewController: self)
-        deck.invalidateLayout()
-        
-        navView.dataSource = self
-        navView.delegate = self
-        
-        // Always refresh the user profile
-        APIService.sharedInstance.getUserProfile(userId: user.userId)
+        let loadingViewWidth : CGFloat = view.bounds.size.width
+        let loadingViewHeight : CGFloat = 140
+        loadingView!.view.frame = CGRect(x: 0,
+                                         y: view.bounds.size.height / 2 - loadingViewHeight,
+                                         width: loadingViewWidth,
+                                         height: loadingViewHeight)
+        addChildViewController(loadingView!)
+        view.addSubview(loadingView!.view)
+        loadingView!.didMove(toParentViewController: self)
+
+        // Always refresh the user profile regardless whether it's been loaded previously
+        loadUserProfile()
         
         // Events
         NotificationCenter.default.addObserver(self, selector: #selector(userProfileDidUpdate(_:)), name: StorageServiceEvents.userProfileDidUpdate, object: nil)
@@ -72,9 +71,15 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         super.didReceiveMemoryWarning()
     }
     
+    fileprivate func loadUserProfile() {
+        let userId = self.user.userId
+        APIService.sharedInstance.getUserProfile(userId: userId!, success: nil) { [weak self] (errorMessage) in
+            self?.loadingView?.showErrorState()
+        }
+    }
 
     @IBAction func backButtonDidTap(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -101,7 +106,29 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
+    fileprivate func initializeCards() {
+        cards.append(UserAboutSectionViewController(user: user, nibName: "UserAboutSectionViewController"))
+        cards.append(UserPhotosSectionViewController(user: user, nibName: "UserPhotosSectionViewController"))
+        cards.append(UserFollowersSectionViewController(user: user, nibName: "UserFollowersSectionViewController"))
+        
+        deck = PagerViewController(cards: cards)
+        let screenHeight = UIScreen.main.bounds.height
+        addChildViewController(deck)
+        view.addSubview(deck.view)
+        deck.view.frame = CGRect(x: 0,
+                                 y: deckPaddingTop,
+                                 width: view.bounds.size.width,
+                                 height: screenHeight - deckPaddingTop - 10)
+        deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        deck.didMove(toParentViewController: self)
+        deck.invalidateLayout()
+        
+        navView.dataSource = self
+        navView.delegate = self
+    }
+    
     // MARK: - DeckViewControllerDataSource
+    
     func numberOfCards() -> Int {
         return cards.count
     }
@@ -117,7 +144,16 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     
     // Events
     @objc fileprivate func userProfileDidUpdate(_ notification : Notification) {
+        // Dismiss the loading view
+        self.loadingView?.willMove(toParentViewController: nil)
+        self.loadingView?.view.removeFromSuperview()
+        self.loadingView?.removeFromParentViewController()
+        self.loadingView = nil
+        
         self.user = StorageService.sharedInstance.getUserProfile(userId: user.userId)!
+
+        // Show the user profile cards
+        initializeCards()
         self.view.setNeedsLayout()
     }
 }
