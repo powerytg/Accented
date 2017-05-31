@@ -55,5 +55,8 @@ class StorageService: NSObject {
         
         // User profile returned
         notificationCenter.addObserver(self, selector: #selector(userProfileDidReturn(_:)), name: APIEvents.userProfileDidReturn, object: nil)
+        
+        // User followers returned
+        notificationCenter.addObserver(self, selector: #selector(userFollowersDidReturn(_:)), name: APIEvents.userFollowersDidReturn, object: nil)
     }
 }

@@ -18,6 +18,7 @@ class UserAboutSectionViewController: UserProfileCardViewController {
     // Content view
     fileprivate var scrollView : UIScrollView!
     fileprivate var contentView = UIView(frame: CGRect.zero)
+    fileprivate let contentBottomPadding : CGFloat = 25
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class UserAboutSectionViewController: UserProfileCardViewController {
         contentHeight += infoSection.height
         
         // Calculate the overall content size
+        contentHeight += contentBottomPadding
         scrollView.contentSize = CGSize(width: width, height: contentHeight)
     }
 

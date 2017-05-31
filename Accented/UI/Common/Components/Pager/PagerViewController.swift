@@ -83,7 +83,6 @@ class PagerViewController: UIViewController {
         // Events
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(didReceivePanGesture(_:)))
         view.addGestureRecognizer(panGesture)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,6 +100,7 @@ class PagerViewController: UIViewController {
         for (index, card) in cards.enumerated() {
             let cardOriginX = offsetForCardAtIndex(index)
             card.view.frame = CGRect(x: cardOriginX, y: 0, width: cardWidth, height: contentView.bounds.size.height)
+            card.view.setNeedsLayout()
         }
     }
     
@@ -120,8 +120,10 @@ class PagerViewController: UIViewController {
     
     fileprivate func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
         let tx = gesture.translation(in: gesture.view).x
-        let selectedCardOffset = offsetForCardAtIndex(selectedIndex)
-        contentView.transform = CGAffineTransform(translationX: -selectedCardOffset + tx, y: 0)
+        let cardOffset = offsetForCardAtIndex(selectedIndex)
+        for card in cards {
+            card.view.transform = CGAffineTransform(translationX: -cardOffset + tx, y: 0)
+        }
     }
     
     fileprivate func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
@@ -159,8 +161,11 @@ class PagerViewController: UIViewController {
         }
         
         let targetOffset = -offsetForCardAtIndex(index)
-        UIView.animate(withDuration: 0.2, animations: { [weak self] in
-            self?.contentView.transform = CGAffineTransform(translationX: targetOffset, y: 0)
+        UIView.animate(withDuration: 0.2, animations: {
+            for card in self.cards {
+                card.view.transform = CGAffineTransform(translationX: targetOffset, y: 0)
+            }
+            
         }) { [weak self] (finished) in
             self?.selectedIndex = index;
         }

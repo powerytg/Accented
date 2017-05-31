@@ -121,7 +121,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         deck.view.frame = CGRect(x: 0,
                                  y: deckPaddingTop,
                                  width: view.bounds.size.width,
-                                 height: screenHeight - deckPaddingTop - 10)
+                                 height: screenHeight - deckPaddingTop)
         deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         deck.didMove(toParentViewController: self)
         deck.invalidateLayout()

@@ -26,6 +26,9 @@ class StorageServiceEvents: NSObject {
     // User profile retrieved
     static let userProfileDidUpdate = Notification.Name("userProfileDidUpdate")
 
+    // User followers updated
+    static let userFollowersDidUpdate = Notification.Name("userFollowersDidUpdate")
+
     // MARK: - Parameters
     
     // Stream type

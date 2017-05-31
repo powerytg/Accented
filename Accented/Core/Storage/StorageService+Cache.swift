@@ -50,6 +50,13 @@ extension StorageService {
     func getUserProfile(userId : String) -> UserModel? {
         return cacheController.userProfileCache.object(forKey: NSString(string : userId))
     }
+
+    // Retrieve the followers of an user
+    func getUserFollowers(userId : String) -> UserFollowersModel {
+        return cacheController.getCachedResource(cacheKey: userId, inCache: cacheController.userFollowersCache, creationCallback: { () -> UserFollowersModel in
+            return UserFollowersModel(userId : userId)
+        })
+    }
     
     // Put a stream to cache
     func putStreamToCache(_ collection : StreamModel) {
@@ -79,5 +86,11 @@ extension StorageService {
     func putUserProfileToCache(_ user : UserModel) {
         let cacheKey = NSString(string: user.userId)
         cacheController.userProfileCache.setObject(user, forKey: cacheKey)
+    }
+    
+    // Put a user follower collection to cache
+    func putUserFollowersToCache(_ collection : UserFollowersModel) {
+        let cacheKey = NSString(string: collection.modelId!)
+        cacheController.userFollowersCache.setObject(collection, forKey: cacheKey)
     }
 }

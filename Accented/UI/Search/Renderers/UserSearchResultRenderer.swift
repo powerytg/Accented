@@ -20,7 +20,10 @@ class UserSearchResultRenderer: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didReceiveTap(_:)))
+        avatarView.addGestureRecognizer(tap)
+        titleLabel.addGestureRecognizer(tap)
     }
 
     override func layoutSubviews() {
@@ -40,5 +43,9 @@ class UserSearchResultRenderer: UICollectionViewCell {
         avatarView.layer.shadowOpacity = 0.25
         avatarView.layer.shadowRadius = 3
         avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
+    }
+    
+    @objc fileprivate func didReceiveTap(_ tap : UITapGestureRecognizer) {
+        NavigationService.sharedInstance.navigateToUserProfilePage(user: user!)
     }
 }

@@ -26,6 +26,10 @@
 		18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */; };
 		18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */; };
 		18222A3F1EDCD46800F0F02E /* UserInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */; };
+		18222A431EDE703200F0F02E /* UserFollowersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A421EDE703200F0F02E /* UserFollowersViewModel.swift */; };
+		18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */; };
+		18222A471EDE72CB00F0F02E /* UserFollowersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */; };
+		18222A4B1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */; };
 		184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */; };
 		184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */; };
 		184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */; };
@@ -286,6 +290,10 @@
 		18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoSectionView.swift; sourceTree = "<group>"; };
 		18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSectionViewBase.swift; sourceTree = "<group>"; };
 		18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoEntryView.swift; sourceTree = "<group>"; };
+		18222A421EDE703200F0F02E /* UserFollowersViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersViewModel.swift; sourceTree = "<group>"; };
+		18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserFollowersRequest.swift; sourceTree = "<group>"; };
+		18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersModel.swift; sourceTree = "<group>"; };
+		18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersStreamViewController.swift; sourceTree = "<group>"; };
 		184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerViewController.swift; sourceTree = "<group>"; };
 		184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailComposerViewController.xib; sourceTree = "<group>"; };
 		184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerPresentationController.swift; sourceTree = "<group>"; };
@@ -558,6 +566,22 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		18222A401EDE701000F0F02E /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		18222A411EDE701000F0F02E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				18222A421EDE703200F0F02E /* UserFollowersViewModel.swift */,
+				18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		184951CA1ED0D7CC006301E8 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -693,6 +717,8 @@
 		1872B8031EDA7B2B009B6FC8 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				18222A401EDE701000F0F02E /* Layouts */,
+				18222A411EDE701000F0F02E /* ViewModels */,
 				18222A3D1EDCD45C00F0F02E /* Components */,
 				18222A271EDCD45100F0F02E /* Cards */,
 				18222A2F1EDCD45100F0F02E /* Sections */,
@@ -1042,6 +1068,7 @@
 				187BA0731ED408F0000E181E /* UserSearchResultModel.swift */,
 				18D0BF341ED5211B008677FE /* CollectionModel.swift */,
 				18D0BF371ED52259008677FE /* CommentCollectionModel.swift */,
+				18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1101,6 +1128,7 @@
 				187BA05E1ED27AF5000E181E /* SearchPhotosRequest.swift */,
 				187BA0751ED40BF1000E181E /* SearchUsersRequest.swift */,
 				18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */,
+				18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1381,6 +1409,7 @@
 				184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */,
 				9B3814001CE01E4D0066D3B9 /* DefaultNavBlurView.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
+				18222A471EDE72CB00F0F02E /* UserFollowersModel.swift in Sources */,
 				187BA0761ED40BF1000E181E /* SearchUsersRequest.swift in Sources */,
 				187BA0551ED25757000E181E /* SearchPhotoResultViewController.swift in Sources */,
 				9B3814011CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift in Sources */,
@@ -1398,6 +1427,7 @@
 				18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */,
 				1872B8091EDA7B46009B6FC8 /* UserProfileViewController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
+				18222A431EDE703200F0F02E /* UserFollowersViewModel.swift in Sources */,
 				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
@@ -1479,6 +1509,7 @@
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
 				9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */,
 				1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */,
+				18222A4B1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
 				184951D71ED14226006301E8 /* StorageService+Utils.swift in Sources */,
 				18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */,
@@ -1512,6 +1543,7 @@
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
 				18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */,
+				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
