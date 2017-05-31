@@ -9,17 +9,15 @@
 //
 
 import UIKit
-import SDWebImage
-import GPUImage
 
-class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate {
+class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate, DesaturatedBackgroundViewDelegate {
 
     @IBOutlet weak var avatarView: UIImageView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var navView: DeckNavigationBar!
     @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var backgroundView: UIImageView!
+    @IBOutlet weak var backgroundView: DesaturatedBackgroundView!
     
     fileprivate let deckPaddingTop : CGFloat = 150
     fileprivate let avatarSize = 30
@@ -41,6 +39,8 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        backgroundView.delegate = self
+        
         // Initialize the loading progress view
         loadingView = LoadingViewController()
         loadingView!.loadingText = "Retrieving user profile"
@@ -82,7 +82,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     }
 
     @IBAction func backButtonDidTap(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -160,55 +160,14 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         self.view.setNeedsLayout()
         
         // If the user has a cover image, use it in place of default background
-        showUserCoverImageIfApplicable()
+        backgroundView.url = user.coverUrl
     }
     
-    fileprivate func showUserCoverImageIfApplicable() {
-        guard let coverUrlString = user.coverUrl else { return }
-        let url = URL(string: coverUrlString)
-        guard url != nil else { return }
-        
-        let downloader = SDWebImageDownloader.shared()
-        _ = downloader?.downloadImage(with: url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
-            guard image != nil && finished == true else { return }
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.performCoverImageAnimation(image!)
-            }
-        }
-    }
+    // MARK: - DesaturatedBackgroundViewDelegate
     
-    fileprivate func performCoverImageAnimation(_ image : UIImage) {
-        let input = PictureInput(image: image.cgImage!)
-        let output = PictureOutput()
-        
-        output.imageAvailableCallback = { outputImage in
-            DispatchQueue.main.async { [weak self] in
-                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: { [weak self] in
-                    self?.backgroundView.alpha = 0
-                }, completion: { [weak self](finished) in
-                    self?.fadeInCoverImage(outputImage)
-                })
-            }
-        }
-        
-        let saturationFilter = SaturationAdjustment()
-        saturationFilter.saturation = 0.4
-
-        input --> saturationFilter --> output
-        input.processImage(synchronously: true)
-    }
-    
-    fileprivate func fadeInCoverImage(_ image : UIImage) {
-        backgroundView.image = image
-        
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-            self?.backgroundView.alpha = 0.4
-            
-            }, completion: { [weak self] (finished) in
-                // Since we now use a full screen user cover image, we must adjust text clarity
-                self?.adjustTextClarity()
-        })
+    func backgroundViewDidFinishedTransition() {
+        // With a non-blurred background view, we need to boost the readability of the text content
+        adjustTextClarity()
     }
     
     fileprivate func adjustTextClarity() {

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,7 +10,7 @@
             <connections>
                 <outlet property="avatarView" destination="57t-SW-MoH" id="1EM-xi-cTw"/>
                 <outlet property="backButton" destination="10j-Ir-aVQ" id="OP6-Jw-HLT"/>
-                <outlet property="backgroundView" destination="FBp-4Q-HGJ" id="Blq-so-h1o"/>
+                <outlet property="backgroundView" destination="FBp-4Q-HGJ" id="9MM-mA-b5c"/>
                 <outlet property="nameLabel" destination="cdh-FA-E2f" id="fUQ-tJ-bK1"/>
                 <outlet property="navView" destination="rgL-6o-V8h" id="SpZ-sy-Jc1"/>
                 <outlet property="subtitleLabel" destination="xSo-HK-Zqu" id="m2M-EY-PLo"/>
@@ -25,25 +22,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="FBp-4Q-HGJ">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="FBp-4Q-HGJ" customClass="DesaturatedBackgroundView" customModule="Accented" customModuleProvider="target"/>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgL-6o-V8h" userLabel="Nav" customClass="DeckNavigationBar" customModule="Accented" customModuleProvider="target">
-                    <rect key="frame" x="16" y="90" width="359" height="40"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="7yo-S9-xbe"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10j-Ir-aVQ" userLabel="BackButton">
-                    <rect key="frame" x="15" y="30" width="16" height="22"/>
                     <state key="normal" image="DetailBackButton"/>
                     <connections>
                         <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="bn9-Md-eDk"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdh-FA-E2f" userLabel="NameLabel">
-                    <rect key="frame" x="264.5" y="26" width="30.5" height="20.5"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="Vme-UV-P7K"/>
                     </constraints>
@@ -52,7 +44,6 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSo-HK-Zqu" userLabel="SubtitleLabel">
-                    <rect key="frame" x="270" y="46" width="24.5" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="r85-fi-HqP"/>
                     </constraints>
@@ -61,7 +52,6 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="57t-SW-MoH" userLabel="AvatarView">
-                    <rect key="frame" x="320" y="26" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="LBo-K3-Rjx"/>
                         <constraint firstAttribute="width" constant="40" id="YOE-Oo-0hc"/>

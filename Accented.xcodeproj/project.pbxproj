@@ -176,6 +176,7 @@
 		9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */; };
 		9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */; };
 		9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */; };
+		9B7B16801EDF69F500412840 /* DesaturatedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */; };
 		9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832F761D8C83400069FC77 /* StorageService+Cache.swift */; };
 		9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDD1D8C97E20069FC77 /* APIRequest.swift */; };
 		9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDF1D8C98E80069FC77 /* APIEvents.swift */; };
@@ -443,6 +444,7 @@
 		9B786FDE1CEE3CD600896A4C /* JournalHeaderTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalHeaderTitleCell.swift; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.swift; sourceTree = SOURCE_ROOT; };
 		9B786FDF1CEE3CD600896A4C /* JournalHeaderTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JournalHeaderTitleCell.xib; path = Accented/UI/Home/Themes/Default/Components/JournalHeaderTitleCell.xib; sourceTree = SOURCE_ROOT; };
 		9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewModel.swift; path = Accented/UI/Home/Themes/Default/Components/JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesaturatedBackgroundView.swift; sourceTree = "<group>"; };
 		9B832F761D8C83400069FC77 /* StorageService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Cache.swift"; sourceTree = "<group>"; };
 		9B832FDD1D8C97E20069FC77 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		9B832FDF1D8C98E80069FC77 /* APIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEvents.swift; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 				9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */,
 				18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */,
 				18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */,
+				9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1394,6 +1397,7 @@
 			files = (
 				9B6677061D340DE400B89009 /* DetailPresentationController.swift in Sources */,
 				189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */,
+				9B7B16801EDF69F500412840 /* DesaturatedBackgroundView.swift in Sources */,
 				9B6115DD1CCAB8F4008F5257 /* APIService+Streams.swift in Sources */,
 				9B3813AF1CE00DFD0066D3B9 /* HomeViewController.swift in Sources */,
 				9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */,
