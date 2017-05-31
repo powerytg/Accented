@@ -21,9 +21,8 @@ class GetUserFollowersRequest: APIRequest {
         super.init(success: success, failure: failure)
         
         cacheKey = "users_followers/\(userId)"
-        url = "\(APIRequest.baseUrl)users/\(userId)/followers"
+        url = "\(APIRequest.baseUrl)users/\(userId)/followers/\(page)"
         parameters = [String : String]()
-        parameters[RequestParameters.userId] = userId
         parameters[RequestParameters.page] = String(page)
     }
     

@@ -13,8 +13,8 @@ extension StorageService {
 
     internal func photoCommentsDidReturn(_ notification : Notification) -> Void {
         // NOTE: NSCache is thread safe
-        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
-        let photoId = (notification as NSNotification).userInfo![RequestParameters.photoId] as! String;
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let photoId = notification.userInfo![RequestParameters.photoId] as! String;
         
         parsingQueue.async { [weak self] in
             var newComments = [CommentModel]()
@@ -64,8 +64,8 @@ extension StorageService {
     }
     
     internal func didPostComment(_ notification : Notification) {
-        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
-        let photoId = (notification as NSNotification).userInfo![RequestParameters.photoId] as! String;
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let photoId = notification.userInfo![RequestParameters.photoId] as! String;
         let collection = getComments(photoId)
 
         parsingQueue.async {

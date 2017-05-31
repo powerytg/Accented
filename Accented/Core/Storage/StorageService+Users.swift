@@ -11,8 +11,8 @@ import SwiftyJSON
 
 extension StorageService {
     internal func userSearchDidReturn(_ notification : Notification) -> Void {
-        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
-        let keyword = (notification as NSNotification).userInfo![RequestParameters.term] as! String;
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let keyword = notification.userInfo![RequestParameters.term] as! String
         
         parsingQueue.async { [weak self] in
             var newUsers = [UserModel]()
@@ -35,8 +35,8 @@ extension StorageService {
     }
     
     internal func userProfileDidReturn(_ notification : Notification) -> Void {
-        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
-        let userId = (notification as NSNotification).userInfo![RequestParameters.userId] as! String;
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let userId = notification.userInfo![RequestParameters.userId] as! String
         
         parsingQueue.async { [weak self] in
             do {
@@ -56,8 +56,8 @@ extension StorageService {
     }
 
     internal func userFollowersDidReturn(_ notification : Notification) -> Void {
-        let jsonData : Data = (notification as NSNotification).userInfo![RequestParameters.response] as! Data
-        let userId = (notification as NSNotification).userInfo![RequestParameters.userId] as! String;
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let userId = notification.userInfo![RequestParameters.userId] as! String
         
         parsingQueue.async { [weak self] in
             var newUsers = [UserModel]()
