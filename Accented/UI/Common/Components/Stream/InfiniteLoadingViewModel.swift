@@ -12,6 +12,7 @@ import UIKit
 
 protocol InfiniteLoadingViewModelDelegate : NSObjectProtocol {
     func viewModelDidRefresh()
+    func viewModelDidUpdate()
 }
 
 class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSource, InfiniteLoadable {
@@ -126,6 +127,8 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
             streamState.refreshing = false
             delegate?.viewModelDidRefresh()
         }
+        
+        delegate?.viewModelDidUpdate()
     }
     
     func collectionFailedLoading(_ error : String) {

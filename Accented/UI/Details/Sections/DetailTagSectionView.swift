@@ -40,8 +40,8 @@ class DetailTagSectionView: DetailSectionViewBase {
         addSubview(noTagsLabel)
         noTagsLabel.translatesAutoresizingMaskIntoConstraints = false
         noTagsLabel.text = "This photo has no tags"
-        noTagsLabel.font = descFont
-        noTagsLabel.textColor = descColor
+        noTagsLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
+        noTagsLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
         noTagsLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: contentLeftMargin).isActive = true
         noTagsLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: sectionTitleHeight).isActive = true
         noTagsLabel.isHidden = true

@@ -12,7 +12,6 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
 
     @IBOutlet weak var loadingView: InlineLoadingView!    
     @IBOutlet weak var retryButton: UIButton!
-    @IBOutlet weak var endingView: UIImageView!
     
     // Reference to the stream view model
     weak var viewModel : InfiniteLoadable?
@@ -20,29 +19,25 @@ class DefaultStreamInlineLoadingCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // By default, hide the ending symbol and the retry button
+        // By default, hide the retry button
         retryButton.isHidden = true
-        endingView.isHidden = true
     }
     
     func showRetryState() {
         loadingView.stopLoadingAnimation()
         loadingView.isHidden = true
-        endingView.isHidden = true
         retryButton.isHidden = false
     }
     
     func showLoadingState() {
         loadingView.startLoadingAnimation()
         loadingView.isHidden = false
-        endingView.isHidden = true
         retryButton.isHidden = true
     }
     
     func showEndingState() {
         loadingView.stopLoadingAnimation()
         loadingView.isHidden = true
-        endingView.isHidden = false
         retryButton.isHidden = true
     }
 

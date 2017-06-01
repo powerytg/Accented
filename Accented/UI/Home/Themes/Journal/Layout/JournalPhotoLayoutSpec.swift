@@ -50,10 +50,6 @@ class JournalPhotoLayoutSpec: NSObject {
     static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 30)
     
     // Subtitle font
-    static let subtitleFont = UIFont(name: "HelveticaNeue-LightItalic", size: 15)
-    
-    // Desc font
-    static let descFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
-    
+    static let subtitleFont = UIFont(name: "HelveticaNeue-LightItalic", size: 15)    
 }
 

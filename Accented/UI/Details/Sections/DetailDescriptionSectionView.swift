@@ -56,8 +56,8 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         
         // Desc label
         descLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.font = descFont
-        descLabel.textColor = descColor
+        descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
+        descLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
         descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .byWordWrapping
@@ -149,7 +149,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
                 // Calculate plain string height
                 descHeight = NSString(string : desc).boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
                                                                           options: .usesLineFragmentOrigin,
-                                                                          attributes: [NSFontAttributeName: descFont!],
+                                                                          attributes: [NSFontAttributeName: ThemeManager.sharedInstance.currentTheme.descFont],
                                                                           context: nil).size.height
             }
             
@@ -172,7 +172,8 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             return cachedDesc
         }
         
-        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>" as NSString, desc) as String
+        let descFont = ThemeManager.sharedInstance.currentTheme.descFont
+        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
         guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return nil }
         
         let options : [String : Any] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,

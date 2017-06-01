@@ -63,6 +63,11 @@ class AppTheme: NSObject {
         return UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)
     }
 
+    // Description text font
+    var descFont : UIFont {
+        return UIFont(name: "AvenirNextCondensed-Regular", size: 18)!
+    }
+
     // Footer text color
     var footerTextColor : UIColor {
         return UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)

@@ -16,7 +16,7 @@ class UserFollowersSectionViewController: UserProfileCardViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         title = "FOLLOWERS"
         
         let stream : UserFollowersModel = StorageService.sharedInstance.getUserFollowers(userId: user.userId)

@@ -53,6 +53,10 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     override func generateLayoutAttributesIfNeeded() {
         guard collection != nil else { return }
         
+        if collectionView != nil {
+            width = collectionView!.bounds.width
+        }
+
         // If there's a previous loading indicator, reset its section height to 0
         updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
 

@@ -56,7 +56,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         subtitleMeasuringLabel.lineBreakMode = .byTruncatingMiddle
         
         // Descriptions
-        descMeasuringLabel.font = JournalPhotoLayoutSpec.descFont
+        descMeasuringLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
         descMeasuringLabel.numberOfLines = JournalPhotoLayoutSpec.descLineCount
         descMeasuringLabel.textAlignment = .center
         descMeasuringLabel.lineBreakMode = .byTruncatingTail

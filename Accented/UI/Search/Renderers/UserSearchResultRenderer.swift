@@ -27,6 +27,8 @@ class UserSearchResultRenderer: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.frame = self.bounds
+        
         if let user = self.user {
             if let avatarUrl = DetailUserUtils.preferredAvatarUrl(user) {
                 avatarView.sd_setImage(with: avatarUrl)

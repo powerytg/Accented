@@ -21,6 +21,9 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
     // Infinite scrolling threshold
     let loadingThreshold : CGFloat = 50
     
+    // Placeholder view in case the collection has no content
+    var noContentLabel = UILabel()
+    
     // View model
     var viewModel : InfiniteLoadingViewModel<T>?
     var streamState : StreamState {
@@ -41,6 +44,15 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Setup a no-content label
+        noContentLabel.isHidden = true
+        noContentLabel.text = "No content available"
+        noContentLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
+        noContentLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
+        view.addSubview(noContentLabel)
+        noContentLabel.sizeToFit()
+        
+        // Setup collection view
         self.view.backgroundColor = UIColor.clear
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.clear
@@ -78,6 +90,12 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
 
         // Collection view
         collectionView.frame = view.bounds
+        
+        // Center the no-content label
+        f = noContentLabel.frame
+        f.origin.x = view.bounds.width / 2 - f.size.width / 2
+        f.origin.y = view.bounds.height / 2 - f.size.height / 2
+        noContentLabel.frame = f
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -129,6 +147,16 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
     func viewModelDidRefresh() {
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.refreshHeaderView.alpha = 0
+        }
+    }
+    
+    func viewModelDidUpdate() {
+        if viewModel?.collection.totalCount == 0 {
+            collectionView.isHidden = true
+            noContentLabel.isHidden = false
+        } else {
+            collectionView.isHidden = false
+            noContentLabel.isHidden = true
         }
     }
 }

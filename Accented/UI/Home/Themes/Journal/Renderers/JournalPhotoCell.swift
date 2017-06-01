@@ -76,7 +76,7 @@ class JournalPhotoCell: UICollectionViewCell {
         
         // Descriptions
         descLabel.textColor = currentTheme?.standardTextColor
-        descLabel.font = JournalPhotoLayoutSpec.descFont
+        descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
         descLabel.numberOfLines = JournalPhotoLayoutSpec.descLineCount
         descLabel.textAlignment = .center
         descLabel.lineBreakMode = .byTruncatingTail
