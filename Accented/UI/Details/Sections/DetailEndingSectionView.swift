@@ -10,14 +10,10 @@ import UIKit
 
 class DetailEndingSectionView: DetailSectionViewBase {
 
-    override var sectionId: String {
-        return "ending"
-    }
-
     // Fixed content size
     fileprivate let contentHeight : CGFloat = 80
     
-    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
         return contentHeight
     }
 }

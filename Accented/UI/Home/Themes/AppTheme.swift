@@ -157,6 +157,11 @@ class AppTheme: NSObject {
         return UIColor.white
     }
 
+    // Section view title
+    var sectionTitleFont : UIFont {
+        return UIFont(name: "HelveticaNeue-CondensedBold", size: 14)!
+    }
+    
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

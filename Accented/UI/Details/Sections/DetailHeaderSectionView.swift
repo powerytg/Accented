@@ -2,6 +2,8 @@
 //  DetailHeaderSectionView.swift
 //  Accented
 //
+//  Header section in the detail page contains user name and avatar
+//
 //  Created by Tiangong You on 8/6/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -10,15 +12,11 @@ import UIKit
 
 class DetailHeaderSectionView: DetailSectionViewBase {
 
-    override var sectionId: String {
-        return "header"
-    }
-
     fileprivate var avatarView = UIImageView()
     fileprivate var authorLabel = UILabel()
 
     // Fixed height
-    var sectionHeight : CGFloat = 140
+    static let sectionHeight : CGFloat = 140
     
     // Fixed avatar size
     fileprivate var avatarSize : CGFloat = 30
@@ -40,17 +38,11 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(authorLabel)
+        authorLabel.text = TextUtils.preferredAuthorName(photo.user).uppercased()
         
-        // Constraints
-        let maxAuthorWidth = maxWidth - marginRight
-        authorLabel.widthAnchor.constraint(lessThanOrEqualToConstant: maxAuthorWidth).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
-        authorLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 30).isActive = true
-
-        avatarView.widthAnchor.constraint(equalToConstant: avatarSize).isActive = true
-        avatarView.heightAnchor.constraint(equalToConstant: avatarSize).isActive = true
-        avatarView.trailingAnchor.constraint(equalTo: self.authorLabel.trailingAnchor, constant: 0).isActive = true
-        avatarView.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 6).isActive = true
+        if let avatarUrl = DetailUserUtils.preferredAvatarUrl(photo.user) {
+            avatarView.sd_setImage(with: avatarUrl)
+        }
         
         // Gestures
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnUserProfile(_:)))
@@ -61,22 +53,22 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         avatarView.addGestureRecognizer(tap)
     }
     
-    override func photoModelDidChange() {
-        guard photo != nil else { return }        
-        setNeedsLayout()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard photo != nil else { return }
+        var f = avatarView.frame
+        f.size.width = avatarSize
+        f.size.height = avatarSize
+        f.origin.x = width - avatarSize - marginRight
+        f.origin.y = 0
+        avatarView.frame = f
 
-        // Author
-        if let avatarUrl = DetailUserUtils.preferredAvatarUrl(photo!.user) {
-            avatarView.sd_setImage(with: avatarUrl)
-        }
-        
-        authorLabel.text = TextUtils.preferredAuthorName(photo!.user).uppercased()
+        f = authorLabel.frame
+        f.size.width = width / 2.0
+        f.origin.x = width - avatarSize - marginRight - f.size.width
+        f.origin.y = 0
+        authorLabel.frame = f
+        authorLabel.sizeToFit()
 
         // Avatar
         avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
@@ -88,8 +80,8 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     
     // MARK: - Measurements
     
-    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
-        return sectionHeight
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
+        return DetailHeaderSectionView.sectionHeight
     }
     
     // MARK: - Animations
@@ -115,7 +107,8 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     }
     
     // MARK : - Events
+    
     @objc fileprivate func didTapOnUserProfile(_ tap : UITapGestureRecognizer) {
-        NavigationService.sharedInstance.navigateToUserProfilePage(user: photo!.user)
+        NavigationService.sharedInstance.navigateToUserProfilePage(user: photo.user)
     }
 }

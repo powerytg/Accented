@@ -10,10 +10,6 @@ import UIKit
 
 class DetailCommentSectionView: DetailSectionViewBase {
 
-    override var sectionId: String {
-        return "comments"
-    }
-
     fileprivate var contentRightMargin : CGFloat = 50
     fileprivate let contentLeftMargin : CGFloat = 24
     fileprivate var contentTopMargin : CGFloat = 0
@@ -66,7 +62,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         // Status label
         contentView.addSubview(statusLabel)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - contentRightMargin
+        statusLabel.preferredMaxLayoutWidth = UIScreen.main.bounds.width - contentLeftMargin - contentRightMargin
         statusLabel.textColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
         statusLabel.font = textFont
         statusLabel.isHidden = true
@@ -102,39 +98,28 @@ class DetailCommentSectionView: DetailSectionViewBase {
         // Events
         loadMoreButton.addTarget(self, action: #selector(navigateToCommentsPage(_:)), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(photoCommentsDidChange(_:)), name: StorageServiceEvents.photoCommentsDidUpdate, object: nil)
+        
+        // Refresht the comment list in background
+        APIService.sharedInstance.getComments(photo.photoId)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func photoModelDidChange() {
-        // Stop and hide loading spinner
-        loadingSpinner.stopAnimating()
-        loadingSpinner.isHidden = true
-        
-        // Refresh the photo comments in background
-        guard photo != nil else { return }
-        
-        APIService.sharedInstance.getComments(photo!.photoId)
-
-        // Get a copy of the comments
-        self.commentCollection = StorageService.sharedInstance.getComments(photo!.photoId)
-        setNeedsLayout()
-    }
-    
     @objc fileprivate func navigateToCommentsPage(_ sender : NSObject) {
-        NavigationService.sharedInstance.navigateToCommentsPage(photo!)
+        NavigationService.sharedInstance.navigateToCommentsPage(photo)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard photo != nil else { return }
+        guard commentCollection != nil else { return }
         
         if commentCollection.totalCount == 0 {
             // Photo has no comments
             statusLabel.text = noCommentsText
             statusLabel.isHidden = false
+            loadingSpinner.stopAnimating()
             loadingSpinner.isHidden = true
             loadMoreButton.isHidden = true
         } else if commentCollection.items.count == 0 {
@@ -146,6 +131,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
             loadingSpinner.startAnimating()
         } else {
             // Showing the top comments
+            loadingSpinner.stopAnimating()
             statusLabel.isHidden = true
             loadingSpinner.isHidden = true
             loadMoreButton.isHidden = false
@@ -173,10 +159,10 @@ class DetailCommentSectionView: DetailSectionViewBase {
         }
     }
     
-    override func calculatedHeightForPhoto(_ photo: PhotoModel, width: CGFloat) -> CGFloat {
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
         // Get a copy of the comments
         self.commentCollection = StorageService.sharedInstance.getComments(photo.photoId)
-
+        
         if commentCollection.totalCount == 0 || commentCollection.items.count == 0 {
             return sectionTitleHeight + noCommentsSectionHeight
         } else {
@@ -201,30 +187,23 @@ class DetailCommentSectionView: DetailSectionViewBase {
     }
     
     private func maxWidthForRendererAtIndex(_ index : Int) -> CGFloat {
-        return maxWidth - leftMarginForRendererAtIndex(index) - contentRightMargin
+        return width - leftMarginForRendererAtIndex(index) - contentRightMargin
     }
     
     private func estimatedSizeForComment(_ comment : CommentModel, maxWidth : CGFloat) -> CGSize {
-        var rendererSize = cacheController.getCommentMeasurement(comment.commentId)
-        if rendererSize == nil {
-            rendererSize = CommentRenderer.estimatedSize(comment, width: maxWidth)
-            cacheController.setCommentMeasurement(rendererSize!, commentId: comment.commentId)
-        }
-
-        return rendererSize!
+        return CommentRenderer.estimatedSize(comment, width: maxWidth)
     }
     
     // MARK: - Events
     
     @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
         let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
-        guard photo != nil else { return }
-        guard photo!.photoId == updatedPhotoId else { return }
+        guard photo.photoId == updatedPhotoId else { return }
         
         // Get a copy of the updated comments
-        self.commentCollection = StorageService.sharedInstance.getComments(photo!.photoId)
+        self.commentCollection = StorageService.sharedInstance.getComments(photo.photoId)
         
         // Trigger an animated layout validation
-        invalidateMeasurements()
+        invalidateSize()
     }
 }

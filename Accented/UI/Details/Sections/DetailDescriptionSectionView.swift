@@ -1,6 +1,8 @@
 //
-//  swift
+//  DetailDescriptionSectionView.swift
 //  Accented
+//
+//  Essential info section in detail page, consists the photo title, description and timestamp
 //
 //  Created by Tiangong You on 8/1/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
@@ -10,155 +12,137 @@ import UIKit
 import TTTAttributedLabel
 
 class DetailDescriptionSectionView: DetailSectionViewBase {
-
-    override var sectionId: String {
-        return "desc"
-    }
     
     fileprivate var titleLabel = UILabel()
     fileprivate var dateLabel = UILabel()
     fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
     
     fileprivate let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
-    fileprivate let dateFont = UIFont(name: "HelveticaNeue", size: 14)    
+    fileprivate let dateFont = UIFont(name: "HelveticaNeue", size: 14)
+    fileprivate let descFont = ThemeManager.sharedInstance.currentTheme.descFont
+    fileprivate let descColor = ThemeManager.sharedInstance.currentTheme.descTextColor
     fileprivate let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
     fileprivate let linkPressColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
     
-    fileprivate let contentLeftMargin : CGFloat = 15
-    fileprivate let titleLabelTopMargin : CGFloat = 12
-    fileprivate let titleLabelRightMargin : CGFloat = 70
-    fileprivate let dateLabelTopMargin : CGFloat = 10
-    fileprivate let dateLabelRightMargin : CGFloat = 120
-    fileprivate let descLabelTopMargin : CGFloat = 10
-    fileprivate let descLabelRightMargin : CGFloat = 30
-    
-    // Constraints
-    fileprivate var descLabelTopConstraint : NSLayoutConstraint?
+    fileprivate let titleTopPadding : CGFloat = 12
+    fileprivate let titleRightPadding : CGFloat = 70
+    fileprivate let dateRightPadding : CGFloat = 120
+    fileprivate let descRightPadding : CGFloat = 30
+    fileprivate let gap : CGFloat = 10
+
+    fileprivate var formattedDescText : NSAttributedString?
+    fileprivate var descSize : CGSize?
     
     override func initialize() {
         super.initialize()
         
         // Title label
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = titleFont
         titleLabel.textColor = UIColor.white
-        titleLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - titleLabelRightMargin
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
         contentView.addSubview(titleLabel)
 
         // Date label
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.font = dateFont
         dateLabel.textColor = UIColor.white
-        dateLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - dateLabelRightMargin
         contentView.addSubview(dateLabel)
         
         // Desc label
-        descLabel.translatesAutoresizingMaskIntoConstraints = false
-        descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
+        descLabel.font = descFont
         descLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
-        descLabel.preferredMaxLayoutWidth = maxWidth - contentLeftMargin - descLabelRightMargin
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .byWordWrapping
         descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkPressColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         contentView.addSubview(descLabel)
-        
-        // Constaints
-        titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: contentLeftMargin).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: titleLabelTopMargin).isActive = true
-        
-        dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
-        dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: dateLabelTopMargin).isActive = true
-
-        descLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
-    }
-    
-    override func photoModelDidChange() {
-        guard photo != nil else { return }
-        setNeedsLayout()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()        
-        guard photo != nil else { return }
+        
+        var nextY : CGFloat = contentTopPadding
         
         // Title
-        titleLabel.text = photo!.title
+        titleLabel.text = photo.title
+        var f = titleLabel.frame
+        f.origin.x = contentLeftPadding
+        f.origin.y = nextY
+        f.size.width = width - contentLeftPadding - titleRightPadding
+        titleLabel.frame = f
+        titleLabel.text = photo.title
+        titleLabel.sizeToFit()
+        nextY += titleLabel.frame.size.height
         
         // Creation date
-        if let dateString = displayDateString(photo!) {
-            dateLabel.text = dateString
+        if let dateString = displayDateString(photo) {
+            nextY += gap
             dateLabel.isHidden = false
-            
-            descLabelTopConstraint?.isActive = false
-            descLabelTopConstraint = descLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: descLabelTopMargin)
-            descLabelTopConstraint?.isActive = true
+            f = dateLabel.frame
+            f.origin.x = contentLeftPadding
+            f.origin.y = nextY
+            f.size.width = width - contentLeftPadding - dateRightPadding
+            dateLabel.frame = f
+            dateLabel.text = dateString
+            dateLabel.sizeToFit()
+            nextY += dateLabel.frame.size.height
         } else{
             dateLabel.isHidden = true
-            
-            descLabelTopConstraint?.isActive = false
-            descLabelTopConstraint = descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: descLabelTopMargin)
-            descLabelTopConstraint?.isActive = true
         }
         
         // Descriptions
-        if let formattedDesc = formattedDescriptionString(photo!) {
-            descLabel.setText(formattedDesc)
+        if formattedDescText != nil && descSize != nil {
+            nextY += gap
+            dateLabel.isHidden = false
+            descLabel.setText(formattedDescText)
+            f = descLabel.frame
+            f.origin.x = contentLeftPadding
+            f.origin.y = nextY
+            f.size.width = descSize!.width
+            f.size.height = descSize!.height
+            descLabel.frame = f
         } else {
-            descLabel.text = photo!.desc
+            descLabel.isHidden = true
         }
     }
     
     // MARK: - Measurments
     
-    override func calculatedHeightForPhoto(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
+        var measuredHeight : CGFloat = contentTopPadding
+        
         // Title
-        let maxTitleWidth = width - contentLeftMargin - titleLabelRightMargin
-        var titleHeight = NSString(string : photo.title).boundingRect(with: CGSize(width: maxTitleWidth, height: CGFloat.greatestFiniteMagnitude),
-                                                                            options: .usesLineFragmentOrigin,
-                                                                            attributes: [NSFontAttributeName: titleFont!],
-                                                                            context: nil).size.height
-        titleHeight += titleLabelTopMargin
+        let maxTitleWidth = width - contentLeftPadding - titleRightPadding
+        let titleHeight = NSString(string : photo.title).boundingRect(with: CGSize(width: maxTitleWidth,
+                                                                                   height: CGFloat.greatestFiniteMagnitude),
+                                                                      options: .usesLineFragmentOrigin,
+                                                                      attributes: [NSFontAttributeName: titleFont!],
+                                                                      context: nil).size.height
+        measuredHeight += titleHeight
         
         // Date
-        var dateHeight : CGFloat = 0
         if let date = displayDateString(photo) {
-            let maxDateWidth = width - contentLeftMargin - dateLabelRightMargin
-            dateHeight = NSString(string : date).boundingRect(with: CGSize(width: maxDateWidth, height: CGFloat.greatestFiniteMagnitude),
-                                                                              options: .usesLineFragmentOrigin,
-                                                                              attributes: [NSFontAttributeName: dateFont!],
-                                                                              context: nil).size.height
-            dateHeight += dateLabelTopMargin
-        } else {
-            dateHeight = 0
+            let maxDateWidth = width - contentLeftPadding - dateRightPadding
+            let dateHeight = NSString(string : date).boundingRect(with: CGSize(width: maxDateWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                              options: .usesLineFragmentOrigin,
+                                                              attributes: [NSFontAttributeName: dateFont!],
+                                                              context: nil).size.height
+            measuredHeight += dateHeight + gap
         }
         
         // Descriptions
-        var descHeight : CGFloat = 0
-        if let desc = photo.desc {
-            let maxDescWidth = width - contentLeftMargin - descLabelRightMargin
-            let formattedDesc = formattedDescriptionString(photo)
-            if formattedDesc != nil {
-                // Calculate HTML string height
-                descHeight = formattedDesc!.boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
-                                                                       options: .usesLineFragmentOrigin,
-                                                                       context: nil).size.height
-            } else {
-                // Calculate plain string height
-                descHeight = NSString(string : desc).boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
-                                                                          options: .usesLineFragmentOrigin,
-                                                                          attributes: [NSFontAttributeName: ThemeManager.sharedInstance.currentTheme.descFont],
-                                                                          context: nil).size.height
+        if photo.desc != nil {
+            let maxDescWidth = width - contentLeftPadding - descRightPadding
+            formattedDescText = formattedDescriptionString(photo)
+            if formattedDescText != nil {
+                let descHeight = formattedDescText!.boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
+                                                         options: .usesLineFragmentOrigin,
+                                                         context: nil).size.height
+                measuredHeight += descHeight
             }
-            
-            descHeight += descLabelTopMargin
-        } else {
-            descHeight = 0
         }
-
-        return titleHeight + dateHeight + descHeight
+        
+        return measuredHeight
     }
     
     // MARK: - Private
@@ -166,13 +150,6 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     fileprivate func formattedDescriptionString(_ photo : PhotoModel) -> NSAttributedString? {
         guard let desc = photo.desc else { return nil }
         
-        // Try to retrieve from cache
-        let cachedDesc = cacheController.getFormattedDescription(photo.photoId)
-        if cachedDesc != nil {
-            return cachedDesc
-        }
-        
-        let descFont = ThemeManager.sharedInstance.currentTheme.descFont
         let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
         guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return nil }
         
@@ -185,10 +162,6 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         } catch let error as NSError {
             print(error.localizedDescription)
             formattedDesc = nil
-        }
-        
-        if formattedDesc != nil {
-            cacheController.setFormattedDescription(formattedDesc!, photoId: photo.photoId)
         }
         
         return formattedDesc

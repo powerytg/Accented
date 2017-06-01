@@ -50,7 +50,6 @@
 		184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184C23361CBCAC610057DCD6 /* SignInLogoView.swift */; };
 		185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185514A61CD447E600B572CE /* BlurredBackbroundView.swift */; };
 		186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186484981D6A24F800B8A9D2 /* CommentRenderer.swift */; };
-		1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */; };
 		186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */; };
 		186AF5571D5836C300A9928F /* DetailEndingSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */; };
 		186AF5591D58497200A9928F /* CardAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186AF5581D58497200A9928F /* CardAnimation.swift */; };
@@ -179,6 +178,7 @@
 		9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */; };
 		9B7B16801EDF69F500412840 /* DesaturatedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */; };
 		9B7B16BB1EE0AD1A00412840 /* DetailFullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B16BA1EE0AD1A00412840 /* DetailFullScreenImageViewController.swift */; };
+		9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B16BD1EE0BB9300412840 /* SectionViewBase.swift */; };
 		9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832F761D8C83400069FC77 /* StorageService+Cache.swift */; };
 		9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDD1D8C97E20069FC77 /* APIRequest.swift */; };
 		9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDF1D8C98E80069FC77 /* APIEvents.swift */; };
@@ -212,7 +212,6 @@
 		9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
 		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
-		9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */; };
 		9BFC4C2A1DA7474E004E1B21 /* RefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */; };
 		9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */; };
 		9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6261D1358AD00B178F3 /* DrawerService.swift */; };
@@ -319,7 +318,6 @@
 		184C23361CBCAC610057DCD6 /* SignInLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInLogoView.swift; sourceTree = "<group>"; };
 		185514A61CD447E600B572CE /* BlurredBackbroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurredBackbroundView.swift; sourceTree = "<group>"; };
 		186484981D6A24F800B8A9D2 /* CommentRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentRenderer.swift; sourceTree = "<group>"; };
-		1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCacheController.swift; sourceTree = "<group>"; };
 		186AF5531D5830CB00A9928F /* DetailMetadataSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMetadataSectionView.swift; sourceTree = "<group>"; };
 		186AF5561D5836C300A9928F /* DetailEndingSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailEndingSectionView.swift; sourceTree = "<group>"; };
 		186AF5581D58497200A9928F /* CardAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimation.swift; sourceTree = "<group>"; };
@@ -449,6 +447,7 @@
 		9B786FE21CEE3E8B00896A4C /* JournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalViewModel.swift; path = Accented/UI/Home/Themes/Default/Components/JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
 		9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesaturatedBackgroundView.swift; sourceTree = "<group>"; };
 		9B7B16BA1EE0AD1A00412840 /* DetailFullScreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailFullScreenImageViewController.swift; sourceTree = "<group>"; };
+		9B7B16BD1EE0BB9300412840 /* SectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionViewBase.swift; sourceTree = "<group>"; };
 		9B832F761D8C83400069FC77 /* StorageService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Cache.swift"; sourceTree = "<group>"; };
 		9B832FDD1D8C97E20069FC77 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		9B832FDF1D8C98E80069FC77 /* APIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEvents.swift; sourceTree = "<group>"; };
@@ -480,7 +479,6 @@
 		9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGroupStreamLayout.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
 		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
-		9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTagSectionContentView.swift; sourceTree = "<group>"; };
 		9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshHeaderView.swift; sourceTree = "<group>"; };
 		9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationParams.swift; sourceTree = "<group>"; };
 		9BFFB6261D1358AD00B178F3 /* DrawerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerService.swift; sourceTree = "<group>"; };
@@ -649,6 +647,7 @@
 		185514A51CD447D900B572CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9B7B16BC1EE0BB8900412840 /* Section */,
 				18222A051EDB5FD300F0F02E /* Pager */,
 				184951CA1ED0D7CC006301E8 /* Animation */,
 				9B9E9E901DBAD628009D5D19 /* Stream */,
@@ -741,8 +740,6 @@
 			isa = PBXGroup;
 			children = (
 				1872E2E41D502CEC00F160F1 /* DetailBackgroundView.swift */,
-				1864849C1D6A2FF600B8A9D2 /* DetailCacheController.swift */,
-				9BFAE2CF1D6F939500F41B70 /* DetailTagSectionContentView.swift */,
 				9B9E9E8E1DBAA476009D5D19 /* CommentsLayout.swift */,
 			);
 			path = Components;
@@ -1124,6 +1121,14 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		9B7B16BC1EE0BB8900412840 /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				9B7B16BD1EE0BB9300412840 /* SectionViewBase.swift */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
 		9B832FD71D8C96CF0069FC77 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1484,6 +1489,7 @@
 				18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
+				9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */,
 				18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */,
 				18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
@@ -1491,7 +1497,6 @@
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
-				1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				18222A4E1EDFC3C400F0F02E /* UserStreamModel.swift in Sources */,
 				187BA05F1ED27AF5000E181E /* SearchPhotosRequest.swift in Sources */,
@@ -1527,7 +1532,6 @@
 				18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */,
 				9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */,
 				9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */,
-				9BFAE2D01D6F939500F41B70 /* DetailTagSectionContentView.swift in Sources */,
 				9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */,
 				9BC6C3CF1D9229C900DCC92E /* APIService+Base.swift in Sources */,
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,

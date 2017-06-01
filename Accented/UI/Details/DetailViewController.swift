@@ -10,13 +10,10 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, DetailSectionViewDelegate, UIScrollViewDelegate {
+class DetailViewController: UIViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, SectionViewDelegate, UIScrollViewDelegate {
 
     // Photo model
     var photo : PhotoModel
-    
-    // Cache controller
-    fileprivate var cacheController = DetailCacheController()
     
     // Source image view from entrance transition
     var entranceAnimationImageView : UIImageView
@@ -24,10 +21,6 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     // Sections
     fileprivate var sectionViews = [DetailSectionViewBase]()
     fileprivate var photoSection : DetailPhotoSectionView!
-    
-    // All views that would participate entrance animation
-    fileprivate var entranceAnimationViews = [DetailEntranceAnimation]()
-    
     fileprivate var backgroundView : DetailBackgroundView!
     fileprivate var scrollView = UIScrollView()
     fileprivate var contentView = UIView()
@@ -68,30 +61,24 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         scrollView.addSubview(contentView)
         self.view.addSubview(scrollView)
 
-        initializeSections()
-
         // Back button
         self.view.addSubview(backButton)
         backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
-
-        // Prepare entrance animation
-        setupEntranceAnimationViews()
     }
 
     fileprivate func initializeSections() {
-        let maxWidth = view.bounds.size.width
-        sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth, cacheController: cacheController))
+        sectionViews.append(DetailHeaderSectionView(photo))
         
-        self.photoSection = DetailPhotoSectionView(maxWidth: maxWidth, cacheController: cacheController)
+        self.photoSection = DetailPhotoSectionView(photo)
         sectionViews.append(photoSection)
 
-        sectionViews.append(DetailDescriptionSectionView(maxWidth: maxWidth, cacheController: cacheController))
-        sectionViews.append(DetailMetadataSectionView(maxWidth: maxWidth, cacheController: cacheController))
-        sectionViews.append(DetailTagSectionView(maxWidth: maxWidth, cacheController: cacheController))
-        sectionViews.append(DetailCommentSectionView(maxWidth: maxWidth, cacheController: cacheController))
-        sectionViews.append(DetailEndingSectionView(maxWidth: maxWidth, cacheController: cacheController))
+        sectionViews.append(DetailDescriptionSectionView(photo))
+        sectionViews.append(DetailMetadataSectionView(photo))
+        sectionViews.append(DetailTagSectionView(photo))
+        sectionViews.append(DetailCommentSectionView(photo))
+        sectionViews.append(DetailEndingSectionView(photo))
         
         for section in sectionViews {
             section.delegate = self
@@ -123,10 +110,14 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         let maxWidth = view.bounds.size.width
         var nextY : CGFloat = 0
         for section in sectionViews {
-            let cachedHeight = section.estimatedHeight(photo, width: maxWidth)
-            section.photo = photo
-            section.frame = CGRect(x: 0, y: nextY, width: maxWidth, height: cachedHeight)
-            nextY += cachedHeight
+            if section.height != 0 {
+                section.isHidden = false
+                section.frame = CGRect(x: 0, y: nextY, width: view.bounds.size.width, height: section.height)
+                section.setNeedsLayout()
+                nextY += section.height
+            } else {
+                section.isHidden = true
+            }
         }
         
         // Update the content on the scroll view
@@ -137,45 +128,24 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     // MARK: - Entrance animation
     
-    fileprivate func setupEntranceAnimationViews() {
-        for section in sectionViews {
-            entranceAnimationViews.append(section)
-        }
-    }
-    
-    func performCardTransitionAnimation() {
-        for section in sectionViews {
-            section.performCardTransitionAnimation()
-        }
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     func entranceAnimationWillBegin() {
-        for view in entranceAnimationViews {
-            view.entranceAnimationWillBegin()
-        }
     }
     
     func performEntranceAnimation() {
-        for view in entranceAnimationViews {
-            view.performEntranceAnimation()
-        }
     }
     
     func entranceAnimationDidFinish() {
-        for view in entranceAnimationViews {
-            view.entranceAnimationDidFinish()
-        }
+        initializeSections()
     }
     
     func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
         let maxWidth = view.bounds.size.width
-        let headerSection = sectionViews[0] as! DetailHeaderSectionView
         var f = DetailPhotoSectionView.targetRectForPhotoView(photo, width: maxWidth)
-        f.origin.y = headerSection.sectionHeight
+        f.origin.y = DetailHeaderSectionView.sectionHeight
         return f
     }
 
@@ -204,15 +174,12 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         backgroundView.applyScrollingAnimation(scrollView.contentOffset, contentSize: scrollView.contentSize)
     }
     
-    // MARK: - DetailSectionViewDelegate
+    // MARK: - SectionViewDelegate
     
-    func sectionViewMeasurementWillChange(_ section: DetailSectionViewBase) {
-        // Remove cached section view measurements
-        cacheController.removeSectionMeasurement(section, photoId: section.photo!.photoId)
-        
+    func sectionViewWillChangeSize(_ section: SectionViewBase) {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             self?.layoutContentView()
-        }) 
+            })
     }
     
     // MARK: - Events
