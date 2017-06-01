@@ -112,7 +112,7 @@ class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     // MARK: - PhotoRendererDelegate
     
     func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
-        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: stream.items, sourceImageView: renderer.imageView)
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
 }

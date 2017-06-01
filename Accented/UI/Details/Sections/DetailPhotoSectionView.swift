@@ -15,7 +15,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     }
     
     var photoView = UIImageView()
-    fileprivate static var leftMargin : CGFloat = 5
+    fileprivate static var leftMargin : CGFloat = 0
     fileprivate static var rightMargin : CGFloat = 0
     
     override func initialize() {
@@ -43,11 +43,6 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         let h = self.contentView.bounds.height
         let photoWidth = maxWidth - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
         photoView.frame = CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: h)
-        photoView.layer.shadowColor = UIColor.black.cgColor
-        photoView.layer.shadowOpacity = 0.5
-        photoView.layer.shadowRadius = 5
-        photoView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        photoView.layer.shadowPath = UIBezierPath(rect: CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: h)).cgPath
     }
     
     // MARK: - Measurements

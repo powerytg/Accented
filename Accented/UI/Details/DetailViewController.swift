@@ -2,62 +2,24 @@
 //  DetailViewController.swift
 //  Accented
 //
+//  Detail page view controller
+//
 //  Created by Tiangong You on 7/21/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-// Event delegate for the detail page
-protocol DetailViewControllerDelegate : NSObjectProtocol {
-    
-    // Invoked while the detail page is scrolling. Note that this event will be fired at a very small time interval, similar to UIScrollViewDelegate.scrollViewDidScroll()
-    func detailViewDidScroll(_ offset : CGPoint, contentSize : CGSize)
-    
-    // Invoked when the user has tapped on the main photo view
-    func didTapOnPhoto(_ photo : PhotoModel, sourceImageView : UIImageView)
-    
-    // Invoked when the user has started to pinch / zoom on the main photo view
-    func didStartPinchOnPhoto(_ photo : PhotoModel, sourceImageView : UIImageView)
-    
-    // Invoked when the user has finished to pinch / zoom on the main photo view
-    func didEndPinchOnPhoto(_ photo : PhotoModel, sourceImageView : UIImageView)
-    
-    // Invoked when the user is pinching on the main photo view
-    func photoDidReceivePinch(_ photo : PhotoModel, sourceImageView : UIImageView, gesture : UIPinchGestureRecognizer)
-    
-    // Invoked when the user has canceled pinching on the main photo view
-    func didCancelPinchOnPhoto(_ photo: PhotoModel, sourceImageView: UIImageView)
-}
+class DetailViewController: UIViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, DetailSectionViewDelegate, UIScrollViewDelegate {
 
-class DetailViewController: CardViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, DetailSectionViewDelegate, UIScrollViewDelegate {
-
-    // Delegate
-    weak var delegate : DetailViewControllerDelegate?
+    // Photo model
+    var photo : PhotoModel
     
     // Cache controller
-    fileprivate var cacheController : DetailCacheController
-    
-    fileprivate var photoModel : PhotoModel?
-    var photo : PhotoModel? {
-        get {
-            return photoModel
-        }
-        
-        set(value) {
-            if photoModel != value {
-                photoModel = value
-                
-                if(isViewLoaded) {
-                    scrollView.contentOffset = CGPoint.zero
-                    view.setNeedsLayout()
-                }
-            }
-        }
-    }
+    fileprivate var cacheController = DetailCacheController()
     
     // Source image view from entrance transition
-    fileprivate var sourceImageView : UIImageView
+    var entranceAnimationImageView : UIImageView
     
     // Sections
     fileprivate var sectionViews = [DetailSectionViewBase]()
@@ -66,22 +28,22 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     // All views that would participate entrance animation
     fileprivate var entranceAnimationViews = [DetailEntranceAnimation]()
     
+    fileprivate var backgroundView : DetailBackgroundView!
     fileprivate var scrollView = UIScrollView()
     fileprivate var contentView = UIView()
-    
-    // Pre-defined width for content
-    // This needs to be specified ahead of time because we need to calculate a few things for a precise entrance animation
-    fileprivate var maxWidth : CGFloat
-    
+    fileprivate var backButton = UIButton(type: .custom)
+
     // Hero photo view
     var heroPhotoView : UIImageView {
         return photoSection.photoView
     }
     
-    init(sourceImageView : UIImageView, maxWidth : CGFloat, cacheController : DetailCacheController) {
-        self.maxWidth = maxWidth
-        self.sourceImageView = sourceImageView
-        self.cacheController = cacheController
+    // Temporary proxy image view when pinching on the main photo view
+    fileprivate var pinchProxyImageView : UIImageView?
+
+    init(context : DetailNavigationContext) {
+        self.entranceAnimationImageView = context.sourceImageView
+        self.photo = context.initialSelectedPhoto
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,6 +55,11 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         super.viewDidLoad()
         self.view.clipsToBounds = false
         self.view.backgroundColor = UIColor.clear
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        // Background view
+        backgroundView = DetailBackgroundView(frame: self.view.bounds)
+        self.view.insertSubview(backgroundView, at: 0)
         
         // Setup scroll view and content view
         scrollView.clipsToBounds = false
@@ -102,13 +69,19 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         self.view.addSubview(scrollView)
 
         initializeSections()
-        view.setNeedsLayout()
+
+        // Back button
+        self.view.addSubview(backButton)
+        backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
+        backButton.sizeToFit()
 
         // Prepare entrance animation
         setupEntranceAnimationViews()
     }
 
     fileprivate func initializeSections() {
+        let maxWidth = view.bounds.size.width
         sectionViews.append(DetailHeaderSectionView(maxWidth: maxWidth, cacheController: cacheController))
         
         self.photoSection = DetailPhotoSectionView(maxWidth: maxWidth, cacheController: cacheController)
@@ -137,12 +110,17 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard photo != nil else { return }
-        
+        backgroundView.frame = self.view.bounds
         layoutContentView()
+        
+        var f = backButton.frame
+        f.origin.x = 10
+        f.origin.y = 30
+        backButton.frame = f
     }
     
     fileprivate func layoutContentView() {
+        let maxWidth = view.bounds.size.width
         var nextY : CGFloat = 0
         for section in sectionViews {
             let cachedHeight = section.estimatedHeight(photo, width: maxWidth)
@@ -165,9 +143,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
         }
     }
     
-    override func performCardTransitionAnimation() {
-        super.performCardTransitionAnimation()
-        
+    func performCardTransitionAnimation() {
         for section in sectionViews {
             section.performCardTransitionAnimation()
         }
@@ -196,6 +172,7 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     }
     
     func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
+        let maxWidth = view.bounds.size.width
         let headerSection = sectionViews[0] as! DetailHeaderSectionView
         var f = DetailPhotoSectionView.targetRectForPhotoView(photo, width: maxWidth)
         f.origin.y = headerSection.sectionHeight
@@ -223,7 +200,8 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     // MARK: - UIScrollViewDelegate
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        delegate?.detailViewDidScroll(scrollView.contentOffset, contentSize: scrollView.contentSize)
+        // Update background according to scroll position
+        backgroundView.applyScrollingAnimation(scrollView.contentOffset, contentSize: scrollView.contentSize)
     }
     
     // MARK: - DetailSectionViewDelegate
@@ -239,40 +217,74 @@ class DetailViewController: CardViewController, DetailEntranceProxyAnimation, De
     
     // MARK: - Events
     
+    @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc fileprivate func didTapOnPhoto(_ gesture : UITapGestureRecognizer) {
-        delegate?.didTapOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+        presentLightBoxViewController(sourceImageView: heroPhotoView, useSourceImageViewAsProxy: false)
     }
 
     @objc fileprivate func didPinchOnPhoto(_ gesture : UIPinchGestureRecognizer) {
         switch gesture.state {
         case .began:
-            delegate?.didStartPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+            didStartPinchOnPhoto()
         case .ended:
-            delegate?.didEndPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+            didEndPinchOnPhoto()
         case .cancelled:
-            delegate?.didCancelPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+            didCancelPinchOnPhoto()
         case .failed:
-            delegate?.didCancelPinchOnPhoto(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition())
+            didCancelPinchOnPhoto()
         case .changed:
-            delegate?.photoDidReceivePinch(photo!, sourceImageView: photoSection.sourceImageViewForLightBoxTransition(), gesture: gesture)
+            photoDidReceivePinch(gesture)
         default: break
         }
     }
 
-    override func cardDidReceivePanGesture(_ translation: CGFloat, cardWidth: CGFloat) {
-        super.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
-        for section in sectionViews {
-            section.cardDidReceivePanGesture(translation, cardWidth: cardWidth)
+    fileprivate func didStartPinchOnPhoto() {
+        // Create a proxy image view for the pinch action
+        pinchProxyImageView = UIImageView(image: heroPhotoView.image)
+        pinchProxyImageView!.contentMode = heroPhotoView.contentMode
+        let proxyImagePosition = heroPhotoView.convert(heroPhotoView.bounds.origin, to: self.view)
+        pinchProxyImageView!.frame = CGRect(x: proxyImagePosition.x, y: proxyImagePosition.y, width: heroPhotoView.bounds.width, height: heroPhotoView.bounds.height)
+        self.view.addSubview(pinchProxyImageView!)
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+            self?.contentView.alpha = 0
+            self?.backgroundView.alpha = 0
+            }, completion: nil)
+    }
+    
+    fileprivate func didEndPinchOnPhoto() {
+        // Use the temporary pinch proxy image view as the source view for lightbox transition
+        self.presentLightBoxViewController(sourceImageView: pinchProxyImageView!, useSourceImageViewAsProxy: true)
+        pinchProxyImageView?.removeFromSuperview()
+    }
+    
+    fileprivate func photoDidReceivePinch(_ gesture: UIPinchGestureRecognizer) {
+        pinchProxyImageView?.transform = CGAffineTransform(scaleX: gesture.scale, y: gesture.scale)
+    }
+    
+    fileprivate func didCancelPinchOnPhoto() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
+            self?.pinchProxyImageView?.transform = CGAffineTransform.identity
+            self?.backgroundView.alpha = 1
+            self?.contentView.alpha = 1
+        }) { [weak self] (finished) in
+            self?.heroPhotoView.isHidden = false
+            self?.pinchProxyImageView?.removeFromSuperview()
+            self?.pinchProxyImageView = nil
         }
     }
     
-    override func cardSelectionDidChange(_ selected: Bool) {
-        super.cardSelectionDidChange(selected)
-        for section in sectionViews {
-            section.cardSelectionDidChange(selected)
-        }
+    // MARK: - Private
+    
+    fileprivate func presentLightBoxViewController(sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
+        let lightboxViewController = DetailFullScreenImageViewController(photo: photo)
+        let lightboxTransitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
+        lightboxViewController.modalPresentationStyle = .custom
+        lightboxViewController.transitioningDelegate = lightboxTransitioningDelegate
         
-        // If the card is not selected, reset its scroll offset
-        scrollView.setContentOffset(CGPoint.zero, animated: true)
+        self.present(lightboxViewController, animated: true, completion: nil)
     }
 }

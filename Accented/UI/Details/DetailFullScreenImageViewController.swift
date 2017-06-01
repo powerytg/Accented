@@ -1,14 +1,17 @@
 //
-//  DetailLightBoxImageViewController.swift
+//  DetailFullScreenImageViewController.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/8/16.
-//  Copyright © 2016 Tiangong You. All rights reserved.
+//  Detail page full screen image view controller
+//  This page allows zooming and pinching on the image
+//
+//  Created by You, Tiangong on 6/1/17.
+//  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegate {
+class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegate, DetailLightBoxAnimation {
 
     // Image view
     fileprivate var imageView  = UIImageView()
@@ -22,19 +25,23 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
     }
     
     // Photo model
-    var photo : PhotoModel? {
-        didSet {
-            if photo == nil {
-                imageView.image = nil
-            } else {
-                initializeImageView()
-            }
-        }
+    var photo : PhotoModel
+    
+    // Back button
+    fileprivate var backButton = UIButton(type: .custom)
+    
+    init(photo : PhotoModel) {
+        self.photo = photo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.addSubview(scrollView)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
@@ -43,7 +50,14 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         
         scrollView.addSubview(imageView)
         imageView.contentMode = .scaleAspectFit
+        initializeImageView()
         
+        // Back button
+        self.view.addSubview(backButton)
+        backButton.setImage(UIImage(named: "DetailBackButton"), for: UIControlState())
+        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
+        backButton.sizeToFit()
+
         // Events
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didReceiveDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
@@ -52,17 +66,21 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(didReceivePinch(_:)))
         self.view.addGestureRecognizer(pinch)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         scrollView.frame = self.view.bounds
+        
+        var f = backButton.frame
+        f.origin.x = 10
+        f.origin.y = 30
+        backButton.frame = f
     }
-
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -74,29 +92,12 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.zoomScale = 1.0
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-        resetScrollView()
-    }
-    
-    override func cardSelectionDidChange(_ selected: Bool) {
-        super.cardSelectionDidChange(selected)
-        
-        // Reset the scroll view content for non-selected cards
-        if !selected {
-            resetScrollView()
-        }
-    }
-    
-    // MARK: - Entrance animation
-    
-    func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
-        return self.view.bounds
-    }
-    
     // MARK: - Events
     
+    @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
     @objc fileprivate func didReceiveDoubleTap(_ gesture : UITapGestureRecognizer) {
         if imageZoomed {
             scrollView.setZoomScale(1.0, animated: true)
@@ -105,7 +106,7 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
             zoomToLocation(center, scale: scrollView.maximumZoomScale)
         }
     }
-
+    
     @objc fileprivate func didReceivePinch(_ gesture : UIPinchGestureRecognizer) {
         switch gesture.state {
         case .changed:
@@ -114,29 +115,35 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
             break
         }
     }
-
+    
     // MARK: - UIScrollViewDelegate
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     
-    // MARK: - Gestures
+    // MARK: - Lightbox animation
     
-    func shouldAllowExternalPanGesture() -> Bool {
-        if !imageZoomed {
-            return true
-        }
-        
-//        if scrollView.contentOffset.x >= CGRectGetWidth(view.bounds) || scrollView.contentOffset.x <= 0 {
-//            return true
-//        }
-        
-        return false
+    func lightBoxTransitionWillBegin() {
+        // Initially hide all the conent
+        view.isHidden = true
+    }
+    
+    func lightboxTransitionDidFinish() {
+        view.isHidden = false
+        self.view.backgroundColor = UIColor.black
+    }
+    
+    func performLightBoxTransition() {
+        // Do nothing
+    }
+    
+    func desitinationRectForSelectedLightBoxPhoto(_ photo: PhotoModel) -> CGRect {
+        return self.view.bounds
     }
     
     // MARK: - Private
-
+    
     fileprivate func initializeImageView() {
         let imageUrl = PhotoRenderer.preferredImageUrl(photo)
         guard imageUrl != nil else { return }
@@ -152,17 +159,12 @@ class DetailLightBoxImageViewController: CardViewController, UIScrollViewDelegat
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 2.0
     }
-
+    
     fileprivate func zoomToLocation(_ location : CGPoint, scale : CGFloat) {
         let rectWidth = view.bounds.width / scale
         let rectHeight = view.bounds.height / scale
         let zoomRect = CGRect(x: location.x - rectWidth / 2, y: location.y - rectHeight / 2, width: rectWidth, height: rectHeight)
         scrollView.zoom(to: zoomRect, animated: true)
-    }
-    
-    fileprivate func resetScrollView() {
-        scrollView.contentOffset = CGPoint.zero
-        scrollView.zoomScale = 1.0
     }
     
     fileprivate func pinchGestureDidChange(_ gesture : UIPinchGestureRecognizer) {

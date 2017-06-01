@@ -10,13 +10,11 @@ import UIKit
 
 class DetailNavigationContext: NSObject {
     
-    var photoCollection = [PhotoModel]()
     var initialSelectedPhoto : PhotoModel
     var sourceImageView : UIImageView
     
-    init(selectedPhoto : PhotoModel, photoCollection : [PhotoModel], sourceImageView : UIImageView) {
+    init(selectedPhoto : PhotoModel, sourceImageView : UIImageView) {
         self.initialSelectedPhoto = selectedPhoto
-        self.photoCollection = photoCollection
         self.sourceImageView = sourceImageView
         super.init()
     }

@@ -2,6 +2,8 @@
 //  DetailLightBoxPresentationController.swift
 //  Accented
 //
+//  Presentation controller responsible for performing the animation from detail page to detail full screen image page
+//
 //  Created by Tiangong You on 8/8/16.
 //  Copyright © 2016 Tiangong You. All rights reserved.
 //
@@ -13,10 +15,10 @@ class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTr
     fileprivate var photo : PhotoModel
     fileprivate var sourceImageView : UIImageView
     fileprivate var useSourceImageViewAsProxy : Bool
-    unowned fileprivate var presentingViewController : DetailGalleryViewController
-    unowned fileprivate var presentedViewController : DetailLightBoxViewController
+    unowned fileprivate var presentingViewController : DetailViewController
+    unowned fileprivate var presentedViewController : DetailFullScreenImageViewController
     
-    init(presentingViewController : DetailGalleryViewController, presentedViewController : DetailLightBoxViewController, photo : PhotoModel, sourceImageView : UIImageView, useSourceImageViewAsProxy : Bool) {
+    init(presentingViewController : DetailViewController, presentedViewController : DetailFullScreenImageViewController, photo : PhotoModel, sourceImageView : UIImageView, useSourceImageViewAsProxy : Bool) {
         self.presentingViewController = presentingViewController
         self.presentedViewController = presentedViewController
         self.photo = photo

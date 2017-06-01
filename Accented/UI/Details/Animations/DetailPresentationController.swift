@@ -14,14 +14,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     fileprivate var fromView : UIView
     fileprivate var toView : UIView
     fileprivate var sourceImageView : UIImageView
-    weak var galleryVC : DetailGalleryViewController?
+    weak var detailVC : DetailViewController?
     
-    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailGalleryViewController) {
+    init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailViewController) {
         self.photo = photo
         self.sourceImageView = sourceImageView
         self.fromView = fromViewController.view
         self.toView = toViewController.view
-        self.galleryVC = toViewController
+        self.detailVC = toViewController
         super.init()
     }
     
@@ -34,14 +34,14 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
         let fromViewController = transitionContext.viewController(forKey: .from)
-        let galleryViewController = self.galleryVC!
+        let detailViewController = self.detailVC!
         
         // Prepare entrance animation
         containerView.addSubview(toView)
-        galleryViewController.entranceAnimationWillBegin()
+        detailViewController.entranceAnimationWillBegin()
 
         // Create a proxy image view
-        let targetPhotoViewRect = galleryViewController.desitinationRectForProxyView(photo)
+        let targetPhotoViewRect = detailViewController.desitinationRectForProxyView(photo)
         let proxyImageView = UIImageView(image: sourceImageView.image)
         proxyImageView.contentMode = sourceImageView.contentMode
         let proxyImagePosition = sourceImageView.convert(sourceImageView.bounds.origin, to: toView)
@@ -57,12 +57,12 @@ class DetailPresentationController: NSObject, UIViewControllerAnimatedTransition
             })
             
             // Let the detailVC handle the rest of animation
-            self?.galleryVC?.performEntranceAnimation()
+            detailViewController.performEntranceAnimation()
             
             }) { (finished) in
                 let transitionCompleted = !transitionContext.transitionWasCancelled
                 transitionContext.completeTransition(transitionCompleted)
-                galleryViewController.entranceAnimationDidFinish()
+                detailViewController.entranceAnimationDidFinish()
                 
                 // Restore origin view controller
                 fromViewController?.view.alpha = 1

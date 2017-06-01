@@ -26,15 +26,15 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     }
     
     func navigateToDetailPage(_ context : DetailNavigationContext) {
-        let detailVC = DetailGalleryViewController(context: context)
+        let detailVC = DetailViewController(context: context)
         rootNavigationController?.pushViewController(detailVC, animated: true)
     }
     
     // MARK: - UINavigationControllerDelegate
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if operation == .push && toVC is DetailGalleryViewController {
-            let galleryViewController = toVC as! DetailGalleryViewController
-            return DetailPresentationController(photo : galleryViewController.initialSelectedPhoto, sourceImageView: galleryViewController.sourceImageView, fromViewController: fromVC, toViewController: galleryViewController)
+        if operation == .push && toVC is DetailViewController {
+            let detailVC = toVC as! DetailViewController
+            return DetailPresentationController(photo : detailVC.photo, sourceImageView: detailVC.entranceAnimationImageView, fromViewController: fromVC, toViewController: detailVC)
         } else {
             return nil
         }

@@ -92,7 +92,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     // MARK: - PhotoRendererDelegate
     
     func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
-        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, photoCollection: collection.items, sourceImageView: renderer.imageView)
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, sourceImageView: renderer.imageView)
         NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
     
