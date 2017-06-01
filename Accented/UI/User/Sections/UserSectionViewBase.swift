@@ -40,9 +40,8 @@ class UserSectionViewBase: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(user : UserModel, width : CGFloat) {
+    init(user : UserModel) {
         self.user = user
-        self.width = width
         super.init(frame : CGRect.zero)
         
         initialize()
@@ -71,6 +70,12 @@ class UserSectionViewBase: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        if width != bounds.size.width || height != bounds.size.height {
+            // Invalidate measurings
+            width = bounds.size.width
+            height = calculateContentHeight(maxWidth: width)
+        }
+        
         if(title != nil) {
             // Title section
             var f = sectionTitleLabel.frame
@@ -87,6 +92,10 @@ class UserSectionViewBase: UIView {
         } else {
             contentView.frame = self.bounds
         }
+    }
+    
+    func calculateContentHeight(maxWidth : CGFloat) -> CGFloat {
+        fatalError("Not implemented in base class")
     }
     
     func adjustTextClarity() {

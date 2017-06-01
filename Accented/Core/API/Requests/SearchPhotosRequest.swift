@@ -77,7 +77,8 @@ class SearchPhotosRequest: APIRequest {
     
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
-        var userInfo : [String : Any] = [RequestParameters.page : page,
+        var userInfo : [String : Any] = [RequestParameters.feature : StreamType.Search.rawValue,
+                                         RequestParameters.page : page,
                                          RequestParameters.response : data,
                                          RequestParameters.sort : sorting]
         

@@ -30,4 +30,11 @@ extension APIService {
         request.ignoreCache = (page == 1)
         get(request: request)
     }
+    
+    // Get user photos
+    func getUserPhotos(userId : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
+        let request = GetUserPhotosRequest(userId: userId, page: page, params: parameters, success: success, failure: failure)
+        request.ignoreCache = (page == 1)
+        get(request: request)
+    }
 }

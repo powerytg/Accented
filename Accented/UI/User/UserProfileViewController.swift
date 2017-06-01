@@ -10,7 +10,7 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate, DesaturatedBackgroundViewDelegate {
+class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate, DesaturatedBackgroundViewDelegate, PagerViewControllerDelegate {
 
     @IBOutlet weak var avatarView: UIImageView!
     @IBOutlet weak var backButton: UIButton!
@@ -115,6 +115,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         cards.append(UserFollowersSectionViewController(user: user, nibName: "UserFollowersSectionViewController"))
         
         deck = PagerViewController(cards: cards)
+        deck.delegate = self
         let screenHeight = UIScreen.main.bounds.height
         addChildViewController(deck)
         view.addSubview(deck.view)
@@ -176,5 +177,11 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         for card in cards {
             card.adjustTextClarity()
         }
+    }
+    
+    // MARK: - PagerViewControllerDelegate
+    
+    func pagerViewControllerSelectedIndexDidChange() {
+        navView.selectedIndex = deck.selectedIndex
     }
 }

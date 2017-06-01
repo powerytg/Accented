@@ -26,9 +26,6 @@ class UserInfoSectionView: UserSectionViewBase {
         
         // Create renderers
         createRenderers()
-        
-        // Calculate overall height
-        height = rendererHeight * CGFloat(infoEntries.count)
     }
 
     fileprivate func compileInfoEntries() {
@@ -107,6 +104,10 @@ class UserInfoSectionView: UserSectionViewBase {
             
             nextY += f.size.height
         }
+    }
+    
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
+        return rendererHeight * CGFloat(infoEntries.count)
     }
     
     override func adjustTextClarity() {

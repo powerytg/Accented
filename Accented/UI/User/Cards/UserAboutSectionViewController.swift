@@ -29,23 +29,15 @@ class UserAboutSectionViewController: UserProfileCardViewController {
         scrollView.addSubview(contentView)
         
         // Initialize sections
-        let width = view.bounds.size.width
-        var contentHeight : CGFloat = 0
         if user.about != nil {
-            let descSection = UserDescSectionView(user: user, width: width)
+            let descSection = UserDescSectionView(user: user)
             sections.append(descSection)
             contentView.addSubview(descSection)
-            contentHeight += descSection.height
         }
         
-        let infoSection = UserInfoSectionView(user: user, width: width)
+        let infoSection = UserInfoSectionView(user: user)
         sections.append(infoSection)
         contentView.addSubview(infoSection)
-        contentHeight += infoSection.height
-        
-        // Calculate the overall content size
-        contentHeight += contentBottomPadding
-        scrollView.contentSize = CGSize(width: width, height: contentHeight)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +46,10 @@ class UserAboutSectionViewController: UserProfileCardViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        if __CGSizeEqualToSize(contentView.bounds.size, view.bounds.size) {
+            return
+        }
+        
         scrollView.frame = view.bounds
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
         
@@ -68,6 +64,9 @@ class UserAboutSectionViewController: UserProfileCardViewController {
             
             nextY += section.height
         }
+        
+        // Update scroll view content size
+        scrollView.contentSize = CGSize(width: view.bounds.size.width, height: nextY + contentBottomPadding)
     }
     
     override func adjustTextClarity() {

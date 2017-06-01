@@ -8,10 +8,7 @@
 
 import UIKit
 
-class RequestParameters: NSObject {
-    // Stream type
-    static let streamType = "streamType"
-    
+class RequestParameters: NSObject {    
     // Photo id
     static let photoId = "photoId"
     

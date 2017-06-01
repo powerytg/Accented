@@ -17,7 +17,7 @@ class UserDescSectionView: UserSectionViewBase {
     fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
     fileprivate var formattedDescription : NSAttributedString?
     fileprivate var descSize : CGSize?
-    fileprivate let descFont = UIFont(name: "HelveticaNeue-Light", size: 15)
+    fileprivate let descFont = UIFont(name: "HelveticaNeue-Light", size: 18)
     fileprivate let descColor = UIColor(red: 152 / 255.0, green: 152 / 255.0, blue: 152 / 255.0, alpha: 1)
 
     override func createContentView() {
@@ -30,9 +30,6 @@ class UserDescSectionView: UserSectionViewBase {
         descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkHighlightColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         contentView.addSubview(descLabel)
-        
-        // Perform measurement
-        formatDescriptionText()
     }
 
     override func layoutSubviews() {
@@ -44,11 +41,11 @@ class UserDescSectionView: UserSectionViewBase {
         }
     }
     
-    fileprivate func formatDescriptionText() {
-        guard let desc = user.about else { return }
+    override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
+        guard let desc = user.about else { return 0 }
         
         let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont!.fontName); font-size: \(descFont!.pointSize)\">%@</span>" as NSString, desc) as String
-        guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return }
+        guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return 0 }
         
         let options : [String : Any] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
                                         NSCharacterEncodingDocumentAttribute:String.Encoding.utf8.rawValue]
@@ -64,12 +61,12 @@ class UserDescSectionView: UserSectionViewBase {
         formattedDescription = formattedDesc
         if formattedDescription == nil {
             // If there's no description text available, then hide the section all together
-            height = 0
+            return 0
         } else {
             // Measure the description text
-            let availableSize = CGSize(width: width - contentLeftPadding - contentRightPadding, height: CGFloat.greatestFiniteMagnitude)
+            let availableSize = CGSize(width: maxWidth - contentLeftPadding - contentRightPadding, height: CGFloat.greatestFiniteMagnitude)
             descSize = formattedDesc!.boundingRect(with: availableSize, options: .usesLineFragmentOrigin, context: nil).size
-            height = descSize!.height + contentTopPadding + contentBottomPadding
+            return descSize!.height + contentTopPadding + contentBottomPadding
         }
     }
     

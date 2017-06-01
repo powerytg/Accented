@@ -12,6 +12,12 @@
 
 import UIKit
 
+// Event delegate
+protocol PagerViewControllerDelegate: NSObjectProtocol {
+    // Invoked when card selection has changed
+    func pagerViewControllerSelectedIndexDidChange()
+}
+
 class PagerViewController: UIViewController {
     
     // Card view controllers
@@ -25,7 +31,7 @@ class PagerViewController: UIViewController {
     }
     
     // Visible width of the right sibling
-    var visibleRightChildWidth : CGFloat = 10 {
+    var visibleRightChildWidth : CGFloat = 30 {
         didSet {
             view.setNeedsLayout()
         }
@@ -51,6 +57,9 @@ class PagerViewController: UIViewController {
     // Base origin is the logical position of the first card in the x axis
     fileprivate var baselinePosition : CGFloat = 0
 
+    // Delegate
+    weak var delegate : PagerViewControllerDelegate?
+    
     init(cards : [CardViewController]) {
         self.cards = cards
         super.init(nibName: nil, bundle: nil)
@@ -168,6 +177,7 @@ class PagerViewController: UIViewController {
             
         }) { [weak self] (finished) in
             self?.selectedIndex = index;
+            self?.delegate?.pagerViewControllerSelectedIndexDidChange()
         }
     }
     

@@ -9,6 +9,9 @@
 import UIKit
 
 extension StorageService {
+    
+    // MARK : - Read operations
+    
     // Retrieve a copy of the stream model
     func getStream(_ streamType : StreamType) -> StreamModel {
         return cacheController.getCachedResource(cacheKey: streamType.rawValue, inCache: cacheController.streamCache, creationCallback: { () -> StreamModel in
@@ -58,6 +61,16 @@ extension StorageService {
         })
     }
     
+    // Retrieve a user's photo stream from cache
+    func getUserStream(userId : String) -> UserStreamModel {
+        let cacheKey = userId
+        return cacheController.getCachedResource(cacheKey: cacheKey, inCache: cacheController.userPhotoCache, creationCallback: { () -> UserStreamModel in
+            return UserStreamModel(userId : userId)
+        })
+    }
+    
+    // MARK : - Write operations
+    
     // Put a stream to cache
     func putStreamToCache(_ collection : StreamModel) {
         let cacheKey = NSString(string: collection.modelId!)
@@ -93,4 +106,11 @@ extension StorageService {
         let cacheKey = NSString(string: collection.modelId!)
         cacheController.userFollowersCache.setObject(collection, forKey: cacheKey)
     }
+    
+    // Put a user stream to cache
+    func putUserStreamToCache(_ collection : UserStreamModel) {
+        let cacheKey = NSString(string: collection.modelId!)
+        cacheController.userPhotoCache.setObject(collection, forKey: cacheKey)
+    }
+
 }

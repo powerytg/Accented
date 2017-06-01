@@ -29,6 +29,8 @@ class TextUtils: NSObject {
             return "User Photos"
         case .Search:
             return "Search Result"
+        case .UserFriends:
+            return "Photos From Your Friends"
         }
     }
     
@@ -52,6 +54,8 @@ class TextUtils: NSObject {
             return "User"
         case .Search:
             return "Search Result"
+        case .UserFriends:
+            return "Photos From Your Friends"
         }
     }
     

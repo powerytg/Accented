@@ -30,6 +30,10 @@
 		18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */; };
 		18222A471EDE72CB00F0F02E /* UserFollowersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */; };
 		18222A4B1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */; };
+		18222A4E1EDFC3C400F0F02E /* UserStreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A4D1EDFC3C400F0F02E /* UserStreamModel.swift */; };
+		18222A531EDFC56600F0F02E /* GetUserPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A521EDFC56600F0F02E /* GetUserPhotosRequest.swift */; };
+		18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A541EDFCB6900F0F02E /* UserStreamViewModel.swift */; };
+		18222A571EDFCC5B00F0F02E /* UserStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A561EDFCC5B00F0F02E /* UserStreamViewController.swift */; };
 		184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */; };
 		184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */; };
 		184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */; };
@@ -295,6 +299,10 @@
 		18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserFollowersRequest.swift; sourceTree = "<group>"; };
 		18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersModel.swift; sourceTree = "<group>"; };
 		18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersStreamViewController.swift; sourceTree = "<group>"; };
+		18222A4D1EDFC3C400F0F02E /* UserStreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamModel.swift; sourceTree = "<group>"; };
+		18222A521EDFC56600F0F02E /* GetUserPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserPhotosRequest.swift; sourceTree = "<group>"; };
+		18222A541EDFCB6900F0F02E /* UserStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamViewModel.swift; sourceTree = "<group>"; };
+		18222A561EDFCC5B00F0F02E /* UserStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamViewController.swift; sourceTree = "<group>"; };
 		184951C01ED0B06A006301E8 /* DetailComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerViewController.swift; sourceTree = "<group>"; };
 		184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailComposerViewController.xib; sourceTree = "<group>"; };
 		184951C51ED0BD42006301E8 /* DetailComposerPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailComposerPresentationController.swift; sourceTree = "<group>"; };
@@ -580,6 +588,8 @@
 			children = (
 				18222A421EDE703200F0F02E /* UserFollowersViewModel.swift */,
 				18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */,
+				18222A541EDFCB6900F0F02E /* UserStreamViewModel.swift */,
+				18222A561EDFCC5B00F0F02E /* UserStreamViewController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1072,6 +1082,7 @@
 				18D0BF341ED5211B008677FE /* CollectionModel.swift */,
 				18D0BF371ED52259008677FE /* CommentCollectionModel.swift */,
 				18222A461EDE72CB00F0F02E /* UserFollowersModel.swift */,
+				18222A4D1EDFC3C400F0F02E /* UserStreamModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1132,6 +1143,7 @@
 				187BA0751ED40BF1000E181E /* SearchUsersRequest.swift */,
 				18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */,
 				18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */,
+				18222A521EDFC56600F0F02E /* GetUserPhotosRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1421,6 +1433,7 @@
 				9BDF19201ED77BB9003159E8 /* UserSearchResultStreamViewController.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */,
+				18222A571EDFCC5B00F0F02E /* UserStreamViewController.swift in Sources */,
 				9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */,
@@ -1478,6 +1491,7 @@
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */,
+				18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
@@ -1485,6 +1499,7 @@
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1864849D1D6A2FF600B8A9D2 /* DetailCacheController.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
+				18222A4E1EDFC3C400F0F02E /* UserStreamModel.swift in Sources */,
 				187BA05F1ED27AF5000E181E /* SearchPhotosRequest.swift in Sources */,
 				9B3813B31CE00F610066D3B9 /* DarkTheme.swift in Sources */,
 				9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */,
@@ -1545,6 +1560,7 @@
 				18BD571E1D56445300376DE8 /* DetailGalleryViewController.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
+				18222A531EDFC56600F0F02E /* GetUserPhotosRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
 				18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,

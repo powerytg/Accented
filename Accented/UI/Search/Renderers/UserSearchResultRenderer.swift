@@ -22,8 +22,7 @@ class UserSearchResultRenderer: UICollectionViewCell {
         super.awakeFromNib()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didReceiveTap(_:)))
-        avatarView.addGestureRecognizer(tap)
-        titleLabel.addGestureRecognizer(tap)
+        contentView.addGestureRecognizer(tap)
     }
 
     override func layoutSubviews() {
@@ -34,7 +33,7 @@ class UserSearchResultRenderer: UICollectionViewCell {
             }
             
             titleLabel.text = user.fullName
-            subLabel.text = user.userName
+            subLabel.text = "@\(user.userName!)"
         }
         
         let avatarSize = avatarView.bounds.size.width

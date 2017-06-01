@@ -36,28 +36,33 @@ extension StorageService {
     
     fileprivate func mergePhotosToStream(_ userInfo : [AnyHashable : Any], photos: [PhotoModel], page: Int, totalPhotos : Int) {
         // Validate results
-        let streamTypeString = userInfo[RequestParameters.streamType] as? String
+        guard let streamTypeString = userInfo[RequestParameters.feature] as? String else {
+            debugPrint("Stream does not have an identity")
+            return
+        }
+        
+        guard let streamType = StreamType(rawValue: streamTypeString) else {
+            debugPrint("Unrecognized stream type \(streamTypeString))")
+            return
+        }
+        
         let keyword = userInfo[RequestParameters.term] as? String
         let tag = userInfo[RequestParameters.tag] as? String
         let sort = userInfo[RequestParameters.sort] as? PhotoSearchSortingOptions
+        let userId = userInfo[RequestParameters.userId] as? String
         
-        var stream : StreamModel
-        var streamType : StreamType?
-        if streamTypeString != nil {
-            streamType = StreamType(rawValue: streamTypeString!)
-            if streamType == nil {
-                debugPrint("Unrecognized stream type \(streamTypeString!))")
-                return
-            } else {
-                stream = self.getStream(streamType!)
+        var stream : StreamModel!
+        switch streamType {
+        case .Search:
+            if keyword != nil {
+                stream = getPhotoSearchResult(keyword: keyword!, sort : sort!)
+            } else if tag != nil {
+                stream = getPhotoSearchResult(tag: tag!, sort : sort!)
             }
-        } else if keyword != nil {
-            stream = getPhotoSearchResult(keyword: keyword!, sort : sort!)
-        } else if tag != nil {
-            stream = getPhotoSearchResult(tag: tag!, sort : sort!)
-        } else {
-            debugPrint("Stream does not have an identity))")
-            return
+        case .User:
+            stream = getUserStream(userId: userId!)
+        default:
+            stream = self.getStream(streamType)
         }
         
         stream.totalCount = totalPhotos
@@ -74,6 +79,8 @@ extension StorageService {
         // Put the stream back to cache
         if stream is PhotoSearchStreamModel {
             putPhotoSearchResultToCache(stream as! PhotoSearchStreamModel)
+        } else if stream is UserStreamModel {
+            putUserStreamToCache(stream as! UserStreamModel)
         } else {
             putStreamToCache(stream)
         }

@@ -1,28 +1,29 @@
 //
-//  GetStreamPhotosRequest.swift
+//  GetUserPhotosRequest.swift
 //  Accented
 //
-//  Created by You, Tiangong on 9/20/16.
-//  Copyright © 2016 Tiangong You. All rights reserved.
+//  Get user photos request
+//
+//  Created by Tiangong You on 5/31/17.
+//  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class GetStreamPhotosRequest: APIRequest {
-    
-    private var streamType : StreamType
+class GetUserPhotosRequest: APIRequest {
     private var page : Int
+    private var userId : String
     
-    init(_ streamType : StreamType, page : Int = 1, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
-        self.streamType = streamType
+    init(userId : String, page : Int = 1, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
+        self.userId = userId
         self.page = page
-        
         super.init(success: success, failure: failure)
         
-        cacheKey = "photos/\(streamType.rawValue)/\(page)"
+        cacheKey = "photos/\(userId)/\(page)"
         url = "\(APIRequest.baseUrl)photos"
         parameters = params
-        parameters[RequestParameters.feature] = streamType.rawValue
+        parameters[RequestParameters.feature] = "user"
+        parameters[RequestParameters.userId] = userId
         parameters[RequestParameters.page] = String(page)
         parameters[RequestParameters.includeStates] = "1"
         
@@ -40,7 +41,8 @@ class GetStreamPhotosRequest: APIRequest {
     
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
-        let userInfo : [String : Any] = [RequestParameters.feature : streamType.rawValue,
+        let userInfo : [String : Any] = [RequestParameters.feature : StreamType.User.rawValue,
+                                         RequestParameters.userId : userId,
                                          RequestParameters.page : page,
                                          RequestParameters.response : data]
         

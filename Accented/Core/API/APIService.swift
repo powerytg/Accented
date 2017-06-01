@@ -21,6 +21,7 @@ enum StreamType : String {
     case FreshYesterday = "fresh_yesterday"
     case FreshWeek = "fresh_week"
     case User = "user"  // User photos
+    case UserFriends = "user_friends" // User friends photos
     case Search = "search"  // Search result
 }
 

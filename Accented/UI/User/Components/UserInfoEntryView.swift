@@ -17,8 +17,8 @@ class UserInfoEntryView: UIView {
     fileprivate var valueLabel = UILabel()
     fileprivate let nameColor = UIColor(red: 202 / 255.0, green: 202 / 255.0, blue: 202 / 255.0, alpha: 1.0)
     fileprivate let valueColor = UIColor(red: 104 / 255.0, green: 104 / 255.0, blue: 104 / 255.0, alpha: 1.0)
-    fileprivate let nameFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 13)!
-    fileprivate let valueFont = UIFont(name: "AvenirNextCondensed-Regular", size: 13)!
+    fileprivate let nameFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
+    fileprivate let valueFont = UIFont(name: "AvenirNextCondensed-Regular", size: 15)!
     fileprivate let paddingLeft : CGFloat = 6
     fileprivate let paddingRight : CGFloat = 6
     fileprivate let gap : CGFloat = 8
