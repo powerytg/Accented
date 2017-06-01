@@ -148,6 +148,9 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     
     // Events
     @objc fileprivate func userProfileDidUpdate(_ notification : Notification) {
+        let updatedUserId = notification.userInfo![StorageServiceEvents.userId] as! String
+        guard updatedUserId == self.user.userId else { return }
+        
         // Dismiss the loading view
         self.loadingView?.willMove(toParentViewController: nil)
         self.loadingView?.view.removeFromSuperview()

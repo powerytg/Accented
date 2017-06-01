@@ -82,6 +82,12 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
         let sectionStartIndex = photoStartSection + photoGroups.count
         let startIndex = photoCountInCollectionView
         let endIndex = collection.items.count - 1
+        
+        if endIndex < startIndex {
+            debugPrint("End index \(endIndex) is smaller than start index \(startIndex)!")
+            return
+        }
+        
         let photosForProcessing = Array(collection.items[startIndex...endIndex])
         let templates = layoutGenerator.generateLayoutMetadata(photosForProcessing)
         
