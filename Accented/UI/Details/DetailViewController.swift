@@ -106,6 +106,11 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
+        // Do not proceed if we're in landscape mode
+        if view.bounds.size.width > view.bounds.size.height {
+            return
+        }
+        
         // Background view
         backgroundView.frame = self.view.bounds
         
@@ -140,6 +145,23 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        guard self.presentedViewController == nil else { return }
+        
+        // Transition to lightbox only if we're in landscape mode
+        guard size.width > size.height else { return }
+        
+        // We cannot present the lightbox immediately since the transition will break
+        // The workaround is to animate along with the coordinator and perform the modal presentation upon animation completion
+        coordinator.animate(alongsideTransition: { (context) in
+            self.view.alpha = 0
+            }, completion: { (context) in
+                self.presentLightBoxViewController(sourceImageView: self.heroPhotoView, useSourceImageViewAsProxy: false)
+        })
+    }
+    
     // MARK: - Entrance animation
     
     override func didReceiveMemoryWarning() {
@@ -151,12 +173,16 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         for view in entranceAnimationViews {
             view.entranceAnimationWillBegin()
         }
+        
+        backgroundView.alpha = 0
     }
     
     func performEntranceAnimation() {
         for view in entranceAnimationViews {
             view.performEntranceAnimation()
         }
+        
+        backgroundView.alpha = 1
     }
     
     func entranceAnimationDidFinish() {
@@ -194,7 +220,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Update background according to scroll position
-        backgroundView.applyScrollingAnimation(scrollView.contentOffset, contentSize: scrollView.contentSize)
+        backgroundView.applyScrollingAnimation(scrollView.contentOffset)
     }
     
     // MARK: - SectionViewDelegate

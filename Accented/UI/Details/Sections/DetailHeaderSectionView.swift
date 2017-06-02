@@ -16,7 +16,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     fileprivate var authorLabel = UILabel()
 
     // Fixed height
-    static let sectionHeight : CGFloat = 140
+    static let sectionHeight : CGFloat = 120
     
     fileprivate let labelPaddingLeft : CGFloat = 120
     fileprivate let avatarSize : CGFloat = 40

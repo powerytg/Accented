@@ -35,6 +35,7 @@ class TagButton: UIButton {
         layer.cornerRadius = tagButtonRadius
         layer.borderWidth = 1.0
         layer.borderColor = tagButtonBorderColor.cgColor
+        backgroundColor = tagButtonBackground
     }
     
     override open var isHighlighted: Bool {

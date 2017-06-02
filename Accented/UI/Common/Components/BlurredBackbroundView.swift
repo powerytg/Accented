@@ -7,22 +7,17 @@
 //
 
 import UIKit
-import SDWebImage
 import GPUImage
+import Alamofire
 
 class BlurredBackbroundView: ThemeableBackgroundView {
 
     fileprivate var imageView = UIImageView()
     fileprivate var blurView : UIVisualEffectView = UIVisualEffectView()
     
-    fileprivate var saturationFilter = SaturationAdjustment()
-    fileprivate let output = PictureOutput()
-    
     override func initialize() -> Void {
         super.initialize()
         
-        // Setup filters
-        saturationFilter.saturation = 0.25
         let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
         blurView.effect = blurEffect
         
@@ -31,38 +26,38 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         self.addSubview(blurView)
     }
     
-    override func performEntranceAnimation(_ completed: @escaping () -> Void) {
-        completed()
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         guard photo != nil else { return }
         
         imageView.frame = self.bounds
         blurView.frame = self.bounds
-        
+    }
+    
+    override func photoDidChange() {
         applyBackgroundImage(ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground)
     }
-
+    
     fileprivate func applyBackgroundImage(_ desaturated : Bool) {
         guard photo != nil else { return }
-        let url = PhotoRenderer.preferredImageUrl(photo!)
+        let url = photo!.imageUrls[.Small]!
         guard url != nil else { return }
         
         // Initially hide the image view
         imageView.alpha = 0
         
-        let downloader = SDWebImageDownloader.shared()
-        _ = downloader?.downloadImage(with: url!, options: [], progress: nil) { [weak self] (image, data, error, finished) in
-            guard image != nil && finished == true else { return }
+        Alamofire.request(url!).responseData { [weak self] (response) in
+            let image = UIImage(data : response.data!, scale : 1)
             self?.applyImageEffects(image!, desaturated: desaturated)
         }
     }
     
     fileprivate func applyImageEffects(_ image : UIImage, desaturated : Bool) {
         let input = PictureInput(image: image.cgImage!)
-        
+        let output = PictureOutput()
+        let saturationFilter = SaturationAdjustment()
+        saturationFilter.saturation = 0.25
+
         output.imageAvailableCallback = { outputImage in
             DispatchQueue.main.async(execute: { 
                 UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: { [weak self] in

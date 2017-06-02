@@ -10,7 +10,11 @@ import UIKit
 
 class ThemeableBackgroundView: UIView {
 
-    var photo : PhotoModel?
+    var photo : PhotoModel? {
+        didSet {
+            photoDidChange()
+        }
+    }
     
     required init() {
         super.init(frame: CGRect.zero)
@@ -30,6 +34,10 @@ class ThemeableBackgroundView: UIView {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func photoDidChange() {
+        
     }
     
     func appThemeDidChange(_ notification : Notification) {
