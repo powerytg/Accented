@@ -29,6 +29,9 @@ class StorageServiceEvents: NSObject {
     // User followers updated
     static let userFollowersDidUpdate = Notification.Name("userFollowersDidUpdate")
 
+    // User gallery list updated
+    static let userGalleryListDidUpdate = Notification.Name("userGalleryListDidUpdate")
+
     // MARK: - Parameters
     
     // Stream type
@@ -48,7 +51,10 @@ class StorageServiceEvents: NSObject {
     
     // Photos
     static let photos = "photos"
-    
+
+    // Galleries
+    static let galleries = "galleries"
+
     // Keyword
     static let keyword = "keyword"
     

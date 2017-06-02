@@ -69,6 +69,14 @@ extension StorageService {
         })
     }
     
+    // Retrieve a user's galleries from cache
+    func getUserGalleries(userId : String) -> GalleryCollectionModel {
+        let cacheKey = userId
+        return cacheController.getCachedResource(cacheKey: cacheKey, inCache: cacheController.userGalleryCache, creationCallback: { () -> GalleryCollectionModel in
+            return GalleryCollectionModel(userId : userId)
+        })
+    }
+
     // MARK : - Write operations
     
     // Put a stream to cache
@@ -113,4 +121,9 @@ extension StorageService {
         cacheController.userPhotoCache.setObject(collection, forKey: cacheKey)
     }
 
+    // Put a user gallery collection to cache
+    func putUserGalleriesToCache(_ collection : GalleryCollectionModel) {
+        let cacheKey = NSString(string: collection.modelId!)
+        cacheController.userGalleryCache.setObject(collection, forKey: cacheKey)
+    }
 }

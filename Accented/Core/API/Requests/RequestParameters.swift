@@ -50,4 +50,10 @@ class RequestParameters: NSObject {
     
     // Include like status of a photo
     static let includeStates = "include_states"
+    
+    // Include gallery cover
+    static let includeCover = "include_cover"
+
+    // Gallery cover size
+    static let coverSize = "cover_size"
 }

@@ -34,7 +34,10 @@ class StorageServiceCacheController: NSObject {
     
     // User photos cache
     let userPhotoCache = NSCache<NSString, UserStreamModel>()
-    
+
+    // User galleries cache
+    let userGalleryCache = NSCache<NSString, GalleryCollectionModel>()
+
     // Get a cached object. If the object is not cached then create a new one and put it into the cache
     func getCachedResource<T : NSCopying>(cacheKey : String,
                            inCache cache : NSCache<NSString, T>,

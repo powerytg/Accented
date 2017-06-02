@@ -11,7 +11,7 @@
 import UIKit
 
 class CommentCollectionModel: CollectionModel<CommentModel> {
-    // Parent photo it
+    // Parent photo id
     var photoId : String
     
     init(photoId : String) {
