@@ -69,6 +69,12 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
         refreshHeaderView.alpha = 0
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // Reset the stream state
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

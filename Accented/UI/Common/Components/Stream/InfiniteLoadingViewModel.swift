@@ -39,6 +39,9 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
     // Inline infinite loading cell
     var loadingCell : DefaultStreamInlineLoadingCell?
 
+    // Max number of items allowed in this view model
+    var maxAllowedItemCount = 200
+    
     init(collection : CollectionModel<T>, collectionView : UICollectionView) {
         self.collection = collection
         self.collectionView = collectionView
@@ -113,7 +116,7 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
     }
     
     func canLoadMore() -> Bool {
-        return collection.totalCount! > collection.items.count
+        return collection.totalCount! > collection.items.count && collection.items.count < maxAllowedItemCount
     }
     
     func collecitonDidUpdate(collection : CollectionModel<T>, page : Int) -> Void {
@@ -161,6 +164,10 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
         layout.clearLayoutCache()
     }
 
+    func resetStreamState() {
+        streamState = StreamState()
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
