@@ -107,4 +107,15 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         }
     }
     
+    override func entranceAnimationWillBegin() {
+        self.alpha = 0
+        self.transform = CGAffineTransform(translationX: 0, y: 30)
+    }
+    
+    override func performEntranceAnimation() {
+        UIView .addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1, animations: { [weak self] in
+            self?.alpha = 1
+            self?.transform = CGAffineTransform.identity
+        })
+    }
 }

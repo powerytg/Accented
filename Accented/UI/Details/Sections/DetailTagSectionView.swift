@@ -109,7 +109,7 @@ class DetailTagSectionView: DetailSectionViewBase {
     
     override func entranceAnimationWillBegin() {
         self.alpha = 0
-        self.transform = CGAffineTransform(translationX: 30, y: 0)
+        self.transform = CGAffineTransform(translationX: 0, y: 30)
     }
     
     override func performEntranceAnimation() {
