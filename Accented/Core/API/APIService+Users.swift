@@ -24,6 +24,12 @@ extension APIService {
         get(request: request)
     }
     
+    // Get current user profile
+    func getCurrentUserProfile(success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = getCurrentUserProfile(success: success, failure: failure)
+        get(request: request)
+    }
+
     // Get user followers
     func getUserFollowers(userId : String, page : Int = 1, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
         let request = GetUserFollowersRequest(userId: userId, page: page, success: success, failure: failure)

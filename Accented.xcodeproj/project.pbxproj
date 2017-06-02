@@ -184,6 +184,7 @@
 		9B7B17E01EE2195000412840 /* StorageService+Galleries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B17DF1EE2195000412840 /* StorageService+Galleries.swift */; };
 		9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B17E11EE21A7A00412840 /* GalleryModel.swift */; };
 		9B7B17E41EE21FC500412840 /* GalleryCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B17E31EE21FC500412840 /* GalleryCollectionModel.swift */; };
+		9B7B17E61EE2239000412840 /* GetCurrentUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7B17E51EE2239000412840 /* GetCurrentUserInfoRequest.swift */; };
 		9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832F761D8C83400069FC77 /* StorageService+Cache.swift */; };
 		9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDD1D8C97E20069FC77 /* APIRequest.swift */; };
 		9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDF1D8C98E80069FC77 /* APIEvents.swift */; };
@@ -458,6 +459,7 @@
 		9B7B17DF1EE2195000412840 /* StorageService+Galleries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Galleries.swift"; sourceTree = "<group>"; };
 		9B7B17E11EE21A7A00412840 /* GalleryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
 		9B7B17E31EE21FC500412840 /* GalleryCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionModel.swift; sourceTree = "<group>"; };
+		9B7B17E51EE2239000412840 /* GetCurrentUserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentUserInfoRequest.swift; sourceTree = "<group>"; };
 		9B832F761D8C83400069FC77 /* StorageService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Cache.swift"; sourceTree = "<group>"; };
 		9B832FDD1D8C97E20069FC77 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		9B832FDF1D8C98E80069FC77 /* APIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEvents.swift; sourceTree = "<group>"; };
@@ -1159,6 +1161,7 @@
 				18222A441EDE705B00F0F02E /* GetUserFollowersRequest.swift */,
 				18222A521EDFC56600F0F02E /* GetUserPhotosRequest.swift */,
 				9B7B17D81EE212C400412840 /* GetGalleriesRequest.swift */,
+				9B7B17E51EE2239000412840 /* GetCurrentUserInfoRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1482,6 +1485,7 @@
 				9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */,
 				18222A331EDCD45100F0F02E /* UserAboutSectionViewController.swift in Sources */,
 				9B3813E61CE012180066D3B9 /* DefaultStreamButtonsCell.swift in Sources */,
+				9B7B17E61EE2239000412840 /* GetCurrentUserInfoRequest.swift in Sources */,
 				9B9E9E981DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift in Sources */,
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
 				9B9E9E8D1DBA9EFE009D5D19 /* DetailCommentCell.swift in Sources */,

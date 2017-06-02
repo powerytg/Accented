@@ -28,6 +28,9 @@ class StorageService: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // Current user
+    var currentUser : UserModel?
+    
     // Cache controller
     let cacheController = StorageServiceCacheController()
 

@@ -21,6 +21,7 @@ class AuthenticationService: NSObject {
     
     fileprivate static let accessTokenStoreKey = "accessToken";
     fileprivate static let accessTokenSecretStoreKey = "accessTokenSecret"
+    
     var accessToken : String?
     var accessTokenSecret : String?
     
@@ -79,4 +80,9 @@ class AuthenticationService: NSObject {
         )
     }
 
+    func putCurrentUserInfoToCache(currentUser : UserModel) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(currentUser, forKey: AuthenticationService.currentUserKey)
+        userDefaults.synchronize()
+    }
 }

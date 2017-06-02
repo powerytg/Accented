@@ -26,6 +26,12 @@ class StorageServiceEvents: NSObject {
     // User profile retrieved
     static let userProfileDidUpdate = Notification.Name("userProfileDidUpdate")
 
+    // Current user profile retrieved
+    static let currentUserProfileDidUpdate = Notification.Name("currentUserProfileDidUpdate")
+
+    // Failed to retrieve current user profile
+    static let currentUserProfileFailedUpdate = Notification.Name("currentUserProfileFailedUpdate")
+
     // User followers updated
     static let userFollowersDidUpdate = Notification.Name("userFollowersDidUpdate")
 
