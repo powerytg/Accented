@@ -29,6 +29,9 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     fileprivate var contentView = UIView()
     fileprivate var backButton = UIButton(type: .custom)
 
+    // All views that would participate entrance animation
+    fileprivate var entranceAnimationViews = [DetailEntranceAnimation]()
+    
     // Hero photo view
     var heroPhotoView : UIImageView {
         return photoSection.photoView
@@ -85,6 +88,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         for section in sections {
             section.delegate = self
             contentView.addSubview(section)
+            entranceAnimationViews.append(section)
         }
         
         // Events
@@ -124,7 +128,8 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
             nextY += section.height
             
             section.isHidden = !(section.height > 0)
-            if section.height != 0 {
+            if section.height != 0 && !(section is DetailHeaderSectionView) {
+                // For each of the section, append a gap to its bottom (except for the header section)
                 nextY += sectionGap
             }
         }
@@ -142,13 +147,22 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     }
     
     func entranceAnimationWillBegin() {
+        initializeSections()
+        for view in entranceAnimationViews {
+            view.entranceAnimationWillBegin()
+        }
     }
     
     func performEntranceAnimation() {
+        for view in entranceAnimationViews {
+            view.performEntranceAnimation()
+        }
     }
     
     func entranceAnimationDidFinish() {
-        initializeSections()
+        for view in entranceAnimationViews {
+            view.entranceAnimationDidFinish()
+        }
     }
     
     func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
