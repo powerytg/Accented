@@ -177,7 +177,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
             }
             
             calculatedHeight += vPadding * CGFloat(displayCommentsCount - 1)
-            calculatedHeight += loadMoreButton.frame.size.height + loadMoreMarginTop
+            calculatedHeight += loadMoreButton.frame.size.height + loadMoreMarginTop + contentBottomMargin
             return calculatedHeight + sectionTitleHeight
         }
     }

@@ -110,6 +110,7 @@ class SectionViewBase: UIView {
     
     // Notify the event delegate that the section view will change its height
     func invalidateSize() {
+        height = calculateContentHeight(maxWidth: width)
         delegate?.sectionViewWillChangeSize(self)
     }
     

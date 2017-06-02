@@ -30,6 +30,9 @@ class PhotoModel: ModelBase {
     var user : UserModel!
     var commentsCount : Int?
     var voted : Bool!
+    var voteCount : Int?
+    var rating : Float?
+    var viewCount : Int?
     
     override init() {
         super.init()
@@ -82,6 +85,9 @@ class PhotoModel: ModelBase {
         
         // Like status
         voted = json["voted"].boolValue
+        voteCount = json["votes_count"].int
+        rating = json["rating"].float
+        viewCount = json["times_viewed"].int
     }
     
     override func copy(with zone: NSZone? = nil) -> Any {
@@ -102,6 +108,9 @@ class PhotoModel: ModelBase {
         clone.user = self.user.copy() as! UserModel
         clone.tags = self.tags
         clone.voted = self.voted
+        clone.voteCount = self.voteCount
+        clone.rating = self.rating
+        clone.viewCount = self.viewCount
         return clone
     }
 }

@@ -18,8 +18,11 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     // Source image view from entrance transition
     var entranceAnimationImageView : UIImageView
     
+    fileprivate let contentBottomPadding : CGFloat = 25
+    fileprivate let sectionGap : CGFloat = 15
+    
     // Sections
-    fileprivate var sectionViews = [DetailSectionViewBase]()
+    fileprivate var sections = [DetailSectionViewBase]()
     fileprivate var photoSection : DetailPhotoSectionView!
     fileprivate var backgroundView : DetailBackgroundView!
     fileprivate var scrollView = UIScrollView()
@@ -69,18 +72,17 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     }
 
     fileprivate func initializeSections() {
-        sectionViews.append(DetailHeaderSectionView(photo))
+        sections.append(DetailHeaderSectionView(photo))
         
         self.photoSection = DetailPhotoSectionView(photo)
-        sectionViews.append(photoSection)
+        sections.append(photoSection)
 
-        sectionViews.append(DetailDescriptionSectionView(photo))
-        sectionViews.append(DetailMetadataSectionView(photo))
-        sectionViews.append(DetailTagSectionView(photo))
-        sectionViews.append(DetailCommentSectionView(photo))
-        sectionViews.append(DetailEndingSectionView(photo))
+        sections.append(DetailDescriptionSectionView(photo))
+        sections.append(DetailMetadataSectionView(photo))
+        sections.append(DetailTagSectionView(photo))
+        sections.append(DetailCommentSectionView(photo))
         
-        for section in sectionViews {
+        for section in sections {
             section.delegate = self
             contentView.addSubview(section)
         }
@@ -91,38 +93,45 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         
         let zoom = UIPinchGestureRecognizer(target: self, action: #selector(didPinchOnPhoto(_:)))
         photoSection.addGestureRecognizer(zoom)
+        
+        view.setNeedsLayout()
     }
     
     // MARK: - Layout
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
+        // Background view
         backgroundView.frame = self.view.bounds
-        layoutContentView()
         
+        // Back button
         var f = backButton.frame
         f.origin.x = 10
         f.origin.y = 30
         backButton.frame = f
-    }
-    
-    fileprivate func layoutContentView() {
-        let maxWidth = view.bounds.size.width
+        
+        // Content view
         var nextY : CGFloat = 0
-        for section in sectionViews {
+        for section in sections {
+            var f = section.frame
+            f.origin.y = nextY
+            f.size.width = view.bounds.size.width
+            f.size.height = section.height
+            section.frame = f
+            section.setNeedsLayout()
+            
+            nextY += section.height
+            
+            section.isHidden = !(section.height > 0)
             if section.height != 0 {
-                section.isHidden = false
-                section.frame = CGRect(x: 0, y: nextY, width: view.bounds.size.width, height: section.height)
-                section.setNeedsLayout()
-                nextY += section.height
-            } else {
-                section.isHidden = true
+                nextY += sectionGap
             }
         }
         
-        // Update the content on the scroll view
-        scrollView.contentSize = CGSize(width: maxWidth, height: nextY)
-        scrollView.frame = self.view.bounds
+        // Update scroll view content size
+        scrollView.frame = view.bounds
+        scrollView.contentSize = CGSize(width: view.bounds.size.width, height: nextY + contentBottomPadding)
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
@@ -177,9 +186,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     // MARK: - SectionViewDelegate
     
     func sectionViewWillChangeSize(_ section: SectionViewBase) {
-        UIView.animate(withDuration: 0.3, animations: { [weak self] in
-            self?.layoutContentView()
-            })
+        view.setNeedsLayout()
     }
     
     // MARK: - Events

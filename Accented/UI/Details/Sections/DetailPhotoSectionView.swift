@@ -11,10 +11,7 @@
 import UIKit
 
 class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSource, DetailLightBoxAnimation {
-
     var photoView = UIImageView()
-    fileprivate static var leftMargin : CGFloat = 0
-    fileprivate static var rightMargin : CGFloat = 0
     
     override func initialize() {
         super.initialize()
@@ -31,10 +28,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let h = self.contentView.bounds.height
-        let photoWidth = width - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
-        photoView.frame = CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: h)
+        photoView.frame = contentView.bounds
     }
     
     // MARK: - Measurements
@@ -49,9 +43,8 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
     }
     
     static func targetRectForPhotoView(_ photo : PhotoModel, width: CGFloat) -> CGRect {
-        let photoWidth = width - DetailPhotoSectionView.leftMargin - DetailPhotoSectionView.rightMargin
-        let height = DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: photoWidth)
-        return CGRect(x: DetailPhotoSectionView.leftMargin, y: 0, width: photoWidth, height: height)
+        let height = DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: width)
+        return CGRect(x: 0, y: 0, width: width, height: height)
     }
 
     // MARK: - Entrance Animation

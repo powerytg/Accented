@@ -12,96 +12,98 @@ import UIKit
 
 class DetailMetadataSectionView: DetailSectionViewBase {
 
-    fileprivate var contentRightMargin : CGFloat = 50
-    fileprivate var contentTopMargin : CGFloat = 0
-    fileprivate var contentBottomMargin : CGFloat = 20
-    fileprivate let textFont = ThemeManager.sharedInstance.currentTheme.descFont
+    fileprivate let rendererHeight : CGFloat = 26
+    fileprivate var infoEntries = [(String, String)]()
+    fileprivate var renderers = [UserInfoEntryView]()
     
     override var title: String? {
-        return "ABOUT"
+        return "INFO"
     }
 
     fileprivate var exifLabel = UILabel()
     
     override func initialize() {
         super.initialize()
-        
-        contentView.addSubview(exifLabel)
-        exifLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
-        exifLabel.font = textFont
-        exifLabel.numberOfLines = 0
-        exifLabel.lineBreakMode = .byWordWrapping
+        buildInfoEntries()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let displayText = getInfoText()
-        var f = exifLabel.frame
-        f.size.width = width - contentLeftPadding - contentRightMargin
-        f.origin.x = contentLeftPadding
-        f.origin.y = contentTopMargin
-        exifLabel.frame = f
-        exifLabel.text = displayText
-        exifLabel.sizeToFit()
+        var nextY : CGFloat = 0
+        for renderer in renderers {
+            var f = renderer.frame
+            f.origin.x = contentLeftPadding
+            f.origin.y = nextY
+            f.size.width = width
+            f.size.height = rendererHeight
+            renderer.frame = f
+            
+            nextY += f.size.height
+        }
     }
     
     override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
-        let maxTextWidth = maxWidth - contentLeftPadding - contentRightMargin
-        let displayText = getInfoText()
-        if displayText == nil {
+        if infoEntries.count > 0 {
+            return rendererHeight * CGFloat(infoEntries.count) + sectionTitleHeight
+        } else {
             return 0
         }
-        let textHeight = NSString(string : displayText!).boundingRect(with: CGSize(width: maxTextWidth, height: CGFloat.greatestFiniteMagnitude),
-                                                                     options: .usesLineFragmentOrigin,
-                                                                     attributes: [NSFontAttributeName: textFont],
-                                                                     context: nil).size.height
-        return textHeight + sectionTitleHeight + contentBottomMargin
     }
     
     // MARK: - Private
     
-    fileprivate func getInfoText() -> String? {
-        let aperture = displayApertureString()
-        if aperture == nil && photo.camera == nil && photo.lens == nil {
-            return nil
-        } else {
-            // If only aperture was available, display the aperture
-            if photo.camera == nil && photo.lens == nil {
-                return "Aperture was \(aperture!)"
+    fileprivate func buildInfoEntries() {
+        infoEntries.removeAll()
+        if let rating = photo.rating {
+            if rating != 0 {
+                infoEntries.append(("RATING", "\(rating)"))
             }
+        }
+        
+        if let views = photo.viewCount {
+            if views != 0 {
+                infoEntries.append(("VIEWS", "\(views)"))
+            }
+        }
 
-            // If only lens was available, display the lens
-            if photo.camera == nil && aperture == nil {
-                return "Lens used in this photo was \(photo.lens!)"
+        if let likes = photo.voteCount {
+            if likes != 0 {
+                infoEntries.append(("LIKES", "\(likes)"))
             }
+        }
 
-            var displayText = ""
-            if photo.camera != nil {
-                displayText = "This photo was taken with \(photo.camera!)"
+        if let camera = photo.camera {
+            if camera.lengthOfBytes(using: .utf8) != 0 {
+                infoEntries.append(("CAMERA", camera.uppercased()))
             }
-            
-            if photo.lens != nil {
-                displayText += " and \(photo.lens!)"
+        }
+        
+        if let lens = photo.lens {
+            if lens.lengthOfBytes(using: .utf8) != 0 {
+                infoEntries.append(("LENS", lens.uppercased()))
             }
-            
-            if aperture != nil {
-                displayText += ", aperture was \(aperture!)"
+        }
+
+        if let aperture = photo.aperture {
+            if aperture.lengthOfBytes(using: .utf8) != 0 {
+                infoEntries.append(("APERTURE", displayApertureString(aperture).uppercased()))
             }
-            
-            return displayText
+        }
+
+        // Create renderers
+        for entry in infoEntries {
+            let renderer = UserInfoEntryView(entry)
+            renderers.append(renderer)
+            contentView.addSubview(renderer)
         }
     }
     
-    fileprivate func displayApertureString() -> String? {
-        if let aperture = photo.aperture {
-            if aperture.hasPrefix("f") {
-                return aperture
-            } else {
-                return "f/\(aperture)"
-            }
+    fileprivate func displayApertureString(_ aperture : String) -> String {
+        if aperture.hasPrefix("f") {
+            return aperture
         } else {
-            return nil
+            return "f/\(aperture)"
         }
     }
     

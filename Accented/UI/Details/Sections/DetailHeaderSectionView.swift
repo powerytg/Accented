@@ -18,27 +18,26 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     // Fixed height
     static let sectionHeight : CGFloat = 140
     
-    // Fixed avatar size
-    fileprivate var avatarSize : CGFloat = 30
-    
-    // Margin right
-    fileprivate var marginRight : CGFloat = 120
+    fileprivate let labelPaddingLeft : CGFloat = 120
+    fileprivate let avatarSize : CGFloat = 40
+    fileprivate let avatarPaddingTop : CGFloat = 26
+    fileprivate let avatarPaddingRight : CGFloat = 15
+    fileprivate let gap : CGFloat = 25
     
     override func initialize() {
         super.initialize()
         
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarView)
         
-        authorLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.textColor = UIColor.white
-        authorLabel.font = UIFont.systemFont(ofSize: 16)
+        authorLabel.font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
         authorLabel.textAlignment = .right
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(authorLabel)
         authorLabel.text = TextUtils.preferredAuthorName(photo.user).uppercased()
+        authorLabel.sizeToFit()
         
         if let avatarUrl = DetailUserUtils.preferredAvatarUrl(photo.user) {
             avatarView.sd_setImage(with: avatarUrl)
@@ -56,21 +55,22 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        var nextX : CGFloat = bounds.size.width - avatarPaddingRight
         var f = avatarView.frame
         f.size.width = avatarSize
         f.size.height = avatarSize
-        f.origin.x = width - avatarSize - marginRight
-        f.origin.y = 0
+        f.origin.x = nextX - avatarSize
+        f.origin.y = avatarPaddingTop
         avatarView.frame = f
+        nextX -= (avatarSize + gap)
 
         f = authorLabel.frame
-        f.size.width = width / 2.0
-        f.origin.x = width - avatarSize - marginRight - f.size.width
-        f.origin.y = 0
+        f.origin.x = labelPaddingLeft
+        f.origin.y = avatarPaddingTop
+        f.size.width = nextX - f.origin.x
         authorLabel.frame = f
-        authorLabel.sizeToFit()
 
-        // Avatar
+        // Avatar shadow
         avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
         avatarView.layer.shadowColor = UIColor.black.cgColor
         avatarView.layer.shadowOpacity = 0.25

@@ -135,10 +135,10 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             let maxDescWidth = width - contentLeftPadding - descRightPadding
             formattedDescText = formattedDescriptionString(photo)
             if formattedDescText != nil {
-                let descHeight = formattedDescText!.boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
+                descSize = formattedDescText!.boundingRect(with: CGSize(width: maxDescWidth, height: CGFloat.greatestFiniteMagnitude),
                                                          options: .usesLineFragmentOrigin,
-                                                         context: nil).size.height
-                measuredHeight += descHeight
+                                                         context: nil).size
+                measuredHeight += descSize!.height
             }
         }
         

@@ -60,7 +60,7 @@ class AppTheme: NSObject {
 
     // Description text color
     var descTextColor : UIColor {
-        return UIColor(red: 203/255.0, green: 203/255.0, blue: 203/255.0, alpha: 1)
+        return UIColor(red: 160/255.0, green: 160/255.0, blue: 160/255.0, alpha: 1)
     }
 
     // Description text font
