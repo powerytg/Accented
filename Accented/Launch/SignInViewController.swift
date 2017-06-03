@@ -12,6 +12,8 @@ import OAuthSwift
 class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHandlerType {
 
     @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var progressView: UIStackView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,13 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
         
         webView.delegate = self
         startSignInRequest()
+        
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserInfoDidReturn(_:)), name: APIEvents.currentUserProfileDidReturn, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,7 +43,7 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
     
     func startSignInRequest() {
         AuthenticationService.sharedInstance.startSignInRequest(self, success: {[weak self] (credentials) in
-            self?.dismiss(animated: true, completion: nil)
+            self?.showRequestUserInfoView()
             }) { [weak self ] (error) in
             self?.handleFailure(error.localizedDescription)
         }
@@ -53,4 +62,39 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
         self.dismiss(animated: true, completion: nil)
     }
 
+    fileprivate func showRequestUserInfoView() {
+        self.progressView.isHidden = false
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.webView.transform = CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.size.height)
+            self?.webView.alpha = 0
+            self?.progressView.alpha = 1
+            self?.indicator.startAnimating()
+        }) { [weak self] (finished) in
+            self?.requestCurrentUserInfo()
+        }
+    }
+    
+    fileprivate func requestCurrentUserInfo() {
+        APIService.sharedInstance.getCurrentUserProfile(success: nil) { [weak self] (errorMessage) in
+            self?.indicator.stopAnimating()
+            self?.handleFailure(errorMessage)
+        }
+    }
+    
+    @objc fileprivate func currentUserInfoDidReturn(_ notification : Notification) {
+        DispatchQueue.main.async { [weak self] in
+            self?.indicator.stopAnimating()
+            
+            let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+            if let currentUser = StorageService.sharedInstance.userFromJson(jsonData) {
+                let jsonString = String(data: jsonData, encoding: .utf8)
+                AuthenticationService.sharedInstance.putCurrentUserInfoToCache(userJson: jsonString!)
+                StorageService.sharedInstance.currentUser = currentUser
+                
+                // Go back to the home screen
+                NotificationCenter.default.post(name: AuthenticationService.userDidSignIn, object: nil)
+            }
+        }
+    }
 }

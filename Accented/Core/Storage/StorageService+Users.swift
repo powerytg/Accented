@@ -10,6 +10,19 @@ import UIKit
 import SwiftyJSON
 
 extension StorageService {
+    
+    func userFromJson(_ jsonData : Data) -> UserModel? {
+        do {
+            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+            let json = JSON(jsonObject)
+            let user = UserModel(json: json["user"])
+            return user
+        } catch {
+            debugPrint(error)
+            return nil
+        }
+    }
+    
     internal func userSearchDidReturn(_ notification : Notification) -> Void {
         let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
         let keyword = notification.userInfo![RequestParameters.term] as! String
@@ -51,31 +64,6 @@ extension StorageService {
                 }
             } catch {
                 debugPrint(error)
-            }
-        }
-    }
-
-    internal func currentUserProfileDidReturn(_ notification : Notification) -> Void {
-        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
-        
-        parsingQueue.async { [weak self] in
-            do {
-                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
-                let json = JSON(jsonObject)
-                let user = UserModel(json: json["user"])
-                
-                // Write current user info into NSUserDefaults
-                self?.currentUser = user
-                AuthenticationService.sharedInstance.putCurrentUserInfoToCache(currentUser: user)
-                
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: StorageServiceEvents.currentUserProfileDidUpdate, object: nil, userInfo: nil)
-                }
-            } catch {
-                debugPrint(error)
-                DispatchQueue.main.async {
-                    NotificationCenter.default.post(name: StorageServiceEvents.currentUserProfileFailedUpdate, object: nil, userInfo: nil)
-                }
             }
         }
     }

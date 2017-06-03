@@ -33,6 +33,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         NavigationService.sharedInstance.initWithRootNavigationController(self)
         
         // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidSignIn(_:)), name: AuthenticationService.userDidSignIn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
     }
     
@@ -43,24 +44,34 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Retrieve OAuth tokens. If the tokens are absent, promote sign in screen
+        // Retrieve OAuth tokens. If the tokens are absent, prompt the user to the sign in screen
         let authService = AuthenticationService.sharedInstance
         if !authService.retrieveStoredOAuthTokens() {
             debugPrint("Tokens not found")
-            
-            // Show the sign in screen
-            let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
-            self.present(greetingsViewController, animated: false, completion: nil)
-        } else {
-            // Show the home view controller as root
-            let homeViewController = HomeViewController()
-            self.pushViewController(homeViewController, animated: false)
-            
-            // Setup drawers
-            rightDrawer = ThemeSelectorViewController()
-            let rightDrawerAnimationContext = self.rightDrawerAnimationContext(true)
-            self.rightDrawerGestureController = DrawerService.sharedInstance.addInteractiveGesture(rightDrawerAnimationContext, delegate: self)
+            showSignInScreen()
+            return
         }
+        
+        // Retrieve current user info. If not found (or cannot read), prompt the user to the sign in screen
+        let currentUser = authService.getCurrentUserInfoFromCache()
+        if currentUser == nil {
+            debugPrint("Current user info not found")
+            showSignInScreen()
+            return
+        }
+        
+        proceedAfterSignIn()
+    }
+    
+    fileprivate func proceedAfterSignIn() {
+        // Show the home view controller as root
+        let homeViewController = HomeViewController()
+        self.pushViewController(homeViewController, animated: false)
+        
+        // Setup drawers
+        rightDrawer = ThemeSelectorViewController()
+        let rightDrawerAnimationContext = self.rightDrawerAnimationContext(true)
+        self.rightDrawerGestureController = DrawerService.sharedInstance.addInteractiveGesture(rightDrawerAnimationContext, delegate: self)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -71,6 +82,11 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         }
     }
     
+    fileprivate func showSignInScreen() {
+        let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
+        self.present(greetingsViewController, animated: false, completion: nil)
+    }
+    
     //MARK: DrawerOpenGestureControllerDelegate
     
     func drawerAnimationContextForInteractiveGesture() -> DrawerAnimationContext {
@@ -78,6 +94,12 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     }
     
     //MARK: Events
+    
+    @objc fileprivate func userDidSignIn(_ notification : Notification) {
+        dismiss(animated: true) { 
+            self.proceedAfterSignIn()
+        }
+    }
     
     func didRequestRightDrawer(_ notification : Notification) {
         let animationContext = self.rightDrawerAnimationContext(false)

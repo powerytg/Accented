@@ -37,6 +37,9 @@ class APIEvents: NSObject {
     // User profile retrieved
     static let userProfileDidReturn = Notification.Name("userProfileDidReturn")
 
+    // Failed to retrieve user profile
+    static let userProfileFailedReturn = Notification.Name("userProfileFailedReturn")
+
     // Current user profile retrieved
     static let currentUserProfileDidReturn = Notification.Name("currentUserProfileDidReturn")
 

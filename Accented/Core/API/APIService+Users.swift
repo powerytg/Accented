@@ -26,7 +26,7 @@ extension APIService {
     
     // Get current user profile
     func getCurrentUserProfile(success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
-        let request = getCurrentUserProfile(success: success, failure: failure)
+        let request = GetCurrentUserInfoRequest(success: success, failure: failure)
         get(request: request)
     }
 
