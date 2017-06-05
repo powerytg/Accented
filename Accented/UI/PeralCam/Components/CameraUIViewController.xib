@@ -29,7 +29,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R42-om-CaN">
-                    <rect key="frame" x="179" y="579" width="16" height="22"/>
+                    <rect key="frame" x="179" y="615" width="16" height="22"/>
                     <state key="normal" image="ShutterButton"/>
                     <connections>
                         <action selector="shutterButtonDidTap:" destination="-1" eventType="touchUpInside" id="0DA-LV-PFf"/>
@@ -38,7 +38,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="R42-om-CaN" secondAttribute="bottom" constant="66" id="0Fe-cg-bIK"/>
+                <constraint firstAttribute="bottom" secondItem="R42-om-CaN" secondAttribute="bottom" constant="30" id="0Fe-cg-bIK"/>
                 <constraint firstItem="R42-om-CaN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5j-fw-TLM"/>
                 <constraint firstAttribute="trailing" secondItem="oZ5-Sv-bPc" secondAttribute="trailing" constant="38" id="fAE-Ql-Rys"/>
                 <constraint firstItem="oZ5-Sv-bPc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="ggs-5U-PQh"/>

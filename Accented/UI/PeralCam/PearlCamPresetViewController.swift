@@ -10,8 +10,9 @@
 
 import UIKit
 import GPUImage
+import Photos
 
-class PearlCamPresetViewController: UIViewController {
+class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
 
     // The original image from the camera
     var originalImage : UIImage!
@@ -24,13 +25,21 @@ class PearlCamPresetViewController: UIViewController {
     @IBOutlet weak var imageInfoLabel: UILabel!
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var previewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var previewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var previewHeightConstraint: NSLayoutConstraint!    
+    @IBOutlet weak var histogramView: RenderView!
+    @IBOutlet weak var presetSelectorView: PresetDeckView!
     
     private let landscapeImagePaddingTop : CGFloat = 80
     
     // Rendering pipeline
     private var previewInput : PictureInput!
     private var previewOutput : PictureOutput!
+    private var previewImage : UIImage!
+    
+    // Presets
+    private var presetThumbnailImage : UIImage!
+    private var presetsInitialized = false
+    private let presetManager = PresetManager()
     
     init(originalImage : UIImage) {
         self.originalImage = originalImage
@@ -44,8 +53,18 @@ class PearlCamPresetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializePreview()
+        presetSelectorView.delegate = self
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !presetsInitialized {
+            presetsInitialized = true
+            presetSelectorView.previewImage = presetThumbnailImage
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -76,11 +95,17 @@ class PearlCamPresetViewController: UIViewController {
         }
 
         // Create a preview with normalized orientation
-        var scaledImage = createPreviewImage(w: previewWidth, h: previewHeight)
-        scaledImage = fixOrientation(scaledImage, width: previewWidth, height: previewHeight)!
+        previewImage = createPreviewImage(w: previewWidth, h: previewHeight)
+        previewImage = ImageUtils.fixOrientation(previewImage, width: previewWidth, height: previewHeight)!
+        
+        // Create a preset thumbnail image
+        let thumbnailWidth = PresetDeckView.thumbnailSize * aspectRatio
+        let thumbnailHeight = PresetDeckView.thumbnailSize
+        presetThumbnailImage = createPreviewImage(w: thumbnailWidth, h: thumbnailHeight)
+        presetThumbnailImage = ImageUtils.fixOrientation(presetThumbnailImage, width: thumbnailWidth, height: thumbnailHeight)
         
         // Setup the initial render pipeline
-        previewInput = PictureInput(image: scaledImage)
+        previewInput = PictureInput(image: previewImage)
         previewOutput = PictureOutput()
         previewOutput.imageAvailableCallback = { [weak self] (image) in
             DispatchQueue.main.async {
@@ -89,6 +114,9 @@ class PearlCamPresetViewController: UIViewController {
         }
         
         previewInput --> previewOutput
+        
+        // Initialize an histogram view
+        previewInput --> HistogramDisplay() --> histogramView
         
         // Render an initial preview
         view.setNeedsDisplay()
@@ -122,7 +150,30 @@ class PearlCamPresetViewController: UIViewController {
         return scaledImage
     }
     
-    private func correctedImageOrientation(image : UIImage) -> ImageOrientation {
+    // MARK: - PresetSelectorDelegate
+    
+    func didSelectPreset(_ preset: LookupPreset) {
+        let filter = LookupPreset(preset.lookImageName).filter!
+        
+        previewInput.removeAllTargets()
+        previewInput = PictureInput(image: previewImage)
+        previewInput.addTarget(filter)
+        
+        previewOutput = PictureOutput()
+        previewOutput.imageAvailableCallback = { [weak self] (image) in
+            DispatchQueue.main.async {
+                self?.previewView.image = image
+            }
+        }
+        
+        previewInput --> filter --> previewOutput
+        filter --> HistogramDisplay() --> histogramView
+        
+        previewInput.processImage()
+    }
+    
+    @IBAction func confirmButtonDidTap(_ sender: Any) {
+        let image = originalImage!
         var orientation : ImageOrientation = .portrait
         if image.imageOrientation == .right {
             orientation = .landscapeRight
@@ -133,90 +184,29 @@ class PearlCamPresetViewController: UIViewController {
         } else if image.imageOrientation == .left {
             orientation = .landscapeLeft
         }
-        
-        return orientation
-    }
-    
-    // https://stackoverflow.com/a/33260568
-    private func fixOrientation(_ input : UIImage, width : CGFloat, height : CGFloat) -> UIImage? {
-        
-        guard let cgImage = input.cgImage else {
-            return nil
+
+        let input = PictureInput(image: image, smoothlyScaleOutput: false, orientation: orientation)
+        let output2 = PictureOutput()
+
+        output2.encodedImageFormat = .jpeg
+        output2.encodedImageAvailableCallback = { (renderedData) in
+                    PHPhotoLibrary.shared().performChanges( {
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: PHAssetResourceType.photo, data: renderedData, options: nil)
+                    }, completionHandler: { success, error in
+                        DispatchQueue.main.async {
+                            // Ignore
+                        }
+                    })
+        }
+
+        if let selectedPreset = presetSelectorView.selectedPreset {
+            let filter = LookupPreset(selectedPreset.lookImageName).filter!
+            input --> filter --> output2
+        } else {
+            input --> output2
         }
         
-        if input.imageOrientation == UIImageOrientation.up {
-            return input
-        }
-        
-        var transform = CGAffineTransform.identity
-        
-        switch input.imageOrientation {
-        case .down, .downMirrored:
-            transform = transform.translatedBy(x: width, y: height)
-            transform = transform.rotated(by: CGFloat.pi)
-            
-        case .left, .leftMirrored:
-            transform = transform.translatedBy(x: width, y: 0)
-            transform = transform.rotated(by: 0.5*CGFloat.pi)
-            
-        case .right, .rightMirrored:
-            transform = transform.translatedBy(x: 0, y: height)
-            transform = transform.rotated(by: -0.5*CGFloat.pi)
-            
-        case .up, .upMirrored:
-            break
-        }
-        
-        switch input.imageOrientation {
-        case .upMirrored, .downMirrored:
-            transform = transform.translatedBy(x: width, y: 0)
-            transform = transform.scaledBy(x: -1, y: 1)
-            
-        case .leftMirrored, .rightMirrored:
-            transform = transform.translatedBy(x: height, y: 0)
-            transform = transform.scaledBy(x: -1, y: 1)
-            
-        default:
-            break;
-        }
-        
-        // Now we draw the underlying CGImage into a new context, applying the transform
-        // calculated above.
-        guard let colorSpace = cgImage.colorSpace else {
-            return nil
-        }
-        
-        guard let context = CGContext(
-            data: nil,
-            width: Int(width),
-            height: Int(height),
-            bitsPerComponent: cgImage.bitsPerComponent,
-            bytesPerRow: 0,
-            space: colorSpace,
-            bitmapInfo: UInt32(cgImage.bitmapInfo.rawValue)
-            ) else {
-                return nil
-        }
-        
-        context.concatenate(transform);
-        
-        switch input.imageOrientation {
-            
-        case .left, .leftMirrored, .right, .rightMirrored:
-            // Grr...
-            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: height, height: width))
-            
-        default:
-            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        }
-        
-        // And now we just create a new UIImage from the drawing context
-        guard let newCGImg = context.makeImage() else {
-            return nil
-        }
-        
-        let img = UIImage(cgImage: newCGImg)
-        
-        return img;
+        input.processImage(synchronously: true)
     }
 }

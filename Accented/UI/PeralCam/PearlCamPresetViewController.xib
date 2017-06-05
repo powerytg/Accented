@@ -15,8 +15,10 @@
                 <outlet property="confirmButton" destination="9Jj-TY-N63" id="HlN-EJ-ceM"/>
                 <outlet property="currentFilterLabel" destination="mta-dk-x0U" id="FAe-fD-Xap"/>
                 <outlet property="editButton" destination="lSL-fr-JLl" id="bvu-jE-Nst"/>
+                <outlet property="histogramView" destination="d1r-U7-NBZ" id="CQA-fk-N1N"/>
                 <outlet property="imageInfoLabel" destination="H4L-RD-83s" id="XaT-xS-QBI"/>
                 <outlet property="infoView" destination="Rv5-Tg-11F" id="ztR-dW-Fgk"/>
+                <outlet property="presetSelectorView" destination="2FX-Mj-FOl" id="ptT-DT-1h7"/>
                 <outlet property="previewHeightConstraint" destination="snv-cj-3fR" id="Y2a-9H-9k2"/>
                 <outlet property="previewTopConstraint" destination="4Dt-I0-Zhq" id="ls0-1X-mVB"/>
                 <outlet property="previewView" destination="uwO-Cs-vEe" id="Q3N-Yk-Fm7"/>
@@ -41,6 +43,9 @@
                     <state key="normal" title="USE PHOTO">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="confirmButtonDidTap:" destination="-1" eventType="touchUpInside" id="de4-ES-iPO"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSL-fr-JLl">
                     <rect key="frame" x="330" y="608" width="30" height="36"/>
@@ -51,8 +56,20 @@
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwO-Cs-vEe" userLabel="previewView" customClass="UIImageView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1r-U7-NBZ" userLabel="histogramView" customClass="RenderView" customModule="GPUImage">
+                            <rect key="frame" x="247" y="192" width="113" height="58"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="113" id="V1P-XZ-wgy"/>
+                                <constraint firstAttribute="height" constant="58" id="iYg-DD-iau"/>
+                            </constraints>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="d1r-U7-NBZ" secondAttribute="trailing" constant="15" id="7TI-vL-4Ja"/>
+                        <constraint firstAttribute="bottom" secondItem="d1r-U7-NBZ" secondAttribute="bottom" constant="50" id="O4h-Zs-u01"/>
                         <constraint firstAttribute="height" constant="300" id="snv-cj-3fR"/>
                     </constraints>
                 </view>
@@ -81,6 +98,13 @@
                         <constraint firstAttribute="height" constant="32" id="pQf-hJ-Elu"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FX-Mj-FOl" customClass="PresetDeckView" customModule="Accented" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="513" width="375" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="yyI-t1-8zW"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -90,9 +114,12 @@
                 <constraint firstAttribute="trailing" secondItem="uwO-Cs-vEe" secondAttribute="trailing" id="JN1-hf-o9c"/>
                 <constraint firstAttribute="trailing" secondItem="Rv5-Tg-11F" secondAttribute="trailing" id="Olb-dV-eQv"/>
                 <constraint firstItem="9Jj-TY-N63" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PGS-Eg-RQw"/>
+                <constraint firstAttribute="trailing" secondItem="2FX-Mj-FOl" secondAttribute="trailing" id="Qdq-tE-6JU"/>
                 <constraint firstAttribute="trailing" secondItem="lSL-fr-JLl" secondAttribute="trailing" constant="15" id="Vs7-oZ-cxK"/>
+                <constraint firstItem="2FX-Mj-FOl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WfE-qe-hvl"/>
                 <constraint firstItem="Rv5-Tg-11F" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yh2-3z-hbv"/>
                 <constraint firstAttribute="bottom" secondItem="eRo-Bm-VM3" secondAttribute="bottom" constant="30" id="ek9-cO-8UL"/>
+                <constraint firstAttribute="bottom" secondItem="2FX-Mj-FOl" secondAttribute="bottom" constant="74" id="i8Y-hq-HpN"/>
                 <constraint firstItem="eRo-Bm-VM3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="iIN-v1-BlR"/>
                 <constraint firstItem="uwO-Cs-vEe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="las-Rn-Z2E"/>
                 <constraint firstItem="lSL-fr-JLl" firstAttribute="centerY" secondItem="eRo-Bm-VM3" secondAttribute="centerY" id="wZZ-qI-08U"/>

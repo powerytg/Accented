@@ -54,6 +54,8 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         .portraitUpsideDown : .portraitUpsideDown,
         .landscapeLeft      : .landscapeRight,
         .landscapeRight     : .landscapeLeft,
+        .faceUp             : .portrait,
+        .faceDown           : .portraitUpsideDown
         ]
     
     func isCameraAvailable(_ position : AVCaptureDevicePosition) -> Bool {

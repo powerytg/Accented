@@ -280,9 +280,9 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
             return
         }
         
-        if camera.cameraPosition == .front {
-            image = flipImage(image!)
-        }
+//        if camera.cameraPosition == .front {
+//            image = flipImage(image!)
+//        }
         
         let presetsVC = PearlCamPresetViewController(originalImage: image!)
         navigationController?.pushViewController(presetsVC, animated: true)
