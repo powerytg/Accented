@@ -59,8 +59,10 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         super.viewWillLayoutSubviews()
         overlay?.view.frame = view.bounds
         
+        // We always take the default, fixed 4/3 photo, so position the preview layer accordingly
         if let preview = previewLayer {
-            preview.frame = view.bounds
+            let aspectRatio = CGFloat(4.0 / 3.0)
+            preview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * aspectRatio)
         }
     }
     
@@ -280,35 +282,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
             return
         }
         
-//        if camera.cameraPosition == .front {
-//            image = flipImage(image!)
-//        }
-        
-        let presetsVC = PearlCamPresetViewController(originalImage: image!)
+        let presetsVC = PearlCamPresetViewController(originalImage: image!, cameraPosition : camera.cameraPosition)
         navigationController?.pushViewController(presetsVC, animated: true)
-    }
-    
-    private func flipImage(_ image: UIImage) -> UIImage {
-        var imageOrientation = image.imageOrientation
-        switch image.imageOrientation {
-        case .down:
-            imageOrientation = .downMirrored
-        case .up:
-            imageOrientation = .upMirrored
-        case .left:
-            imageOrientation = .rightMirrored
-        case .right:
-            imageOrientation = .leftMirrored
-        case .downMirrored:
-            imageOrientation = .down
-        case .upMirrored:
-            imageOrientation = .up
-        case.leftMirrored:
-            imageOrientation = .left
-        case.rightMirrored:
-            imageOrientation = .right
-        }
-        
-        return UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: imageOrientation)
     }
 }

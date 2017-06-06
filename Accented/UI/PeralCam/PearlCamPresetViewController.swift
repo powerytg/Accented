@@ -16,6 +16,7 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
 
     // The original image from the camera
     var originalImage : UIImage!
+    var cameraPosition : AVCaptureDevicePosition
         
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var editButton: UIButton!
@@ -41,7 +42,8 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     private var presetsInitialized = false
     private let presetManager = PresetManager()
     
-    init(originalImage : UIImage) {
+    init(originalImage : UIImage, cameraPosition : AVCaptureDevicePosition) {
+        self.cameraPosition = cameraPosition
         self.originalImage = originalImage
         super.init(nibName: "PearlCamPresetViewController", bundle: nil)
     }
@@ -98,12 +100,20 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
         previewImage = createPreviewImage(w: previewWidth, h: previewHeight)
         previewImage = ImageUtils.fixOrientation(previewImage, width: previewWidth, height: previewHeight)!
         
+        // The front camera always returns an image flipped, so we need to fix that
+        if cameraPosition == .front {
+            previewImage = ImageUtils.flipImage(previewImage)
+        }
+        
         // Create a preset thumbnail image
-        let thumbnailWidth = PresetDeckView.thumbnailSize * aspectRatio
-        let thumbnailHeight = PresetDeckView.thumbnailSize
+        let thumbnailWidth = PresetDeckView.thumbnailSize
+        let thumbnailHeight = PresetDeckView.thumbnailSize * aspectRatio
         presetThumbnailImage = createPreviewImage(w: thumbnailWidth, h: thumbnailHeight)
         presetThumbnailImage = ImageUtils.fixOrientation(presetThumbnailImage, width: thumbnailWidth, height: thumbnailHeight)
-        
+        if cameraPosition == .front {
+            presetThumbnailImage = ImageUtils.flipImage(presetThumbnailImage)
+        }
+
         // Setup the initial render pipeline
         previewInput = PictureInput(image: previewImage)
         previewOutput = PictureOutput()
@@ -128,26 +138,13 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     }
     
     private func createPreviewImage(w : CGFloat, h : CGFloat) -> UIImage {
-        let size = CGSize(width: w, height: h)
-        let rect = CGRect(x: 0, y: 0, width: w, height: h).integral
-        
-        UIGraphicsBeginImageContextWithOptions(size, false, originalImage.scale)
-        let context = UIGraphicsGetCurrentContext()
-        
-        // Set the quality level to use when rescaling
-        context?.interpolationQuality = .high
-        let flipVertical = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: h)
-        
-        context?.concatenate(flipVertical)
-        
-        context?.draw(originalImage.cgImage!, in: rect)
-        
-        _ = context?.makeImage()
-        let scaledImage = UIImage(cgImage: originalImage.cgImage!, scale: originalImage.scale, orientation : originalImage.imageOrientation)
-        
-        UIGraphicsEndImageContext()
-        
-        return scaledImage
+        let image = originalImage.cgImage!
+        let context = CGContext(data: nil, width: Int(w), height: Int(h), bitsPerComponent: image.bitsPerComponent, bytesPerRow: image.bytesPerRow, space: image.colorSpace!, bitmapInfo: image.bitmapInfo.rawValue)!
+        context.interpolationQuality = .high
+        let rect = CGRect(origin: CGPoint.zero, size: CGSize(width: w, height: h))
+        context.draw(image, in: rect)
+        let scaledImage = context.makeImage()!
+        return UIImage(cgImage: scaledImage, scale: originalImage.scale, orientation: originalImage.imageOrientation)
     }
     
     // MARK: - PresetSelectorDelegate
@@ -173,19 +170,12 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     }
     
     @IBAction func confirmButtonDidTap(_ sender: Any) {
-        let image = originalImage!
-        var orientation : ImageOrientation = .portrait
-        if image.imageOrientation == .right {
-            orientation = .landscapeRight
-        } else if image.imageOrientation == .up {
-            orientation = .portrait
-        } else if image.imageOrientation == .down {
-            orientation = .portraitUpsideDown
-        } else if image.imageOrientation == .left {
-            orientation = .landscapeLeft
+        var image = ImageUtils.fixOrientation(originalImage, width: originalImage.size.width, height: originalImage.size.height)!
+        if cameraPosition == .front {
+            image = ImageUtils.flipImage(image)
         }
 
-        let input = PictureInput(image: image, smoothlyScaleOutput: false, orientation: orientation)
+        let input = PictureInput(image: image)
         let output2 = PictureOutput()
 
         output2.encodedImageFormat = .jpeg

@@ -52,7 +52,6 @@ class ImageUtils: NSObject {
         case .right, .rightMirrored:
             transform = transform.translatedBy(x: 0, y: height)
             transform = transform.rotated(by: -0.5*CGFloat.pi)
-            
         case .up, .upMirrored:
             break
         }
@@ -81,7 +80,7 @@ class ImageUtils: NSObject {
             width: Int(width),
             height: Int(height),
             bitsPerComponent: cgImage.bitsPerComponent,
-            bytesPerRow: 0,
+            bytesPerRow: cgImage.bytesPerRow,
             space: colorSpace,
             bitmapInfo: UInt32(cgImage.bitmapInfo.rawValue)
             ) else {
@@ -108,5 +107,18 @@ class ImageUtils: NSObject {
         let img = UIImage(cgImage: newCGImg)
         
         return img;
+    }
+    
+    // https://stackoverflow.com/a/43536102
+    static func flipImage(_ image: UIImage) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        context.translateBy(x: image.size.width, y: image.size.height)
+        context.scaleBy(x: -image.scale, y: -image.scale)
+        context.draw(image.cgImage!, in: CGRect(origin:CGPoint.zero, size: image.size))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
 }
