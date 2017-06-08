@@ -115,15 +115,15 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     
     private func showResrictedAccessErrorView() {
         let text = "Your access to the camera has been restricted"
-        showFatalErrorView(text: text, buttonText: "GO BACK") {
-            self.navigationController?.popViewController(animated: true)
+        showFatalErrorView(text: text, buttonText: "GO BACK") { [weak self] in
+            _ = self?.navigationController?.popViewController(animated: true)
         }
     }
 
     private func showCameraInitializationErrorView() {
         let text = "Failed to initialize camera"
-        showFatalErrorView(text: text, buttonText: "GO BACK") {
-            self.navigationController?.popViewController(animated: true)
+        showFatalErrorView(text: text, buttonText: "GO BACK") { [weak self] in
+            _ = self?.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -192,7 +192,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     
     func onFatalError(errorMessage: String) {
         showFatalErrorView(text: errorMessage, buttonText: "GO BACK") { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+            _ = self?.navigationController?.popViewController(animated: true)
         }
     }
     

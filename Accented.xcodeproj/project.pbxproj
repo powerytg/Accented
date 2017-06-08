@@ -168,6 +168,7 @@
 		9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C11D6790DB00AF588A /* APIService+Comments.swift */; };
 		9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */; };
 		9B3BA5C71D67A58D00AF588A /* ReplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C61D67A58D00AF588A /* ReplyModel.swift */; };
+		9B544D721EE9FA2B006DB738 /* InteractiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */; };
 		9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */; };
 		9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B54707B1CEE90DF001F6C3C /* TextUtils.swift */; };
 		9B6115CF1CCA95D3008F5257 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6115CE1CCA95D3008F5257 /* APIService.swift */; };
@@ -235,6 +236,7 @@
 		9BA58F761EE9E26C00888E62 /* PresetChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA58F751EE9E26C00888E62 /* PresetChooserView.swift */; };
 		9BA58F781EE9E5E200888E62 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9BA58F771EE9E5E100888E62 /* test.jpg */; };
 		9BA58F7C1EE9E9F600888E62 /* OriginalPhotoPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA58F7B1EE9E9F600888E62 /* OriginalPhotoPreset.swift */; };
+		9BA58F7F1EE9ED8B00888E62 /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA58F7E1EE9ED8B00888E62 /* FilterManager.swift */; };
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
 		9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */; };
@@ -345,8 +347,8 @@
 		18222A631EE2702400F0F02E /* PearlCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlCamViewController.swift; sourceTree = "<group>"; };
 		18222A641EE2702400F0F02E /* PearlCamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlCamViewController.xib; sourceTree = "<group>"; };
 		18222A771EE3327900F0F02E /* FatalErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FatalErrorView.swift; sourceTree = "<group>"; };
-		18222A791EE3374E00F0F02E /* CameraUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIViewController.swift; sourceTree = "<group>"; };
-		18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraUIViewController.xib; sourceTree = "<group>"; };
+		18222A791EE3374E00F0F02E /* CameraUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraUIViewController.swift; path = Components/CameraUIViewController.swift; sourceTree = "<group>"; };
+		18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CameraUIViewController.xib; path = Components/CameraUIViewController.xib; sourceTree = "<group>"; };
 		18222A7D1EE3518200F0F02E /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		18222A891EE498B200F0F02E /* PearlCamPresetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlCamPresetViewController.swift; sourceTree = "<group>"; };
 		18222A8A1EE498B200F0F02E /* PearlCamPresetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlCamPresetViewController.xib; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 		9B3BA5C11D6790DB00AF588A /* APIService+Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Comments.swift"; sourceTree = "<group>"; };
 		9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Comments.swift"; sourceTree = "<group>"; };
 		9B3BA5C61D67A58D00AF588A /* ReplyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyModel.swift; sourceTree = "<group>"; };
+		9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveImageView.swift; sourceTree = "<group>"; };
 		9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalStreamLayout.swift; path = Accented/UI/Home/Themes/Default/Components/JournalStreamLayout.swift; sourceTree = SOURCE_ROOT; };
 		9B54707B1CEE90DF001F6C3C /* TextUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
 		9B6115CE1CCA95D3008F5257 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -543,6 +546,7 @@
 		9BA58F751EE9E26C00888E62 /* PresetChooserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetChooserView.swift; sourceTree = "<group>"; };
 		9BA58F771EE9E5E100888E62 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
 		9BA58F7B1EE9E9F600888E62 /* OriginalPhotoPreset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalPhotoPreset.swift; sourceTree = "<group>"; };
+		9BA58F7E1EE9ED8B00888E62 /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetStreamPhotosRequest.swift; sourceTree = "<group>"; };
@@ -674,6 +678,8 @@
 				9BA58F581EE9E1DD00888E62 /* LUTs */,
 				18222A8D1EE4D6EA00F0F02E /* Processors */,
 				18222A6F1EE32A5A00F0F02E /* Components */,
+				18222A791EE3374E00F0F02E /* CameraUIViewController.swift */,
+				18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */,
 				18222A631EE2702400F0F02E /* PearlCamViewController.swift */,
 				18222A641EE2702400F0F02E /* PearlCamViewController.xib */,
 				18222A7D1EE3518200F0F02E /* CameraController.swift */,
@@ -687,8 +693,6 @@
 			isa = PBXGroup;
 			children = (
 				18222A771EE3327900F0F02E /* FatalErrorView.swift */,
-				18222A791EE3374E00F0F02E /* CameraUIViewController.swift */,
-				18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */,
 				18222A951EE4DC9F00F0F02E /* PresetManager.swift */,
 				18222A9F1EE4E2A300F0F02E /* PresetThumbnailView.swift */,
 				181E47681EE8534E00445B33 /* ViewFinder.swift */,
@@ -782,6 +786,7 @@
 				18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */,
 				18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */,
 				9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */,
+				9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1319,6 +1324,7 @@
 		9BA58F501EE9E16300888E62 /* PearlFX */ = {
 			isa = PBXGroup;
 			children = (
+				9BA58F7D1EE9ED8300888E62 /* Filters */,
 				9BA58F771EE9E5E100888E62 /* test.jpg */,
 				9BA58F541EE9E17B00888E62 /* PearlFXViewController.swift */,
 				9BA58F551EE9E17B00888E62 /* PearlFXViewController.xib */,
@@ -1344,6 +1350,14 @@
 				9BA58F651EE9E1F500888E62 /* Remy.png */,
 			);
 			path = LUTs;
+			sourceTree = "<group>";
+		};
+		9BA58F7D1EE9ED8300888E62 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				9BA58F7E1EE9ED8B00888E62 /* FilterManager.swift */,
+			);
+			path = Filters;
 			sourceTree = "<group>";
 		};
 		9BDF19021ED778B6003159E8 /* Products */ = {
@@ -1693,6 +1707,7 @@
 				1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */,
 				187BA0741ED408F0000E181E /* UserSearchResultModel.swift in Sources */,
 				9B89B11E1D550E1400382744 /* DeckLayoutController.swift in Sources */,
+				9B544D721EE9FA2B006DB738 /* InteractiveImageView.swift in Sources */,
 				187BA0511ED25485000E181E /* SearchResultViewController.swift in Sources */,
 				9BFFB6751D136E4100B178F3 /* DrawerDismissAnimator.swift in Sources */,
 				9B3813D31CE010770066D3B9 /* StreamLayoutTemplateBase.swift in Sources */,
@@ -1748,6 +1763,7 @@
 				9B76AB541D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift in Sources */,
 				9B94F9131D243E4200291973 /* DrawerOpenGestureController.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
+				9BA58F7F1EE9ED8B00888E62 /* FilterManager.swift in Sources */,
 				18222A8B1EE498B200F0F02E /* PearlCamPresetViewController.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
