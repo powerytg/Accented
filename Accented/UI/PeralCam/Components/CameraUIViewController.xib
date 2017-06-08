@@ -11,12 +11,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraUIViewController" customModule="Accented" customModuleProvider="target">
             <connections>
+                <outlet property="expControlLabel" destination="AyG-28-5oa" id="cEN-iF-Flx"/>
                 <outlet property="expControlView" destination="5JY-zs-bag" id="SPz-Xf-MLe"/>
                 <outlet property="exposureIndicator" destination="67g-8R-Iop" id="rqi-eN-1jg"/>
                 <outlet property="exposureIndicatorCenterConstraint" destination="sza-Eb-dOB" id="Vvv-4H-FuW"/>
                 <outlet property="exposureView" destination="dTH-IW-cUS" id="TTG-vG-Xg2"/>
                 <outlet property="isoLabel" destination="0lU-Y1-pvk" id="WvE-xJ-fXv"/>
                 <outlet property="lightMeterWidthConstraint" destination="wvm-Ep-YLF" id="Gh5-nA-P8d"/>
+                <outlet property="rulerContainerBottomConstraint" destination="DGP-7D-fM7" id="dZ4-sd-TeD"/>
+                <outlet property="rulerContainerView" destination="jIH-CJ-JBf" id="ZEq-ae-Yha"/>
+                <outlet property="rulerView" destination="DOK-c5-c7i" id="wb0-jI-4lV"/>
                 <outlet property="shutterButton" destination="R42-om-CaN" id="Bdi-xB-jfJ"/>
                 <outlet property="shutterSpeedLabel" destination="qBf-cy-CuL" id="wLP-Sx-UxS"/>
                 <outlet property="switchCameraButton" destination="oZ5-Sv-bPc" id="7Y1-s3-QgQ"/>
@@ -49,7 +53,7 @@
                     </constraints>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ExposureIndicator" translatesAutoresizingMaskIntoConstraints="NO" id="67g-8R-Iop">
-                    <rect key="frame" x="204" y="611" width="10" height="10"/>
+                    <rect key="frame" x="204" y="614" width="10" height="10"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Iz-kjo">
                     <rect key="frame" x="20" y="592" width="29" height="29"/>
@@ -61,7 +65,6 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AUTO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBf-cy-CuL">
                             <rect key="frame" x="6" y="5" width="48" height="20.333333333333371"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -112,15 +115,57 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIH-CJ-JBf" userLabel="RulerContainerView">
+                    <rect key="frame" x="0.0" y="524" width="414" height="60"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SliderBackground" translatesAutoresizingMaskIntoConstraints="NO" id="eDd-Q5-SBF">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOK-c5-c7i" customClass="CRRulerControl">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="rangeFrom">
+                                    <real key="value" value="-8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="rangeLength">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="rulerValueChanged:" destination="-1" eventType="valueChanged" id="sOm-6m-X5t"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="eDd-Q5-SBF" secondAttribute="trailing" id="3QT-t3-CIV"/>
+                        <constraint firstAttribute="height" constant="60" id="FSr-2y-W4A"/>
+                        <constraint firstItem="DOK-c5-c7i" firstAttribute="leading" secondItem="jIH-CJ-JBf" secondAttribute="leading" id="L8b-Q8-2Ji"/>
+                        <constraint firstItem="eDd-Q5-SBF" firstAttribute="top" secondItem="jIH-CJ-JBf" secondAttribute="top" id="QM5-yl-rhn"/>
+                        <constraint firstItem="DOK-c5-c7i" firstAttribute="top" secondItem="jIH-CJ-JBf" secondAttribute="top" id="a48-eU-7b9"/>
+                        <constraint firstAttribute="bottom" secondItem="DOK-c5-c7i" secondAttribute="bottom" id="nJ2-2Q-OQa"/>
+                        <constraint firstItem="eDd-Q5-SBF" firstAttribute="leading" secondItem="jIH-CJ-JBf" secondAttribute="leading" id="pn7-gP-g9m"/>
+                        <constraint firstAttribute="trailing" secondItem="DOK-c5-c7i" secondAttribute="trailing" id="rod-Vo-hBn"/>
+                        <constraint firstAttribute="bottom" secondItem="eDd-Q5-SBF" secondAttribute="bottom" id="y2J-ow-sR3"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="R42-om-CaN" secondAttribute="bottom" constant="30" id="0Fe-cg-bIK"/>
+                <constraint firstAttribute="trailing" secondItem="jIH-CJ-JBf" secondAttribute="trailing" id="6HL-mH-762"/>
                 <constraint firstAttribute="bottom" secondItem="5JY-zs-bag" secondAttribute="bottom" constant="52.666666666666629" id="84Y-rq-KyB"/>
+                <constraint firstItem="jIH-CJ-JBf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9u4-gP-3eG"/>
                 <constraint firstAttribute="trailing" secondItem="5JY-zs-bag" secondAttribute="trailing" constant="30" id="CZV-Yi-wfg"/>
+                <constraint firstAttribute="bottom" secondItem="jIH-CJ-JBf" secondAttribute="bottom" constant="152" id="DGP-7D-fM7"/>
                 <constraint firstItem="R42-om-CaN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="F5j-fw-TLM"/>
                 <constraint firstItem="R42-om-CaN" firstAttribute="top" secondItem="Bfy-90-dK7" secondAttribute="bottom" constant="24" id="Jd2-cL-o53"/>
-                <constraint firstItem="67g-8R-Iop" firstAttribute="top" secondItem="Bfy-90-dK7" secondAttribute="bottom" id="RBf-NQ-Irv"/>
+                <constraint firstItem="67g-8R-Iop" firstAttribute="top" secondItem="Bfy-90-dK7" secondAttribute="bottom" constant="3" id="RBf-NQ-Irv"/>
                 <constraint firstAttribute="trailing" secondItem="dTH-IW-cUS" secondAttribute="trailing" constant="11" id="VcY-O0-ai1"/>
                 <constraint firstAttribute="bottom" secondItem="RkB-71-7Rl" secondAttribute="bottom" constant="66.666666666666629" id="ayO-Zq-Pol"/>
                 <constraint firstItem="RkB-71-7Rl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20.000000000000004" id="buB-Xo-YKS"/>
@@ -142,6 +187,7 @@
         <image name="ExposureIndicator" width="10" height="10"/>
         <image name="LightMeter" width="208" height="26"/>
         <image name="ShutterButton" width="71" height="71"/>
+        <image name="SliderBackground" width="414" height="50"/>
         <image name="SwitchCamera" width="47" height="47"/>
     </resources>
 </document>

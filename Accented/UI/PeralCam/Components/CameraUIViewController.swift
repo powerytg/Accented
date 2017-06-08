@@ -10,15 +10,24 @@
 
 import UIKit
 import AVFoundation
+import CRRulerControl
+
+enum MeterType {
+    case exposureCompensation
+    case iso
+    case shutterSpeed
+}
 
 protocol CameraOverlayDelegate : NSObjectProtocol {
     func switchCameraButtonDidTap()
     func shutterButtonDidTap()
     func didTapOnViewFinder(_ point : CGPoint)
+    func userDidChangeExpComp(_ ec : Float)
 }
 
 class CameraUIViewController: UIViewController {
 
+    @IBOutlet weak var expControlLabel: UILabel!
     @IBOutlet weak var switchCameraButton: UIButton!
     @IBOutlet weak var shutterButton: UIButton!
     @IBOutlet weak var exposureView: UIView!
@@ -26,7 +35,9 @@ class CameraUIViewController: UIViewController {
     @IBOutlet weak var shutterSpeedLabel: UILabel!
     @IBOutlet weak var expControlView: UIStackView!
     @IBOutlet weak var isoLabel: UILabel!
-    
+    @IBOutlet weak var rulerView: CRRulerControl!
+    @IBOutlet weak var rulerContainerView: UIView!
+    @IBOutlet weak var rulerContainerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var exposureIndicatorCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var lightMeterWidthConstraint: NSLayoutConstraint!
     
@@ -43,6 +54,9 @@ class CameraUIViewController: UIViewController {
     var isManualExpModeSupported : Bool?
     var isAutoExpModeSupported : Bool?
     var isContinuousAutoExpModeSupported : Bool?
+    var expComp : Float = 0
+    
+    var currentMeter : MeterType?
     
     weak var delegate : CameraOverlayDelegate?
     
@@ -72,8 +86,8 @@ class CameraUIViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnViewFinder(_:)))
         viewFinder!.addGestureRecognizer(tap)
         
-        let expGesture = UIPanGestureRecognizer(target: self, action: #selector(didDragOnExpControl(_:)))
-        expControlView.addGestureRecognizer(expGesture)
+        let expTap = UITapGestureRecognizer(target: self, action: #selector(didTapOnExpControl(_:)))
+        expControlView.addGestureRecognizer(expTap)
     }
     
     override func viewWillLayoutSubviews() {
@@ -106,9 +120,10 @@ class CameraUIViewController: UIViewController {
     }
     
     func lightMeterReadingDidChange(_ offset: Float) {
+        let value = CGFloat(offset + expComp)
         let lightMeterWidth = lightMeterWidthConstraint.constant
         let step = lightMeterWidth / 18.0
-        var position : CGFloat = CGFloat(offset) / step
+        var position : CGFloat = value * step
         position = max(min(position, lightMeterWidth / 2), -lightMeterWidth / 2)
         exposureIndicatorCenterConstraint.constant = position + exposureIndicatorOffset
     }
@@ -130,6 +145,47 @@ class CameraUIViewController: UIViewController {
         isoLabel.text = "\(displayValue)"
     }
     
+    private func fadeInMeterView(_ type : MeterType) {
+        guard viewFinder != nil else { return }
+        guard minExpComp != nil, maxExpComp != nil else { return }
+        
+        rulerContainerBottomConstraint.constant = view.bounds.maxY - viewFinder!.bounds.maxY
+        
+        currentMeter = type
+        if type == .exposureCompensation {
+            initializeExpCompSlider()
+        }
+        
+        rulerContainerView.isHidden = false
+        rulerContainerView.alpha = 0
+        rulerContainerView.transform = CGAffineTransform(translationX: 0, y: 60)
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.rulerContainerView.alpha = 1
+            self?.rulerContainerView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    private func fadeOutMeterView() {
+        guard minExpComp != nil, maxExpComp != nil else { return }
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.rulerContainerView.alpha = 0
+            self?.rulerContainerView.transform = CGAffineTransform(translationX: 0, y: 60)
+        }) { [weak self] (finished) in
+            self?.rulerContainerView.isHidden = true
+        }
+    }
+    
+    private func initializeExpCompSlider() {
+        rulerView.rulerWidth = view.bounds.width * 1.4
+        rulerView.rangeFrom = CGFloat(minExpComp!)
+        rulerView.rangeLength = CGFloat(maxExpComp! - minExpComp!)
+        rulerView.spacingBetweenMarks = 30
+        rulerView.setValue(CGFloat(expComp), animated: false)
+        
+        rulerView.setNeedsLayout()
+    }
+    
     @IBAction func switchCameraButtonDidTap(_ sender: Any) {
         delegate?.switchCameraButtonDidTap()
     }
@@ -137,8 +193,33 @@ class CameraUIViewController: UIViewController {
     @IBAction func shutterButtonDidTap(_ sender: Any) {
         delegate?.shutterButtonDidTap()
     }
+
+    @IBAction func rulerValueChanged(_ sender: Any) {
+        guard currentMeter != nil else { return }
+        let ruler = sender as! CRRulerControl
+        
+        if let meterType = currentMeter {
+            if meterType == .exposureCompensation {
+                expComp = Float(ruler.value)
+                if expComp >= 0 {
+                    expControlLabel.text = String(format: "+%.1f", expComp)
+                } else {
+                    expControlLabel.text = String(format: "%.1f", expComp)
+                }
+                
+                delegate?.userDidChangeExpComp(Float(ruler.value))
+            }
+        }
+    }
+    
+    // MARK: - Gestures
     
     @objc private func didTapOnViewFinder(_ tap : UITapGestureRecognizer) {
+        if !rulerContainerView.isHidden {
+            fadeOutMeterView()
+            return
+        }
+        
         let positionInView = tap.location(in: viewFinder)
         let positionInCamera = viewFinder?.previewLayer.captureDevicePointOfInterest(for: positionInView)
         if let pt = positionInCamera {
@@ -147,14 +228,12 @@ class CameraUIViewController: UIViewController {
         }
     }
     
-    // MARK: - Gestures
-    
-    @objc private func didDragOnExpControl(_ swipe : UIPanGestureRecognizer) {
-        switch swipe.state {
-        case .began:
-            break
-        default:
-            break
+    @objc private func didTapOnExpControl(_ tap : UITapGestureRecognizer) {
+        if !rulerContainerView.isHidden {
+            fadeOutMeterView()
+            return
+        } else {
+            fadeInMeterView(.exposureCompensation)
         }
     }
 }

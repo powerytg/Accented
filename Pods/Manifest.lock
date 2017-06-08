@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.4.0)
   - AwesomeCache (4.0)
+  - CRRulerControl (1.0.0)
   - KMPlaceholderTextView (1.3.0)
   - OAuthSwift (1.1.1)
   - SDWebImage (3.8.2):
@@ -12,6 +13,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AwesomeCache (from `https://github.com/notohiro/AwesomeCache.git`)
+  - CRRulerControl
   - KMPlaceholderTextView (~> 1.3.0)
   - OAuthSwift (~> 1.1.0)
   - SDWebImage (~> 3.8)
@@ -30,12 +32,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AwesomeCache: bffbbf8933a8ab29e6e389827c15862c65f9ddbe
+  CRRulerControl: b0517d3fe616dc63ad3daedfa37d056c959d877a
   KMPlaceholderTextView: 2bbcd19a273648a80a61e1e48f9743a24d8930e3
   OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 540be3fcaca7982a5b5f23f3ba67e82e2aed4663
+PODFILE CHECKSUM: ca392c7c6995eaeb7136acc2216b5ee87cb57ae9
 
 COCOAPODS: 1.1.0.rc.2

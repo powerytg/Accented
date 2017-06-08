@@ -244,8 +244,20 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
                 camera.focusMode = .autoFocus
                 camera.focusPointOfInterest = point
                 camera.unlockForConfiguration()
-            } catch {
-                
+            } catch let error {
+                debugPrint("Failed to set focus point: \(error)")
+            }
+        }
+    }
+    
+    func setExposureCompensation(_ ec : Float) {
+        if let camera = currentCamera {
+            do {
+                try camera.lockForConfiguration()
+                camera.setExposureTargetBias(ec, completionHandler: nil)
+                camera.unlockForConfiguration()
+            } catch let error {
+                debugPrint("Failed to set exposure compensation: \(error)")
             }
         }
     }

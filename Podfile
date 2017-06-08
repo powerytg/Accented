@@ -10,4 +10,5 @@ target 'Accented' do
 	pod 'SDWebImage', '~>3.8'
 	pod 'AwesomeCache', :git => 'https://github.com/notohiro/AwesomeCache.git'
 	pod 'KMPlaceholderTextView', '~> 1.3.0'
+	pod 'CRRulerControl'
 end

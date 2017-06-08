@@ -230,6 +230,10 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         camera.capturePhoto()
     }
     
+    func userDidChangeExpComp(_ ec: Float) {
+        camera.setExposureCompensation(ec)
+    }
+    
     func focusPointDidChange(_ point: CGPoint) {
         overlay?.focusPointDidChange(point)
     }
