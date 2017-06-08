@@ -13,17 +13,23 @@ protocol CameraDelegate : NSObjectProtocol {
     func previewLayerBecomeAvailable(_ previewLayer : AVCaptureVideoPreviewLayer)
     func onFatalError(errorMessage : String)
     func didCapturePhoto(data : Data)
+    func focusPointDidChange(_ point : CGPoint)
+    func focusDidStart()
+    func focusDidStop()
+    func lightMeterReadingDidChange(_ offset : Float)
+    func shutterSpeedReadingDidChange(_ duration : CMTime)
+    func isoReadingDidChange(_ iso : Float)
 }
 
 class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
-    fileprivate var captureSession = AVCaptureSession()
-    fileprivate var capturePhotoOutput : AVCapturePhotoOutput!
-    fileprivate let sessionQueue = DispatchQueue.global(qos: .default)
+    private var captureSession = AVCaptureSession()
+    private var capturePhotoOutput : AVCapturePhotoOutput!
+    private let sessionQueue = DispatchQueue.global(qos: .default)
     var isInitialized = false
     
-    fileprivate var currentCamera : AVCaptureDevice?
-    fileprivate var frontCamera : AVCaptureDevice?
-    fileprivate var backCamera : AVCaptureDevice?
+    @objc private var currentCamera : AVCaptureDevice?
+    private var frontCamera : AVCaptureDevice?
+    private var backCamera : AVCaptureDevice?
     
     var cameraPosition : AVCaptureDevicePosition
     var previewLayer : AVCaptureVideoPreviewLayer!
@@ -34,6 +40,46 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
     var context = CIContext()
     var faceDetector : CIDetector!
     
+    var minISO : Float? {
+        return currentCamera?.activeFormat.minISO
+    }
+
+    var maxISO : Float? {
+        return currentCamera?.activeFormat.maxISO
+    }
+    
+    var maxZoomFactor : CGFloat? {
+        return currentCamera?.activeFormat.videoMaxZoomFactor
+    }
+    
+    var minShutterSpeed : CMTime? {
+        return currentCamera?.activeFormat.minExposureDuration
+    }
+    
+    var maxShutterSpeed : CMTime? {
+        return currentCamera?.activeFormat.maxExposureDuration
+    }
+    
+    var minExpComp : Float? {
+        return currentCamera?.minExposureTargetBias
+    }
+    
+    var maxExpComp : Float? {
+        return currentCamera?.maxExposureTargetBias
+    }
+    
+    var isManualExpModeSupported : Bool? {
+        return currentCamera?.isExposureModeSupported(.custom)
+    }
+    
+    var isAutoExpModeSupported : Bool? {
+        return currentCamera?.isExposureModeSupported(.autoExpose)
+    }
+
+    var isContinuousAutoExpModeSupported : Bool? {
+        return currentCamera?.isExposureModeSupported(.continuousAutoExposure)
+    }
+
     weak var delegate : CameraDelegate?
     
     init(position : AVCaptureDevicePosition) {
@@ -44,12 +90,20 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         initializeDeviceSupport()
     }
     
-    fileprivate func initializeDeviceSupport() {
+    deinit {
+        if currentCamera != nil {
+            removeCameraObservers()
+        }
+        
+        currentCamera = nil
+    }
+    
+    private func initializeDeviceSupport() {
         frontCamera = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .front)
         backCamera = AVCaptureDevice.defaultDevice(withDeviceType: .builtInWideAngleCamera, mediaType: AVMediaTypeVideo, position: .back)
     }
     
-    fileprivate var orientationMap: [UIDeviceOrientation : AVCaptureVideoOrientation] = [
+    private var orientationMap: [UIDeviceOrientation : AVCaptureVideoOrientation] = [
         .portrait           : .portrait,
         .portraitUpsideDown : .portraitUpsideDown,
         .landscapeLeft      : .landscapeRight,
@@ -85,6 +139,9 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         if currentCamera == device {
             success = true
             return
+        } else {
+            // Remove observers on the previous camera
+            removeCameraObservers()
         }
         
         // Config photo output
@@ -121,6 +178,29 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         currentCamera = device
         isInitialized = true
         success = true
+        
+        // Observing key property changes in the camera
+        addCameraObservers()
+    }
+    
+    private func addCameraObservers() {
+        if let camera = currentCamera {
+            camera.addObserver(self, forKeyPath: #keyPath(AVCaptureDevice.focusPointOfInterest), options: [.old, .new], context: nil)
+            camera.addObserver(self, forKeyPath: #keyPath(AVCaptureDevice.isAdjustingFocus), options: [.old, .new], context: nil)
+            camera.addObserver(self, forKeyPath: #keyPath(AVCaptureDevice.exposureTargetOffset), options: [.old, .new], context: nil)
+            camera.addObserver(self, forKeyPath: #keyPath(AVCaptureDevice.exposureDuration), options: [.old, .new], context: nil)
+            camera.addObserver(self, forKeyPath: #keyPath(AVCaptureDevice.iso), options: [.old, .new], context: nil)
+        }
+    }
+    
+    private func removeCameraObservers() {
+        if let camera = currentCamera {
+            camera.removeObserver(self, forKeyPath: #keyPath(AVCaptureDevice.focusPointOfInterest))
+            camera.removeObserver(self, forKeyPath: #keyPath(AVCaptureDevice.isAdjustingFocus))
+            camera.removeObserver(self, forKeyPath: #keyPath(AVCaptureDevice.exposureTargetOffset))
+            camera.removeObserver(self, forKeyPath: #keyPath(AVCaptureDevice.exposureDuration))
+            camera.removeObserver(self, forKeyPath: #keyPath(AVCaptureDevice.iso))
+        }
     }
     
     private func initializeFaceDetector() {
@@ -152,6 +232,24 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    func focusToPoint(_ point : CGPoint) {
+        if let camera = currentCamera {
+            if !camera.isFocusPointOfInterestSupported || !camera.isFocusModeSupported(.autoFocus) {
+                debugPrint("Camera \(camera.position) does not support setting focus point or auto focus mode")
+                return
+            }
+            
+            do {
+                try camera.lockForConfiguration()
+                camera.focusMode = .autoFocus
+                camera.focusPointOfInterest = point
+                camera.unlockForConfiguration()
+            } catch {
+                
+            }
+        }
+    }
+    
     func capturePhoto() {
         guard let capturePhotoOutput = self.capturePhotoOutput else { return }
         self.sessionQueue.async {
@@ -166,7 +264,7 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    fileprivate func captureFullSizePhoto() {
+    private func captureFullSizePhoto() {
         let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey : AVVideoCodecJPEG])
         photoSettings.isHighResolutionPhotoEnabled = true
         photoSettings.isAutoStillImageStabilizationEnabled = true
@@ -229,5 +327,25 @@ class CameraController: NSObject, AVCapturePhotoCaptureDelegate {
         // Stop the video stream and notify the delegate that we got the photo data
         stop()
         delegate?.didCapturePhoto(data: jpegData)
+    }
+    
+    // MARK : - Camera observers
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard currentCamera != nil else { return }
+        if keyPath == #keyPath(AVCaptureDevice.focusPointOfInterest) {
+            delegate?.focusPointDidChange(currentCamera!.focusPointOfInterest)
+        } else  if keyPath == #keyPath(AVCaptureDevice.isAdjustingFocus) {
+            if currentCamera!.isAdjustingFocus {
+                delegate?.focusDidStart()
+            } else {
+                delegate?.focusDidStop()
+            }
+        } else if keyPath == #keyPath(AVCaptureDevice.exposureTargetOffset) {
+            delegate?.lightMeterReadingDidChange(currentCamera!.exposureTargetOffset)
+        } else if keyPath == #keyPath(AVCaptureDevice.exposureDuration) {
+            delegate?.shutterSpeedReadingDidChange(currentCamera!.exposureDuration)
+        } else if keyPath == #keyPath(AVCaptureDevice.iso) {
+            delegate?.isoReadingDidChange(currentCamera!.iso)
+        }
     }
 }

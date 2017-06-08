@@ -23,9 +23,6 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     // Camera
     var camera : CameraController!
     
-    // Preview layer
-    var previewLayer : AVCaptureVideoPreviewLayer?
-    
     // Whether the UI has been initialized
     var isUIInitialized = false
     
@@ -58,12 +55,6 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         overlay?.view.frame = view.bounds
-        
-        // We always take the default, fixed 4/3 photo, so position the preview layer accordingly
-        if let preview = previewLayer {
-            let aspectRatio = CGFloat(4.0 / 3.0)
-            preview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height * aspectRatio)
-        }
     }
     
     // MARK : - Permission
@@ -179,17 +170,24 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         overlay!.view.frame = self.view.bounds
         overlay!.didMove(toParentViewController: self)
         overlay!.delegate = self
+        overlay!.previewDidBecomeAvailable(previewLayer: camera.previewLayer)
+        
+        overlay!.minISO = camera.minISO
+        overlay!.maxISO = camera.maxISO
+        overlay!.minExpComp = camera.minExpComp
+        overlay!.maxExpComp = camera.maxExpComp
+        overlay!.maxZoomFactor = camera.maxZoomFactor
+        overlay!.isAutoExpModeSupported = camera.isAutoExpModeSupported
+        overlay!.isManualExpModeSupported = camera.isManualExpModeSupported
+        overlay!.isContinuousAutoExpModeSupported = camera.isContinuousAutoExpModeSupported
+        overlay!.minShutterSpeed = camera.minShutterSpeed
+        overlay!.maxShutterSpeed = camera.maxShutterSpeed
     }
     
     // MARK: - CameraDelegate
     
     func previewLayerBecomeAvailable(_ previewLayer: AVCaptureVideoPreviewLayer) {
-        if let preview = self.previewLayer {
-            preview.removeFromSuperlayer()
-        }
-        
-        self.previewLayer = previewLayer
-        view.layer.insertSublayer(previewLayer, at: 0)
+        overlay?.previewDidBecomeAvailable(previewLayer: previewLayer)
     }
     
     func onFatalError(errorMessage: String) {
@@ -232,51 +230,39 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         camera.capturePhoto()
     }
     
+    func focusPointDidChange(_ point: CGPoint) {
+        overlay?.focusPointDidChange(point)
+    }
+    
+    func focusDidStart() {
+        overlay?.focusDidStart()
+    }
+    
+    func focusDidStop() {
+        overlay?.focusDidStop()
+    }
+    
+    func lightMeterReadingDidChange(_ offset: Float) {
+        overlay?.lightMeterReadingDidChange(offset)
+    }
+    
+    func shutterSpeedReadingDidChange(_ duration: CMTime) {
+        overlay?.shutterSpeedReadingDidChange(duration)
+    }
+    
+    func isoReadingDidChange(_ iso: Float) {
+        overlay!.isoReadingDidChange(iso)
+    }
+    
+    // MARK: - ViewFinderDelegate
+    
+    func didTapOnViewFinder(_ point: CGPoint) {
+        camera.focusToPoint(point)
+    }
+    
     // MARK : - Image processing
     private func onImageDataReceived(_ data : Data) {
-//        PHPhotoLibrary.shared().performChanges( {
-//            let creationRequest = PHAssetCreationRequest.forAsset()
-//            creationRequest.addResource(with: PHAssetResourceType.photo, data: data, options: nil)
-//        }, completionHandler: { success, error in
-//            DispatchQueue.main.async {
-//                completionHandler?(success, error)
-//            }
-//        })
-        
-//        let image = UIImage(data: data)!
-//        var orientation : ImageOrientation = .portrait
-//        if image.imageOrientation == .right {
-//            orientation = .landscapeRight
-//        } else if image.imageOrientation == .up {
-//            orientation = .portrait
-//        } else if image.imageOrientation == .down {
-//            orientation = .portraitUpsideDown
-//        } else if image.imageOrientation == .left {
-//            orientation = .landscapeLeft
-//        }
-//        
-//        let input = PictureInput(image: image, smoothlyScaleOutput: false, orientation: orientation)
-//        let output2 = PictureOutput()
-//        
-//        output2.encodedImageFormat = .jpeg
-//        output2.encodedImageAvailableCallback = { (renderedData) in
-//                    PHPhotoLibrary.shared().performChanges( {
-//                        let creationRequest = PHAssetCreationRequest.forAsset()
-//                        creationRequest.addResource(with: PHAssetResourceType.photo, data: renderedData, options: nil)
-//                    }, completionHandler: { success, error in
-//                        DispatchQueue.main.async {
-//                            completionHandler?(success, error)
-//                        }
-//                    })
-//        }
-//        
-//        let filter = LookupFilter()
-//        filter.lookupImage = PictureInput(imageName:"white.png")
-//
-//        input --> filter --> output2
-//        input.processImage(synchronously: true)
-     
-        var image = UIImage(data: data)
+        let image = UIImage(data: data)
         guard image != nil else {
             onFatalError(errorMessage: "Failed to process image")
             return

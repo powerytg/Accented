@@ -22,6 +22,7 @@
 		181E47651EE5080300445B33 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 181E47611EE5080300445B33 /* lookup_miss_etikate.png */; };
 		181E47661EE5080300445B33 /* lookup_soft_elegance_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 181E47621EE5080300445B33 /* lookup_soft_elegance_1.png */; };
 		181E47671EE5080300445B33 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 181E47631EE5080300445B33 /* lookup_soft_elegance_2.png */; };
+		181E47691EE8534E00445B33 /* ViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E47681EE8534E00445B33 /* ViewFinder.swift */; };
 		182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109871CF0E72600529610 /* JournalBackdropCell.swift */; };
 		1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182109891CF1076800529610 /* JournalBubbleDecoCell.swift */; };
 		18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A091EDB5FE300F0F02E /* PagerViewController.swift */; };
@@ -50,7 +51,6 @@
 		18222A5D1EE1208A00F0F02E /* TagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A5C1EE1208A00F0F02E /* TagButton.swift */; };
 		18222A651EE2702400F0F02E /* PearlCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A631EE2702400F0F02E /* PearlCamViewController.swift */; };
 		18222A661EE2702400F0F02E /* PearlCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A641EE2702400F0F02E /* PearlCamViewController.xib */; };
-		18222A681EE273BD00F0F02E /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 18222A671EE273BD00F0F02E /* lookup_miss_etikate.png */; };
 		18222A781EE3327900F0F02E /* FatalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A771EE3327900F0F02E /* FatalErrorView.swift */; };
 		18222A7B1EE3374E00F0F02E /* CameraUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A791EE3374E00F0F02E /* CameraUIViewController.swift */; };
 		18222A7C1EE3374E00F0F02E /* CameraUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */; };
@@ -323,6 +323,7 @@
 		181E47611EE5080300445B33 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
 		181E47621EE5080300445B33 /* lookup_soft_elegance_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_1.png; sourceTree = "<group>"; };
 		181E47631EE5080300445B33 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
+		181E47681EE8534E00445B33 /* ViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFinder.swift; sourceTree = "<group>"; };
 		182109761CF0DE0000529610 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = "../../Downloads/GPUImage2-master/framework/GPUImage.xcodeproj"; sourceTree = "<group>"; };
 		182109871CF0E72600529610 /* JournalBackdropCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBackdropCell.swift; sourceTree = "<group>"; };
 		182109891CF1076800529610 /* JournalBubbleDecoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalBubbleDecoCell.swift; sourceTree = "<group>"; };
@@ -352,7 +353,6 @@
 		18222A5C1EE1208A00F0F02E /* TagButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagButton.swift; sourceTree = "<group>"; };
 		18222A631EE2702400F0F02E /* PearlCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlCamViewController.swift; sourceTree = "<group>"; };
 		18222A641EE2702400F0F02E /* PearlCamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlCamViewController.xib; sourceTree = "<group>"; };
-		18222A671EE273BD00F0F02E /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
 		18222A771EE3327900F0F02E /* FatalErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FatalErrorView.swift; sourceTree = "<group>"; };
 		18222A791EE3374E00F0F02E /* CameraUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIViewController.swift; sourceTree = "<group>"; };
 		18222A7A1EE3374E00F0F02E /* CameraUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraUIViewController.xib; sourceTree = "<group>"; };
@@ -668,7 +668,6 @@
 				18222A8D1EE4D6EA00F0F02E /* Processors */,
 				18222A7F1EE39EA300F0F02E /* LUT */,
 				18222A6F1EE32A5A00F0F02E /* Components */,
-				18222A671EE273BD00F0F02E /* lookup_miss_etikate.png */,
 				18222A631EE2702400F0F02E /* PearlCamViewController.swift */,
 				18222A641EE2702400F0F02E /* PearlCamViewController.xib */,
 				18222A7D1EE3518200F0F02E /* CameraController.swift */,
@@ -688,6 +687,7 @@
 				18222A971EE4DD2F00F0F02E /* ImageUtils.swift */,
 				18222A9D1EE4E1AF00F0F02E /* PresetDeckView.swift */,
 				18222A9F1EE4E2A300F0F02E /* PresetThumbnailView.swift */,
+				181E47681EE8534E00445B33 /* ViewFinder.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1492,7 +1492,6 @@
 				9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */,
 				181E47591EE5079500445B33 /* ColorPunch.png in Resources */,
 				181E47661EE5080300445B33 /* lookup_soft_elegance_1.png in Resources */,
-				18222A681EE273BD00F0F02E /* lookup_miss_etikate.png in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
 				18222A8C1EE498B200F0F02E /* PearlCamPresetViewController.xib in Resources */,
 				18222A9C1EE4DECE00F0F02E /* Intensify.png in Resources */,
@@ -1669,6 +1668,7 @@
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
+				181E47691EE8534E00445B33 /* ViewFinder.swift in Sources */,
 				18222A7B1EE3374E00F0F02E /* CameraUIViewController.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
