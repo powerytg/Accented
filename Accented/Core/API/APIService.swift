@@ -49,7 +49,7 @@ class APIService: NSObject {
     
     // Singleton instance
     static let sharedInstance = APIService()
-    fileprivate override init() {
+    private override init() {
         let authenticationService = AuthenticationService.sharedInstance
         client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
                                   consumerSecret: authenticationService.consumerSecret,

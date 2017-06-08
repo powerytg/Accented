@@ -92,7 +92,7 @@ extension StorageService {
         }
     }
     
-    fileprivate func mergeUserSearchResult(_ keyword : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
+    private func mergeUserSearchResult(_ keyword : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
         let collection = getUserSearchResult(keyword: keyword)
         collection.totalCount = totalCount
         
@@ -115,7 +115,7 @@ extension StorageService {
         }
     }
     
-    fileprivate func mergeUserFollowersResult(_ userId : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
+    private func mergeUserFollowersResult(_ userId : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
         let collection = getUserFollowers(userId: userId)
         collection.totalCount = totalCount
         

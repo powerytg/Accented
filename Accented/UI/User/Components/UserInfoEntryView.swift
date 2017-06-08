@@ -12,16 +12,16 @@ import UIKit
 
 class UserInfoEntryView: UIView {
 
-    fileprivate var infoEntry : (String, String)
-    fileprivate var nameLabel = UILabel()
-    fileprivate var valueLabel = UILabel()
-    fileprivate let nameColor = UIColor(red: 202 / 255.0, green: 202 / 255.0, blue: 202 / 255.0, alpha: 1.0)
-    fileprivate let valueColor = UIColor(red: 104 / 255.0, green: 104 / 255.0, blue: 104 / 255.0, alpha: 1.0)
-    fileprivate let nameFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
-    fileprivate let valueFont = UIFont(name: "AvenirNextCondensed-Regular", size: 15)!
-    fileprivate let paddingLeft : CGFloat = 6
-    fileprivate let paddingRight : CGFloat = 6
-    fileprivate let gap : CGFloat = 8
+    private var infoEntry : (String, String)
+    private var nameLabel = UILabel()
+    private var valueLabel = UILabel()
+    private let nameColor = UIColor(red: 202 / 255.0, green: 202 / 255.0, blue: 202 / 255.0, alpha: 1.0)
+    private let valueColor = UIColor(red: 104 / 255.0, green: 104 / 255.0, blue: 104 / 255.0, alpha: 1.0)
+    private let nameFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
+    private let valueFont = UIFont(name: "AvenirNextCondensed-Regular", size: 15)!
+    private let paddingLeft : CGFloat = 6
+    private let paddingRight : CGFloat = 6
+    private let gap : CGFloat = 8
     
     init(_ entry : (String, String)) {
         self.infoEntry = entry

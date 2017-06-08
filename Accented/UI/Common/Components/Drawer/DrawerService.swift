@@ -11,7 +11,7 @@ import UIKit
 class DrawerService: NSObject {
     // Singleton instance
     static let sharedInstance = DrawerService()
-    fileprivate override init() {
+    private override init() {
         super.init()
     }
 

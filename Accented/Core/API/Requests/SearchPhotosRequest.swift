@@ -10,10 +10,10 @@ import UIKit
 
 class SearchPhotosRequest: APIRequest {
 
-    fileprivate var keyword : String?
-    fileprivate var tag : String?
-    fileprivate var page : Int
-    fileprivate var sorting : PhotoSearchSortingOptions
+    private var keyword : String?
+    private var tag : String?
+    private var page : Int
+    private var sorting : PhotoSearchSortingOptions
     
     init(keyword : String, page : Int = 1, sort : PhotoSearchSortingOptions, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
         self.keyword = keyword

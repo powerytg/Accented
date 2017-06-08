@@ -18,6 +18,6 @@ class LookupPreset: Preset {
         
         name = "LOOKUP"
         filter = LookupFilter()
-        filter.lookupImage = PictureInput(imageName: lookupImageName)
+        filter!.lookupImage = PictureInput(imageName: lookupImageName)
     }
 }

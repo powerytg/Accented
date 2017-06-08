@@ -12,15 +12,15 @@ import UIKit
 
 class DetailMetadataSectionView: DetailSectionViewBase {
 
-    fileprivate let rendererHeight : CGFloat = 26
-    fileprivate var infoEntries = [(String, String)]()
-    fileprivate var renderers = [UserInfoEntryView]()
+    private let rendererHeight : CGFloat = 26
+    private var infoEntries = [(String, String)]()
+    private var renderers = [UserInfoEntryView]()
     
     override var title: String? {
         return "INFO"
     }
 
-    fileprivate var exifLabel = UILabel()
+    private var exifLabel = UILabel()
     
     override func initialize() {
         super.initialize()
@@ -53,7 +53,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     
     // MARK: - Private
     
-    fileprivate func buildInfoEntries() {
+    private func buildInfoEntries() {
         infoEntries.removeAll()
         if let rating = photo.rating {
             if rating != 0 {
@@ -99,7 +99,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
         }
     }
     
-    fileprivate func displayApertureString(_ aperture : String) -> String {
+    private func displayApertureString(_ aperture : String) -> String {
         if aperture.hasPrefix("f") {
             return aperture
         } else {

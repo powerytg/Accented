@@ -1,8 +1,8 @@
 //
-//  PresetDeckView.swift
+//  PresetChooserView.swift
 //  Accented
 //
-//  Deck view that allows user to select a preset
+//  PearlFX preset chooser view
 //
 //  Created by Tiangong You on 6/4/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
@@ -12,11 +12,11 @@ import UIKit
 import GPUImage
 
 protocol PresetSelectorDelegate : NSObjectProtocol {
-    func didSelectPreset(_ preset : LookupPreset)
+    func didSelectPreset(_ preset : Preset)
 }
 
-class PresetDeckView: UIView {
-
+class PresetChooserView : UIView {
+    
     private var presetManager = PresetManager()
     var previewImage : UIImage! {
         didSet {
@@ -33,7 +33,7 @@ class PresetDeckView: UIView {
     private var previewInput : PictureInput!
     private var previewOutputs = [PictureOutput]()
     private var selectedThumbnail : PresetThumbnailView?
-    var selectedPreset : LookupPreset?
+    var selectedPreset : Preset?
     
     weak var delegate : PresetSelectorDelegate?
     
@@ -46,7 +46,7 @@ class PresetDeckView: UIView {
         super.init(coder: aDecoder)
         initialize()
     }
-
+    
     private func initialize() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -64,7 +64,11 @@ class PresetDeckView: UIView {
             contentView.addSubview(thumbnail)
             thumbnails.append(thumbnail)
             
-            previewInput --> preset.filter --> previewOutput
+            if let filter = preset.filter {
+                previewInput --> filter --> previewOutput
+            } else {
+                previewInput --> previewOutput
+            }
             
             previewOutput.imageAvailableCallback = { (image) in
                 DispatchQueue.main.async {
@@ -77,6 +81,11 @@ class PresetDeckView: UIView {
             thumbnail.addGestureRecognizer(tap)
         }
         
+        // By default, select the first preset (which should be the null preset that outputs the original photo)
+        let firstThumbnail = thumbnails[0]
+        firstThumbnail.isSelected = true
+        selectedPreset = firstThumbnail.preset
+        
         previewInput.processImage()
         setNeedsLayout()
     }
@@ -86,13 +95,13 @@ class PresetDeckView: UIView {
         scrollView.frame = self.bounds
         
         var nextX : CGFloat = padding
-        let originY : CGFloat = bounds.height / 2 - PresetDeckView.thumbnailSize / 2
+        let originY : CGFloat = bounds.height / 2 - PresetChooserView.thumbnailSize / 2
         for thumbnail in thumbnails {
             thumbnail.frame.origin.x = nextX
             thumbnail.frame.origin.y = originY
-            thumbnail.frame.size = CGSize(width: PresetDeckView.thumbnailSize, height: PresetDeckView.thumbnailSize)
+            thumbnail.frame.size = CGSize(width: PresetChooserView.thumbnailSize, height: PresetChooserView.thumbnailSize)
             
-            nextX += PresetDeckView.thumbnailSize + gap
+            nextX += PresetChooserView.thumbnailSize + gap
         }
         
         let contentWidth : CGFloat = nextX + padding
@@ -100,7 +109,7 @@ class PresetDeckView: UIView {
         scrollView.contentSize = CGSize(width: contentWidth, height: self.bounds.height)
     }
     
-    @objc fileprivate func didTapOnThumbnail(_ tap : UITapGestureRecognizer) {
+    @objc private func didTapOnThumbnail(_ tap : UITapGestureRecognizer) {
         let thumbnail = tap.view as! PresetThumbnailView
         if let previousSelectedThumbnail = selectedThumbnail {
             previousSelectedThumbnail.isSelected = false
@@ -108,8 +117,10 @@ class PresetDeckView: UIView {
         
         thumbnail.isSelected = true
         selectedThumbnail = thumbnail
-        selectedPreset = thumbnail.preset as! LookupPreset
+        selectedPreset = thumbnail.preset
         
-        delegate?.didSelectPreset(thumbnail.preset as! LookupPreset)
+        if selectedPreset != nil {
+            delegate?.didSelectPreset(selectedPreset!)
+        }
     }
 }

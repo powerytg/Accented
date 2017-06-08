@@ -76,7 +76,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
     
-    fileprivate func requestCameraAccess() {
+    private func requestCameraAccess() {
         AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { [weak self] (granted) in
             if granted {
                 self?.didGrantedCameraPermisison()
@@ -86,7 +86,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
     
-    fileprivate func showFatalErrorView(text : String, buttonText : String, action : @escaping (() -> Void)) {
+    private func showFatalErrorView(text : String, buttonText : String, action : @escaping (() -> Void)) {
         // If there's a previous fatal error view, dismiss it
         if fatalErrorView != nil {
             view.willRemoveSubview(fatalErrorView!)
@@ -102,7 +102,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
     
-    fileprivate func showDeniedCameraPermissionView() {
+    private func showDeniedCameraPermissionView() {
         let text = "You have previously denied the app to use camera\nYou can enable the camera access in the settings app"
         showFatalErrorView(text: text, buttonText: "GO TO SETTINGS") {
             if #available(iOS 10.0, *) {
@@ -113,21 +113,21 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
     
-    fileprivate func showResrictedAccessErrorView() {
+    private func showResrictedAccessErrorView() {
         let text = "Your access to the camera has been restricted"
         showFatalErrorView(text: text, buttonText: "GO BACK") {
             self.navigationController?.popViewController(animated: true)
         }
     }
 
-    fileprivate func showCameraInitializationErrorView() {
+    private func showCameraInitializationErrorView() {
         let text = "Failed to initialize camera"
         showFatalErrorView(text: text, buttonText: "GO BACK") {
             self.navigationController?.popViewController(animated: true)
         }
     }
 
-    fileprivate func didGrantedCameraPermisison() {
+    private func didGrantedCameraPermisison() {
         // Dismiss any of the previous fatal error view
         if fatalErrorView != nil {
             view.willRemoveSubview(fatalErrorView!)
@@ -148,7 +148,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
 
-    fileprivate func cameraDidFinishInitialization(_ success : Bool) {
+    private func cameraDidFinishInitialization(_ success : Bool) {
         if success {
             initializeOverlayIfNecessary()
             camera.start()
@@ -157,7 +157,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         }
     }
     
-    fileprivate func initializeOverlayIfNecessary() {
+    private func initializeOverlayIfNecessary() {
         if isUIInitialized {
             return
         }

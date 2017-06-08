@@ -15,7 +15,7 @@ protocol SearchResultFilterViewControllerDelegate : NSObjectProtocol {
 class SearchResultFilterViewController: UIViewController {
 
     @IBOutlet weak var sortButton: PushButton!
-    fileprivate var sortingModel : PhotoSearchFilterModel
+    private var sortingModel : PhotoSearchFilterModel
     
     weak var delegate : SearchResultFilterViewControllerDelegate?
     

@@ -12,7 +12,7 @@
 import UIKit
 
 class PhotoGroupStreamLayout: StreamLayoutBase {
-    fileprivate let vGap : CGFloat = 20
+    private let vGap : CGFloat = 20
     
     override init() {
         super.init()

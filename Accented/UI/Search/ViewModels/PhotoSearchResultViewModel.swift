@@ -11,7 +11,7 @@
 import UIKit
 
 class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
-    fileprivate let cardRendererReuseIdentifier = "renderer"
+    private let cardRendererReuseIdentifier = "renderer"
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)

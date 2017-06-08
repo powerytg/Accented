@@ -10,7 +10,7 @@ import UIKit
 
 class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    fileprivate var animationContext : DrawerAnimationContext
+    private var animationContext : DrawerAnimationContext
     
     init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
@@ -34,7 +34,7 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
         }
     }
     
-    fileprivate func performDismissalAnimation() {
+    private func performDismissalAnimation() {
         let drawer = animationContext.content.view
         switch animationContext.anchor {
         case .left:

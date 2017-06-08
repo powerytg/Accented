@@ -10,7 +10,7 @@ import UIKit
 
 class DrawerOpenAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
     
-    fileprivate var animationContext : DrawerAnimationContext
+    private var animationContext : DrawerAnimationContext
     
     init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext

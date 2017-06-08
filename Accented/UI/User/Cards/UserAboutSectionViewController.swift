@@ -13,12 +13,12 @@ import UIKit
 class UserAboutSectionViewController: UserProfileCardViewController {
 
     // Sections
-    fileprivate var sections = [UserSectionViewBase]()
+    private var sections = [UserSectionViewBase]()
     
     // Content view
-    fileprivate var scrollView : UIScrollView!
-    fileprivate var contentView = UIView(frame: CGRect.zero)
-    fileprivate let contentBottomPadding : CGFloat = 25
+    private var scrollView : UIScrollView!
+    private var contentView = UIView(frame: CGRect.zero)
+    private let contentBottomPadding : CGFloat = 25
     
     override func viewDidLoad() {
         super.viewDidLoad()

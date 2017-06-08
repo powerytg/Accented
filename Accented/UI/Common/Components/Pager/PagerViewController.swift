@@ -21,7 +21,7 @@ protocol PagerViewControllerDelegate: NSObjectProtocol {
 class PagerViewController: UIViewController {
     
     // Card view controllers
-    fileprivate let cards : [CardViewController]
+    private let cards : [CardViewController]
 
     // Gap between the selected view and its right sibling
     var gap : CGFloat = 10 {
@@ -41,7 +41,7 @@ class PagerViewController: UIViewController {
     var contentView = UIView()
 
     // Animation configurations
-    fileprivate var animationParams = DeckAnimationParams()
+    private var animationParams = DeckAnimationParams()
 
     // Pan gesture
     var panGesture : UIPanGestureRecognizer!
@@ -50,12 +50,12 @@ class PagerViewController: UIViewController {
     var selectedIndex = 0
 
     // Page width
-    fileprivate var cardWidth : CGFloat {
+    private var cardWidth : CGFloat {
         return view.bounds.size.width - gap - visibleRightChildWidth
     }
 
     // Base origin is the logical position of the first card in the x axis
-    fileprivate var baselinePosition : CGFloat = 0
+    private var baselinePosition : CGFloat = 0
 
     // Delegate
     weak var delegate : PagerViewControllerDelegate?
@@ -127,7 +127,7 @@ class PagerViewController: UIViewController {
         }
     }
     
-    fileprivate func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
+    private func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
         let tx = gesture.translation(in: gesture.view).x
         let cardOffset = offsetForCardAtIndex(selectedIndex)
         for card in cards {
@@ -135,7 +135,7 @@ class PagerViewController: UIViewController {
         }
     }
     
-    fileprivate func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
+    private func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
         let velocity = gesture.velocity(in: gesture.view).x
         let tx = gesture.translation(in: gesture.view).x
         var shouldConfirm : Bool
@@ -181,12 +181,12 @@ class PagerViewController: UIViewController {
         }
     }
     
-    fileprivate func cancelScrolling() {
+    private func cancelScrolling() {
         scrollToItemAtIndex(index: selectedIndex)
     }
     
     // Get the position offset for a card at index
-    fileprivate func offsetForCardAtIndex(_ index : Int) -> CGFloat {
+    private func offsetForCardAtIndex(_ index : Int) -> CGFloat {
         return baselinePosition + (cardWidth + gap) * CGFloat(index)
     }
 }

@@ -12,11 +12,11 @@ import UIKit
 import TTTAttributedLabel
 
 class UserDescSectionView: UserSectionViewBase {
-    fileprivate let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
-    fileprivate let linkHighlightColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
-    fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
-    fileprivate var formattedDescription : NSAttributedString?
-    fileprivate var descSize : CGSize?
+    private let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
+    private let linkHighlightColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
+    private var descLabel = TTTAttributedLabel(frame: CGRect.zero)
+    private var formattedDescription : NSAttributedString?
+    private var descSize : CGSize?
 
     override func createContentView() {
         super.createContentView()

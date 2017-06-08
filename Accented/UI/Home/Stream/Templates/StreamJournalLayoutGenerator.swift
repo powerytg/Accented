@@ -7,7 +7,7 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -18,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -31,13 +31,13 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 class StreamJournalLayoutGenerator: StreamTemplateGenerator {
 
     // Title measuring label
-    fileprivate var titleMeasuringLabel = UILabel()
+    private var titleMeasuringLabel = UILabel()
     
     // Subtitle measuring label
-    fileprivate var subtitleMeasuringLabel = UILabel()
+    private var subtitleMeasuringLabel = UILabel()
     
     // Description measuring label
-    fileprivate var descMeasuringLabel = UILabel()
+    private var descMeasuringLabel = UILabel()
 
     required init(maxWidth: CGFloat) {
         super.init(maxWidth: maxWidth)
@@ -77,7 +77,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         return templates
     }
 
-    fileprivate func estimatedHeightForPhoto(_ photo : PhotoModel) -> CGFloat {
+    private func estimatedHeightForPhoto(_ photo : PhotoModel) -> CGFloat {
         var nextY : CGFloat = JournalPhotoLayoutSpec.topPadding
         
         // Measure title

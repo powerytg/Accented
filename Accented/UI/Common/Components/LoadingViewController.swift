@@ -17,9 +17,9 @@ class LoadingViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var loadingLabel: UILabel!
     
-    fileprivate let defaultLoadingText = "Loading..."
-    fileprivate let defaultErrorText = "An error has occurred"
-    fileprivate let defaultRetryText = "Tap to Retry"
+    private let defaultLoadingText = "Loading..."
+    private let defaultErrorText = "An error has occurred"
+    private let defaultRetryText = "Tap to Retry"
     
     var loadingText : String? {
         didSet {

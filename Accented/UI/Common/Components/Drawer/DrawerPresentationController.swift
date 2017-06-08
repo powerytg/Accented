@@ -11,10 +11,10 @@ import UIKit
 class DrawerPresentationController: UIPresentationController, UIViewControllerTransitioningDelegate {
     
     // Animation context
-    fileprivate var animationContext : DrawerAnimationContext
+    private var animationContext : DrawerAnimationContext
     
     // Curtain view
-    fileprivate var curtainView = UIView()
+    private var curtainView = UIView()
     
     // Open animator
     var openAnimator : DrawerOpenAnimator?
@@ -29,7 +29,7 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     var interactiveDismissAnimator : DrawerDismissAnimator?
 
     // Dismissal gesture controller
-    fileprivate var dismissGestureController : DrawerDismissGestureController?
+    private var dismissGestureController : DrawerDismissGestureController?
     
     required init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext

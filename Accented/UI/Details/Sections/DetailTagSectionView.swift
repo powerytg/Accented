@@ -10,17 +10,17 @@ import UIKit
 
 class DetailTagSectionView: DetailSectionViewBase {
 
-    fileprivate let hGap : CGFloat = 6
-    fileprivate let vGap : CGFloat = 6
-    fileprivate let contentRightMargin : CGFloat = 30
+    private let hGap : CGFloat = 6
+    private let vGap : CGFloat = 6
+    private let contentRightMargin : CGFloat = 30
     
     // Cached tag button frames
     private var tagButtonFrames = [CGRect]()
     
     // Cached content view size
-    fileprivate var contentViewSize : CGSize?
+    private var contentViewSize : CGSize?
     
-    fileprivate var tagButtons = [TagButton]()
+    private var tagButtons = [TagButton]()
 
     override var title: String? {
         return "TAGS"
@@ -43,7 +43,7 @@ class DetailTagSectionView: DetailSectionViewBase {
         }
     }
     
-    fileprivate func buildTagButtons() {
+    private func buildTagButtons() {
         for tag in photo.tags {
             let button = TagButton()
             button.setTitle(tag, for: .normal)
@@ -55,7 +55,7 @@ class DetailTagSectionView: DetailSectionViewBase {
         }
     }
     
-    @objc fileprivate func tagButtonDidTap(_ sender : TagButton) {
+    @objc private func tagButtonDidTap(_ sender : TagButton) {
         let tappedIndex = tagButtons.index(of: sender)
         NavigationService.sharedInstance.navigateToSearchResultPage(tag: photo.tags[tappedIndex!])
     }

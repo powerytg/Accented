@@ -10,11 +10,11 @@ import UIKit
 
 class MainViewController: UINavigationController, DrawerOpenGestureControllerDelegate {
 
-    fileprivate var rightDrawerSize : CGSize
-    fileprivate var rightDrawerGestureController : DrawerOpenGestureController?
+    private var rightDrawerSize : CGSize
+    private var rightDrawerGestureController : DrawerOpenGestureController?
     
     // Theme selector
-    fileprivate var rightDrawer : ThemeSelectorViewController?
+    private var rightDrawer : ThemeSelectorViewController?
     
     required init?(coder aDecoder: NSCoder) {
         let screenWidth = UIScreen.main.bounds.width
@@ -63,7 +63,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         proceedAfterSignIn()
     }
     
-    fileprivate func proceedAfterSignIn() {
+    private func proceedAfterSignIn() {
         // Show the home view controller as root
         let homeViewController = HomeViewController()
         self.pushViewController(homeViewController, animated: false)
@@ -82,7 +82,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         }
     }
     
-    fileprivate func showSignInScreen() {
+    private func showSignInScreen() {
         let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
         self.present(greetingsViewController, animated: false, completion: nil)
     }
@@ -95,7 +95,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     
     //MARK: Events
     
-    @objc fileprivate func userDidSignIn(_ notification : Notification) {
+    @objc private func userDidSignIn(_ notification : Notification) {
         dismiss(animated: true) { 
             self.proceedAfterSignIn()
         }

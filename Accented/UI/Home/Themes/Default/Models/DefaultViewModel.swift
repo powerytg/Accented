@@ -11,24 +11,24 @@ import UIKit
 class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDelegate {
     
     // Header navigation cell
-    fileprivate let headerNavReuseIdentifier = "headerNav"
+    private let headerNavReuseIdentifier = "headerNav"
 
     // Header Buttons cell
-    fileprivate let headerButtonsReuseIdentifier = "headerButtons"
+    private let headerButtonsReuseIdentifier = "headerButtons"
 
-    fileprivate let cardRendererReuseIdentifier = "renderer"
-    fileprivate let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
-    fileprivate let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
+    private let cardRendererReuseIdentifier = "renderer"
+    private let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
+    private let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
     
     // Header section, which includes the logo, the nav bar and the buttons
-    fileprivate let headerSection = 0
+    private let headerSection = 0
     
     override var photoStartSection : Int {
         return 1
     }
 
     // Navigation cell
-    fileprivate var navCell : DefaultStreamHeaderNavCell?
+    private var navCell : DefaultStreamHeaderNavCell?
     
     required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)

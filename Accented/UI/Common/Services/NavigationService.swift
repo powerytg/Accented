@@ -11,12 +11,12 @@ import UIKit
 class NavigationService: NSObject, UINavigationControllerDelegate {
 
     // root navigation controller
-    weak fileprivate var rootNavigationController : UINavigationController?
+    weak private var rootNavigationController : UINavigationController?
     
     // Singleton instance
     static let sharedInstance = NavigationService()
     
-    fileprivate override init() {
+    private override init() {
         // Do nothing
     }
 

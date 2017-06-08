@@ -35,7 +35,7 @@ class JournalBackdropCell: UICollectionReusableView {
         applyTheme()
     }
     
-    fileprivate func applyTheme() {
+    private func applyTheme() {
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
             self.backgroundColor = journalTheme.streamBackdropColor
         } else {

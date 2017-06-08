@@ -11,7 +11,8 @@
 import UIKit
 
 class PresetManager: NSObject {
-    let availablePresets = [LookupPreset("Intensify.png"),
+    let availablePresets = [OriginalPhotoPreset(),
+                            LookupPreset("Intensify.png"),
                             LookupPreset("CandleLight.png"),
                             LookupPreset("ColorPunchCool.png"),
                             LookupPreset("ColorPunch.png"),

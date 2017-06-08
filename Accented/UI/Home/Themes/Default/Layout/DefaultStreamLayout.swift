@@ -12,19 +12,19 @@
 import UIKit
 
 class DefaultStreamLayout: StreamLayoutBase {
-    fileprivate let vGap : CGFloat = 20
+    private let vGap : CGFloat = 20
     
     // Total height of the header
-    fileprivate var headerHeight : CGFloat = 0
-    fileprivate var navBarHeight : CGFloat = 156
-    fileprivate let contentStartSection = 1
+    private var headerHeight : CGFloat = 0
+    private var navBarHeight : CGFloat = 156
+    private let contentStartSection = 1
     
     var navBarDefaultPosition : CGFloat = 0
     var navBarStickyPosition : CGFloat = 0
     var streamSelectorDefaultPosition : CGFloat = 0
     
-    fileprivate var navHeaderAttributes : UICollectionViewLayoutAttributes?
-    fileprivate var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
+    private var navHeaderAttributes : UICollectionViewLayoutAttributes?
+    private var buttonsHeaderAttributes : UICollectionViewLayoutAttributes?
     
     override init() {
         super.init()
@@ -73,7 +73,7 @@ class DefaultStreamLayout: StreamLayoutBase {
         return layoutAttributes
     }
     
-    fileprivate func layoutHeaderCell(_ contentOffset : CGFloat) {
+    private func layoutHeaderCell(_ contentOffset : CGFloat) {
         var navFrame = navHeaderAttributes!.frame
         
         if contentOffset >= (navBarDefaultPosition - navBarStickyPosition) {
@@ -93,7 +93,7 @@ class DefaultStreamLayout: StreamLayoutBase {
         delegate?.streamHeaderCompressionRatioDidChange(headerCompressionRatio)
     }
     
-    fileprivate func layoutSelectorCell(_ contentOffset : CGFloat) {
+    private func layoutSelectorCell(_ contentOffset : CGFloat) {
         var selectorFrame = buttonsHeaderAttributes!.frame
         if contentOffset < 0 {
             selectorFrame.origin.y = streamSelectorDefaultPosition + contentOffset

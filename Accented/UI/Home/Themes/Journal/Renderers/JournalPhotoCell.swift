@@ -7,7 +7,7 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -18,7 +18,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -39,7 +39,7 @@ class JournalPhotoCell: UICollectionViewCell {
     
     var photo : PhotoModel?
     
-    fileprivate var currentTheme : JournalTheme? {
+    private var currentTheme : JournalTheme? {
         return ThemeManager.sharedInstance.currentTheme as? JournalTheme
     }
     
@@ -52,7 +52,7 @@ class JournalPhotoCell: UICollectionViewCell {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         // Title
         titleLabel.textColor = currentTheme?.titleTextColor
         titleLabel.font = JournalPhotoLayoutSpec.titleFont
@@ -163,7 +163,7 @@ class JournalPhotoCell: UICollectionViewCell {
         }
     }
     
-    fileprivate func layoutLabel(_ label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {
+    private func layoutLabel(_ label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {
         var f = label.frame
         f.origin.y = originY
         f.size.width = width - padding * 2

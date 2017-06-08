@@ -42,7 +42,9 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
         
         // Test code
-        let camVC = PearlCamViewController()
+//        let camVC = PearlCamViewController()
+//        navigationController?.pushViewController(camVC, animated: false)
+        let camVC = PearlCamPresetViewController(originalImage: UIImage(named: "test.jpg")!, cameraPosition: .back)
         navigationController?.pushViewController(camVC, animated: false)
     }
     

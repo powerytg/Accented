@@ -35,7 +35,7 @@ class PhotoRenderer: UIView {
         initialize()
     }
     
-    fileprivate var photoModel : PhotoModel?
+    private var photoModel : PhotoModel?
     var photo : PhotoModel? {
         get {
             return photoModel
@@ -89,7 +89,7 @@ class PhotoRenderer: UIView {
         imageView.frame = self.bounds
     }
     
-    @objc fileprivate func didReceiveTap(_ tap :UITapGestureRecognizer) {
+    @objc private func didReceiveTap(_ tap :UITapGestureRecognizer) {
         delegate?.photoRendererDidReceiveTap(self)
     }
 }

@@ -101,12 +101,12 @@ class StreamCardLayoutGenerator: StreamTemplateGenerator {
         return templates
     }
     
-    fileprivate func shouldUseSingleLandscapeLayout(_ photo : PhotoModel) -> Bool {
+    private func shouldUseSingleLandscapeLayout(_ photo : PhotoModel) -> Bool {
         let aspectRatio = photo.width / photo.height
         return (aspectRatio >= singleLandscapeAspectRatio)
     }
     
-    fileprivate func shouldUseQuadLayout(_ photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
+    private func shouldUseQuadLayout(_ photo1 : PhotoModel, photo2 : PhotoModel, photo3 : PhotoModel, photo4 : PhotoModel) -> Bool {
         return (!shouldUseSingleLandscapeLayout(photo1)
             && !shouldUseSingleLandscapeLayout(photo2)
             && !shouldUseSingleLandscapeLayout(photo3)

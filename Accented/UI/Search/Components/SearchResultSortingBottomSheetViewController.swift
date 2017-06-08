@@ -14,8 +14,8 @@ protocol SearchResultSortingBottomSheetViewControllerDelegate : NSObjectProtocol
 
 class SearchResultSortingBottomSheetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    fileprivate var sortingModel : PhotoSearchFilterModel
-    fileprivate let cellIdentifier = "cell"
+    private var sortingModel : PhotoSearchFilterModel
+    private let cellIdentifier = "cell"
     weak var delegate : SearchResultSortingBottomSheetViewControllerDelegate?
     
     @IBOutlet weak var tableView: UITableView!

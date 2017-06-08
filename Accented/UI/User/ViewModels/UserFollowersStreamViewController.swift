@@ -9,7 +9,7 @@
 import UIKit
 
 class UserFollowersStreamViewController: InfiniteLoadingViewController<UserModel> {
-    fileprivate var collection : UserFollowersModel
+    private var collection : UserFollowersModel
     
     init(_ collection : UserFollowersModel) {
         self.collection = collection

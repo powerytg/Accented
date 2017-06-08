@@ -46,7 +46,7 @@ class UserSearchResultRenderer: UICollectionViewCell {
         avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    @objc fileprivate func didReceiveTap(_ tap : UITapGestureRecognizer) {
+    @objc private func didReceiveTap(_ tap : UITapGestureRecognizer) {
         NavigationService.sharedInstance.navigateToUserProfilePage(user: user!)
     }
 }

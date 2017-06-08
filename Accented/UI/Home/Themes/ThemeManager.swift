@@ -10,13 +10,13 @@ import UIKit
 
 class ThemeManager: NSObject {
     
-    fileprivate let lightTheme = LightTheme()
-    fileprivate let darkTheme = DarkTheme()
-    fileprivate let journalLightTheme = JournalLightTheme()
-    fileprivate let journalDarkTheme = JournalDarkTheme()
+    private let lightTheme = LightTheme()
+    private let darkTheme = DarkTheme()
+    private let journalLightTheme = JournalLightTheme()
+    private let journalDarkTheme = JournalDarkTheme()
     
     // Current theme, default to dark theme
-    fileprivate var theme : AppTheme;
+    private var theme : AppTheme;
     var currentTheme : AppTheme {
         get {
             return theme
@@ -35,7 +35,7 @@ class ThemeManager: NSObject {
     
     // Singleton instance
     static let sharedInstance = ThemeManager()
-    fileprivate override init() {
+    private override init() {
         theme = darkTheme
         themes = [darkTheme, lightTheme, journalDarkTheme, journalLightTheme]
         super.init()

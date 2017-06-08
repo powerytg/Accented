@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +15,7 @@
                 <outlet property="histogramView" destination="d1r-U7-NBZ" id="CQA-fk-N1N"/>
                 <outlet property="imageInfoLabel" destination="H4L-RD-83s" id="XaT-xS-QBI"/>
                 <outlet property="infoView" destination="Rv5-Tg-11F" id="ztR-dW-Fgk"/>
-                <outlet property="presetSelectorView" destination="2FX-Mj-FOl" id="ptT-DT-1h7"/>
+                <outlet property="presetSelectorView" destination="2FX-Mj-FOl" id="b9Q-hV-aBK"/>
                 <outlet property="previewHeightConstraint" destination="snv-cj-3fR" id="Y2a-9H-9k2"/>
                 <outlet property="previewTopConstraint" destination="4Dt-I0-Zhq" id="ls0-1X-mVB"/>
                 <outlet property="previewView" destination="uwO-Cs-vEe" id="Q3N-Yk-Fm7"/>
@@ -31,14 +28,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRo-Bm-VM3" userLabel="BackButton">
-                    <rect key="frame" x="15" y="615" width="16" height="22"/>
                     <state key="normal" image="DetailBackButton"/>
                     <connections>
                         <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="tQt-v8-wH2"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jj-TY-N63">
-                    <rect key="frame" x="149.5" y="608" width="76" height="36"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
                     <state key="normal" title="USE PHOTO">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,17 +43,14 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSL-fr-JLl">
-                    <rect key="frame" x="330" y="608" width="30" height="36"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
                     <state key="normal" title="EDIT">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwO-Cs-vEe" userLabel="previewView" customClass="UIImageView">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1r-U7-NBZ" userLabel="histogramView" customClass="RenderView" customModule="GPUImage">
-                            <rect key="frame" x="247" y="192" width="113" height="58"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="113" id="V1P-XZ-wgy"/>
@@ -74,16 +66,13 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rv5-Tg-11F" userLabel="InfoView">
-                    <rect key="frame" x="0.0" y="268" width="375" height="32"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ORIGINAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mta-dk-x0U">
-                            <rect key="frame" x="25" y="6" width="56" height="21"/>
                             <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JPEG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4L-RD-83s">
-                            <rect key="frame" x="321" y="5.5" width="29" height="21"/>
                             <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
@@ -98,8 +87,7 @@
                         <constraint firstAttribute="height" constant="32" id="pQf-hJ-Elu"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FX-Mj-FOl" customClass="PresetDeckView" customModule="Accented" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="513" width="375" height="80"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FX-Mj-FOl" customClass="PresetChooserView" customModule="Accented" customModuleProvider="target">
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="yyI-t1-8zW"/>

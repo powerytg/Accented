@@ -31,7 +31,7 @@ class DeckCacheController: NSObject {
     weak var dataSource : DeckViewControllerDataSource?
     
     // Total number of items
-    fileprivate var totalItemCount = 0
+    private var totalItemCount = 0
     
     // Currently selected card
     var selectedCard : CardViewController!
@@ -52,7 +52,7 @@ class DeckCacheController: NSObject {
     var cachedCards = [CardViewController]()
     
     // Selected index, initially -1
-    fileprivate var selectedIndex : Int = -1
+    private var selectedIndex : Int = -1
     
     func initializeCache(_ initialSelectedIndex : Int) {
         guard dataSource != nil else { return }
@@ -229,7 +229,7 @@ class DeckCacheController: NSObject {
         return recycledCard
     }
     
-    fileprivate func getCardFromDataSource(_ index : Int) -> CardViewController {
+    private func getCardFromDataSource(_ index : Int) -> CardViewController {
         let card = dataSource!.cardForItemIndex(index)
         card.indexInDataSource = index
         
@@ -241,7 +241,7 @@ class DeckCacheController: NSObject {
         return card
     }
     
-    fileprivate func recycleCard(_ card : CardViewController) {
+    private func recycleCard(_ card : CardViewController) {
         card.prepareForReuse()
         recycledCard = card
     }

@@ -30,7 +30,7 @@ class FatalErrorView: UIView {
         
         self.backgroundColor = UIColor.black
         
-        label.font = ThemeManager.sharedInstance.currentTheme.descFont
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = UIColor.white
         label.text = title
         label.numberOfLines = 0
@@ -68,7 +68,7 @@ class FatalErrorView: UIView {
         button.frame = f
     }
     
-    @objc fileprivate func buttonDidTap(_ sender : PushButton) {
+    @objc private func buttonDidTap(_ sender : PushButton) {
         action()
     }
 

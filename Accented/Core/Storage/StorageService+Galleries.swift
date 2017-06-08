@@ -36,7 +36,7 @@ extension StorageService {
         }
     }
     
-    fileprivate func mergeGalleries(_ userInfo : [AnyHashable : Any], galleries: [GalleryModel], page: Int, totalCount : Int) {
+    private func mergeGalleries(_ userInfo : [AnyHashable : Any], galleries: [GalleryModel], page: Int, totalCount : Int) {
         let userId = userInfo[RequestParameters.userId] as! String
         
         let collection = getUserGalleries(userId: userId)

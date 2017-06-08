@@ -14,8 +14,8 @@ class ThemeSelectorViewController: UIViewController, UICollectionViewDataSource,
 
     static let drawerWidthInPercentage : CGFloat = 0.8
     
-    fileprivate var themeCellIdentifier = "themeCell"
-    fileprivate var footerIdentifier = "themeFooter"
+    private var themeCellIdentifier = "themeCell"
+    private var footerIdentifier = "themeFooter"
     
     override func viewDidLoad() {
         super.viewDidLoad()

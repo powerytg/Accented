@@ -10,11 +10,11 @@ import UIKit
 
 class DrawerDismissGestureController: NSObject {
     
-    fileprivate var animationContext : DrawerAnimationContext
-    fileprivate var screenWidth : CGFloat
-    fileprivate var screenHeight : CGFloat
+    private var animationContext : DrawerAnimationContext
+    private var screenWidth : CGFloat
+    private var screenHeight : CGFloat
 
-    weak fileprivate var interactiveDismissAnimator : UIPercentDrivenInteractiveTransition?
+    weak private var interactiveDismissAnimator : UIPercentDrivenInteractiveTransition?
     
     required init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
@@ -37,13 +37,13 @@ class DrawerDismissGestureController: NSObject {
     
     //MARK: Events
     
-    @objc fileprivate func didTapOnBackgroundView(_ sender : AnyObject) {
+    @objc private func didTapOnBackgroundView(_ sender : AnyObject) {
         // Because the tap action is never going to be interactive, we need to make sure that we disable the interactive property in the context so that the correct non-interactive dismissal animator will be used
         animationContext.interactive = false
         animationContext.content.dismiss(animated: true, completion: nil)
     }
     
-    @objc fileprivate func didReceiveSwipeGesture(_ gesture : UIPanGestureRecognizer) {
+    @objc private func didReceiveSwipeGesture(_ gesture : UIPanGestureRecognizer) {
         let tx = gesture.translation(in: gesture.view).x
         let ty = gesture.translation(in: gesture.view).y
         var percentage : CGFloat
@@ -78,7 +78,7 @@ class DrawerDismissGestureController: NSObject {
         }
     }
 
-    fileprivate func dismissGestureFinished(_ gesture : UIPanGestureRecognizer) {
+    private func dismissGestureFinished(_ gesture : UIPanGestureRecognizer) {
         let velocity = gesture.velocity(in: gesture.view)
         let travelDist : CGFloat
         let oppositeDirection : Bool
@@ -111,7 +111,7 @@ class DrawerDismissGestureController: NSObject {
         }
     }
     
-    fileprivate func isDismissalVelocityAccepted(_ velocity : CGPoint) -> Bool {
+    private func isDismissalVelocityAccepted(_ velocity : CGPoint) -> Bool {
         var v : CGFloat
         switch animationContext.anchor {
         case .left:

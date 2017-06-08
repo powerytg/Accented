@@ -14,13 +14,13 @@ import UIKit
 class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegate, DetailLightBoxAnimation {
 
     // Image view
-    fileprivate var imageView  = UIImageView()
+    private var imageView  = UIImageView()
     
     // Scroll view
-    fileprivate var scrollView = UIScrollView()
+    private var scrollView = UIScrollView()
     
     // Zooming state
-    fileprivate var imageZoomed : Bool {
+    private var imageZoomed : Bool {
         return (scrollView.zoomScale != 1.0)
     }
     
@@ -28,7 +28,7 @@ class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegat
     var photo : PhotoModel
     
     // Back button
-    fileprivate var backButton = UIButton(type: .custom)
+    private var backButton = UIButton(type: .custom)
     
     init(photo : PhotoModel) {
         self.photo = photo
@@ -94,11 +94,11 @@ class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegat
     
     // MARK: - Events
     
-    @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
+    @objc private func backButtonDidTap(_ sender : UIButton) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
-    @objc fileprivate func didReceiveDoubleTap(_ gesture : UITapGestureRecognizer) {
+    @objc private func didReceiveDoubleTap(_ gesture : UITapGestureRecognizer) {
         if imageZoomed {
             scrollView.setZoomScale(1.0, animated: true)
         } else {
@@ -107,7 +107,7 @@ class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegat
         }
     }
     
-    @objc fileprivate func didReceivePinch(_ gesture : UIPinchGestureRecognizer) {
+    @objc private func didReceivePinch(_ gesture : UIPinchGestureRecognizer) {
         switch gesture.state {
         case .changed:
             pinchGestureDidChange(gesture)
@@ -144,7 +144,7 @@ class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegat
     
     // MARK: - Private
     
-    fileprivate func initializeImageView() {
+    private func initializeImageView() {
         let imageUrl = PhotoRenderer.preferredImageUrl(photo)
         guard imageUrl != nil else { return }
         imageView.sd_setImage(with: imageUrl!)
@@ -160,14 +160,14 @@ class DetailFullScreenImageViewController: UIViewController, UIScrollViewDelegat
         scrollView.maximumZoomScale = 2.0
     }
     
-    fileprivate func zoomToLocation(_ location : CGPoint, scale : CGFloat) {
+    private func zoomToLocation(_ location : CGPoint, scale : CGFloat) {
         let rectWidth = view.bounds.width / scale
         let rectHeight = view.bounds.height / scale
         let zoomRect = CGRect(x: location.x - rectWidth / 2, y: location.y - rectHeight / 2, width: rectWidth, height: rectHeight)
         scrollView.zoom(to: zoomRect, animated: true)
     }
     
-    fileprivate func pinchGestureDidChange(_ gesture : UIPinchGestureRecognizer) {
+    private func pinchGestureDidChange(_ gesture : UIPinchGestureRecognizer) {
         // Limit the scale range
         var scale : CGFloat = gesture.scale
         scale = max(scale, scrollView.minimumZoomScale)

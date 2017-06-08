@@ -11,12 +11,12 @@
 import UIKit
 
 class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
-    fileprivate let vGap : CGFloat = 8
-    fileprivate let itemHeight : CGFloat = 60
-    fileprivate let footerHeight : CGFloat = 50
-    fileprivate var width : CGFloat = 0
-    fileprivate let leftMargin : CGFloat = 15
-    fileprivate let rightMargin : CGFloat = 15
+    private let vGap : CGFloat = 8
+    private let itemHeight : CGFloat = 60
+    private let footerHeight : CGFloat = 50
+    private var width : CGFloat = 0
+    private let leftMargin : CGFloat = 15
+    private let rightMargin : CGFloat = 15
     
     override init() {
         super.init()
@@ -89,7 +89,7 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
         contentHeight = nextY
     }
     
-    fileprivate func cacheKeyForUser(_ user : UserModel) -> String {
+    private func cacheKeyForUser(_ user : UserModel) -> String {
         return "user_\(user.userId)"
     }
 

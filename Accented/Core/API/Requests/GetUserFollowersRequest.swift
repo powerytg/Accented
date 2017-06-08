@@ -11,8 +11,8 @@
 import UIKit
 
 class GetUserFollowersRequest: APIRequest {
-    fileprivate var userId : String
-    fileprivate var page : Int
+    private var userId : String
+    private var page : Int
     
     init(userId : String, page : Int = 1, success : SuccessAction?, failure : FailureAction?) {
         self.userId = userId

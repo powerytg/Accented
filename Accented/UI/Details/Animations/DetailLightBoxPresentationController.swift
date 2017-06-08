@@ -12,11 +12,11 @@ import UIKit
 
 class DetailLightBoxPresentationController: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
 
-    fileprivate var photo : PhotoModel
-    fileprivate var sourceImageView : UIImageView
-    fileprivate var useSourceImageViewAsProxy : Bool
-    unowned fileprivate var presentingViewController : DetailViewController
-    unowned fileprivate var presentedViewController : DetailFullScreenImageViewController
+    private var photo : PhotoModel
+    private var sourceImageView : UIImageView
+    private var useSourceImageViewAsProxy : Bool
+    unowned private var presentingViewController : DetailViewController
+    unowned private var presentedViewController : DetailFullScreenImageViewController
     
     init(presentingViewController : DetailViewController, presentedViewController : DetailFullScreenImageViewController, photo : PhotoModel, sourceImageView : UIImageView, useSourceImageViewAsProxy : Bool) {
         self.presentingViewController = presentingViewController

@@ -18,19 +18,19 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     // Source image view from entrance transition
     var entranceAnimationImageView : UIImageView
     
-    fileprivate let contentBottomPadding : CGFloat = 25
-    fileprivate let sectionGap : CGFloat = 15
+    private let contentBottomPadding : CGFloat = 25
+    private let sectionGap : CGFloat = 15
     
     // Sections
-    fileprivate var sections = [DetailSectionViewBase]()
-    fileprivate var photoSection : DetailPhotoSectionView!
-    fileprivate var backgroundView : DetailBackgroundView!
-    fileprivate var scrollView = UIScrollView()
-    fileprivate var contentView = UIView()
-    fileprivate var backButton = UIButton(type: .custom)
+    private var sections = [DetailSectionViewBase]()
+    private var photoSection : DetailPhotoSectionView!
+    private var backgroundView : DetailBackgroundView!
+    private var scrollView = UIScrollView()
+    private var contentView = UIView()
+    private var backButton = UIButton(type: .custom)
 
     // All views that would participate entrance animation
-    fileprivate var entranceAnimationViews = [DetailEntranceAnimation]()
+    private var entranceAnimationViews = [DetailEntranceAnimation]()
     
     // Hero photo view
     var heroPhotoView : UIImageView {
@@ -38,7 +38,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     }
     
     // Temporary proxy image view when pinching on the main photo view
-    fileprivate var pinchProxyImageView : UIImageView?
+    private var pinchProxyImageView : UIImageView?
 
     init(context : DetailNavigationContext) {
         self.entranceAnimationImageView = context.sourceImageView
@@ -74,7 +74,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         backButton.sizeToFit()
     }
 
-    fileprivate func initializeSections() {
+    private func initializeSections() {
         sections.append(DetailHeaderSectionView(photo))
         
         self.photoSection = DetailPhotoSectionView(photo)
@@ -231,15 +231,15 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     // MARK: - Events
     
-    @objc fileprivate func backButtonDidTap(_ sender : UIButton) {
+    @objc private func backButtonDidTap(_ sender : UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    @objc fileprivate func didTapOnPhoto(_ gesture : UITapGestureRecognizer) {
+    @objc private func didTapOnPhoto(_ gesture : UITapGestureRecognizer) {
         presentLightBoxViewController(sourceImageView: heroPhotoView, useSourceImageViewAsProxy: false)
     }
 
-    @objc fileprivate func didPinchOnPhoto(_ gesture : UIPinchGestureRecognizer) {
+    @objc private func didPinchOnPhoto(_ gesture : UIPinchGestureRecognizer) {
         switch gesture.state {
         case .began:
             didStartPinchOnPhoto()
@@ -255,7 +255,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         }
     }
 
-    fileprivate func didStartPinchOnPhoto() {
+    private func didStartPinchOnPhoto() {
         // Create a proxy image view for the pinch action
         pinchProxyImageView = UIImageView(image: heroPhotoView.image)
         pinchProxyImageView!.contentMode = heroPhotoView.contentMode
@@ -269,17 +269,17 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
             }, completion: nil)
     }
     
-    fileprivate func didEndPinchOnPhoto() {
+    private func didEndPinchOnPhoto() {
         // Use the temporary pinch proxy image view as the source view for lightbox transition
         self.presentLightBoxViewController(sourceImageView: pinchProxyImageView!, useSourceImageViewAsProxy: true)
         pinchProxyImageView?.removeFromSuperview()
     }
     
-    fileprivate func photoDidReceivePinch(_ gesture: UIPinchGestureRecognizer) {
+    private func photoDidReceivePinch(_ gesture: UIPinchGestureRecognizer) {
         pinchProxyImageView?.transform = CGAffineTransform(scaleX: gesture.scale, y: gesture.scale)
     }
     
-    fileprivate func didCancelPinchOnPhoto() {
+    private func didCancelPinchOnPhoto() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { [weak self] in
             self?.pinchProxyImageView?.transform = CGAffineTransform.identity
             self?.backgroundView.alpha = 1
@@ -293,7 +293,7 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     // MARK: - Private
     
-    fileprivate func presentLightBoxViewController(sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
+    private func presentLightBoxViewController(sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
         let lightboxViewController = DetailFullScreenImageViewController(photo: photo)
         let lightboxTransitioningDelegate = DetailLightBoxPresentationController(presentingViewController: self, presentedViewController: lightboxViewController, photo: photo, sourceImageView: sourceImageView, useSourceImageViewAsProxy: useSourceImageViewAsProxy)
         lightboxViewController.modalPresentationStyle = .custom

@@ -11,10 +11,10 @@ import UIKit
 class DetailBackgroundView: UIImageView {
 
     // Minimal scroll distance required before the perspective effect would be applied
-    fileprivate let minDist : CGFloat = 40
+    private let minDist : CGFloat = 40
     
     // Maximum scroll distance required for perspective effect to be fully applied
-    fileprivate let maxDist : CGFloat = 160
+    private let maxDist : CGFloat = 160
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -26,7 +26,7 @@ class DetailBackgroundView: UIImageView {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         self.clipsToBounds = true
         self.image = UIImage(named: "DarkButterfly")
         self.contentMode = .scaleAspectFill

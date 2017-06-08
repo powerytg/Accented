@@ -19,9 +19,9 @@ class AuthenticationService: NSObject {
     
     static let callbackUrl = "accented-app://auth"
     
-    fileprivate static let accessTokenStoreKey = "accessToken";
-    fileprivate static let accessTokenSecretStoreKey = "accessTokenSecret"
-    fileprivate static let currentUserInfoKey = "currentUserInfoKey"
+    private static let accessTokenStoreKey = "accessToken";
+    private static let accessTokenSecretStoreKey = "accessTokenSecret"
+    private static let currentUserInfoKey = "currentUserInfoKey"
     
     var accessToken : String?
     var accessTokenSecret : String?
@@ -38,7 +38,7 @@ class AuthenticationService: NSObject {
     // Sign in event
     static let userDidSignIn = Notification.Name("userDidSignIn")
     
-    fileprivate override init() {
+    private override init() {
         // Ignore
     }
 

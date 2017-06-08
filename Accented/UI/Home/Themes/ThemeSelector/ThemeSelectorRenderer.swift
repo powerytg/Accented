@@ -43,14 +43,14 @@ class ThemeSelectorRenderer: UICollectionViewCell {
         }
     }
     
-    fileprivate func applyUnselectedState() {
+    private func applyUnselectedState() {
         thumbnailView.layer.masksToBounds = false;
         thumbnailView.layer.shadowOpacity = 0.9;
         thumbnailView.layer.cornerRadius = 0;
         thumbnailView.layer.borderWidth = 0;
     }
     
-    fileprivate func applySelectedState() {
+    private func applySelectedState() {
         thumbnailView.layer.masksToBounds = true;
         thumbnailView.layer.cornerRadius = 4;
         thumbnailView.layer.borderWidth = 4;

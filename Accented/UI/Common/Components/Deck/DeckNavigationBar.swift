@@ -16,8 +16,8 @@ protocol DeckNavigationBarDelegate : NSObjectProtocol {
 
 class DeckNavigationBar: UIView {
 
-    fileprivate var indicator = UIView()
-    fileprivate var navButtons = [UIButton]()
+    private var indicator = UIView()
+    private var navButtons = [UIButton]()
     var selectedIndex = 0 {
         didSet {
             UIView.animate(withDuration: 0.2, animations: { 
@@ -28,14 +28,14 @@ class DeckNavigationBar: UIView {
         }
     }
     
-    fileprivate let indicatorHeight : CGFloat = 4
-    fileprivate let indicatorPaddingLeft : CGFloat = 5
-    fileprivate let indicatorPaddingRight : CGFloat = 10
-    fileprivate let gap : CGFloat = 25
-    fileprivate let unselectedColor = UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
-    fileprivate let unselectedHighContrastColor = UIColor(red: 190 / 255.0, green: 190 / 255.0, blue: 190 / 255.0, alpha: 1)
-    fileprivate let selectedColor = UIColor.white
-    fileprivate var highContrastMode = false
+    private let indicatorHeight : CGFloat = 4
+    private let indicatorPaddingLeft : CGFloat = 5
+    private let indicatorPaddingRight : CGFloat = 10
+    private let gap : CGFloat = 25
+    private let unselectedColor = UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
+    private let unselectedHighContrastColor = UIColor(red: 190 / 255.0, green: 190 / 255.0, blue: 190 / 255.0, alpha: 1)
+    private let selectedColor = UIColor.white
+    private var highContrastMode = false
     
     weak var delegate : DeckNavigationBarDelegate?
     
@@ -49,7 +49,7 @@ class DeckNavigationBar: UIView {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         addSubview(indicator)
         indicator.backgroundColor = ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor        
     }
@@ -63,7 +63,7 @@ class DeckNavigationBar: UIView {
         }
     }
 
-    fileprivate func createNavButtons() {
+    private func createNavButtons() {
         if let ds = dataSource {
             let buttonCount = ds.numberOfCards()
             if buttonCount == 0 {
@@ -109,7 +109,7 @@ class DeckNavigationBar: UIView {
         layoutIndicatorView()
     }
     
-    fileprivate func layoutIndicatorView() {
+    private func layoutIndicatorView() {
         let selectedButtonFrame = navButtons[selectedIndex].frame
         var indicatorFrame = indicator.frame
         indicatorFrame.size.height = indicatorHeight
@@ -119,7 +119,7 @@ class DeckNavigationBar: UIView {
         indicator.frame = indicatorFrame
     }
     
-    @objc fileprivate func navButtonDidTap(_ button : UIButton) {
+    @objc private func navButtonDidTap(_ button : UIButton) {
         let toIndex = navButtons.index(of: button)
         if toIndex == selectedIndex {
             return

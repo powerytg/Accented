@@ -49,7 +49,7 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
         }
     }
     
-    fileprivate func handleFailure(_ message : String!) -> Void {
+    private func handleFailure(_ message : String!) -> Void {
         let alert = UIAlertController(title: "Authentication Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { [weak self] (UIAlertAction) in
             self?.dismiss(animated: true, completion: nil)
@@ -62,7 +62,7 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
         self.dismiss(animated: true, completion: nil)
     }
 
-    fileprivate func showRequestUserInfoView() {
+    private func showRequestUserInfoView() {
         self.progressView.isHidden = false
         
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
@@ -75,14 +75,14 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
         }
     }
     
-    fileprivate func requestCurrentUserInfo() {
+    private func requestCurrentUserInfo() {
         APIService.sharedInstance.getCurrentUserProfile(success: nil) { [weak self] (errorMessage) in
             self?.indicator.stopAnimating()
             self?.handleFailure(errorMessage)
         }
     }
     
-    @objc fileprivate func currentUserInfoDidReturn(_ notification : Notification) {
+    @objc private func currentUserInfoDidReturn(_ notification : Notification) {
         DispatchQueue.main.async { [weak self] in
             self?.indicator.stopAnimating()
             

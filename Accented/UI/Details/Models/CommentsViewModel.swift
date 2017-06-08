@@ -39,7 +39,7 @@ class CommentsViewModel : InfiniteLoadingViewModel<CommentModel>, CommentsLayout
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
+    @objc private func photoCommentsDidChange(_ notification : Notification) {
         let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
         let page = notification.userInfo![StorageServiceEvents.page] as! Int
         guard updatedPhotoId == collection.modelId else { return }
@@ -55,7 +55,7 @@ class CommentsViewModel : InfiniteLoadingViewModel<CommentModel>, CommentsLayout
         }
     }
     
-    @objc fileprivate func didPostComment(_ notification : Notification) {
+    @objc private func didPostComment(_ notification : Notification) {
         let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
         guard updatedPhotoId == collection.modelId else { return }
 

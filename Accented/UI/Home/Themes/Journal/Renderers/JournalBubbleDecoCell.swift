@@ -29,7 +29,7 @@ class JournalBubbleDecoCell: UICollectionReusableView {
         applyTheme()
     }
  
-    fileprivate func applyTheme() {
+    private func applyTheme() {
         if ThemeManager.sharedInstance.currentTheme is JournalTheme {
             imageView.image = journalTheme.bubbleDecorImage
         } else {

@@ -15,7 +15,7 @@ class GreetingsViewController: UIViewController {
     @IBOutlet weak var subTitleView: UILabel!
     @IBOutlet weak var signInButton: UIButton!
     
-    fileprivate var animationStarted = false
+    private var animationStarted = false
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent

@@ -12,7 +12,7 @@ import UIKit
 
 class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
     
-    fileprivate let rendererIdentifier = "renderer"
+    private let rendererIdentifier = "renderer"
     
     required init(collection : UserSearchResultModel, collectionView : UICollectionView) {
         super.init(collection: collection, collectionView: collectionView)
@@ -42,7 +42,7 @@ class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
     }
 
     // Events
-    @objc fileprivate func userSearchResultDidUpdate(_ notification : Notification) {
+    @objc private func userSearchResultDidUpdate(_ notification : Notification) {
         let updatedKeyword = notification.userInfo![StorageServiceEvents.keyword] as! String
         let page = notification.userInfo![StorageServiceEvents.page] as! Int
         guard updatedKeyword == collection.modelId else { return }

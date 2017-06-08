@@ -49,7 +49,7 @@ class CommentRenderer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    fileprivate func initialize() {
+    private func initialize() {
         // Specify background
         addSubview(backgroundView)
         
@@ -122,7 +122,7 @@ class CommentRenderer: UIView {
         contentLabel.sizeToFit()
     }
     
-    fileprivate func commentModelDidChange() {
+    private func commentModelDidChange() {
         setNeedsLayout()
     }
     
@@ -149,21 +149,21 @@ class CommentRenderer: UIView {
         return measuredSize
     }
     
-    fileprivate static func maxAvailableTextWidth(_ maxWidth : CGFloat) -> CGFloat {
+    private static func maxAvailableTextWidth(_ maxWidth : CGFloat) -> CGFloat {
         return maxWidth - paddingLeft - paddingRight - avatarSize - backgroundMarginLeft
     }
     
-    fileprivate static var paramStyle : NSParagraphStyle {
+    private static var paramStyle : NSParagraphStyle {
         let paramStyle = NSMutableParagraphStyle()
         paramStyle.lineBreakMode = .byWordWrapping
         return paramStyle
     }
     
-    fileprivate static var authorStringAttrs : [String : Any] {
+    private static var authorStringAttrs : [String : Any] {
         return [NSFontAttributeName: authorFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
     }
 
-    fileprivate static var contentStringAttrs : [String : Any] {
+    private static var contentStringAttrs : [String : Any] {
         return [NSFontAttributeName: contentFont, NSParagraphStyleAttributeName : paramStyle] as [String : Any]
     }
 }

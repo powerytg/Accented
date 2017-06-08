@@ -13,7 +13,7 @@ import GPUImage
 
 class Processor: NSObject {
 
-    var filter : LookupFilter!
+    var filter : LookupFilter?
     var name : String!
     
 }

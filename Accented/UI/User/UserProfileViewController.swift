@@ -19,10 +19,10 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var backgroundView: DesaturatedBackgroundView!
     
-    fileprivate let deckPaddingTop : CGFloat = 150
-    fileprivate let avatarSize = 30
-    fileprivate var user : UserModel
-    fileprivate var loadingView : LoadingViewController?
+    private let deckPaddingTop : CGFloat = 150
+    private let avatarSize = 30
+    private var user : UserModel
+    private var loadingView : LoadingViewController?
 
     var deck : PagerViewController!
     var cards = [UserProfileCardViewController]()
@@ -74,7 +74,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         super.didReceiveMemoryWarning()
     }
     
-    fileprivate func loadUserProfile() {
+    private func loadUserProfile() {
         let userId = self.user.userId
         APIService.sharedInstance.getUserProfile(userId: userId!, success: nil) { [weak self] (errorMessage) in
             self?.loadingView?.showErrorState()
@@ -109,7 +109,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
-    fileprivate func initializeCards() {
+    private func initializeCards() {
         cards.append(UserAboutSectionViewController(user: user, nibName: "UserAboutSectionViewController"))
         cards.append(UserPhotosSectionViewController(user: user, nibName: "UserPhotosSectionViewController"))
         cards.append(UserFollowersSectionViewController(user: user, nibName: "UserFollowersSectionViewController"))
@@ -147,7 +147,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     }
     
     // Events
-    @objc fileprivate func userProfileDidUpdate(_ notification : Notification) {
+    @objc private func userProfileDidUpdate(_ notification : Notification) {
         let updatedUserId = notification.userInfo![StorageServiceEvents.userId] as! String
         guard updatedUserId == self.user.userId else { return }
         
@@ -174,7 +174,7 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         adjustTextClarity()
     }
     
-    fileprivate func adjustTextClarity() {
+    private func adjustTextClarity() {
         navView.adjustTextClarity()
         
         for card in cards {

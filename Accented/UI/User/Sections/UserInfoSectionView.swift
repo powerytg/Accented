@@ -11,12 +11,12 @@ import UIKit
 class UserInfoSectionView: UserSectionViewBase {
 
     // Info key value pairs to be rendered on screen
-    fileprivate var infoEntries = [(String, String)]()
+    private var infoEntries = [(String, String)]()
     
     // Renderers
-    fileprivate var renderers = [UserInfoEntryView]()
+    private var renderers = [UserInfoEntryView]()
     
-    fileprivate let rendererHeight : CGFloat = 26
+    private let rendererHeight : CGFloat = 26
     
     override func createContentView() {
         super.createContentView()
@@ -28,7 +28,7 @@ class UserInfoSectionView: UserSectionViewBase {
         createRenderers()
     }
 
-    fileprivate func compileInfoEntries() {
+    private func compileInfoEntries() {
         // Full name
         if let fullName = user.fullName {
             infoEntries.append(("Full Name", fullName))
@@ -82,7 +82,7 @@ class UserInfoSectionView: UserSectionViewBase {
         }
     }
     
-    fileprivate func createRenderers() {
+    private func createRenderers() {
         for entry in infoEntries {
             let renderer = UserInfoEntryView(entry)
             renderers.append(renderer)

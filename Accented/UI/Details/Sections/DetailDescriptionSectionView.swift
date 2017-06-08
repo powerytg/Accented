@@ -13,25 +13,25 @@ import TTTAttributedLabel
 
 class DetailDescriptionSectionView: DetailSectionViewBase {
     
-    fileprivate var titleLabel = UILabel()
-    fileprivate var dateLabel = UILabel()
-    fileprivate var descLabel = TTTAttributedLabel(frame: CGRect.zero)
+    private var titleLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var descLabel = TTTAttributedLabel(frame: CGRect.zero)
     
-    fileprivate let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
-    fileprivate let dateFont = UIFont(name: "HelveticaNeue", size: 14)
-    fileprivate let descFont = ThemeManager.sharedInstance.currentTheme.descFont
-    fileprivate let descColor = ThemeManager.sharedInstance.currentTheme.descTextColor
-    fileprivate let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
-    fileprivate let linkPressColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
+    private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
+    private let dateFont = UIFont(name: "HelveticaNeue", size: 14)
+    private let descFont = ThemeManager.sharedInstance.currentTheme.descFont
+    private let descColor = ThemeManager.sharedInstance.currentTheme.descTextColor
+    private let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
+    private let linkPressColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
     
-    fileprivate let titleTopPadding : CGFloat = 12
-    fileprivate let titleRightPadding : CGFloat = 70
-    fileprivate let dateRightPadding : CGFloat = 120
-    fileprivate let descRightPadding : CGFloat = 30
-    fileprivate let gap : CGFloat = 10
+    private let titleTopPadding : CGFloat = 12
+    private let titleRightPadding : CGFloat = 70
+    private let dateRightPadding : CGFloat = 120
+    private let descRightPadding : CGFloat = 30
+    private let gap : CGFloat = 10
 
-    fileprivate var formattedDescText : NSAttributedString?
-    fileprivate var descSize : CGSize?
+    private var formattedDescText : NSAttributedString?
+    private var descSize : CGSize?
     
     override func initialize() {
         super.initialize()
@@ -147,7 +147,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     // MARK: - Private
     
-    fileprivate func formattedDescriptionString(_ photo : PhotoModel) -> NSAttributedString? {
+    private func formattedDescriptionString(_ photo : PhotoModel) -> NSAttributedString? {
         guard let desc = photo.desc else { return nil }
         
         let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
@@ -167,7 +167,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         return formattedDesc
     }
     
-    fileprivate func displayDateString(_ photo : PhotoModel) -> String? {
+    private func displayDateString(_ photo : PhotoModel) -> String? {
         if photo.creationDate == nil {
             return nil
         }

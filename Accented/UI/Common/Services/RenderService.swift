@@ -14,12 +14,12 @@ class RenderService: NSObject {
     static let sharedInstance = RenderService()
     
     // Render queue
-    fileprivate let renderQueue : DispatchQueue
+    private let renderQueue : DispatchQueue
     
     // Rendered bitmap cache. This is thread safe
-    fileprivate var renderCache : NSCache<AnyObject, AnyObject>
+    private var renderCache : NSCache<AnyObject, AnyObject>
     
-    fileprivate override init() {
+    private override init() {
         renderQueue = DispatchQueue(label: "com.accented.renderer", attributes: [])
         renderCache = NSCache()
     }

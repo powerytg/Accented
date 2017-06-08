@@ -12,8 +12,8 @@ import Alamofire
 
 class BlurredBackbroundView: ThemeableBackgroundView {
 
-    fileprivate var imageView = UIImageView()
-    fileprivate var blurView : UIVisualEffectView = UIVisualEffectView()
+    private var imageView = UIImageView()
+    private var blurView : UIVisualEffectView = UIVisualEffectView()
     
     override func initialize() -> Void {
         super.initialize()
@@ -38,7 +38,7 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         applyBackgroundImage(ThemeManager.sharedInstance.currentTheme.shouldUseDesaturatedBackground)
     }
     
-    fileprivate func applyBackgroundImage(_ desaturated : Bool) {
+    private func applyBackgroundImage(_ desaturated : Bool) {
         guard photo != nil else { return }
         let url = photo!.imageUrls[.Small]!
         guard url != nil else { return }
@@ -52,7 +52,7 @@ class BlurredBackbroundView: ThemeableBackgroundView {
         }
     }
     
-    fileprivate func applyImageEffects(_ image : UIImage, desaturated : Bool) {
+    private func applyImageEffects(_ image : UIImage, desaturated : Bool) {
         let input = PictureInput(image: image.cgImage!)
         let output = PictureOutput()
         let saturationFilter = SaturationAdjustment()

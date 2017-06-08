@@ -12,13 +12,13 @@ import UIKit
 
 class JournalViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDelegate {
 
-    fileprivate let headerReuseIdentifier = "journalHeader"
-    fileprivate let photoRendererReuseIdentifier = "journalPhotoRenderer"
+    private let headerReuseIdentifier = "journalHeader"
+    private let photoRendererReuseIdentifier = "journalPhotoRenderer"
     static let backdropDecorIdentifier = "journalBackdrop"
     static let bubbleDecorIdentifier = "journalBubble"
     
     // Header section, which includes the logo, the nav bar and the buttons
-    fileprivate let headerSection = 0
+    private let headerSection = 0
     
     override var photoStartSection : Int {
         return 1

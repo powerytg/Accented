@@ -29,7 +29,7 @@ class DesaturatedBackgroundView: UIImageView {
         }
     }
     
-    fileprivate func downloadImage() {
+    private func downloadImage() {
         guard let urlString = self.url else { return }
         let uri = URL(string: urlString)
         guard uri != nil else { return }
@@ -46,7 +46,7 @@ class DesaturatedBackgroundView: UIImageView {
     }
     
     // See this article: http://nshipster.com/image-resizing/
-    fileprivate func downscaleImageIfNecessary(_ source : UIImage) -> CGImage {
+    private func downscaleImageIfNecessary(_ source : UIImage) -> CGImage {
         // Calculate a scale
         let w = UIScreen.main.bounds.width * UIScreen.main.scale
         let h = UIScreen.main.bounds.height * UIScreen.main.scale
@@ -64,7 +64,7 @@ class DesaturatedBackgroundView: UIImageView {
         return scaledImage!.cgImage!
     }
 
-    fileprivate func performImageTransition(_ source : CGImage) {
+    private func performImageTransition(_ source : CGImage) {
         let input = PictureInput(image: source)
         let output = PictureOutput()
         
@@ -85,7 +85,7 @@ class DesaturatedBackgroundView: UIImageView {
         input.processImage(synchronously: true)
     }
     
-    fileprivate func fadeInCoverImage(_ source : UIImage) {
+    private func fadeInCoverImage(_ source : UIImage) {
         self.image = source
         
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in

@@ -12,17 +12,17 @@ import UIKit
 
 class DetailHeaderSectionView: DetailSectionViewBase {
 
-    fileprivate var avatarView = UIImageView()
-    fileprivate var authorLabel = UILabel()
+    private var avatarView = UIImageView()
+    private var authorLabel = UILabel()
 
     // Fixed height
     static let sectionHeight : CGFloat = 120
     
-    fileprivate let labelPaddingLeft : CGFloat = 120
-    fileprivate let avatarSize : CGFloat = 40
-    fileprivate let avatarPaddingTop : CGFloat = 26
-    fileprivate let avatarPaddingRight : CGFloat = 15
-    fileprivate let gap : CGFloat = 25
+    private let labelPaddingLeft : CGFloat = 120
+    private let avatarSize : CGFloat = 40
+    private let avatarPaddingTop : CGFloat = 26
+    private let avatarPaddingRight : CGFloat = 15
+    private let gap : CGFloat = 25
     
     override func initialize() {
         super.initialize()
@@ -108,7 +108,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
     
     // MARK : - Events
     
-    @objc fileprivate func didTapOnUserProfile(_ tap : UITapGestureRecognizer) {
+    @objc private func didTapOnUserProfile(_ tap : UITapGestureRecognizer) {
         NavigationService.sharedInstance.navigateToUserProfilePage(user: photo.user)
     }
 }

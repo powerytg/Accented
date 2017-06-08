@@ -18,7 +18,7 @@ class StorageService: NSObject {
     
     // Singleton instance
     static let sharedInstance = StorageService()
-    fileprivate override init() {
+    private override init() {
         super.init()
         
         initializeEventListeners()
@@ -41,7 +41,7 @@ class StorageService: NSObject {
     var currentPhotoSearchSortingOption : PhotoSearchSortingOptions = .highestRating
     
     // Initialize event listeners to monitor APIService results
-    fileprivate func initializeEventListeners() {
+    private func initializeEventListeners() {
         let notificationCenter = NotificationCenter.default
         
         // Photos returned for a stream

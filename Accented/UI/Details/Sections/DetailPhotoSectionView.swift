@@ -37,7 +37,7 @@ class DetailPhotoSectionView: DetailSectionViewBase, DetailLightBoxAnimationSour
         return DetailPhotoSectionView.estimatedPhotoViewHeight(photo, width: width)
     }
     
-    fileprivate static func estimatedPhotoViewHeight(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
+    private static func estimatedPhotoViewHeight(_ photo : PhotoModel, width : CGFloat) -> CGFloat {
         let photoAspectRatio = photo.height / photo.width
         return width * photoAspectRatio
     }

@@ -24,13 +24,13 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     @IBOutlet weak var composerHeightConstraint: NSLayoutConstraint!
     
-    fileprivate var photo : PhotoModel
-    fileprivate let cornerRadius : CGFloat = 20
-    fileprivate let statusViewPaddingTop : CGFloat = 20
-    fileprivate let titleBarMaskLayer = CAShapeLayer()
-    fileprivate let titleBarRectCorner = UIRectCorner([.topLeft, .topRight])
-    fileprivate let transitionController = DetailComposerPresentationController()
-    fileprivate var currentStatusView : UIView?
+    private var photo : PhotoModel
+    private let cornerRadius : CGFloat = 20
+    private let statusViewPaddingTop : CGFloat = 20
+    private let titleBarMaskLayer = CAShapeLayer()
+    private let titleBarRectCorner = UIRectCorner([.topLeft, .topRight])
+    private let transitionController = DetailComposerPresentationController()
+    private var currentStatusView : UIView?
     
     override var nibName: String? {
         return "DetailComposerViewController"
@@ -64,7 +64,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
         updateTitlebarCorners()
     }
 
-    fileprivate func updateTitlebarCorners() {
+    private func updateTitlebarCorners() {
         let path = UIBezierPath(roundedRect: titleView.bounds,
                                 byRoundingCorners: titleBarRectCorner,
                                 cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
@@ -88,7 +88,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
         }
     }
     
-    fileprivate func commentDidPost() {
+    private func commentDidPost() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.transitionToStatusView(self.successView)
 
@@ -98,7 +98,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
         }
     }
 
-    fileprivate func commentFailedPost() {
+    private func commentFailedPost() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.transitionToStatusView(self.errorView)
             self.textView.isEditable = true
@@ -106,7 +106,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
         }
     }
 
-    fileprivate func showStatusView(_ view : UIView) {
+    private func showStatusView(_ view : UIView) {
         var f = view.frame
         f.origin.x = composerView.frame.origin.x + 8
         f.origin.y = composerView.frame.origin.y + composerView.frame.size.height + statusViewPaddingTop
@@ -124,7 +124,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
         }
     }
     
-    fileprivate func transitionToStatusView(_ view : UIView) {
+    private func transitionToStatusView(_ view : UIView) {
         guard let previousStatusView = currentStatusView else {
             showStatusView(view)
             return

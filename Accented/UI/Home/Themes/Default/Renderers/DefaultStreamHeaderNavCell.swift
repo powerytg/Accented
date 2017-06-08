@@ -14,8 +14,8 @@ class DefaultStreamHeaderNavCell: UICollectionViewCell {
     @IBOutlet weak var streamSelectorView: DefaultStreamSelectorView!
     @IBOutlet weak var headerImageView: UIImageView!
     
-    fileprivate let lightThemeImage = UIImage(named: "LightStreamHeader")
-    fileprivate let darkThemeImage = UIImage(named: "DarkStreamHeader")
+    private let lightThemeImage = UIImage(named: "LightStreamHeader")
+    private let darkThemeImage = UIImage(named: "DarkStreamHeader")
     
     var compressionRatio : CGFloat = 0
     

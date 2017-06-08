@@ -65,16 +65,16 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     var selectedIndex = 0
     
     // Previous selected index
-    fileprivate var previousSelectedIndex = 0
+    private var previousSelectedIndex = 0
     
     // Total number of cards
-    fileprivate var totalCardCount = 0
+    private var totalCardCount = 0
     
     // Content view
     var contentView = UIView()
     
     // Animation configurations
-    fileprivate var animationParams = DeckAnimationParams()
+    private var animationParams = DeckAnimationParams()
     
     // Pan gesture
     var panGesture : UIPanGestureRecognizer!
@@ -127,7 +127,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         return cacheController.getRecycledCardViewController()
     }
     
-    fileprivate func removeAllCards() {
+    private func removeAllCards() {
         for card in self.contentView.subviews {
             card.removeFromSuperview()
         }
@@ -168,7 +168,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    fileprivate func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
+    private func panGestureDidChange(_ gesture : UIPanGestureRecognizer) {
         let tx = gesture.translation(in: gesture.view).x
         for card in cacheController.cachedCards {
             if card.withinVisibleRange {
@@ -178,7 +178,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    fileprivate func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
+    private func panGestureDidEnd(_ gesture : UIPanGestureRecognizer) {
         let velocity = gesture.velocity(in: gesture.view).x
         let tx = gesture.translation(in: gesture.view).x
         var shouldConfirm : Bool
@@ -244,14 +244,14 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     }
     
     // Cancel the scrolling and reset to the current position
-    fileprivate func cancelScrolling() {
+    private func cancelScrolling() {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             self?.updateVisibleCardFrames(false)
             }, completion: nil)
     }
     
     // Scroll to the selected view controller
-    fileprivate func performScrollingAnimation(_ direction : ScrollDirection) {
+    private func performScrollingAnimation(_ direction : ScrollDirection) {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: { [weak self] in
             self?.updateVisibleCardFrames(false)
             
@@ -309,7 +309,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
     
     // MARK: - Private
     
-    fileprivate func initializeCard(_ card : CardViewController) {
+    private func initializeCard(_ card : CardViewController) {
         if !contentView.subviews.contains(card.view) {
             contentView.addSubview(card.view)
         }
@@ -319,7 +319,7 @@ class DeckViewController: UIViewController, DeckLayoutControllerDelegate, DeckCa
         }
     }
     
-    fileprivate func layoutCard(_ card : CardViewController?) {
+    private func layoutCard(_ card : CardViewController?) {
         guard card != nil else { return }
         let cardOffset = layoutController.offsetForCardAtIndex(card!.indexInDataSource, selectedCardIndex: selectedIndex)
         card!.view.transform = CGAffineTransform(translationX: cardOffset, y: 0)

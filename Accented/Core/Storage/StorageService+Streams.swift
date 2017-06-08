@@ -34,7 +34,7 @@ extension StorageService {
         }
     }
     
-    fileprivate func mergePhotosToStream(_ userInfo : [AnyHashable : Any], photos: [PhotoModel], page: Int, totalPhotos : Int) {
+    private func mergePhotosToStream(_ userInfo : [AnyHashable : Any], photos: [PhotoModel], page: Int, totalPhotos : Int) {
         // Validate results
         guard let streamTypeString = userInfo[RequestParameters.feature] as? String else {
             debugPrint("Stream does not have an identity")

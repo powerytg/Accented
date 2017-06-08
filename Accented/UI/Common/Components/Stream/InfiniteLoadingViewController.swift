@@ -13,10 +13,10 @@ class InfiniteLoadingViewController<T : ModelBase>: UIViewController, UICollecti
     var collectionView : UICollectionView!
     
     // Refresh header
-    fileprivate var refreshHeaderView = RefreshHeaderView()
+    private var refreshHeaderView = RefreshHeaderView()
     
     // Refresh header compression percentage
-    fileprivate var refreshHeaderCompressionRatio : CGFloat = 0
+    private var refreshHeaderCompressionRatio : CGFloat = 0
     
     // Infinite scrolling threshold
     let loadingThreshold : CGFloat = 50

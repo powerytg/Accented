@@ -23,7 +23,7 @@ class RefreshHeaderView: UIView {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         self.backgroundColor = ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor
         self.layer.cornerRadius = 2
     }

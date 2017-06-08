@@ -16,9 +16,9 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
     var sortingOptionsViewController : SearchResultFilterViewController!
     var keyword : String?
     var tag : String?
-    fileprivate var sortingModel = PhotoSearchFilterModel()
-    fileprivate let sortingBarHeight : CGFloat = 40
-    fileprivate let streamTopMargin : CGFloat = 44
+    private var sortingModel = PhotoSearchFilterModel()
+    private let sortingBarHeight : CGFloat = 40
+    private let streamTopMargin : CGFloat = 44
     
     init(keyword : String) {
         self.keyword = keyword

@@ -10,30 +10,30 @@ import UIKit
 
 class DetailCommentSectionView: DetailSectionViewBase {
 
-    fileprivate var contentRightMargin : CGFloat = 50
-    fileprivate let contentLeftMargin : CGFloat = 24
-    fileprivate var contentTopMargin : CGFloat = 0
-    fileprivate var contentBottomMargin : CGFloat = 15
+    private var contentRightMargin : CGFloat = 50
+    private let contentLeftMargin : CGFloat = 24
+    private var contentTopMargin : CGFloat = 0
+    private var contentBottomMargin : CGFloat = 15
     
-    fileprivate let noCommentsText = "This photo does not have comments"
-    fileprivate let loadingText = "Loading comments..."
-    fileprivate let errorText = "Could not retrieve comments"
+    private let noCommentsText = "This photo does not have comments"
+    private let loadingText = "Loading comments..."
+    private let errorText = "Could not retrieve comments"
     
-    fileprivate let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
+    private let textFont = UIFont(name: "AvenirNextCondensed-Regular", size: 18)
     
     override var title: String? {
         return "COMMENTS"
     }
     
     // Status label will be visible if there are no comments, or if the comments are being loaded
-    fileprivate var statusLabel = UILabel()
-    fileprivate var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private var statusLabel = UILabel()
+    private var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
     
     // Cached section height
-    fileprivate var calculatedSectionHeight : CGFloat = 0
+    private var calculatedSectionHeight : CGFloat = 0
     
     // Fixed content height when there're no comments in the photo
-    fileprivate var noCommentsSectionHeight : CGFloat = 40
+    private var noCommentsSectionHeight : CGFloat = 40
     
     // Comment renderer vertical padding
     private var vPadding : CGFloat = 10
@@ -42,19 +42,19 @@ class DetailCommentSectionView: DetailSectionViewBase {
     private var indention : CGFloat = 12
     
     // Load-more button top margin
-    fileprivate var loadMoreMarginTop : CGFloat = 10
+    private var loadMoreMarginTop : CGFloat = 10
     
     // Maximum number of comments pre-created
-    fileprivate let maxNumberOfCommentsOnScreen = 4
+    private let maxNumberOfCommentsOnScreen = 4
     
     // Comment renderers
-    fileprivate var commentRenderers = [CommentRenderer]()
+    private var commentRenderers = [CommentRenderer]()
     
     // Load more button
-    fileprivate let loadMoreButton = UIButton(type: UIButtonType.custom)
+    private let loadMoreButton = UIButton(type: UIButtonType.custom)
     
     // Comment collection
-    fileprivate var commentCollection : CommentCollectionModel!
+    private var commentCollection : CommentCollectionModel!
     
     override func initialize() {
         super.initialize()
@@ -107,7 +107,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc fileprivate func navigateToCommentsPage(_ sender : NSObject) {
+    @objc private func navigateToCommentsPage(_ sender : NSObject) {
         NavigationService.sharedInstance.navigateToCommentsPage(photo)
     }
     
@@ -196,7 +196,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     // MARK: - Events
     
-    @objc fileprivate func photoCommentsDidChange(_ notification : Notification) {
+    @objc private func photoCommentsDidChange(_ notification : Notification) {
         let updatedPhotoId = notification.userInfo![StorageServiceEvents.photoId] as! String
         guard photo.photoId == updatedPhotoId else { return }
         

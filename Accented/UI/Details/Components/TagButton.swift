@@ -11,12 +11,12 @@
 import UIKit
 
 class TagButton: UIButton {
-    fileprivate let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
-    fileprivate let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
-    fileprivate let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
-    fileprivate let tagButtonBorderColor = UIColor.black
-    fileprivate let tagButtonRadius : CGFloat = 4
-    fileprivate let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
+    private let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
+    private let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
+    private let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
+    private let tagButtonBorderColor = UIColor.black
+    private let tagButtonRadius : CGFloat = 4
+    private let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,7 +28,7 @@ class TagButton: UIButton {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         titleLabel?.font = tagButtonFont
         setTitleColor(UIColor.white, for: .normal)
         contentEdgeInsets = tagButtonInset

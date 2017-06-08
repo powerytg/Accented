@@ -12,7 +12,7 @@ import UIKit
 import SwiftyJSON
 
 class PhotoModel: ModelBase {
-    fileprivate var dateFormatter = DateFormatter()
+    private var dateFormatter = DateFormatter()
     
     var photoId : String!
     var imageUrls = [ImageSize : String!]()

@@ -12,12 +12,12 @@ class SearchResultSortingOptionRenderer: UITableViewCell {
     
     @IBOutlet weak var optionLabel: UILabel!
     
-    fileprivate let normalBackgroundColor = UIColor.clear
-    fileprivate let highlightBackgroundColor = UIColor(red: 27 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
-    fileprivate let normalTextColor = UIColor(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0, alpha: 1.0)
-    fileprivate let highlightTextColor = UIColor.white
-    fileprivate let highlightFont = UIFont(name: "HelveticaNeue", size: 17)!
-    fileprivate let normalFont = UIFont(name: "HelveticaNeue-Light", size: 17)!
+    private let normalBackgroundColor = UIColor.clear
+    private let highlightBackgroundColor = UIColor(red: 27 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+    private let normalTextColor = UIColor(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0, alpha: 1.0)
+    private let highlightTextColor = UIColor.white
+    private let highlightFont = UIFont(name: "HelveticaNeue", size: 17)!
+    private let normalFont = UIFont(name: "HelveticaNeue-Light", size: 17)!
     
     var option : PhotoSearchSortingOptions?
     
@@ -32,7 +32,7 @@ class SearchResultSortingOptionRenderer: UITableViewCell {
         initialize()
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         
     }
     

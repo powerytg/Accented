@@ -12,7 +12,7 @@ import UIKit
 
 class UserFollowersViewModel: InfiniteLoadingViewModel<UserModel> {
     
-    fileprivate let rendererIdentifier = "renderer"
+    private let rendererIdentifier = "renderer"
     
     required init(collection : UserFollowersModel, collectionView : UICollectionView) {
         super.init(collection: collection, collectionView: collectionView)
@@ -42,7 +42,7 @@ class UserFollowersViewModel: InfiniteLoadingViewModel<UserModel> {
     }
     
     // Events
-    @objc fileprivate func userFollowersDidUpdate(_ notification : Notification) {
+    @objc private func userFollowersDidUpdate(_ notification : Notification) {
         let updatedUserId = notification.userInfo![StorageServiceEvents.userId] as! String
         let page = notification.userInfo![StorageServiceEvents.page] as! Int
         guard updatedUserId == collection.modelId else { return }

@@ -40,7 +40,7 @@ extension StorageService {
         }
     }
     
-    fileprivate func mergeCommentsToPhoto(_ photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
+    private func mergeCommentsToPhoto(_ photoId : String, comments: [CommentModel], page: Int, commentsCount : Int) -> Void {
         let collection = getComments(photoId)
         collection.totalCount = commentsCount
         

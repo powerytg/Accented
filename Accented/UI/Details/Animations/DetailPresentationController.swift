@@ -10,10 +10,10 @@ import UIKit
 
 class DetailPresentationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    fileprivate var photo : PhotoModel
-    fileprivate var fromView : UIView
-    fileprivate var toView : UIView
-    fileprivate var sourceImageView : UIImageView
+    private var photo : PhotoModel
+    private var fromView : UIView
+    private var toView : UIView
+    private var sourceImageView : UIImageView
     weak var detailVC : DetailViewController?
     
     init(photo : PhotoModel, sourceImageView : UIImageView, fromViewController : UIViewController, toViewController : DetailViewController) {

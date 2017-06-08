@@ -15,16 +15,16 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var navView: DeckNavigationBar!
     
-    fileprivate var keyword : String?
-    fileprivate var tag : String?
+    private var keyword : String?
+    private var tag : String?
     
     // Card deck, by default automatically select photo card (which is at index 0)
-    fileprivate let deck = DeckViewController(initialSelectedIndex: 0)
+    private let deck = DeckViewController(initialSelectedIndex: 0)
     
     // Cards
-    fileprivate var photoCard : SearchPhotoResultViewController!
-    fileprivate var userCard : SearchUserResultViewController?
-    fileprivate let deckPaddingTop : CGFloat = 170
+    private var photoCard : SearchPhotoResultViewController!
+    private var userCard : SearchUserResultViewController?
+    private let deckPaddingTop : CGFloat = 170
     
     init(keyword : String) {
         self.keyword = keyword

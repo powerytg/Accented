@@ -9,14 +9,14 @@
 import UIKit
 
 class SingleLandscapeTemplate: StreamLayoutTemplateBase {
-    fileprivate let maxHeight : CGFloat = 400
+    private let maxHeight : CGFloat = 400
     
     required init(photoSizes: Array<CGSize>, maxWidth: CGFloat) {
         super.init(photoSizes: photoSizes, maxWidth: maxWidth)
         generateLayoutMetadata()
     }
     
-    fileprivate func generateLayoutMetadata() {
+    private func generateLayoutMetadata() {
         // Simply max out the width
         let size = inputSizes[0]
         let aspectRatio = width / size.width

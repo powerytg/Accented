@@ -14,12 +14,12 @@ protocol CommentsLayoutDelegate : NSObjectProtocol {
 
 class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
 
-    fileprivate var paddingTop : CGFloat = 80
-    fileprivate let darkCellLeftMargin : CGFloat = 50
-    fileprivate let lightCelLeftlMargin : CGFloat = 62
-    fileprivate var rightMargin : CGFloat = 15
-    fileprivate var gap : CGFloat = 10
-    fileprivate var availableWidth : CGFloat = 0
+    private var paddingTop : CGFloat = 80
+    private let darkCellLeftMargin : CGFloat = 50
+    private let lightCelLeftlMargin : CGFloat = 62
+    private var rightMargin : CGFloat = 15
+    private var gap : CGFloat = 10
+    private var availableWidth : CGFloat = 0
     
     // Layout delegate
     weak var delegate : CommentsLayoutDelegate?
@@ -33,7 +33,7 @@ class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
         super.init(coder: aDecoder)
     }
     
-    fileprivate func initialize() {
+    private func initialize() {
         contentHeight = paddingTop
         scrollDirection = .vertical
     }
@@ -116,7 +116,7 @@ class CommentsLayout: InfiniteLoadingLayout<CommentModel> {
         contentHeight = nextY
     }
     
-    fileprivate func cacheKeyForComment(_ comment : CommentModel) -> String {
+    private func cacheKeyForComment(_ comment : CommentModel) -> String {
         return "comment_\(comment.commentId)"
     }
 }

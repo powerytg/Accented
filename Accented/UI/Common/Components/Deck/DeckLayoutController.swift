@@ -52,7 +52,7 @@ class DeckLayoutController: NSObject {
     }
     
     // Base origin is the logical position of the first card in the x axis
-    fileprivate var baselinePosition : CGFloat = 0
+    private var baselinePosition : CGFloat = 0
     
     // All cards actually share the same frame with origin of (0 0), their position on screen is manipulated by transforms
     var cardSize = CGSize.zero
@@ -69,7 +69,7 @@ class DeckLayoutController: NSObject {
         return baselinePosition + (cardWidth + gap) * CGFloat(index - selectedCardIndex)
     }
     
-    fileprivate func recalculateCardFrames() {
+    private func recalculateCardFrames() {
         contentSize = CGSize.zero
         cardSize = CGSize.zero
         guard !containerSize.equalTo(CGSize.zero) else { return }

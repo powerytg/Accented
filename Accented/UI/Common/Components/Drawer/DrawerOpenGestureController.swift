@@ -14,15 +14,15 @@ protocol DrawerOpenGestureControllerDelegate : NSObjectProtocol {
 
 class DrawerOpenGestureController: NSObject {
     
-    fileprivate var animationContext : DrawerAnimationContext
+    private var animationContext : DrawerAnimationContext
     
-    fileprivate var screenWidth : CGFloat
-    fileprivate var screenHeight : CGFloat
-    fileprivate var maxHorizontalTranslationPercentage : CGFloat
-    fileprivate var maxVerticalTranslationPercentage : CGFloat
+    private var screenWidth : CGFloat
+    private var screenHeight : CGFloat
+    private var maxHorizontalTranslationPercentage : CGFloat
+    private var maxVerticalTranslationPercentage : CGFloat
     
     weak var delegate : DrawerOpenGestureControllerDelegate?
-    weak fileprivate var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
+    weak private var interactiveOpenAnimator : UIPercentDrivenInteractiveTransition?
     
     var swipeGesture : UIScreenEdgePanGestureRecognizer!
     
@@ -93,7 +93,7 @@ class DrawerOpenGestureController: NSObject {
         }
     }
     
-    fileprivate func openGestureFinished(_ gesture : UIScreenEdgePanGestureRecognizer) {
+    private func openGestureFinished(_ gesture : UIScreenEdgePanGestureRecognizer) {
         let velocity = gesture.velocity(in: gesture.view)
         let travelDist : CGFloat
         let oppositeDirection : Bool
@@ -126,7 +126,7 @@ class DrawerOpenGestureController: NSObject {
         }
     }
     
-    fileprivate func isOpeningVelocityAccepted(_ velocity : CGPoint) -> Bool {
+    private func isOpeningVelocityAccepted(_ velocity : CGPoint) -> Bool {
         var v : CGFloat
         switch animationContext.anchor {
         case .left:

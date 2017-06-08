@@ -10,9 +10,9 @@ import UIKit
 
 class HeadlineTemplate: StreamLayoutTemplateBase {
 
-    fileprivate let maxFirstRowHeight : CGFloat = 500
-    fileprivate let maxSecondRowHeight : CGFloat = 200
-    fileprivate let maxHorizontalRatio : CGFloat = 3.0 / 2.0
+    private let maxFirstRowHeight : CGFloat = 500
+    private let maxSecondRowHeight : CGFloat = 200
+    private let maxHorizontalRatio : CGFloat = 3.0 / 2.0
     
     override var capacity : Int {
         return 3
@@ -23,7 +23,7 @@ class HeadlineTemplate: StreamLayoutTemplateBase {
         generateLayoutMetadata()
     }
     
-    fileprivate func generateLayoutMetadata() {
+    private func generateLayoutMetadata() {
         // First row
         let firstRowSize = inputSizes[0]
         let aspectRatio = width / firstRowSize.width

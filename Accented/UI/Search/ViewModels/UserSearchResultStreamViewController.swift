@@ -10,7 +10,7 @@ import UIKit
 
 class UserSearchResultStreamViewController: InfiniteLoadingViewController<UserModel> {
     
-    fileprivate var collection : UserSearchResultModel
+    private var collection : UserSearchResultModel
     
     init(_ collection : UserSearchResultModel) {
         self.collection = collection

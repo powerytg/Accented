@@ -14,18 +14,18 @@ class DetailCommentsViewController: InfiniteLoadingViewController<CommentModel> 
     var photo : PhotoModel!
     
     // Collection view viewModel
-    fileprivate var commentsViewModel : CommentsViewModel! {
+    private var commentsViewModel : CommentsViewModel! {
         return viewModel as! CommentsViewModel
     }
     
     // Back button
-    fileprivate var backButton = UIButton(type: .custom)
+    private var backButton = UIButton(type: .custom)
     
     // Compose button
-    fileprivate var composeButton = UIButton()
+    private var composeButton = UIButton()
     
     // Nav bar
-    fileprivate var navBarView = UIVisualEffectView(effect : UIBlurEffect(style : .dark))
+    private var navBarView = UIVisualEffectView(effect : UIBlurEffect(style : .dark))
     
     override func viewDidLoad() {
         super.viewDidLoad()

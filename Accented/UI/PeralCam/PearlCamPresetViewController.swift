@@ -28,7 +28,7 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     @IBOutlet weak var previewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var previewHeightConstraint: NSLayoutConstraint!    
     @IBOutlet weak var histogramView: RenderView!
-    @IBOutlet weak var presetSelectorView: PresetDeckView!
+    @IBOutlet weak var presetSelectorView: PresetChooserView!
     
     private let landscapeImagePaddingTop : CGFloat = 80
     
@@ -106,8 +106,8 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
         }
         
         // Create a preset thumbnail image
-        let thumbnailWidth = PresetDeckView.thumbnailSize
-        let thumbnailHeight = PresetDeckView.thumbnailSize * aspectRatio
+        let thumbnailWidth = PresetChooserView.thumbnailSize
+        let thumbnailHeight = PresetChooserView.thumbnailSize * aspectRatio
         presetThumbnailImage = createPreviewImage(w: thumbnailWidth, h: thumbnailHeight)
         presetThumbnailImage = ImageUtils.fixOrientation(presetThumbnailImage, width: thumbnailWidth, height: thumbnailHeight)
         if cameraPosition == .front {
@@ -134,7 +134,7 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     }
     
     @IBAction func backButtonDidTap(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     private func createPreviewImage(w : CGFloat, h : CGFloat) -> UIImage {
@@ -149,22 +149,29 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     
     // MARK: - PresetSelectorDelegate
     
-    func didSelectPreset(_ preset: LookupPreset) {
-        let filter = LookupPreset(preset.lookImageName).filter!
+    func didSelectPreset(_ preset: Preset) {
+        var filter : LookupFilter? = nil
+        if preset is LookupPreset {
+            let lookupPreset = preset as! LookupPreset
+            filter = LookupPreset(lookupPreset.lookImageName).filter!
+        }
         
         previewInput.removeAllTargets()
         previewInput = PictureInput(image: previewImage)
-        previewInput.addTarget(filter)
-        
         previewOutput = PictureOutput()
         previewOutput.imageAvailableCallback = { [weak self] (image) in
             DispatchQueue.main.async {
                 self?.previewView.image = image
             }
         }
-        
-        previewInput --> filter --> previewOutput
-        filter --> HistogramDisplay() --> histogramView
+
+        if filter != nil {
+            previewInput --> filter! --> previewOutput
+            filter! --> HistogramDisplay() --> histogramView
+        } else {
+            previewInput --> previewOutput
+            previewInput --> histogramView
+        }
         
         previewInput.processImage()
     }
@@ -191,7 +198,8 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
         }
 
         if let selectedPreset = presetSelectorView.selectedPreset {
-            let filter = LookupPreset(selectedPreset.lookImageName).filter!
+            let preset = selectedPreset as! LookupPreset
+            let filter = LookupPreset(preset.lookImageName).filter!
             input --> filter --> output2
         } else {
             input --> output2

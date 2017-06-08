@@ -14,7 +14,7 @@ class DefaultStreamInitialLoadingCell: UICollectionViewCell {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var retryButton: PushButton!
     
-    fileprivate let duration = 0.2
+    private let duration = 0.2
     
     // Reference to the stream view model
     weak var streamViewModel : StreamViewModel?

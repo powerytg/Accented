@@ -9,8 +9,8 @@
 import UIKit
 
 class JournalStreamLayout: StreamLayoutBase {
-    fileprivate let vGap : CGFloat = 20
-    fileprivate let backdropFadeTimingFactor : CGFloat = 0.5
+    private let vGap : CGFloat = 20
+    private let backdropFadeTimingFactor : CGFloat = 0.5
     
     override var leftMargin : CGFloat {
         return 0
@@ -21,8 +21,8 @@ class JournalStreamLayout: StreamLayoutBase {
     }
 
     // Total height of the header
-    fileprivate var headerHeight : CGFloat = 260
-    fileprivate let contentStartSection = 1
+    private var headerHeight : CGFloat = 260
+    private let contentStartSection = 1
     
     override func prepare() {
         scrollDirection = .vertical
