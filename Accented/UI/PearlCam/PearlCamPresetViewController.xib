@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,11 +13,8 @@
             <connections>
                 <outlet property="backButton" destination="eRo-Bm-VM3" id="iy4-Nt-yWr"/>
                 <outlet property="confirmButton" destination="9Jj-TY-N63" id="HlN-EJ-ceM"/>
-                <outlet property="currentFilterLabel" destination="mta-dk-x0U" id="FAe-fD-Xap"/>
                 <outlet property="editButton" destination="lSL-fr-JLl" id="bvu-jE-Nst"/>
                 <outlet property="histogramView" destination="d1r-U7-NBZ" id="CQA-fk-N1N"/>
-                <outlet property="imageInfoLabel" destination="H4L-RD-83s" id="XaT-xS-QBI"/>
-                <outlet property="infoView" destination="Rv5-Tg-11F" id="ztR-dW-Fgk"/>
                 <outlet property="presetSelectorView" destination="2FX-Mj-FOl" id="b9Q-hV-aBK"/>
                 <outlet property="previewHeightConstraint" destination="snv-cj-3fR" id="Y2a-9H-9k2"/>
                 <outlet property="previewTopConstraint" destination="4Dt-I0-Zhq" id="ls0-1X-mVB"/>
@@ -24,16 +24,18 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRo-Bm-VM3" userLabel="BackButton">
+                    <rect key="frame" x="15" y="672" width="34" height="34"/>
                     <state key="normal" image="DetailBackButton"/>
                     <connections>
                         <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="tQt-v8-wH2"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Jj-TY-N63">
+                    <rect key="frame" x="169" y="671" width="76" height="36"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
                     <state key="normal" title="USE PHOTO">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,14 +45,17 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSL-fr-JLl">
+                    <rect key="frame" x="369" y="671" width="30" height="36"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
                     <state key="normal" title="EDIT">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwO-Cs-vEe" userLabel="previewView" customClass="UIImageView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d1r-U7-NBZ" userLabel="histogramView" customClass="RenderView" customModule="GPUImage">
+                            <rect key="frame" x="286" y="192" width="113" height="58"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="113" id="V1P-XZ-wgy"/>
@@ -65,30 +70,9 @@
                         <constraint firstAttribute="height" constant="300" id="snv-cj-3fR"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rv5-Tg-11F" userLabel="InfoView">
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ORIGINAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mta-dk-x0U">
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JPEG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4L-RD-83s">
-                            <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="mta-dk-x0U" firstAttribute="leading" secondItem="Rv5-Tg-11F" secondAttribute="leading" constant="25" id="OJg-bD-Yii"/>
-                        <constraint firstItem="H4L-RD-83s" firstAttribute="centerY" secondItem="Rv5-Tg-11F" secondAttribute="centerY" id="OeE-A6-mca"/>
-                        <constraint firstItem="mta-dk-x0U" firstAttribute="centerY" secondItem="Rv5-Tg-11F" secondAttribute="centerY" id="cVW-K2-qVg"/>
-                        <constraint firstAttribute="trailing" secondItem="H4L-RD-83s" secondAttribute="trailing" constant="25" id="chn-fn-s60"/>
-                        <constraint firstAttribute="height" constant="32" id="pQf-hJ-Elu"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2FX-Mj-FOl" customClass="PresetChooserView" customModule="Accented" customModuleProvider="target">
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="582" width="414" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.80340325342465757" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="yyI-t1-8zW"/>
                     </constraints>
@@ -98,14 +82,11 @@
             <constraints>
                 <constraint firstItem="9Jj-TY-N63" firstAttribute="centerY" secondItem="eRo-Bm-VM3" secondAttribute="centerY" id="3p6-T6-f0H"/>
                 <constraint firstItem="uwO-Cs-vEe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4Dt-I0-Zhq"/>
-                <constraint firstItem="Rv5-Tg-11F" firstAttribute="bottom" secondItem="uwO-Cs-vEe" secondAttribute="bottom" id="7b3-aj-7fV"/>
                 <constraint firstAttribute="trailing" secondItem="uwO-Cs-vEe" secondAttribute="trailing" id="JN1-hf-o9c"/>
-                <constraint firstAttribute="trailing" secondItem="Rv5-Tg-11F" secondAttribute="trailing" id="Olb-dV-eQv"/>
                 <constraint firstItem="9Jj-TY-N63" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PGS-Eg-RQw"/>
                 <constraint firstAttribute="trailing" secondItem="2FX-Mj-FOl" secondAttribute="trailing" id="Qdq-tE-6JU"/>
                 <constraint firstAttribute="trailing" secondItem="lSL-fr-JLl" secondAttribute="trailing" constant="15" id="Vs7-oZ-cxK"/>
                 <constraint firstItem="2FX-Mj-FOl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WfE-qe-hvl"/>
-                <constraint firstItem="Rv5-Tg-11F" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yh2-3z-hbv"/>
                 <constraint firstAttribute="bottom" secondItem="eRo-Bm-VM3" secondAttribute="bottom" constant="30" id="ek9-cO-8UL"/>
                 <constraint firstAttribute="bottom" secondItem="2FX-Mj-FOl" secondAttribute="bottom" constant="74" id="i8Y-hq-HpN"/>
                 <constraint firstItem="eRo-Bm-VM3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="iIN-v1-BlR"/>
@@ -116,6 +97,6 @@
         </view>
     </objects>
     <resources>
-        <image name="DetailBackButton" width="16" height="16"/>
+        <image name="DetailBackButton" width="34" height="34"/>
     </resources>
 </document>

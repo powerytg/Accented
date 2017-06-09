@@ -126,7 +126,7 @@ class InteractiveImageView: UIView, UIScrollViewDelegate {
             if let url = URL(string : imageUrlString!) {
                 imageView.sd_setImage(with: url)
             } else {
-                debugPrint("Cannot load image from \(imageUrlString)")
+                debugPrint("Cannot load image from \(String(describing: imageUrlString))")
             }
         } else {
             debugPrint("Both image and imageUrl is nil. Image is not loaded")

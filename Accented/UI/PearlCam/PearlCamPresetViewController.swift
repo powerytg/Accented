@@ -18,12 +18,9 @@ class PearlCamPresetViewController: UIViewController, PresetSelectorDelegate {
     var originalImage : UIImage!
     var cameraPosition : AVCaptureDevicePosition
         
-    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var currentFilterLabel: UILabel!
-    @IBOutlet weak var imageInfoLabel: UILabel!
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var previewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var previewHeightConstraint: NSLayoutConstraint!    
