@@ -272,7 +272,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
             return
         }
         
-        let presetsVC = PearlCamPresetViewController(originalImage: image!, cameraPosition : camera.cameraPosition)
+        let presetsVC = PearlFXViewController(originalImage: image!, cameraPosition : camera.cameraPosition)
         navigationController?.pushViewController(presetsVC, animated: true)
     }
 }

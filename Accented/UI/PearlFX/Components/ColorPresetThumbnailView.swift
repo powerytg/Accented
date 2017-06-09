@@ -1,39 +1,39 @@
 //
-//  PresetThumbnailView.swift
+//  ColorPresetThumbnailView.swift
 //  Accented
 //
-//  Preset thumbnail view
-//
-//  Created by Tiangong You on 6/4/17.
+//  Created by You, Tiangong on 6/9/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
+import GPUImage
 
-class PresetThumbnailView: UIView {
-
+class ColorPresetThumbnailView : UIView {
+    
     var isSelected : Bool = false {
         didSet {
             setNeedsLayout()
         }
     }
     
-    var preset : Preset
+    var colorPresetImageName : String?
+    var imageView = UIImageView()
     var previewImage : UIImage? {
         didSet {
             imageView.image = previewImage
             setNeedsLayout()
         }
     }
-    private var imageView = UIImageView()
     
-    init(preset : Preset) {
-        self.preset = preset
-        super.init(frame: CGRect.zero)
+    init(colorPresetImageName : String?, frame : CGRect) {
+        self.colorPresetImageName = colorPresetImageName
+        super.init(frame: frame)
         
         isUserInteractionEnabled = true
-        imageView.contentMode = .scaleAspectFill
+        
         addSubview(imageView)
+        imageView.contentMode = .scaleAspectFill
         
         self.layer.borderColor = UIColor.yellow.cgColor
         self.layer.cornerRadius = 12.0
@@ -43,9 +43,10 @@ class PresetThumbnailView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         imageView.frame = self.bounds
         
         if isSelected {

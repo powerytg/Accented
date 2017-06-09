@@ -8,14 +8,71 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PearlFXViewController" customModule="Accented" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="AIH-Ij-KjJ" id="mZA-AR-e1G"/>
+                <outlet property="confirmButton" destination="kLy-an-Z2r" id="Hyv-0T-NgI"/>
+                <outlet property="editButton" destination="q76-xa-Wtj" id="bmk-eJ-aTM"/>
+                <outlet property="filterSelectorView" destination="a3W-0V-B93" id="Etf-fa-rXU"/>
+                <outlet property="histogramView" destination="Kw8-Lw-WR8" id="dOr-JN-X8w"/>
+                <outlet property="previewView" destination="LUv-fE-s8x" id="Umo-RT-o69"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIH-Ij-KjJ" userLabel="BackButton">
+                    <state key="normal" image="DetailBackButton"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLy-an-Z2r">
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <state key="normal" title="USE PHOTO">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q76-xa-Wtj">
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <state key="normal" title="EDIT">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUv-fE-s8x" userLabel="previewView" customClass="RenderView" customModule="GPUImage">
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kw8-Lw-WR8" userLabel="histogramView" customClass="RenderView" customModule="GPUImage">
+                            <frame key="frameInset" minX="275" minY="489" width="113" height="58"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3W-0V-B93" customClass="FilterSelectorView" customModule="Accented" customModuleProvider="target">
+                    <color key="backgroundColor" white="0.0" alpha="0.80340325339999996" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="dEW-s7-Fy1"/>
+                    </constraints>
+                </view>
+            </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="a3W-0V-B93" firstAttribute="top" secondItem="LUv-fE-s8x" secondAttribute="bottom" id="1pc-gp-xdu"/>
+                <constraint firstAttribute="trailing" secondItem="LUv-fE-s8x" secondAttribute="trailing" id="3Wg-5g-dTg"/>
+                <constraint firstItem="AIH-Ij-KjJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="3hu-Jv-xVI"/>
+                <constraint firstItem="LUv-fE-s8x" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="EYg-gA-1L4"/>
+                <constraint firstItem="kLy-an-Z2r" firstAttribute="centerY" secondItem="AIH-Ij-KjJ" secondAttribute="centerY" id="Kgy-GT-FzL"/>
+                <constraint firstAttribute="bottom" secondItem="a3W-0V-B93" secondAttribute="bottom" constant="74" id="OVO-61-5uJ"/>
+                <constraint firstItem="q76-xa-Wtj" firstAttribute="centerY" secondItem="AIH-Ij-KjJ" secondAttribute="centerY" id="Pr2-Cd-Igc"/>
+                <constraint firstAttribute="bottom" secondItem="AIH-Ij-KjJ" secondAttribute="bottom" constant="30" id="RBG-5t-hIc"/>
+                <constraint firstItem="LUv-fE-s8x" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ZGO-Xb-Nt4"/>
+                <constraint firstItem="kLy-an-Z2r" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="c2z-Qd-coh"/>
+                <constraint firstAttribute="trailing" secondItem="a3W-0V-B93" secondAttribute="trailing" id="meU-zV-5wL"/>
+                <constraint firstAttribute="trailing" secondItem="q76-xa-Wtj" secondAttribute="trailing" constant="15" id="q0h-1N-VAM"/>
+                <constraint firstItem="a3W-0V-B93" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uFi-pq-wt6"/>
+            </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="DetailBackButton" width="34" height="34"/>
+    </resources>
 </document>
