@@ -63,7 +63,10 @@ class DetailFullScreenImageViewController: UIViewController, DetailLightBoxAnima
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        imageView?.transitionToSize(size)
+        coordinator.animate(alongsideTransition: { [weak self] (context) in
+            self?.imageView?.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            self?.imageView?.transitionToSize(size)
+        }, completion: nil)
     }
     
     // MARK: - Events
