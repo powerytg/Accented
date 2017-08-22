@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MonochromeFilterViewController" customModule="PearlCam" customModuleProvider="target">
+            <connections>
+                <outlet property="enabledSwitch" destination="XG9-8Z-euW" id="ilp-3b-EzX"/>
+                <outlet property="intensitySlider" destination="4WO-Mc-ahT" id="D8Y-91-h2h"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="516" height="323"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FilterPanelBackground" translatesAutoresizingMaskIntoConstraints="NO" id="D8L-4d-UB8">
+                    <rect key="frame" x="0.0" y="143" width="516" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="180" id="6KW-iv-OQT"/>
+                    </constraints>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-2P-Wgg">
+                    <rect key="frame" x="32" y="159" width="172.66666666666666" height="31"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MONOCHROME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifb-u9-Nyr">
+                            <rect key="frame" x="0.0" y="0.0" width="103.66666666666666" height="31"/>
+                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <color key="shadowColor" white="0.0" alpha="0.26784567640000001" colorSpace="calibratedWhite"/>
+                            <size key="shadowOffset" width="0.0" height="1"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XG9-8Z-euW">
+                            <rect key="frame" x="123.66666666666666" y="0.0" width="51" height="31"/>
+                            <connections>
+                                <action selector="enabledStateDidChange:" destination="-1" eventType="valueChanged" id="bUu-Xt-dpY"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                </stackView>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.40000000000000002" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4WO-Mc-ahT" userLabel="tintSlider" customClass="FXSlider" customModule="PearlCam" customModuleProvider="target">
+                    <rect key="frame" x="18" y="250" width="480" height="31"/>
+                    <connections>
+                        <action selector="intensityValueDidChange:" destination="-1" eventType="valueChanged" id="2sk-HX-qAO"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="INTENSITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kh5-Mm-MLg">
+                    <rect key="frame" x="32" y="217" width="69.666666666666657" height="25"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.0" alpha="0.26784567640000001" colorSpace="calibratedWhite"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="4WO-Mc-ahT" secondAttribute="bottom" constant="43" id="3j2-lJ-Eyx"/>
+                <constraint firstItem="xkL-2P-Wgg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="ER8-nx-1mD"/>
+                <constraint firstItem="kh5-Mm-MLg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="F03-ka-tgx"/>
+                <constraint firstAttribute="bottom" secondItem="xkL-2P-Wgg" secondAttribute="bottom" constant="133" id="KeG-hO-JNL"/>
+                <constraint firstAttribute="bottom" secondItem="D8L-4d-UB8" secondAttribute="bottom" id="PDu-if-Wuh"/>
+                <constraint firstAttribute="trailing" secondItem="D8L-4d-UB8" secondAttribute="trailing" id="StX-Zg-sYZ"/>
+                <constraint firstAttribute="bottom" secondItem="kh5-Mm-MLg" secondAttribute="bottom" constant="81" id="eRe-KX-8eK"/>
+                <constraint firstAttribute="trailing" secondItem="4WO-Mc-ahT" secondAttribute="trailing" constant="20" id="taF-Fd-Bu6"/>
+                <constraint firstItem="D8L-4d-UB8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wB9-fI-rU2"/>
+                <constraint firstItem="4WO-Mc-ahT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="xpq-JC-6wY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="26" y="223.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="FilterPanelBackground" width="414" height="156"/>
+    </resources>
+</document>

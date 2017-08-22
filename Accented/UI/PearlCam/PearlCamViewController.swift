@@ -26,6 +26,13 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     // Whether the UI has been initialized
     var isUIInitialized = false
     
+    var hasFrontCamera : Bool!
+    var hasBackCamera : Bool!
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         camera = CameraController(position : .back)
@@ -78,10 +85,12 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     
     private func requestCameraAccess() {
         AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { [weak self] (granted) in
-            if granted {
-                self?.didGrantedCameraPermisison()
-            } else {
-                self?.showDeniedCameraPermissionView()
+            DispatchQueue.main.async {
+                if granted {
+                    self?.didGrantedCameraPermisison()
+                } else {
+                    self?.showDeniedCameraPermissionView()
+                }
             }
         }
     }
@@ -112,7 +121,18 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
             }
         }
     }
-    
+
+    private func showDeniedPhotoLibraryPermissionView() {
+        let text = "You have previously denied the app to access photo library\nYou can enable the access in the settings app"
+        showFatalErrorView(text: text, buttonText: "GO TO SETTINGS") {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+            }
+        }
+    }
+
     private func showResrictedAccessErrorView() {
         let text = "Your access to the camera has been restricted"
         showFatalErrorView(text: text, buttonText: "GO BACK") { [weak self] in
@@ -150,6 +170,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
 
     private func cameraDidFinishInitialization(_ success : Bool) {
         if success {
+            removeOverlay()
             initializeOverlayIfNecessary()
             camera.start()
         } else {
@@ -161,6 +182,9 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         if isUIInitialized {
             return
         }
+        
+        hasFrontCamera = CameraController.hasFrontCamera()
+        hasBackCamera = CameraController.hasBackCamera()
         
         // Setup UI overlay
         isUIInitialized = true
@@ -184,6 +208,15 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         overlay!.maxShutterSpeed = camera.maxShutterSpeed
     }
     
+    private func removeOverlay() {
+        guard overlay != nil else { return }
+        overlay!.willMove(toParentViewController: nil)
+        overlay!.view.removeFromSuperview()
+        overlay!.removeFromParentViewController()
+        overlay = nil
+        isUIInitialized = false
+    }
+    
     // MARK: - CameraDelegate
     
     func previewLayerBecomeAvailable(_ previewLayer: AVCaptureVideoPreviewLayer) {
@@ -200,17 +233,19 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         let authStatus = PHPhotoLibrary.authorizationStatus()
         if authStatus == .notDetermined {
             PHPhotoLibrary.requestAuthorization({  [weak self] (newStatus) in
-                if newStatus == .authorized {
+                DispatchQueue.main.async {
                     self?.onImageDataReceived(data)
                 }
             })
-        } else if authStatus == .authorized {
+        } else {
             onImageDataReceived(data)
         }
     }
     
     // MARK : - CameraOverlayDelegate
     func switchCameraButtonDidTap() {
+        guard hasFrontCamera && hasBackCamera else { return }
+        
         if camera.cameraPosition == .back {
             camera = CameraController(position : .front)
             camera.delegate = self
@@ -234,6 +269,22 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         camera.setExposureCompensation(ec)
     }
     
+    func userDidChangeISO(_ iso: Float) {
+        camera.setISO(iso)
+    }
+    
+    func userDidChangeShutterSpeed(_ shutterSpeed: CMTime) {
+        camera.setExposure(shutterSpeed)
+    }
+    
+    func userDidUnlockAEL() {
+        camera.unlockAEL()
+    }
+    
+    func userDidChangeFlashMode() {
+        camera.switchToNextAvailableFlashMode()
+    }
+    
     func focusPointDidChange(_ point: CGPoint) {
         overlay?.focusPointDidChange(point)
     }
@@ -246,6 +297,10 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         overlay?.focusDidStop()
     }
     
+    func exposurePointDidChange(_ point: CGPoint) {
+        overlay?.exposurePointDidChange(point)
+    }
+    
     func lightMeterReadingDidChange(_ offset: Float) {
         overlay?.lightMeterReadingDidChange(offset)
     }
@@ -255,13 +310,35 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     }
     
     func isoReadingDidChange(_ iso: Float) {
-        overlay!.isoReadingDidChange(iso)
+        overlay?.isoReadingDidChange(iso)
+    }
+    
+    func flashModeDidChange(_ mode: AVCaptureFlashMode) {
+        overlay?.flashModeDidChange(mode)
+    }
+    
+    func autoManualModeButtonDidTap() {
+        if let expMode = camera.exposureMode {
+            if expMode == .autoExpose || expMode == .continuousAutoExposure {
+                camera.switchToManualExposureMode()
+            } else {
+                camera.switchToAutoExposureMode()
+            }
+        }
+    }
+    
+    func exposureModeDidChange(_ mode: AVCaptureExposureMode) {
+        overlay?.exposureModeDidChange(mode)
     }
     
     // MARK: - ViewFinderDelegate
     
     func didTapOnViewFinder(_ point: CGPoint) {
         camera.focusToPoint(point)
+    }
+    
+    func didLongPressOnViewFinder(_ point: CGPoint) {
+        camera.lockExposureToPoint(point)
     }
     
     // MARK : - Image processing

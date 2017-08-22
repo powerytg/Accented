@@ -11,4 +11,5 @@ target 'Accented' do
 	pod 'AwesomeCache', :git => 'https://github.com/notohiro/AwesomeCache.git'
 	pod 'KMPlaceholderTextView', '~> 1.3.0'
 	pod 'CRRulerControl'
+    pod 'RMessage'
 end

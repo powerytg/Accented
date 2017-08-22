@@ -44,8 +44,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         // Test code
 //        let camVC = PearlCamViewController()
 //        navigationController?.pushViewController(camVC, animated: false)
-        let vc = PearlFXViewController(originalImage: UIImage(named: "test2.jpg")!, cameraPosition: .back)
-        navigationController?.pushViewController(vc, animated: false)
+//        let vc = PearlFXViewController(originalImage: UIImage(named: "test2.jpg")!, cameraPosition: .back)
+//        navigationController?.pushViewController(vc, animated: false)
     }
     
     deinit {
