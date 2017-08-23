@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhiteBalanceFilterViewController" customModule="PearlCam" customModuleProvider="target">
+            <connections>
+                <outlet property="tempSlider" destination="NTk-ze-9vN" id="iLC-7Y-HUY"/>
+                <outlet property="tintSlider" destination="NkX-PW-Giu" id="piu-AJ-mFP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="516" height="500"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FilterPanelBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Wbv-IW-1d3">
+                    <rect key="frame" x="0.0" y="320" width="516" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="180" id="iJ1-OZ-Vwg"/>
+                    </constraints>
+                </imageView>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5000" minValue="4000" maxValue="7000" translatesAutoresizingMaskIntoConstraints="NO" id="NTk-ze-9vN" userLabel="tempSlider" customClass="FXSlider" customModule="PearlCam" customModuleProvider="target">
+                    <rect key="frame" x="19" y="370" width="480" height="31"/>
+                    <connections>
+                        <action selector="tempValueDidChange:" destination="-1" eventType="valueChanged" id="5Dd-Tv-dqf"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEMPERATURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ula-K2-Fyg">
+                    <rect key="frame" x="32" y="336" width="97" height="25"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.0" alpha="0.26784567640000001" colorSpace="calibratedWhite"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
+                </label>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-200" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-PW-Giu" userLabel="tintSlider" customClass="FXSlider" customModule="PearlCam" customModuleProvider="target">
+                    <rect key="frame" x="18" y="442" width="480" height="31"/>
+                    <connections>
+                        <action selector="tintValueDidChange:" destination="-1" eventType="valueChanged" id="Xf3-mb-vkg"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TINT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rfP-l7-eH9">
+                    <rect key="frame" x="32" y="414" width="69.666666666666686" height="25"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.0" alpha="0.26784567640000001" colorSpace="calibratedWhite"/>
+                    <size key="shadowOffset" width="0.0" height="1"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Wbv-IW-1d3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1x2-z3-WgM"/>
+                <constraint firstAttribute="bottom" secondItem="NTk-ze-9vN" secondAttribute="bottom" constant="100" id="8NK-l5-BMy"/>
+                <constraint firstAttribute="trailing" secondItem="NkX-PW-Giu" secondAttribute="trailing" constant="20" id="8Xj-aC-xQC"/>
+                <constraint firstAttribute="trailing" secondItem="NTk-ze-9vN" secondAttribute="trailing" constant="19" id="8gn-uB-iIZ"/>
+                <constraint firstAttribute="bottom" secondItem="NkX-PW-Giu" secondAttribute="bottom" constant="28" id="9dP-TO-F4V"/>
+                <constraint firstAttribute="bottom" secondItem="ula-K2-Fyg" secondAttribute="bottom" constant="139" id="HnT-MY-ZVI"/>
+                <constraint firstItem="NkX-PW-Giu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Lnp-lu-Sif"/>
+                <constraint firstItem="rfP-l7-eH9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="SR9-r7-mQd"/>
+                <constraint firstItem="ula-K2-Fyg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="ToI-Nu-d9b"/>
+                <constraint firstAttribute="bottom" secondItem="rfP-l7-eH9" secondAttribute="bottom" constant="61" id="bQd-Y3-aex"/>
+                <constraint firstAttribute="bottom" secondItem="Wbv-IW-1d3" secondAttribute="bottom" id="cmg-8y-OH2"/>
+                <constraint firstAttribute="trailing" secondItem="Wbv-IW-1d3" secondAttribute="trailing" id="uU1-Yz-9EP"/>
+                <constraint firstItem="NTk-ze-9vN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="21" id="xA8-uZ-UkT"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="82.5" y="-32"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="FilterPanelBackground" width="414" height="156"/>
+    </resources>
+</document>

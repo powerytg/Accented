@@ -98,26 +98,6 @@
 		188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */; };
 		189D8BBE1D68BBB700247846 /* APIService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D8BBD1D68BBB700247846 /* APIService+Cache.swift */; };
 		18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AB00221D41CCCA00895192 /* DetailViewController.swift */; };
-		18BBA8661EEA778D00BE0090 /* test.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8651EEA778D00BE0090 /* test.jpg */; };
-		18BBA8891EEA787200BE0090 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBA8681EEA787200BE0090 /* CameraController.swift */; };
-		18BBA88A1EEA787200BE0090 /* CameraUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBA86A1EEA787200BE0090 /* CameraUIViewController.swift */; };
-		18BBA88B1EEA787200BE0090 /* CameraUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA86B1EEA787200BE0090 /* CameraUIViewController.xib */; };
-		18BBA88C1EEA787200BE0090 /* FatalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBA86C1EEA787200BE0090 /* FatalErrorView.swift */; };
-		18BBA8901EEA787200BE0090 /* ViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBA8701EEA787200BE0090 /* ViewFinder.swift */; };
-		18BBA8911EEA787200BE0090 /* CandleLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8731EEA787200BE0090 /* CandleLight.png */; };
-		18BBA8921EEA787200BE0090 /* ColorPunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8741EEA787200BE0090 /* ColorPunch.png */; };
-		18BBA8931EEA787200BE0090 /* ColorPunchCool.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8751EEA787200BE0090 /* ColorPunchCool.png */; };
-		18BBA8941EEA787200BE0090 /* Earthy.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8761EEA787200BE0090 /* Earthy.png */; };
-		18BBA8951EEA787200BE0090 /* FilmStock.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8771EEA787200BE0090 /* FilmStock.png */; };
-		18BBA8961EEA787200BE0090 /* Intensify.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8781EEA787200BE0090 /* Intensify.png */; };
-		18BBA8971EEA787200BE0090 /* Lenox.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8791EEA787200BE0090 /* Lenox.png */; };
-		18BBA8981EEA787200BE0090 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA87A1EEA787200BE0090 /* lookup_amatorka.png */; };
-		18BBA8991EEA787200BE0090 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA87B1EEA787200BE0090 /* lookup_miss_etikate.png */; };
-		18BBA89B1EEA787200BE0090 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA87D1EEA787200BE0090 /* lookup_soft_elegance_2.png */; };
-		18BBA89C1EEA787200BE0090 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA87E1EEA787200BE0090 /* Red.png */; };
-		18BBA89D1EEA787200BE0090 /* Remy.png in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA87F1EEA787200BE0090 /* Remy.png */; };
-		18BBA8A01EEA787200BE0090 /* PearlCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBA8821EEA787200BE0090 /* PearlCamViewController.swift */; };
-		18BBA8A11EEA787200BE0090 /* PearlCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18BBA8831EEA787200BE0090 /* PearlCamViewController.xib */; };
 		18BD57201D56454E00376DE8 /* DetailNavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD571F1D56454E00376DE8 /* DetailNavigationContext.swift */; };
 		18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */; };
 		18BD57241D5667E300376DE8 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD57231D5667E300376DE8 /* UserModel.swift */; };
@@ -174,10 +154,6 @@
 		9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C11D6790DB00AF588A /* APIService+Comments.swift */; };
 		9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */; };
 		9B3BA5C71D67A58D00AF588A /* ReplyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BA5C61D67A58D00AF588A /* ReplyModel.swift */; };
-		9B3C5E011EEB31E40056AA7A /* FilterSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C5E001EEB31E40056AA7A /* FilterSelectorView.swift */; };
-		9B3C5E051EEB35B60056AA7A /* test2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9B3C5E041EEB35B60056AA7A /* test2.jpg */; };
-		9B3C5E071EEB37A00056AA7A /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C5E061EEB37A00056AA7A /* FilterManager.swift */; };
-		9B3C5E091EEB443F0056AA7A /* ColorPresetThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3C5E081EEB443F0056AA7A /* ColorPresetThumbnailView.swift */; };
 		9B544D721EE9FA2B006DB738 /* InteractiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */; };
 		9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */; };
 		9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B54707B1CEE90DF001F6C3C /* TextUtils.swift */; };
@@ -227,9 +203,57 @@
 		9B9E9E941DBAD664009D5D19 /* InfiniteLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E931DBAD664009D5D19 /* InfiniteLoadingViewController.swift */; };
 		9B9E9E961DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E951DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift */; };
 		9B9E9E981DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E971DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift */; };
-		9BA58F561EE9E17B00888E62 /* PearlFXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA58F541EE9E17B00888E62 /* PearlFXViewController.swift */; };
-		9BA58F571EE9E17B00888E62 /* PearlFXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA58F551EE9E17B00888E62 /* PearlFXViewController.xib */; };
 		9BA58F741EE9E24400888E62 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA58F731EE9E24400888E62 /* ImageUtils.swift */; };
+		9BA9ADB91F4CD898006F0AC0 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD811F4CD898006F0AC0 /* CameraController.swift */; };
+		9BA9ADBA1F4CD898006F0AC0 /* CameraUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD821F4CD898006F0AC0 /* CameraUIViewController.swift */; };
+		9BA9ADBB1F4CD898006F0AC0 /* CameraUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD831F4CD898006F0AC0 /* CameraUIViewController.xib */; };
+		9BA9ADBC1F4CD898006F0AC0 /* FatalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD851F4CD898006F0AC0 /* FatalErrorView.swift */; };
+		9BA9ADBD1F4CD898006F0AC0 /* MeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD861F4CD898006F0AC0 /* MeterView.swift */; };
+		9BA9ADBE1F4CD898006F0AC0 /* ViewFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD871F4CD898006F0AC0 /* ViewFinder.swift */; };
+		9BA9ADBF1F4CD898006F0AC0 /* CandleLight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD891F4CD898006F0AC0 /* CandleLight.png */; };
+		9BA9ADC01F4CD898006F0AC0 /* ColorPunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8A1F4CD898006F0AC0 /* ColorPunch.png */; };
+		9BA9ADC11F4CD898006F0AC0 /* ColorPunchCool.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8B1F4CD898006F0AC0 /* ColorPunchCool.png */; };
+		9BA9ADC21F4CD898006F0AC0 /* Earthy.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8C1F4CD898006F0AC0 /* Earthy.png */; };
+		9BA9ADC31F4CD898006F0AC0 /* FilmStock.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8D1F4CD898006F0AC0 /* FilmStock.png */; };
+		9BA9ADC41F4CD898006F0AC0 /* Intensify.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8E1F4CD898006F0AC0 /* Intensify.png */; };
+		9BA9ADC51F4CD898006F0AC0 /* Lenox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD8F1F4CD898006F0AC0 /* Lenox.png */; };
+		9BA9ADC61F4CD898006F0AC0 /* lookup_amatorka.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD901F4CD898006F0AC0 /* lookup_amatorka.png */; };
+		9BA9ADC71F4CD898006F0AC0 /* lookup_miss_etikate.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD911F4CD898006F0AC0 /* lookup_miss_etikate.png */; };
+		9BA9ADC81F4CD898006F0AC0 /* lookup_soft_elegance_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD921F4CD898006F0AC0 /* lookup_soft_elegance_2.png */; };
+		9BA9ADC91F4CD898006F0AC0 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD931F4CD898006F0AC0 /* Red.png */; };
+		9BA9ADCA1F4CD898006F0AC0 /* Remy.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD941F4CD898006F0AC0 /* Remy.png */; };
+		9BA9ADCB1F4CD898006F0AC0 /* PearlCam.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD951F4CD898006F0AC0 /* PearlCam.xcassets */; };
+		9BA9ADCC1F4CD898006F0AC0 /* PearlCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD961F4CD898006F0AC0 /* PearlCamViewController.swift */; };
+		9BA9ADCD1F4CD898006F0AC0 /* PearlCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9AD971F4CD898006F0AC0 /* PearlCamViewController.xib */; };
+		9BA9ADCE1F4CD898006F0AC0 /* AdjustmentSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9A1F4CD898006F0AC0 /* AdjustmentSelectorView.swift */; };
+		9BA9ADCF1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9B1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift */; };
+		9BA9ADD01F4CD898006F0AC0 /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9C1F4CD898006F0AC0 /* FilterManager.swift */; };
+		9BA9ADD11F4CD898006F0AC0 /* FilterSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9D1F4CD898006F0AC0 /* FilterSelectorView.swift */; };
+		9BA9ADD21F4CD898006F0AC0 /* FXSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9E1F4CD898006F0AC0 /* FXSlider.swift */; };
+		9BA9ADD31F4CD898006F0AC0 /* Pipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9AD9F1F4CD898006F0AC0 /* Pipeline.swift */; };
+		9BA9ADD41F4CD898006F0AC0 /* Processor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA01F4CD898006F0AC0 /* Processor.swift */; };
+		9BA9ADD51F4CD898006F0AC0 /* ColorFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA21F4CD898006F0AC0 /* ColorFilterNode.swift */; };
+		9BA9ADD61F4CD898006F0AC0 /* ContrastFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA31F4CD898006F0AC0 /* ContrastFilterNode.swift */; };
+		9BA9ADD71F4CD898006F0AC0 /* ExposureFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA41F4CD898006F0AC0 /* ExposureFilterNode.swift */; };
+		9BA9ADD81F4CD898006F0AC0 /* LookupFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA51F4CD898006F0AC0 /* LookupFilterNode.swift */; };
+		9BA9ADD91F4CD898006F0AC0 /* MonochromeFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA61F4CD898006F0AC0 /* MonochromeFilterNode.swift */; };
+		9BA9ADDA1F4CD898006F0AC0 /* SharpenFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA71F4CD898006F0AC0 /* SharpenFilterNode.swift */; };
+		9BA9ADDB1F4CD898006F0AC0 /* VibranceFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA81F4CD898006F0AC0 /* VibranceFilterNode.swift */; };
+		9BA9ADDC1F4CD898006F0AC0 /* VignetteFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADA91F4CD898006F0AC0 /* VignetteFilterNode.swift */; };
+		9BA9ADDD1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADAA1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift */; };
+		9BA9ADDE1F4CD898006F0AC0 /* AdjustmentUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADAC1F4CD898006F0AC0 /* AdjustmentUIViewController.swift */; };
+		9BA9ADDF1F4CD898006F0AC0 /* BrightnessFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADAD1F4CD898006F0AC0 /* BrightnessFilterViewController.swift */; };
+		9BA9ADE01F4CD898006F0AC0 /* BrightnessFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADAE1F4CD898006F0AC0 /* BrightnessFilterViewController.xib */; };
+		9BA9ADE11F4CD898006F0AC0 /* ColorFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADAF1F4CD898006F0AC0 /* ColorFilterViewController.swift */; };
+		9BA9ADE21F4CD898006F0AC0 /* ColorFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB01F4CD898006F0AC0 /* ColorFilterViewController.xib */; };
+		9BA9ADE31F4CD898006F0AC0 /* MonochromeFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB11F4CD898006F0AC0 /* MonochromeFilterViewController.swift */; };
+		9BA9ADE41F4CD898006F0AC0 /* MonochromeFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB21F4CD898006F0AC0 /* MonochromeFilterViewController.xib */; };
+		9BA9ADE51F4CD898006F0AC0 /* VignetteFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB31F4CD898006F0AC0 /* VignetteFilterViewController.swift */; };
+		9BA9ADE61F4CD898006F0AC0 /* VignetteFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB41F4CD898006F0AC0 /* VignetteFilterViewController.xib */; };
+		9BA9ADE71F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB51F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift */; };
+		9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB61F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib */; };
+		9BA9ADE91F4CD898006F0AC0 /* PearlFXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB71F4CD898006F0AC0 /* PearlFXViewController.swift */; };
+		9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB81F4CD898006F0AC0 /* PearlFXViewController.xib */; };
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
 		9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */; };
@@ -400,26 +424,6 @@
 		188A57301D505EF300AA427E /* DetailDescriptionSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDescriptionSectionView.swift; sourceTree = "<group>"; };
 		189D8BBD1D68BBB700247846 /* APIService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Cache.swift"; sourceTree = "<group>"; };
 		18AB00221D41CCCA00895192 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		18BBA8651EEA778D00BE0090 /* test.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test.jpg; sourceTree = "<group>"; };
-		18BBA8681EEA787200BE0090 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
-		18BBA86A1EEA787200BE0090 /* CameraUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIViewController.swift; sourceTree = "<group>"; };
-		18BBA86B1EEA787200BE0090 /* CameraUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraUIViewController.xib; sourceTree = "<group>"; };
-		18BBA86C1EEA787200BE0090 /* FatalErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FatalErrorView.swift; sourceTree = "<group>"; };
-		18BBA8701EEA787200BE0090 /* ViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFinder.swift; sourceTree = "<group>"; };
-		18BBA8731EEA787200BE0090 /* CandleLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleLight.png; sourceTree = "<group>"; };
-		18BBA8741EEA787200BE0090 /* ColorPunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPunch.png; sourceTree = "<group>"; };
-		18BBA8751EEA787200BE0090 /* ColorPunchCool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPunchCool.png; sourceTree = "<group>"; };
-		18BBA8761EEA787200BE0090 /* Earthy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Earthy.png; sourceTree = "<group>"; };
-		18BBA8771EEA787200BE0090 /* FilmStock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilmStock.png; sourceTree = "<group>"; };
-		18BBA8781EEA787200BE0090 /* Intensify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Intensify.png; sourceTree = "<group>"; };
-		18BBA8791EEA787200BE0090 /* Lenox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lenox.png; sourceTree = "<group>"; };
-		18BBA87A1EEA787200BE0090 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
-		18BBA87B1EEA787200BE0090 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
-		18BBA87D1EEA787200BE0090 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
-		18BBA87E1EEA787200BE0090 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
-		18BBA87F1EEA787200BE0090 /* Remy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remy.png; sourceTree = "<group>"; };
-		18BBA8821EEA787200BE0090 /* PearlCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlCamViewController.swift; sourceTree = "<group>"; };
-		18BBA8831EEA787200BE0090 /* PearlCamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlCamViewController.xib; sourceTree = "<group>"; };
 		18BD571F1D56454E00376DE8 /* DetailNavigationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailNavigationContext.swift; sourceTree = "<group>"; };
 		18BD57211D5667BD00376DE8 /* DetailHeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHeaderSectionView.swift; sourceTree = "<group>"; };
 		18BD57231D5667E300376DE8 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -477,10 +481,6 @@
 		9B3BA5C11D6790DB00AF588A /* APIService+Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Comments.swift"; sourceTree = "<group>"; };
 		9B3BA5C41D67A51300AF588A /* StorageService+Comments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Comments.swift"; sourceTree = "<group>"; };
 		9B3BA5C61D67A58D00AF588A /* ReplyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyModel.swift; sourceTree = "<group>"; };
-		9B3C5E001EEB31E40056AA7A /* FilterSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSelectorView.swift; sourceTree = "<group>"; };
-		9B3C5E041EEB35B60056AA7A /* test2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = test2.jpg; sourceTree = "<group>"; };
-		9B3C5E061EEB37A00056AA7A /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
-		9B3C5E081EEB443F0056AA7A /* ColorPresetThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPresetThumbnailView.swift; sourceTree = "<group>"; };
 		9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractiveImageView.swift; sourceTree = "<group>"; };
 		9B5470291CEE44B2001F6C3C /* JournalStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JournalStreamLayout.swift; path = Accented/UI/Home/Themes/Default/Components/JournalStreamLayout.swift; sourceTree = SOURCE_ROOT; };
 		9B54707B1CEE90DF001F6C3C /* TextUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
@@ -530,9 +530,57 @@
 		9B9E9E931DBAD664009D5D19 /* InfiniteLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingViewController.swift; sourceTree = "<group>"; };
 		9B9E9E951DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingViewModel.swift; sourceTree = "<group>"; };
 		9B9E9E971DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingViewControllerDelegate.swift; sourceTree = "<group>"; };
-		9BA58F541EE9E17B00888E62 /* PearlFXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlFXViewController.swift; sourceTree = "<group>"; };
-		9BA58F551EE9E17B00888E62 /* PearlFXViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlFXViewController.xib; sourceTree = "<group>"; };
 		9BA58F731EE9E24400888E62 /* ImageUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		9BA9AD811F4CD898006F0AC0 /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		9BA9AD821F4CD898006F0AC0 /* CameraUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraUIViewController.swift; sourceTree = "<group>"; };
+		9BA9AD831F4CD898006F0AC0 /* CameraUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraUIViewController.xib; sourceTree = "<group>"; };
+		9BA9AD851F4CD898006F0AC0 /* FatalErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FatalErrorView.swift; sourceTree = "<group>"; };
+		9BA9AD861F4CD898006F0AC0 /* MeterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeterView.swift; sourceTree = "<group>"; };
+		9BA9AD871F4CD898006F0AC0 /* ViewFinder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewFinder.swift; sourceTree = "<group>"; };
+		9BA9AD891F4CD898006F0AC0 /* CandleLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleLight.png; sourceTree = "<group>"; };
+		9BA9AD8A1F4CD898006F0AC0 /* ColorPunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPunch.png; sourceTree = "<group>"; };
+		9BA9AD8B1F4CD898006F0AC0 /* ColorPunchCool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPunchCool.png; sourceTree = "<group>"; };
+		9BA9AD8C1F4CD898006F0AC0 /* Earthy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Earthy.png; sourceTree = "<group>"; };
+		9BA9AD8D1F4CD898006F0AC0 /* FilmStock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FilmStock.png; sourceTree = "<group>"; };
+		9BA9AD8E1F4CD898006F0AC0 /* Intensify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Intensify.png; sourceTree = "<group>"; };
+		9BA9AD8F1F4CD898006F0AC0 /* Lenox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lenox.png; sourceTree = "<group>"; };
+		9BA9AD901F4CD898006F0AC0 /* lookup_amatorka.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_amatorka.png; sourceTree = "<group>"; };
+		9BA9AD911F4CD898006F0AC0 /* lookup_miss_etikate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_miss_etikate.png; sourceTree = "<group>"; };
+		9BA9AD921F4CD898006F0AC0 /* lookup_soft_elegance_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lookup_soft_elegance_2.png; sourceTree = "<group>"; };
+		9BA9AD931F4CD898006F0AC0 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
+		9BA9AD941F4CD898006F0AC0 /* Remy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remy.png; sourceTree = "<group>"; };
+		9BA9AD951F4CD898006F0AC0 /* PearlCam.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PearlCam.xcassets; sourceTree = "<group>"; };
+		9BA9AD961F4CD898006F0AC0 /* PearlCamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlCamViewController.swift; sourceTree = "<group>"; };
+		9BA9AD971F4CD898006F0AC0 /* PearlCamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlCamViewController.xib; sourceTree = "<group>"; };
+		9BA9AD9A1F4CD898006F0AC0 /* AdjustmentSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustmentSelectorView.swift; sourceTree = "<group>"; };
+		9BA9AD9B1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPresetThumbnailView.swift; sourceTree = "<group>"; };
+		9BA9AD9C1F4CD898006F0AC0 /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		9BA9AD9D1F4CD898006F0AC0 /* FilterSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterSelectorView.swift; sourceTree = "<group>"; };
+		9BA9AD9E1F4CD898006F0AC0 /* FXSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FXSlider.swift; sourceTree = "<group>"; };
+		9BA9AD9F1F4CD898006F0AC0 /* Pipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pipeline.swift; sourceTree = "<group>"; };
+		9BA9ADA01F4CD898006F0AC0 /* Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
+		9BA9ADA21F4CD898006F0AC0 /* ColorFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA31F4CD898006F0AC0 /* ContrastFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContrastFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA41F4CD898006F0AC0 /* ExposureFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposureFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA51F4CD898006F0AC0 /* LookupFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA61F4CD898006F0AC0 /* MonochromeFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonochromeFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA71F4CD898006F0AC0 /* SharpenFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharpenFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA81F4CD898006F0AC0 /* VibranceFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VibranceFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADA91F4CD898006F0AC0 /* VignetteFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VignetteFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADAA1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhitebalanceFilterNode.swift; sourceTree = "<group>"; };
+		9BA9ADAC1F4CD898006F0AC0 /* AdjustmentUIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustmentUIViewController.swift; sourceTree = "<group>"; };
+		9BA9ADAD1F4CD898006F0AC0 /* BrightnessFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrightnessFilterViewController.swift; sourceTree = "<group>"; };
+		9BA9ADAE1F4CD898006F0AC0 /* BrightnessFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrightnessFilterViewController.xib; sourceTree = "<group>"; };
+		9BA9ADAF1F4CD898006F0AC0 /* ColorFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorFilterViewController.swift; sourceTree = "<group>"; };
+		9BA9ADB01F4CD898006F0AC0 /* ColorFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorFilterViewController.xib; sourceTree = "<group>"; };
+		9BA9ADB11F4CD898006F0AC0 /* MonochromeFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonochromeFilterViewController.swift; sourceTree = "<group>"; };
+		9BA9ADB21F4CD898006F0AC0 /* MonochromeFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonochromeFilterViewController.xib; sourceTree = "<group>"; };
+		9BA9ADB31F4CD898006F0AC0 /* VignetteFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VignetteFilterViewController.swift; sourceTree = "<group>"; };
+		9BA9ADB41F4CD898006F0AC0 /* VignetteFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VignetteFilterViewController.xib; sourceTree = "<group>"; };
+		9BA9ADB51F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBalanceFilterViewController.swift; sourceTree = "<group>"; };
+		9BA9ADB61F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WhiteBalanceFilterViewController.xib; sourceTree = "<group>"; };
+		9BA9ADB71F4CD898006F0AC0 /* PearlFXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PearlFXViewController.swift; sourceTree = "<group>"; };
+		9BA9ADB81F4CD898006F0AC0 /* PearlFXViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlFXViewController.xib; sourceTree = "<group>"; };
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetStreamPhotosRequest.swift; sourceTree = "<group>"; };
@@ -572,8 +620,8 @@
 		18093AFA1CCB3AB500EFCE44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				18BBA8671EEA787200BE0090 /* PearlCam */,
-				9BA58F501EE9E16300888E62 /* PearlFX */,
+				9BA9AD801F4CD898006F0AC0 /* PearlCam */,
+				9BA9AD981F4CD898006F0AC0 /* PearlFX */,
 				1872B8031EDA7B2B009B6FC8 /* User */,
 				187BA04A1ED23CA8000E181E /* Search */,
 				9B6676FD1D34050500B89009 /* Details */,
@@ -911,48 +959,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		18BBA8671EEA787200BE0090 /* PearlCam */ = {
-			isa = PBXGroup;
-			children = (
-				18BBA8681EEA787200BE0090 /* CameraController.swift */,
-				18BBA8691EEA787200BE0090 /* Components */,
-				18BBA8721EEA787200BE0090 /* LUTs */,
-				18BBA8821EEA787200BE0090 /* PearlCamViewController.swift */,
-				18BBA8831EEA787200BE0090 /* PearlCamViewController.xib */,
-			);
-			path = PearlCam;
-			sourceTree = "<group>";
-		};
-		18BBA8691EEA787200BE0090 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				18BBA86A1EEA787200BE0090 /* CameraUIViewController.swift */,
-				18BBA86B1EEA787200BE0090 /* CameraUIViewController.xib */,
-				18BBA86C1EEA787200BE0090 /* FatalErrorView.swift */,
-				18BBA8701EEA787200BE0090 /* ViewFinder.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		18BBA8721EEA787200BE0090 /* LUTs */ = {
-			isa = PBXGroup;
-			children = (
-				18BBA8731EEA787200BE0090 /* CandleLight.png */,
-				18BBA8741EEA787200BE0090 /* ColorPunch.png */,
-				18BBA8751EEA787200BE0090 /* ColorPunchCool.png */,
-				18BBA8761EEA787200BE0090 /* Earthy.png */,
-				18BBA8771EEA787200BE0090 /* FilmStock.png */,
-				18BBA8781EEA787200BE0090 /* Intensify.png */,
-				18BBA8791EEA787200BE0090 /* Lenox.png */,
-				18BBA87A1EEA787200BE0090 /* lookup_amatorka.png */,
-				18BBA87B1EEA787200BE0090 /* lookup_miss_etikate.png */,
-				18BBA87D1EEA787200BE0090 /* lookup_soft_elegance_2.png */,
-				18BBA87E1EEA787200BE0090 /* Red.png */,
-				18BBA87F1EEA787200BE0090 /* Remy.png */,
-			);
-			path = LUTs;
-			sourceTree = "<group>";
-		};
 		18D0BF391ED525D6008677FE /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -1124,16 +1130,6 @@
 				9B3814041CE01EBE0066D3B9 /* DefaultStreamLayout.swift */,
 			);
 			path = Layout;
-			sourceTree = "<group>";
-		};
-		9B3C5DFF1EEB31CF0056AA7A /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				9B3C5E001EEB31E40056AA7A /* FilterSelectorView.swift */,
-				9B3C5E061EEB37A00056AA7A /* FilterManager.swift */,
-				9B3C5E081EEB443F0056AA7A /* ColorPresetThumbnailView.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		9B5470781CEE90B3001F6C3C /* Utils */ = {
@@ -1319,16 +1315,108 @@
 			path = Stream;
 			sourceTree = "<group>";
 		};
-		9BA58F501EE9E16300888E62 /* PearlFX */ = {
+		9BA9AD801F4CD898006F0AC0 /* PearlCam */ = {
 			isa = PBXGroup;
 			children = (
-				9B3C5DFF1EEB31CF0056AA7A /* Components */,
-				18BBA8651EEA778D00BE0090 /* test.jpg */,
-				9B3C5E041EEB35B60056AA7A /* test2.jpg */,
-				9BA58F541EE9E17B00888E62 /* PearlFXViewController.swift */,
-				9BA58F551EE9E17B00888E62 /* PearlFXViewController.xib */,
+				9BA9AD811F4CD898006F0AC0 /* CameraController.swift */,
+				9BA9AD821F4CD898006F0AC0 /* CameraUIViewController.swift */,
+				9BA9AD831F4CD898006F0AC0 /* CameraUIViewController.xib */,
+				9BA9AD841F4CD898006F0AC0 /* Components */,
+				9BA9AD881F4CD898006F0AC0 /* LUTs */,
+				9BA9AD951F4CD898006F0AC0 /* PearlCam.xcassets */,
+				9BA9AD961F4CD898006F0AC0 /* PearlCamViewController.swift */,
+				9BA9AD971F4CD898006F0AC0 /* PearlCamViewController.xib */,
+			);
+			path = PearlCam;
+			sourceTree = "<group>";
+		};
+		9BA9AD841F4CD898006F0AC0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9AD851F4CD898006F0AC0 /* FatalErrorView.swift */,
+				9BA9AD861F4CD898006F0AC0 /* MeterView.swift */,
+				9BA9AD871F4CD898006F0AC0 /* ViewFinder.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9BA9AD881F4CD898006F0AC0 /* LUTs */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9AD891F4CD898006F0AC0 /* CandleLight.png */,
+				9BA9AD8A1F4CD898006F0AC0 /* ColorPunch.png */,
+				9BA9AD8B1F4CD898006F0AC0 /* ColorPunchCool.png */,
+				9BA9AD8C1F4CD898006F0AC0 /* Earthy.png */,
+				9BA9AD8D1F4CD898006F0AC0 /* FilmStock.png */,
+				9BA9AD8E1F4CD898006F0AC0 /* Intensify.png */,
+				9BA9AD8F1F4CD898006F0AC0 /* Lenox.png */,
+				9BA9AD901F4CD898006F0AC0 /* lookup_amatorka.png */,
+				9BA9AD911F4CD898006F0AC0 /* lookup_miss_etikate.png */,
+				9BA9AD921F4CD898006F0AC0 /* lookup_soft_elegance_2.png */,
+				9BA9AD931F4CD898006F0AC0 /* Red.png */,
+				9BA9AD941F4CD898006F0AC0 /* Remy.png */,
+			);
+			path = LUTs;
+			sourceTree = "<group>";
+		};
+		9BA9AD981F4CD898006F0AC0 /* PearlFX */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9AD991F4CD898006F0AC0 /* Components */,
+				9BA9ADA11F4CD898006F0AC0 /* Filters */,
+				9BA9ADAB1F4CD898006F0AC0 /* FilterUI */,
+				9BA9ADB71F4CD898006F0AC0 /* PearlFXViewController.swift */,
+				9BA9ADB81F4CD898006F0AC0 /* PearlFXViewController.xib */,
 			);
 			path = PearlFX;
+			sourceTree = "<group>";
+		};
+		9BA9AD991F4CD898006F0AC0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9AD9A1F4CD898006F0AC0 /* AdjustmentSelectorView.swift */,
+				9BA9AD9B1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift */,
+				9BA9AD9C1F4CD898006F0AC0 /* FilterManager.swift */,
+				9BA9AD9D1F4CD898006F0AC0 /* FilterSelectorView.swift */,
+				9BA9AD9E1F4CD898006F0AC0 /* FXSlider.swift */,
+				9BA9AD9F1F4CD898006F0AC0 /* Pipeline.swift */,
+				9BA9ADA01F4CD898006F0AC0 /* Processor.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		9BA9ADA11F4CD898006F0AC0 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9ADA21F4CD898006F0AC0 /* ColorFilterNode.swift */,
+				9BA9ADA31F4CD898006F0AC0 /* ContrastFilterNode.swift */,
+				9BA9ADA41F4CD898006F0AC0 /* ExposureFilterNode.swift */,
+				9BA9ADA51F4CD898006F0AC0 /* LookupFilterNode.swift */,
+				9BA9ADA61F4CD898006F0AC0 /* MonochromeFilterNode.swift */,
+				9BA9ADA71F4CD898006F0AC0 /* SharpenFilterNode.swift */,
+				9BA9ADA81F4CD898006F0AC0 /* VibranceFilterNode.swift */,
+				9BA9ADA91F4CD898006F0AC0 /* VignetteFilterNode.swift */,
+				9BA9ADAA1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		9BA9ADAB1F4CD898006F0AC0 /* FilterUI */ = {
+			isa = PBXGroup;
+			children = (
+				9BA9ADAC1F4CD898006F0AC0 /* AdjustmentUIViewController.swift */,
+				9BA9ADAD1F4CD898006F0AC0 /* BrightnessFilterViewController.swift */,
+				9BA9ADAE1F4CD898006F0AC0 /* BrightnessFilterViewController.xib */,
+				9BA9ADAF1F4CD898006F0AC0 /* ColorFilterViewController.swift */,
+				9BA9ADB01F4CD898006F0AC0 /* ColorFilterViewController.xib */,
+				9BA9ADB11F4CD898006F0AC0 /* MonochromeFilterViewController.swift */,
+				9BA9ADB21F4CD898006F0AC0 /* MonochromeFilterViewController.xib */,
+				9BA9ADB31F4CD898006F0AC0 /* VignetteFilterViewController.swift */,
+				9BA9ADB41F4CD898006F0AC0 /* VignetteFilterViewController.xib */,
+				9BA9ADB51F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift */,
+				9BA9ADB61F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib */,
+			);
+			path = FilterUI;
 			sourceTree = "<group>";
 		};
 		9BDF19021ED778B6003159E8 /* Products */ = {
@@ -1464,49 +1552,53 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18BBA8921EEA787200BE0090 /* ColorPunch.png in Resources */,
+				9BA9ADC61F4CD898006F0AC0 /* lookup_amatorka.png in Resources */,
 				187BA06E1ED3D3B2000E181E /* UserSearchResultRenderer.xib in Resources */,
-				18BBA8951EEA787200BE0090 /* FilmStock.png in Resources */,
+				9BA9ADCB1F4CD898006F0AC0 /* PearlCam.xcassets in Resources */,
 				1872B80A1EDA7B46009B6FC8 /* UserProfileViewController.xib in Resources */,
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
 				9B3813E91CE012180066D3B9 /* DefaultStreamHeaderNavCell.xib in Resources */,
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
-				18BBA88B1EEA787200BE0090 /* CameraUIViewController.xib in Resources */,
+				9BA9ADBB1F4CD898006F0AC0 /* CameraUIViewController.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
 				18222A361EDCD45100F0F02E /* UserFollowersSectionViewController.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
-				18BBA8A11EEA787200BE0090 /* PearlCamViewController.xib in Resources */,
+				9BA9ADE21F4CD898006F0AC0 /* ColorFilterViewController.xib in Resources */,
 				1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */,
-				18BBA89D1EEA787200BE0090 /* Remy.png in Resources */,
-				9B3C5E051EEB35B60056AA7A /* test2.jpg in Resources */,
-				18BBA8961EEA787200BE0090 /* Intensify.png in Resources */,
-				9BA58F571EE9E17B00888E62 /* PearlFXViewController.xib in Resources */,
+				9BA9ADC41F4CD898006F0AC0 /* Intensify.png in Resources */,
 				18222A1D1EDBC98600F0F02E /* LoadingViewController.xib in Resources */,
-				18BBA8991EEA787200BE0090 /* lookup_miss_etikate.png in Resources */,
 				184951C31ED0B06A006301E8 /* DetailComposerViewController.xib in Resources */,
+				9BA9ADC31F4CD898006F0AC0 /* FilmStock.png in Resources */,
 				9B786FE11CEE3CD600896A4C /* JournalHeaderTitleCell.xib in Resources */,
-				18BBA8931EEA787200BE0090 /* ColorPunchCool.png in Resources */,
-				18BBA8971EEA787200BE0090 /* Lenox.png in Resources */,
-				18BBA8981EEA787200BE0090 /* lookup_amatorka.png in Resources */,
-				18BBA89B1EEA787200BE0090 /* lookup_soft_elegance_2.png in Resources */,
 				184C06811CBB1020008A1E37 /* Assets.xcassets in Resources */,
+				9BA9ADC71F4CD898006F0AC0 /* lookup_miss_etikate.png in Resources */,
 				184C067F1CBB1020008A1E37 /* Main.storyboard in Resources */,
 				9B76AB551D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib in Resources */,
 				9B3813E71CE012180066D3B9 /* DefaultStreamButtonsCell.xib in Resources */,
+				9BA9ADC01F4CD898006F0AC0 /* ColorPunch.png in Resources */,
 				1872B7F91ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib in Resources */,
+				9BA9ADC11F4CD898006F0AC0 /* ColorPunchCool.png in Resources */,
+				9BA9ADCD1F4CD898006F0AC0 /* PearlCamViewController.xib in Resources */,
+				9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */,
 				1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */,
-				18BBA8941EEA787200BE0090 /* Earthy.png in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
+				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
 				187BA0521ED25485000E181E /* SearchResultViewController.xib in Resources */,
 				18222A381EDCD45100F0F02E /* UserPhotosSectionViewController.xib in Resources */,
-				18BBA8911EEA787200BE0090 /* CandleLight.png in Resources */,
+				9BA9ADE41F4CD898006F0AC0 /* MonochromeFilterViewController.xib in Resources */,
+				9BA9ADC81F4CD898006F0AC0 /* lookup_soft_elegance_2.png in Resources */,
+				9BA9ADC51F4CD898006F0AC0 /* Lenox.png in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
-				18BBA89C1EEA787200BE0090 /* Red.png in Resources */,
+				9BA9ADC91F4CD898006F0AC0 /* Red.png in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
+				9BA9ADCA1F4CD898006F0AC0 /* Remy.png in Resources */,
+				9BA9ADC21F4CD898006F0AC0 /* Earthy.png in Resources */,
 				18222A341EDCD45100F0F02E /* UserAboutSectionViewController.xib in Resources */,
+				9BA9ADBF1F4CD898006F0AC0 /* CandleLight.png in Resources */,
+				9BA9ADE61F4CD898006F0AC0 /* VignetteFilterViewController.xib in Resources */,
+				9BA9ADE01F4CD898006F0AC0 /* BrightnessFilterViewController.xib in Resources */,
 				9B6115D71CCA9944008F5257 /* GreetingsViewController.xib in Resources */,
 				1872B7FD1ED7E781009B6FC8 /* SearchResultFilterViewController.xib in Resources */,
-				18BBA8661EEA778D00BE0090 /* test.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1573,12 +1665,12 @@
 				9B3813AF1CE00DFD0066D3B9 /* HomeViewController.swift in Sources */,
 				9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */,
 				1821098A1CF1076800529610 /* JournalBubbleDecoCell.swift in Sources */,
+				9BA9ADD91F4CD898006F0AC0 /* MonochromeFilterNode.swift in Sources */,
 				9B3813EA1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.swift in Sources */,
-				9BA58F561EE9E17B00888E62 /* PearlFXViewController.swift in Sources */,
 				9B7B17DE1EE2163B00412840 /* APIService+Gallery.swift in Sources */,
-				18BBA8891EEA787200BE0090 /* CameraController.swift in Sources */,
 				18D0BF381ED52259008677FE /* CommentCollectionModel.swift in Sources */,
 				184C06911CBB11C3008A1E37 /* MainViewController.swift in Sources */,
+				9BA9ADE91F4CD898006F0AC0 /* PearlFXViewController.swift in Sources */,
 				9BFFB7511D147BA200B178F3 /* DrawerPresentationController.swift in Sources */,
 				1872B8001ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.swift in Sources */,
 				18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */,
@@ -1586,27 +1678,30 @@
 				9B6677031D340B0500B89009 /* NavigationService.swift in Sources */,
 				184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */,
 				9B3814001CE01E4D0066D3B9 /* DefaultNavBlurView.swift in Sources */,
-				18BBA8A01EEA787200BE0090 /* PearlCamViewController.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
 				18222A471EDE72CB00F0F02E /* UserFollowersModel.swift in Sources */,
 				187BA0761ED40BF1000E181E /* SearchUsersRequest.swift in Sources */,
 				187BA0551ED25757000E181E /* SearchPhotoResultViewController.swift in Sources */,
 				9B3814011CE01E4D0066D3B9 /* DefaultStreamSelectorView.swift in Sources */,
+				9BA9ADBE1F4CD898006F0AC0 /* ViewFinder.swift in Sources */,
 				9B3813D11CE010770066D3B9 /* StreamCardLayoutGenerator.swift in Sources */,
 				9BDF19201ED77BB9003159E8 /* UserSearchResultStreamViewController.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				1884AA561CEE0974002109A9 /* JournalDarkTheme.swift in Sources */,
 				9BA58F741EE9E24400888E62 /* ImageUtils.swift in Sources */,
 				18222A571EDFCC5B00F0F02E /* UserStreamViewController.swift in Sources */,
-				18BBA88A1EEA787200BE0090 /* CameraUIViewController.swift in Sources */,
 				9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */,
+				9BA9ADDF1F4CD898006F0AC0 /* BrightnessFilterViewController.swift in Sources */,
 				9B6115E81CCAD1D2008F5257 /* StorageService+Streams.swift in Sources */,
 				1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
+				9BA9ADCE1F4CD898006F0AC0 /* AdjustmentSelectorView.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */,
+				9BA9ADBC1F4CD898006F0AC0 /* FatalErrorView.swift in Sources */,
 				187BA0481ED23AEE000E181E /* DetailCommentsViewController.swift in Sources */,
 				18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */,
+				9BA9ADE31F4CD898006F0AC0 /* MonochromeFilterViewController.swift in Sources */,
 				1872B8091EDA7B46009B6FC8 /* UserProfileViewController.swift in Sources */,
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
 				18222A431EDE703200F0F02E /* UserFollowersViewModel.swift in Sources */,
@@ -1620,12 +1715,16 @@
 				9BDF19211ED77BB9003159E8 /* UserSearchResultViewModel.swift in Sources */,
 				9B3813CD1CE010770066D3B9 /* HeadlineTemplate.swift in Sources */,
 				18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */,
+				9BA9ADE51F4CD898006F0AC0 /* VignetteFilterViewController.swift in Sources */,
 				9B786FE31CEE3E8B00896A4C /* JournalViewModel.swift in Sources */,
 				9B9E9E961DBAD79A009D5D19 /* InfiniteLoadingViewModel.swift in Sources */,
 				9B3814021CE01E4D0066D3B9 /* DefaultThemeSelectorButton.swift in Sources */,
 				184C067A1CBB1020008A1E37 /* AppDelegate.swift in Sources */,
+				9BA9ADE11F4CD898006F0AC0 /* ColorFilterViewController.swift in Sources */,
 				9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */,
 				9B7B17E41EE21FC500412840 /* GalleryCollectionModel.swift in Sources */,
+				9BA9ADDC1F4CD898006F0AC0 /* VignetteFilterNode.swift in Sources */,
+				9BA9ADCC1F4CD898006F0AC0 /* PearlCamViewController.swift in Sources */,
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
 				1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */,
 				9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */,
@@ -1636,9 +1735,13 @@
 				184C23371CBCAC610057DCD6 /* SignInLogoView.swift in Sources */,
 				9B9E9E8D1DBA9EFE009D5D19 /* DetailCommentCell.swift in Sources */,
 				18D0BF351ED5211B008677FE /* CollectionModel.swift in Sources */,
+				9BA9ADD21F4CD898006F0AC0 /* FXSlider.swift in Sources */,
+				9BA9ADDB1F4CD898006F0AC0 /* VibranceFilterNode.swift in Sources */,
 				9B3813D21CE010770066D3B9 /* StreamLayoutTemplate.swift in Sources */,
 				9B6115DA1CCA9BAD008F5257 /* SignInViewController.swift in Sources */,
 				9BC6C3CD1D9229B200DCC92E /* APIService+Queue.swift in Sources */,
+				9BA9ADD31F4CD898006F0AC0 /* Pipeline.swift in Sources */,
+				9BA9ADD41F4CD898006F0AC0 /* Processor.swift in Sources */,
 				9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */,
 				187BA0591ED25C0C000E181E /* DeckNavigationBar.swift in Sources */,
 				9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */,
@@ -1654,6 +1757,7 @@
 				9BDF19191ED77B9E003159E8 /* UserSearchResultLayout.swift in Sources */,
 				187BA0781ED40CD6000E181E /* APIService+Users.swift in Sources */,
 				18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */,
+				9BA9ADB91F4CD898006F0AC0 /* CameraController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */,
@@ -1661,7 +1765,9 @@
 				18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
+				9BA9ADBA1F4CD898006F0AC0 /* CameraUIViewController.swift in Sources */,
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
+				9BA9ADBD1F4CD898006F0AC0 /* MeterView.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
@@ -1684,7 +1790,6 @@
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
 				9B3813F31CE012180066D3B9 /* PhotoRenderer.swift in Sources */,
-				18BBA88C1EEA787200BE0090 /* FatalErrorView.swift in Sources */,
 				184951CD1ED0D7E5006301E8 /* EntranceAnimation.swift in Sources */,
 				18222A3F1EDCD46800F0F02E /* UserInfoEntryView.swift in Sources */,
 				9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */,
@@ -1694,10 +1799,13 @@
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,
 				18222A5D1EE1208A00F0F02E /* TagButton.swift in Sources */,
-				18BBA8901EEA787200BE0090 /* ViewFinder.swift in Sources */,
+				9BA9ADD01F4CD898006F0AC0 /* FilterManager.swift in Sources */,
+				9BA9ADDE1F4CD898006F0AC0 /* AdjustmentUIViewController.swift in Sources */,
 				9B7B17E01EE2195000412840 /* StorageService+Galleries.swift in Sources */,
+				9BA9ADD11F4CD898006F0AC0 /* FilterSelectorView.swift in Sources */,
 				9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */,
 				1870822A1D13B08C00FDAAEB /* DrawerAnimationContext.swift in Sources */,
+				9BA9ADD51F4CD898006F0AC0 /* ColorFilterNode.swift in Sources */,
 				18222A4B1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
 				184951D71ED14226006301E8 /* StorageService+Utils.swift in Sources */,
@@ -1710,13 +1818,13 @@
 				9B3813F81CE012DA0066D3B9 /* StreamEvents.swift in Sources */,
 				18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */,
 				1884AA541CEE095B002109A9 /* JournalTheme.swift in Sources */,
-				9B3C5E091EEB443F0056AA7A /* ColorPresetThumbnailView.swift in Sources */,
 				18BD57221D5667BD00376DE8 /* DetailHeaderSectionView.swift in Sources */,
 				187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */,
 				9BFFB6731D136E1400B178F3 /* DrawerOpenAnimator.swift in Sources */,
 				9B3813C71CE010770066D3B9 /* StreamLayoutBase.swift in Sources */,
 				18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */,
 				9BFC4C2A1DA7474E004E1B21 /* RefreshHeaderView.swift in Sources */,
+				9BA9ADD61F4CD898006F0AC0 /* ContrastFilterNode.swift in Sources */,
 				1872B7F51ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift in Sources */,
 				9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */,
 				9B3813EE1CE012180066D3B9 /* DefaultStreamPhotoCell.swift in Sources */,
@@ -1725,15 +1833,14 @@
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				9B9E9E941DBAD664009D5D19 /* InfiniteLoadingViewController.swift in Sources */,
 				9B3AACD41CFE42A90070C495 /* JournalLightTheme.swift in Sources */,
+				9BA9ADDD1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift in Sources */,
 				9B76AB541D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift in Sources */,
 				9B94F9131D243E4200291973 /* DrawerOpenGestureController.swift in Sources */,
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
-				9B3C5E071EEB37A00056AA7A /* FilterManager.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
 				18222A531EDFC56600F0F02E /* GetUserPhotosRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
-				9B3C5E011EEB31E40056AA7A /* FilterSelectorView.swift in Sources */,
 				18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
@@ -1744,9 +1851,12 @@
 				9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */,
 				18222A3A1EDCD45100F0F02E /* UserDescSectionView.swift in Sources */,
 				9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */,
+				9BA9ADD71F4CD898006F0AC0 /* ExposureFilterNode.swift in Sources */,
 				9BDF191E1ED77BB9003159E8 /* PhotoSearchResultStreamViewController.swift in Sources */,
+				9BA9ADCF1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift in Sources */,
 				9BDF19181ED77B9E003159E8 /* PhotoSearchResultLayout.swift in Sources */,
 				186AF55B1D5989DB00A9928F /* DetailCommentSectionView.swift in Sources */,
+				9BA9ADD81F4CD898006F0AC0 /* LookupFilterNode.swift in Sources */,
 				182109881CF0E72600529610 /* JournalBackdropCell.swift in Sources */,
 				9B3813B41CE00F610066D3B9 /* LightTheme.swift in Sources */,
 				9B3813EC1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.swift in Sources */,
@@ -1755,6 +1865,7 @@
 				186AF5671D5AD5B700A9928F /* DetailLightBoxAnimationSource.swift in Sources */,
 				9B3813AD1CE00DF30066D3B9 /* ThemeManagerEvents.swift in Sources */,
 				9B3813F11CE012180066D3B9 /* DefaultStreamSectionHeaderCell.swift in Sources */,
+				9BA9ADE71F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
@@ -1763,6 +1874,7 @@
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
+				9BA9ADDA1F4CD898006F0AC0 /* SharpenFilterNode.swift in Sources */,
 				187BA06D1ED3D3B2000E181E /* UserSearchResultRenderer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

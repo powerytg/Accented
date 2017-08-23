@@ -14,7 +14,9 @@ import AVFoundation
 class ViewFinder: UIView {
     
     private let focusIndicatorSize : CGFloat = 30
+    private let aelIndicatorSize : CGFloat = 60
     private var focusIndicator = UIView()
+    private var aelIndicator = UIView()
     var previewLayer : AVCaptureVideoPreviewLayer
     
     init(previewLayer : AVCaptureVideoPreviewLayer, frame: CGRect) {
@@ -29,6 +31,12 @@ class ViewFinder: UIView {
         focusIndicator.layer.borderColor = UIColor(red: 0, green: 222 / 255.0, blue: 136 / 255.0, alpha: 1).cgColor
         focusIndicator.alpha = 0
         addSubview(focusIndicator)        
+
+        aelIndicator.frame = CGRect(x: 0, y: 0, width: aelIndicatorSize, height: aelIndicatorSize)
+        aelIndicator.layer.borderWidth = 2
+        aelIndicator.layer.borderColor = UIColor(red: 247 / 255.0, green: 248 / 255.0, blue: 141 / 255.0, alpha: 1).cgColor
+        aelIndicator.alpha = 0
+        addSubview(aelIndicator)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,5 +67,25 @@ class ViewFinder: UIView {
                 self?.focusIndicator.alpha = 0
             })
         }
+    }
+    
+    func aelPointDidChange(_ point : CGPoint) {
+        let coord = previewLayer.pointForCaptureDevicePoint(ofInterest: point)
+        
+        aelIndicator.frame.origin.x = coord.x
+        aelIndicator.frame.origin.y = coord.y
+    }
+    
+    func aelDidLock() {
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+            self?.aelIndicator.alpha = 1
+        }, completion: nil)
+    }
+    
+    func aelDidUnlock() {
+        aelIndicator.layer.removeAllAnimations()
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            self?.aelIndicator.alpha = 0
+        })
     }
 }
