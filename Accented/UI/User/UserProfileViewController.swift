@@ -10,22 +10,18 @@
 
 import UIKit
 
-class UserProfileViewController: UIViewController, DeckViewControllerDataSource, DeckNavigationBarDelegate, DesaturatedBackgroundViewDelegate, PagerViewControllerDelegate {
+class UserProfileViewController: SectionViewController {
 
-    @IBOutlet weak var avatarView: UIImageView!
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var navView: DeckNavigationBar!
-    @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var backgroundView: DesaturatedBackgroundView!
-    
-    private let deckPaddingTop : CGFloat = 150
-    private let avatarSize = 30
     private var user : UserModel
     private var loadingView : LoadingViewController?
+    private var backgroundView : DesaturatedBackgroundView?
 
-    var deck : PagerViewController!
-    var cards = [UserProfileCardViewController]()
+    // Sections
+    private var headerSection : UserHeaderSectionView!
+    private var infoSection : UserInfoSectionView!
+    private var descSection : UserDescSectionView!
+    private var gallerySection : UserGallerySection!
+    private var recentPhotoSection : UserPhotoSectionView!
     
     init(user : UserModel) {
         self.user = user
@@ -39,8 +35,6 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backgroundView.delegate = self
-        
         // Initialize the loading progress view
         loadingView = LoadingViewController()
         loadingView!.loadingText = "Retrieving user profile"
@@ -59,6 +53,9 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         view.addSubview(loadingView!.view)
         loadingView!.didMove(toParentViewController: self)
 
+        // Initialize sections
+        initializeSections()
+        
         // Always refresh the user profile regardless whether it's been loaded previously
         loadUserProfile()
         
@@ -66,6 +63,14 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         NotificationCenter.default.addObserver(self, selector: #selector(userProfileDidUpdate(_:)), name: StorageServiceEvents.userProfileDidUpdate, object: nil)
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let background = backgroundView {
+            background.frame = view.bounds
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -81,69 +86,19 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         }
     }
 
-    @IBAction func backButtonDidTap(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    private func initializeSections() {
+        headerSection = UserHeaderSectionView(user)
+        descSection = UserDescSectionView(user)
+        infoSection = UserInfoSectionView(user)
+        gallerySection = UserGallerySection(user)
+        recentPhotoSection = UserPhotoSectionView(user)
         
-        if let avatarUrl = DetailUserUtils.preferredAvatarUrl(user) {
-            avatarView.sd_setImage(with: avatarUrl)
-        }
-        
-        nameLabel.text = TextUtils.preferredAuthorName(user).uppercased()
-        if user.photoCount != nil && user.followersCount != nil {
-            subtitleLabel.text = "\(user.photoCount!) photos, \(user.followersCount!) followers"
-        } else if user.photoCount != nil {
-            subtitleLabel.text = "\(user.photoCount!) photos"
-        } else {
-            subtitleLabel.text = "@\(user.userName!)"
-        }
-        
-        // Avatar
-        avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
-        avatarView.layer.shadowColor = UIColor.black.cgColor
-        avatarView.layer.shadowOpacity = 0.25
-        avatarView.layer.shadowRadius = 3
-        avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
-    }
-    
-    private func initializeCards() {
-        cards.append(UserAboutSectionViewController(user: user, nibName: "UserAboutSectionViewController"))
-        cards.append(UserPhotosSectionViewController(user: user, nibName: "UserPhotosSectionViewController"))
-        cards.append(UserFollowersSectionViewController(user: user, nibName: "UserFollowersSectionViewController"))
-        
-        deck = PagerViewController(cards: cards)
-        deck.delegate = self
-        let screenHeight = UIScreen.main.bounds.height
-        addChildViewController(deck)
-        view.addSubview(deck.view)
-        deck.view.frame = CGRect(x: 0,
-                                 y: deckPaddingTop,
-                                 width: view.bounds.size.width,
-                                 height: screenHeight - deckPaddingTop)
-        deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        deck.didMove(toParentViewController: self)
-        deck.invalidateLayout()
-        
-        navView.dataSource = self
-        navView.delegate = self
-    }
-    
-    // MARK: - DeckViewControllerDataSource
-    
-    func numberOfCards() -> Int {
-        return cards.count
-    }
-    
-    func cardForItemIndex(_ itemIndex: Int) -> CardViewController {
-        return cards[itemIndex]
-    }
-    
-    // MARK: - DeckNavigationBarDelegate
-    func navButtonSelectedIndexDidChange(fromIndex: Int, toIndex: Int) {
-        deck.scrollToItemAtIndex(index: toIndex)
+        addSection(headerSection)
+        addSection(descSection)
+        addSection(infoSection)
+        addSection(gallerySection)
+        addSection(recentPhotoSection)
+        view.setNeedsLayout()
     }
     
     // Events
@@ -159,32 +114,16 @@ class UserProfileViewController: UIViewController, DeckViewControllerDataSource,
         
         self.user = StorageService.sharedInstance.getUserProfile(userId: user.userId)!
 
-        // Show the user profile cards
-        initializeCards()
-        self.view.setNeedsLayout()
-        
         // If the user has a cover image, use it in place of default background
-        backgroundView.url = user.coverUrl
-    }
-    
-    // MARK: - DesaturatedBackgroundViewDelegate
-    
-    func backgroundViewDidFinishedTransition() {
-        // With a non-blurred background view, we need to boost the readability of the text content
-        adjustTextClarity()
-    }
-    
-    private func adjustTextClarity() {
-        navView.adjustTextClarity()
+        backgroundView = DesaturatedBackgroundView()
+        backgroundView?.contentMode = .scaleAspectFill
+        view.insertSubview(backgroundView!, at: 0)
+        backgroundView!.url = user.coverUrl
         
-        for card in cards {
-            card.adjustTextClarity()
-        }
-    }
-    
-    // MARK: - PagerViewControllerDelegate
-    
-    func pagerViewControllerSelectedIndexDidChange() {
-        navView.selectedIndex = deck.selectedIndex
+        descSection.model = user
+        descSection.invalidateSize()
+        
+        infoSection.model = user
+        infoSection.invalidate()
     }
 }

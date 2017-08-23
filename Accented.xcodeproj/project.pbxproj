@@ -15,13 +15,6 @@
 		18222A191EDB7B6F00F0F02E /* GetUserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */; };
 		18222A1C1EDBC98600F0F02E /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */; };
 		18222A1D1EDBC98600F0F02E /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */; };
-		18222A331EDCD45100F0F02E /* UserAboutSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */; };
-		18222A341EDCD45100F0F02E /* UserAboutSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */; };
-		18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */; };
-		18222A361EDCD45100F0F02E /* UserFollowersSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */; };
-		18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */; };
-		18222A381EDCD45100F0F02E /* UserPhotosSectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */; };
-		18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */; };
 		18222A3A1EDCD45100F0F02E /* UserDescSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A301EDCD45100F0F02E /* UserDescSectionView.swift */; };
 		18222A3B1EDCD45100F0F02E /* UserInfoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */; };
 		18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */; };
@@ -107,6 +100,11 @@
 		18D0BF381ED52259008677FE /* CommentCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF371ED52259008677FE /* CommentCollectionModel.swift */; };
 		18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */; };
 		18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */; };
+		18FE81EA1F4DEAE000CFAB47 /* SectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81E91F4DEAE000CFAB47 /* SectionViewController.swift */; };
+		18FE81F21F4DF88600CFAB47 /* UserHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F11F4DF88600CFAB47 /* UserHeaderSectionView.swift */; };
+		18FE81F41F4E1E9D00CFAB47 /* UserGallerySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F31F4E1E9D00CFAB47 /* UserGallerySection.swift */; };
+		18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */; };
+		18FE81F81F4E2CCC00CFAB47 /* UserPhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */; };
 		9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */; };
@@ -339,13 +337,6 @@
 		18222A181EDB7B6F00F0F02E /* GetUserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserInfoRequest.swift; sourceTree = "<group>"; };
 		18222A1A1EDBC98600F0F02E /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
-		18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAboutSectionViewController.swift; sourceTree = "<group>"; };
-		18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAboutSectionViewController.xib; sourceTree = "<group>"; };
-		18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFollowersSectionViewController.swift; sourceTree = "<group>"; };
-		18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserFollowersSectionViewController.xib; sourceTree = "<group>"; };
-		18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosSectionViewController.swift; sourceTree = "<group>"; };
-		18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserPhotosSectionViewController.xib; sourceTree = "<group>"; };
-		18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCardViewController.swift; sourceTree = "<group>"; };
 		18222A301EDCD45100F0F02E /* UserDescSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDescSectionView.swift; sourceTree = "<group>"; };
 		18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoSectionView.swift; sourceTree = "<group>"; };
 		18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSectionViewBase.swift; sourceTree = "<group>"; };
@@ -433,6 +424,11 @@
 		18D0BF371ED52259008677FE /* CommentCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionModel.swift; sourceTree = "<group>"; };
 		18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageServiceCacheController.swift; sourceTree = "<group>"; };
 		18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Users.swift"; sourceTree = "<group>"; };
+		18FE81E91F4DEAE000CFAB47 /* SectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionViewController.swift; sourceTree = "<group>"; };
+		18FE81F11F4DF88600CFAB47 /* UserHeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHeaderSectionView.swift; sourceTree = "<group>"; };
+		18FE81F31F4E1E9D00CFAB47 /* UserGallerySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGallerySection.swift; sourceTree = "<group>"; };
+		18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryRenderer.swift; sourceTree = "<group>"; };
+		18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotoSectionView.swift; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
@@ -656,26 +652,15 @@
 			path = Pager;
 			sourceTree = "<group>";
 		};
-		18222A271EDCD45100F0F02E /* Cards */ = {
-			isa = PBXGroup;
-			children = (
-				18222A281EDCD45100F0F02E /* UserAboutSectionViewController.swift */,
-				18222A291EDCD45100F0F02E /* UserAboutSectionViewController.xib */,
-				18222A2A1EDCD45100F0F02E /* UserFollowersSectionViewController.swift */,
-				18222A2B1EDCD45100F0F02E /* UserFollowersSectionViewController.xib */,
-				18222A2C1EDCD45100F0F02E /* UserPhotosSectionViewController.swift */,
-				18222A2D1EDCD45100F0F02E /* UserPhotosSectionViewController.xib */,
-				18222A2E1EDCD45100F0F02E /* UserProfileCardViewController.swift */,
-			);
-			path = Cards;
-			sourceTree = "<group>";
-		};
 		18222A2F1EDCD45100F0F02E /* Sections */ = {
 			isa = PBXGroup;
 			children = (
 				18222A301EDCD45100F0F02E /* UserDescSectionView.swift */,
 				18222A311EDCD45100F0F02E /* UserInfoSectionView.swift */,
 				18222A321EDCD45100F0F02E /* UserSectionViewBase.swift */,
+				18FE81F11F4DF88600CFAB47 /* UserHeaderSectionView.swift */,
+				18FE81F31F4E1E9D00CFAB47 /* UserGallerySection.swift */,
+				18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -684,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */,
+				18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -847,7 +833,6 @@
 				18222A401EDE701000F0F02E /* Layouts */,
 				18222A411EDE701000F0F02E /* ViewModels */,
 				18222A3D1EDCD45C00F0F02E /* Components */,
-				18222A271EDCD45100F0F02E /* Cards */,
 				18222A2F1EDCD45100F0F02E /* Sections */,
 				1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */,
 				1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */,
@@ -1250,6 +1235,7 @@
 			isa = PBXGroup;
 			children = (
 				9B7B16BD1EE0BB9300412840 /* SectionViewBase.swift */,
+				18FE81E91F4DEAE000CFAB47 /* SectionViewController.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -1561,7 +1547,6 @@
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
 				9BA9ADBB1F4CD898006F0AC0 /* CameraUIViewController.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
-				18222A361EDCD45100F0F02E /* UserFollowersSectionViewController.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
 				9BA9ADE21F4CD898006F0AC0 /* ColorFilterViewController.xib in Resources */,
 				1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */,
@@ -1584,7 +1569,6 @@
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
 				187BA0521ED25485000E181E /* SearchResultViewController.xib in Resources */,
-				18222A381EDCD45100F0F02E /* UserPhotosSectionViewController.xib in Resources */,
 				9BA9ADE41F4CD898006F0AC0 /* MonochromeFilterViewController.xib in Resources */,
 				9BA9ADC81F4CD898006F0AC0 /* lookup_soft_elegance_2.png in Resources */,
 				9BA9ADC51F4CD898006F0AC0 /* Lenox.png in Resources */,
@@ -1593,7 +1577,6 @@
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
 				9BA9ADCA1F4CD898006F0AC0 /* Remy.png in Resources */,
 				9BA9ADC21F4CD898006F0AC0 /* Earthy.png in Resources */,
-				18222A341EDCD45100F0F02E /* UserAboutSectionViewController.xib in Resources */,
 				9BA9ADBF1F4CD898006F0AC0 /* CandleLight.png in Resources */,
 				9BA9ADE61F4CD898006F0AC0 /* VignetteFilterViewController.xib in Resources */,
 				9BA9ADE01F4CD898006F0AC0 /* BrightnessFilterViewController.xib in Resources */,
@@ -1723,12 +1706,12 @@
 				9BA9ADE11F4CD898006F0AC0 /* ColorFilterViewController.swift in Sources */,
 				9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */,
 				9B7B17E41EE21FC500412840 /* GalleryCollectionModel.swift in Sources */,
+				18FE81EA1F4DEAE000CFAB47 /* SectionViewController.swift in Sources */,
 				9BA9ADDC1F4CD898006F0AC0 /* VignetteFilterNode.swift in Sources */,
 				9BA9ADCC1F4CD898006F0AC0 /* PearlCamViewController.swift in Sources */,
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
 				1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */,
 				9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */,
-				18222A331EDCD45100F0F02E /* UserAboutSectionViewController.swift in Sources */,
 				9B3813E61CE012180066D3B9 /* DefaultStreamButtonsCell.swift in Sources */,
 				9B7B17E61EE2239000412840 /* GetCurrentUserInfoRequest.swift in Sources */,
 				9B9E9E981DBADA06009D5D19 /* InfiniteLoadingViewControllerDelegate.swift in Sources */,
@@ -1756,7 +1739,6 @@
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
 				9BDF19191ED77B9E003159E8 /* UserSearchResultLayout.swift in Sources */,
 				187BA0781ED40CD6000E181E /* APIService+Users.swift in Sources */,
-				18222A391EDCD45100F0F02E /* UserProfileCardViewController.swift in Sources */,
 				9BA9ADB91F4CD898006F0AC0 /* CameraController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
@@ -1769,6 +1751,7 @@
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
 				9BA9ADBD1F4CD898006F0AC0 /* MeterView.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
+				18FE81F21F4DF88600CFAB47 /* UserHeaderSectionView.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
 				18222A4E1EDFC3C400F0F02E /* UserStreamModel.swift in Sources */,
@@ -1788,6 +1771,7 @@
 				18BD57261D56772A00376DE8 /* DetailPhotoSectionView.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
+				18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
 				9B3813F31CE012180066D3B9 /* PhotoRenderer.swift in Sources */,
 				184951CD1ED0D7E5006301E8 /* EntranceAnimation.swift in Sources */,
@@ -1809,7 +1793,6 @@
 				18222A4B1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift in Sources */,
 				9B3813EF1CE012180066D3B9 /* DefaultStreamSectionFooterCell.swift in Sources */,
 				184951D71ED14226006301E8 /* StorageService+Utils.swift in Sources */,
-				18222A351EDCD45100F0F02E /* UserFollowersSectionViewController.swift in Sources */,
 				9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */,
 				9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */,
 				9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */,
@@ -1839,9 +1822,9 @@
 				9B6115EF1CCAE151008F5257 /* PhotoModel.swift in Sources */,
 				9B786FE01CEE3CD600896A4C /* JournalHeaderTitleCell.swift in Sources */,
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
+				18FE81F81F4E2CCC00CFAB47 /* UserPhotoSectionView.swift in Sources */,
 				18222A531EDFC56600F0F02E /* GetUserPhotosRequest.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
-				18222A371EDCD45100F0F02E /* UserPhotosSectionViewController.swift in Sources */,
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
@@ -1870,6 +1853,7 @@
 				9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
 				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,
+				18FE81F41F4E1E9D00CFAB47 /* UserGallerySection.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,

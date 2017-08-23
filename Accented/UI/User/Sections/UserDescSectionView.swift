@@ -18,6 +18,10 @@ class UserDescSectionView: UserSectionViewBase {
     private var formattedDescription : NSAttributedString?
     private var descSize : CGSize?
 
+    override var title: String? {
+        return "ABOUT"
+    }
+    
     override func createContentView() {
         super.createContentView()
         
@@ -65,7 +69,7 @@ class UserDescSectionView: UserSectionViewBase {
             // Measure the description text
             let availableSize = CGSize(width: maxWidth - contentLeftPadding - contentRightPadding, height: CGFloat.greatestFiniteMagnitude)
             descSize = formattedDesc!.boundingRect(with: availableSize, options: .usesLineFragmentOrigin, context: nil).size
-            return descSize!.height + contentTopPadding + contentBottomPadding
+            return descSize!.height + contentTopPadding + contentBottomPadding + sectionTitleHeight
         }
     }
     

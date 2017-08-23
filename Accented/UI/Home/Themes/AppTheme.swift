@@ -162,6 +162,11 @@ class AppTheme: NSObject {
         return UIFont(name: "HelveticaNeue-CondensedBold", size: 14)!
     }
     
+    // Thumbnail font
+    var thumbnailFont : UIFont {
+        return UIFont(name: "AvenirNextCondensed-Medium", size: 14)!
+    }
+
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

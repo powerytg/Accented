@@ -38,6 +38,7 @@ class GalleryModel: ModelBase {
         super.init()
         dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZZZZZ"
         
+        modelId = json["id"].stringValue
         galleryId = json["id"].stringValue
         desc = json["description"].string
         subtitle = json["subtitle"].string

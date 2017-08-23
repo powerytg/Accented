@@ -10,7 +10,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, SectionViewDelegate, UIScrollViewDelegate {
+class DetailViewController: SectionViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation {
 
     // Photo model
     var photo : PhotoModel
@@ -18,16 +18,9 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     // Source image view from entrance transition
     var entranceAnimationImageView : UIImageView
     
-    private let contentBottomPadding : CGFloat = 25
-    private let sectionGap : CGFloat = 15
-    
-    // Sections
-    private var sections = [DetailSectionViewBase]()
+    // Sections and UI elements
     private var photoSection : DetailPhotoSectionView!
     private var backgroundView : DetailBackgroundView!
-    private var scrollView = UIScrollView()
-    private var contentView = UIView()
-    private var backButton = UIButton(type: .custom)
 
     // All views that would participate entrance animation
     private var entranceAnimationViews = [DetailEntranceAnimation]()
@@ -52,43 +45,23 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.clipsToBounds = false
-        self.view.backgroundColor = UIColor.clear
-        self.automaticallyAdjustsScrollViewInsets = false
         
         // Background view
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
-        
-        // Setup scroll view and content view
-        scrollView.clipsToBounds = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.delegate = self
-        scrollView.addSubview(contentView)
-        self.view.addSubview(scrollView)
-
-        // Back button
-        self.view.addSubview(backButton)
-        backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
-        backButton.sizeToFit()
     }
 
     private func initializeSections() {
-        sections.append(DetailHeaderSectionView(photo))
-        
         self.photoSection = DetailPhotoSectionView(photo)
-        sections.append(photoSection)
-
-        sections.append(DetailDescriptionSectionView(photo))
-        sections.append(DetailMetadataSectionView(photo))
-        sections.append(DetailTagSectionView(photo))
-        sections.append(DetailCommentSectionView(photo))
+        addSection(DetailHeaderSectionView(photo))
+        addSection(photoSection)
+        addSection(DetailDescriptionSectionView(photo))
+        addSection(DetailMetadataSectionView(photo))
+        addSection(DetailTagSectionView(photo))
+        addSection(DetailCommentSectionView(photo))
         
         for section in sections {
-            section.delegate = self
-            contentView.addSubview(section)
-            entranceAnimationViews.append(section)
+            entranceAnimationViews.append(section as! DetailEntranceAnimation)
         }
         
         // Events
@@ -99,50 +72,6 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
         photoSection.addGestureRecognizer(zoom)
         
         view.setNeedsLayout()
-    }
-    
-    // MARK: - Layout
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-
-        // Do not proceed if we're in landscape mode
-        if view.bounds.size.width > view.bounds.size.height {
-            return
-        }
-        
-        // Background view
-        backgroundView.frame = self.view.bounds
-        
-        // Back button
-        var f = backButton.frame
-        f.origin.x = 10
-        f.origin.y = 30
-        backButton.frame = f
-        
-        // Content view
-        var nextY : CGFloat = 0
-        for section in sections {
-            var f = section.frame
-            f.origin.y = nextY
-            f.size.width = view.bounds.size.width
-            f.size.height = section.height
-            section.frame = f
-            section.setNeedsLayout()
-            
-            nextY += section.height
-            
-            section.isHidden = !(section.height > 0)
-            if section.height != 0 && !(section is DetailHeaderSectionView) {
-                // For each of the section, append a gap to its bottom (except for the header section)
-                nextY += sectionGap
-            }
-        }
-        
-        // Update scroll view content size
-        scrollView.frame = view.bounds
-        scrollView.contentSize = CGSize(width: view.bounds.size.width, height: nextY + contentBottomPadding)
-        contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -218,22 +147,12 @@ class DetailViewController: UIViewController, DetailEntranceProxyAnimation, Deta
     
     // MARK: - UIScrollViewDelegate
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Update background according to scroll position
         backgroundView.applyScrollingAnimation(scrollView.contentOffset)
     }
     
-    // MARK: - SectionViewDelegate
-    
-    func sectionViewWillChangeSize(_ section: SectionViewBase) {
-        view.setNeedsLayout()
-    }
-    
     // MARK: - Events
-    
-    @objc private func backButtonDidTap(_ sender : UIButton) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
     
     @objc private func didTapOnPhoto(_ gesture : UITapGestureRecognizer) {
         presentLightBoxViewController(sourceImageView: heroPhotoView, useSourceImageViewAsProxy: false)

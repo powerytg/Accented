@@ -17,17 +17,21 @@ class UserInfoSectionView: UserSectionViewBase {
     private var renderers = [UserInfoEntryView]()
     
     private let rendererHeight : CGFloat = 26
+
+    override var title: String? {
+        return "CONTACT"
+    }
     
-    override func createContentView() {
-        super.createContentView()
-        
+    override func initialize() {
+        super.initialize()
+
         // Compile a list of info entries
         compileInfoEntries()
         
         // Create renderers
         createRenderers()
     }
-
+    
     private func compileInfoEntries() {
         // Full name
         if let fullName = user.fullName {
@@ -107,12 +111,25 @@ class UserInfoSectionView: UserSectionViewBase {
     }
     
     override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
-        return rendererHeight * CGFloat(infoEntries.count)
+        return rendererHeight * CGFloat(infoEntries.count) + sectionTitleHeight
     }
     
     override func adjustTextClarity() {
         for renderer in renderers {
             renderer.adjustTextClarity()
         }
+    }
+    
+    func invalidate() {
+        infoEntries.removeAll()
+        for renderer in renderers {
+            renderer.removeFromSuperview()
+        }
+        
+        renderers.removeAll()
+
+        compileInfoEntries()
+        createRenderers()
+        invalidateSize()
     }
 }

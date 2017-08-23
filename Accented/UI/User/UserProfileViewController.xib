@@ -1,96 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserProfileViewController" customModule="Accented" customModuleProvider="target">
             <connections>
-                <outlet property="avatarView" destination="57t-SW-MoH" id="1EM-xi-cTw"/>
-                <outlet property="backButton" destination="10j-Ir-aVQ" id="OP6-Jw-HLT"/>
-                <outlet property="backgroundView" destination="FBp-4Q-HGJ" id="9MM-mA-b5c"/>
-                <outlet property="nameLabel" destination="cdh-FA-E2f" id="fUQ-tJ-bK1"/>
-                <outlet property="navView" destination="rgL-6o-V8h" id="SpZ-sy-Jc1"/>
-                <outlet property="subtitleLabel" destination="xSo-HK-Zqu" id="m2M-EY-PLo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="FBp-4Q-HGJ" customClass="DesaturatedBackgroundView" customModule="Accented" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgL-6o-V8h" userLabel="Nav" customClass="DeckNavigationBar" customModule="Accented" customModuleProvider="target">
-                    <rect key="frame" x="16" y="90" width="359" height="40"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="7yo-S9-xbe"/>
-                    </constraints>
-                </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10j-Ir-aVQ" userLabel="BackButton">
-                    <rect key="frame" x="15" y="30" width="16" height="22"/>
-                    <state key="normal" image="DetailBackButton"/>
-                    <connections>
-                        <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="bn9-Md-eDk"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdh-FA-E2f" userLabel="NameLabel">
-                    <rect key="frame" x="260.5" y="26" width="34.5" height="23.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="Vme-UV-P7K"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSo-HK-Zqu" userLabel="SubtitleLabel">
-                    <rect key="frame" x="266" y="49" width="28.5" height="20.5"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="r85-fi-HqP"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="15"/>
-                    <color key="textColor" red="0.63529411764705879" green="0.6588235294117647" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="57t-SW-MoH" userLabel="AvatarView">
-                    <rect key="frame" x="320" y="26" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="LBo-K3-Rjx"/>
-                        <constraint firstAttribute="width" constant="40" id="YOE-Oo-0hc"/>
-                    </constraints>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="FBp-4Q-HGJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1oJ-FA-kbw"/>
-                <constraint firstItem="xSo-HK-Zqu" firstAttribute="top" secondItem="cdh-FA-E2f" secondAttribute="bottom" constant="-0.5" id="5fQ-5i-geR"/>
-                <constraint firstItem="10j-Ir-aVQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="8pe-4d-iig"/>
-                <constraint firstItem="57t-SW-MoH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="26" id="9Zv-2O-VhB"/>
-                <constraint firstAttribute="bottom" secondItem="FBp-4Q-HGJ" secondAttribute="bottom" id="9rE-YT-9N2"/>
-                <constraint firstItem="10j-Ir-aVQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Fhd-CF-0l5"/>
-                <constraint firstItem="cdh-FA-E2f" firstAttribute="top" secondItem="57t-SW-MoH" secondAttribute="top" id="Jbr-5O-iDX"/>
-                <constraint firstItem="FBp-4Q-HGJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="M0I-It-5XY"/>
-                <constraint firstAttribute="trailing" secondItem="FBp-4Q-HGJ" secondAttribute="trailing" id="ME5-hd-42q"/>
-                <constraint firstAttribute="trailing" secondItem="rgL-6o-V8h" secondAttribute="trailing" id="OYd-wz-bfq"/>
-                <constraint firstItem="57t-SW-MoH" firstAttribute="leading" secondItem="xSo-HK-Zqu" secondAttribute="trailing" constant="25.5" id="eTH-1V-Ehg"/>
-                <constraint firstAttribute="trailing" secondItem="57t-SW-MoH" secondAttribute="trailing" constant="15" id="hA2-9e-TFe"/>
-                <constraint firstItem="rgL-6o-V8h" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="r3a-Ap-MlF"/>
-                <constraint firstItem="57t-SW-MoH" firstAttribute="leading" secondItem="cdh-FA-E2f" secondAttribute="trailing" constant="25" id="uJu-mU-0ft"/>
-                <constraint firstItem="rgL-6o-V8h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="90" id="ung-y7-OZJ"/>
-            </constraints>
-            <point key="canvasLocation" x="4.5" y="37.5"/>
+            <point key="canvasLocation" x="4" y="37"/>
         </view>
     </objects>
-    <resources>
-        <image name="DarkButterfly" width="16" height="16"/>
-        <image name="DetailBackButton" width="16" height="16"/>
-    </resources>
 </document>
