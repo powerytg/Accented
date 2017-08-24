@@ -11,8 +11,20 @@
 import UIKit
 
 class UserStreamViewController: StreamViewController {
+    
+    var user : UserModel
+    
+    init(user : UserModel, stream: StreamModel) {
+        self.user = user
+        super.init(stream)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func createViewModel() {
-        viewModel = UserStreamViewModel(stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        viewModel = UserStreamViewModel(user : user, stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
     }
     
     override func streamDidUpdate(_ notification : Notification) -> Void {

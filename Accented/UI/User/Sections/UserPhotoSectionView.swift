@@ -66,7 +66,7 @@ class UserPhotoSectionView: UserSectionViewBase {
     }
     
     @objc private func loadMoreButtonDidTap(_ sender : NSObject) {
-        
+        NavigationService.sharedInstance.navigateToUserStreamPage(user: user)
     }
     
     override func layoutSubviews() {

@@ -64,4 +64,10 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         let vc = UserProfileViewController(user: user)
         rootNavigationController?.pushViewController(vc, animated: true)
     }
+
+    func navigateToUserStreamPage(user : UserModel) {
+        let vc = UserPhotosViewController(user: user)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+
 }

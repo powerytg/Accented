@@ -105,6 +105,10 @@
 		18FE81F41F4E1E9D00CFAB47 /* UserGallerySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F31F4E1E9D00CFAB47 /* UserGallerySection.swift */; };
 		18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */; };
 		18FE81F81F4E2CCC00CFAB47 /* UserPhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */; };
+		18FE81FC1F4E671C00CFAB47 /* UserPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */; };
+		18FE82011F4E6CA100CFAB47 /* UserStreamHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */; };
+		18FE82021F4E6CA100CFAB47 /* UserStreamHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */; };
+		18FE82041F4E6FAD00CFAB47 /* UserStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82031F4E6FAD00CFAB47 /* UserStreamLayout.swift */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */; };
 		9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */; };
@@ -429,6 +433,10 @@
 		18FE81F31F4E1E9D00CFAB47 /* UserGallerySection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGallerySection.swift; sourceTree = "<group>"; };
 		18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryRenderer.swift; sourceTree = "<group>"; };
 		18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotoSectionView.swift; sourceTree = "<group>"; };
+		18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosViewController.swift; sourceTree = "<group>"; };
+		18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamHeaderCell.swift; sourceTree = "<group>"; };
+		18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStreamHeaderCell.xib; sourceTree = "<group>"; };
+		18FE82031F4E6FAD00CFAB47 /* UserStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamLayout.swift; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
@@ -670,6 +678,8 @@
 			children = (
 				18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */,
 				18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */,
+				18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */,
+				18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -688,6 +698,7 @@
 				18222A4A1EDE7F5D00F0F02E /* UserFollowersStreamViewController.swift */,
 				18222A541EDFCB6900F0F02E /* UserStreamViewModel.swift */,
 				18222A561EDFCC5B00F0F02E /* UserStreamViewController.swift */,
+				18FE82031F4E6FAD00CFAB47 /* UserStreamLayout.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -836,6 +847,7 @@
 				18222A2F1EDCD45100F0F02E /* Sections */,
 				1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */,
 				1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */,
+				18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1565,6 +1577,7 @@
 				9BA9ADC11F4CD898006F0AC0 /* ColorPunchCool.png in Resources */,
 				9BA9ADCD1F4CD898006F0AC0 /* PearlCamViewController.xib in Resources */,
 				9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */,
+				18FE82021F4E6CA100CFAB47 /* UserStreamHeaderCell.xib in Resources */,
 				1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
@@ -1725,9 +1738,12 @@
 				9BC6C3CD1D9229B200DCC92E /* APIService+Queue.swift in Sources */,
 				9BA9ADD31F4CD898006F0AC0 /* Pipeline.swift in Sources */,
 				9BA9ADD41F4CD898006F0AC0 /* Processor.swift in Sources */,
+				18FE82011F4E6CA100CFAB47 /* UserStreamHeaderCell.swift in Sources */,
 				9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */,
 				187BA0591ED25C0C000E181E /* DeckNavigationBar.swift in Sources */,
+				18FE81FC1F4E671C00CFAB47 /* UserPhotosViewController.swift in Sources */,
 				9B54702A1CEE44B2001F6C3C /* JournalStreamLayout.swift in Sources */,
+				18FE82041F4E6FAD00CFAB47 /* UserStreamLayout.swift in Sources */,
 				187BA0571ED2579F000E181E /* SearchUserResultViewController.swift in Sources */,
 				9B6115D31CCA978E008F5257 /* AuthenticationService.swift in Sources */,
 				184951CF1ED0D7F2006301E8 /* ExitAnimation.swift in Sources */,

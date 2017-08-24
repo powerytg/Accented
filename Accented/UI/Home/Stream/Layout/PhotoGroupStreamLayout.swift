@@ -54,6 +54,10 @@ class PhotoGroupStreamLayout: StreamLayoutBase {
         return true
     }
     
+    override func generateLayoutAttributesForStreamHeader() {
+        // Base class has no header
+    }
+    
     override func generateLayoutAttributesForLoadingState() {
         if fullWidth == 0 {
             fullWidth = UIScreen.main.bounds.width
@@ -70,6 +74,11 @@ class PhotoGroupStreamLayout: StreamLayoutBase {
     }
     
     override func generateLayoutAttributesForTemplates(_ templates : [StreamLayoutTemplate], sectionStartIndex : Int) -> Void {
+        // Generate header layout attributes if absent
+        if layoutCache.count == 0 {
+            generateLayoutAttributesForStreamHeader()
+        }
+
         // If there's a previous loading indicator, reset its section height to 0
         updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
         
