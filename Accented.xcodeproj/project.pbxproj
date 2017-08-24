@@ -112,6 +112,10 @@
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */; };
 		9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */; };
+		9B1A0FB81F4F89F3005AA527 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A0FB71F4F89F3005AA527 /* MenuViewController.swift */; };
+		9B1A0FBA1F4F8A15005AA527 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A0FB91F4F8A15005AA527 /* MenuItem.swift */; };
+		9B1A0FBC1F4F8C9F005AA527 /* MenuItemRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A0FBB1F4F8C9F005AA527 /* MenuItemRenderer.swift */; };
+		9B1A0FBE1F4F9115005AA527 /* CompactMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1A0FBD1F4F9115005AA527 /* CompactMenuBar.swift */; };
 		9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1F517A1DBA808700BEB731 /* CommentsViewModel.swift */; };
 		9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A21CE00DF30066D3B9 /* AppTheme.swift */; };
 		9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3813A71CE00DF30066D3B9 /* ThemeManager.swift */; };
@@ -441,6 +445,10 @@
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
 		9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCommentsRequest.swift; sourceTree = "<group>"; };
+		9B1A0FB71F4F89F3005AA527 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		9B1A0FB91F4F8A15005AA527 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		9B1A0FBB1F4F8C9F005AA527 /* MenuItemRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemRenderer.swift; sourceTree = "<group>"; };
+		9B1A0FBD1F4F9115005AA527 /* CompactMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompactMenuBar.swift; sourceTree = "<group>"; };
 		9B1F517A1DBA808700BEB731 /* CommentsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		9B3813A21CE00DF30066D3B9 /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		9B3813A71CE00DF30066D3B9 /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
@@ -762,6 +770,7 @@
 		185514A51CD447D900B572CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9B1A0FB31F4F89E5005AA527 /* Menu */,
 				9B7B16BC1EE0BB8900412840 /* Section */,
 				18222A051EDB5FD300F0F02E /* Pager */,
 				184951CA1ED0D7CC006301E8 /* Animation */,
@@ -979,6 +988,17 @@
 				2350E629F6B30A7B28301141 /* Pods_Accented.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B1A0FB31F4F89E5005AA527 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				9B1A0FB71F4F89F3005AA527 /* MenuViewController.swift */,
+				9B1A0FB91F4F8A15005AA527 /* MenuItem.swift */,
+				9B1A0FBB1F4F8C9F005AA527 /* MenuItemRenderer.swift */,
+				9B1A0FBD1F4F9115005AA527 /* CompactMenuBar.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		9B1F51781DBA805500BEB731 /* Models */ = {
@@ -1757,6 +1777,7 @@
 				187BA0781ED40CD6000E181E /* APIService+Users.swift in Sources */,
 				9BA9ADB91F4CD898006F0AC0 /* CameraController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
+				9B1A0FBE1F4F9115005AA527 /* CompactMenuBar.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */,
 				18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */,
@@ -1767,6 +1788,7 @@
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
 				9BA9ADBD1F4CD898006F0AC0 /* MeterView.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
+				9B1A0FBA1F4F8A15005AA527 /* MenuItem.swift in Sources */,
 				18FE81F21F4DF88600CFAB47 /* UserHeaderSectionView.swift in Sources */,
 				186AF5691D5C18B700A9928F /* DeckAnimationParams.swift in Sources */,
 				1872E2E51D502CEC00F160F1 /* DetailBackgroundView.swift in Sources */,
@@ -1788,6 +1810,7 @@
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
 				18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */,
+				9B1A0FBC1F4F8C9F005AA527 /* MenuItemRenderer.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
 				9B3813F31CE012180066D3B9 /* PhotoRenderer.swift in Sources */,
 				184951CD1ED0D7E5006301E8 /* EntranceAnimation.swift in Sources */,
@@ -1852,6 +1875,7 @@
 				9B3BA5C21D6790DB00AF588A /* APIService+Comments.swift in Sources */,
 				9BA9ADD71F4CD898006F0AC0 /* ExposureFilterNode.swift in Sources */,
 				9BDF191E1ED77BB9003159E8 /* PhotoSearchResultStreamViewController.swift in Sources */,
+				9B1A0FB81F4F89F3005AA527 /* MenuViewController.swift in Sources */,
 				9BA9ADCF1F4CD898006F0AC0 /* ColorPresetThumbnailView.swift in Sources */,
 				9BDF19181ED77B9E003159E8 /* PhotoSearchResultLayout.swift in Sources */,
 				186AF55B1D5989DB00A9928F /* DetailCommentSectionView.swift in Sources */,

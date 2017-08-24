@@ -12,6 +12,7 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
 
     var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
+    var menuBar : CompactMenuBar!
     
     // Whether the entrance animation has been performed
     // This flag will be reset after theme change
@@ -33,6 +34,9 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         backgroundView!.frame = self.view.bounds
         backgroundView!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
+        // Compact menu bar
+        createMenuBar()
+        
         // Initialize stream
         createStreamViewController(StorageService.sharedInstance.currentStream.streamType)
         
@@ -40,12 +44,6 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
-        
-        // Test code
-//        let camVC = PearlCamViewController()
-//        navigationController?.pushViewController(camVC, animated: false)
-//        let vc = PearlFXViewController(originalImage: UIImage(named: "test2.jpg")!, cameraPosition: .back)
-//        navigationController?.pushViewController(vc, animated: false)
     }
     
     deinit {
@@ -54,8 +52,26 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        if let streamController = streamViewController {
+            var f = streamController.view.frame
+            f.size.width = view.bounds.width
+            f.size.height = view.bounds.height - CompactMenuBar.defaultHeight
+            streamController.view.frame = f
+        }
+        
+        var f = menuBar.frame
+        f.size.width = view.bounds.width
+        f.size.height = CompactMenuBar.defaultHeight
+        f.origin.y = view.bounds.height - f.size.height
+        menuBar.frame = f
+    }
+    
+    // MARK : - Stream
     
     private func createStreamViewController(_ streamType : StreamType) {
         let stream = StorageService.sharedInstance.getStream(streamType)
@@ -63,7 +79,6 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         addChildViewController(streamViewController!)
         self.view.addSubview(streamViewController!.view)
         streamViewController!.view.frame = self.view.bounds
-        streamViewController!.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         streamViewController!.didMove(toParentViewController: self)
         streamViewController!.delegate = self
     }
@@ -83,6 +98,18 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
                 })
             }
         }
+    }
+    
+    // MARK: - Menu
+    
+    private func createMenuBar() {
+        let menuItems = [MenuItem("My Photos"),
+                         MenuItem("My Galleries"),
+                         MenuItem("My Profile"),
+                         MenuItem("Take Photo"),
+                         MenuItem("Sign Out")]
+        menuBar = CompactMenuBar(menuItems)
+        view.addSubview(menuBar)
     }
     
     // MARK: - Events

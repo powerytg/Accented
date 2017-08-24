@@ -167,6 +167,21 @@ class AppTheme: NSObject {
         return UIFont(name: "AvenirNextCondensed-Medium", size: 14)!
     }
 
+    // Menu item normal text color
+    var menuItemNormalColor : UIColor {
+        return UIColor(red: 157 / 255.0, green: 157 / 255.0, blue: 157 / 255.0, alpha: 1.0)
+    }
+
+    // Menu item highlighted text color
+    var menuItemHighlightedColor : UIColor {
+        return UIColor.white
+    }
+
+    // Menu item font
+    var menuItemFont : UIFont {
+        return UIFont(name: "HelveticaNeue-Light", size: 17)!
+    }
+    
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }
