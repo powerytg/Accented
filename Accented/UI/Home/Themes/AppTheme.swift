@@ -177,6 +177,16 @@ class AppTheme: NSObject {
         return UIColor.white
     }
 
+    // Menu title font
+    var menuTitleFont : UIFont {
+        return UIFont(name: "HelveticaNeue-CondensedBold", size: 14)!
+    }
+    
+    // Menu title color
+    var menuTitleColor : UIColor {
+        return UIColor.white
+    }
+    
     // Menu item font
     var menuItemFont : UIFont {
         return UIFont(name: "HelveticaNeue-Light", size: 17)!

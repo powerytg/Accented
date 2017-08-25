@@ -24,17 +24,18 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let toView = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
         let duration = self.transitionDuration(using: transitionContext)
         let animationOptions : UIViewAnimationOptions = (animationContext.interactive ? [.curveLinear] : [.curveEaseOut])
         UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: { [weak self] in
-            self?.performDismissalAnimation()
+            self?.performDismissalAnimation(toView?.view)
         }) { (finished) in
             let transitionCompleted = !transitionContext.transitionWasCancelled
             transitionContext.completeTransition(transitionCompleted)
         }
     }
     
-    private func performDismissalAnimation() {
+    private func performDismissalAnimation(_ toView : UIView?) {
         let drawer = animationContext.content.view
         switch animationContext.anchor {
         case .left:
@@ -44,5 +45,7 @@ class DrawerDismissAnimator: UIPercentDrivenInteractiveTransition, UIViewControl
         case .bottom:
             drawer?.transform = CGAffineTransform(translationX: 0, y: (drawer?.bounds.height)!)
         }
+        
+        toView?.transform = CGAffineTransform.identity
     }
 }

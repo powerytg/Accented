@@ -32,8 +32,8 @@ class DetailBackgroundView: UIImageView {
         self.contentMode = .scaleAspectFill
     }
     
-    func applyScrollingAnimation(_ offset : CGPoint) {
-        let pos = max(0, offset.y - minDist)
+    func applyScrollingAnimation(_ offset : CGFloat) {
+        let pos = max(0, offset - minDist)
         let percentage = pos / maxDist
         self.alpha = 1 - percentage
     }

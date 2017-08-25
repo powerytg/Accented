@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerDelegate {
+class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerDelegate, MenuDelegate {
 
     private let headerCompressionStart : CGFloat = 50
     private let headerCompressionDist : CGFloat = 200
@@ -16,9 +16,14 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
     private var user : UserModel
     private var backButton = UIButton(type: .custom)
     private var headerView : UserHeaderSectionView!
+    private var backgroundView : DetailBackgroundView!
     
+    private let displayStyles = [MenuItem("Display As Groups"),
+                                 MenuItem("Display As List")]
+
     init(user : UserModel) {
-        self.user = user
+        // Get an updated copy of user profile
+        self.user = StorageService.sharedInstance.getUserProfile(userId: user.userId)!
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,24 +34,33 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.black
+        backgroundView = DetailBackgroundView(frame: self.view.bounds)
+        self.view.insertSubview(backgroundView, at: 0)
+        
         // Header view
         headerView = UserHeaderSectionView(user)
         view.addSubview(headerView)
         
         // Stream controller
-        let stream = StorageService.sharedInstance.getUserStream(userId: user.userId)
-        streamViewController = UserStreamViewController(user: user, stream: stream)
-        addChildViewController(streamViewController)
-        self.view.addSubview(streamViewController.view)
-        streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
-        streamViewController.didMove(toParentViewController: self)
-        streamViewController.delegate = self
+        createStreamViewController(.group)
         
         // Back button
         self.view.addSubview(backButton)
         backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didRequestChangeDisplayStyle(_:)), name: StreamEvents.didRequestChangeDisplayStyle, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,18 +83,60 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
         backButton.frame = f
     }
     
+    private func createStreamViewController(_ style : StreamDisplayStyle) {
+        let stream = StorageService.sharedInstance.getUserStream(userId: user.userId)
+        streamViewController = UserStreamViewController(user: user, stream: stream, style : style)
+        addChildViewController(streamViewController)
+        self.view.insertSubview(streamViewController.view, at: 1)
+        streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
+        streamViewController.didMove(toParentViewController: self)
+        streamViewController.delegate = self
+    }
+    
     // MARK: - Events
     
     @objc private func backButtonDidTap(_ sender : UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
     }
 
+    @objc private func didRequestChangeDisplayStyle(_ notification : Notification) {
+        let menuViewController = MenuViewController(displayStyles)
+        menuViewController.title = "DISPLAY STYLE"
+        menuViewController.delegate = self
+        menuViewController.show()
+    }
+    
     // MARK: - InfiniteLoadingViewControllerDelegate
     
     func collectionViewContentOffsetDidChange(_ contentOffset: CGFloat) {
         var dist = contentOffset - headerCompressionStart
         dist = min(headerCompressionDist, max(0, dist))
         headerView.alpha = 1 - (dist / headerCompressionDist)
+        
+        // Apply background effects
+        backgroundView.applyScrollingAnimation(contentOffset)
     }
 
+    // MARK : - MenuDelegate
+    
+    func didSelectMenuItem(_ menuItem: MenuItem) {
+        let index = displayStyles.index(of: menuItem)
+        var selectedStyle : StreamDisplayStyle
+        if index == 0 {
+            selectedStyle = .group
+        } else if index == 1 {
+            selectedStyle = .card
+        } else {
+            debugPrint("Unrecognized display style")
+            return
+        }
+        
+        // Remove the previous stream view controller
+        streamViewController.willMove(toParentViewController: nil)
+        streamViewController.view.removeFromSuperview()
+        streamViewController.removeFromParentViewController()
+        
+        // Create a new stream view controller
+        createStreamViewController(selectedStyle)
+    }
 }

@@ -149,7 +149,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Update background according to scroll position
-        backgroundView.applyScrollingAnimation(scrollView.contentOffset)
+        backgroundView.applyScrollingAnimation(scrollView.contentOffset.y)
     }
     
     // MARK: - Events

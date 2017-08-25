@@ -21,6 +21,9 @@ class StreamEvents: NSObject {
     // Request of right drawer
     static let didRequestRightDrawer = Notification.Name("didRequestRightDrawer")
     
+    // Request of display style change
+    static let didRequestChangeDisplayStyle = Notification.Name("didRequestChangeDisplayStyle")
+    
     // MARK: Keys
     
     // Selected stream key

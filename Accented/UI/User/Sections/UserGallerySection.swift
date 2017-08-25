@@ -11,7 +11,8 @@ import UIKit
 class UserGallerySection: UserSectionViewBase {
     
     override var title: String? {
-        return user.userName.uppercased() + "'S GALLERIES"
+        let userName = TextUtils.preferredAuthorName(user).uppercased()
+        return userName + "'S GALLERIES"
     }
     
     private var thumbnailSize : CGFloat!

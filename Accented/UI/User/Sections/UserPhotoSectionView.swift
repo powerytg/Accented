@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserPhotoSectionView: UserSectionViewBase {
+class UserPhotoSectionView: UserSectionViewBase, PhotoRendererDelegate {
 
     override var title: String? {
         return "LASTEST ARTWORK FROM " + user.userName.uppercased()
@@ -45,6 +45,7 @@ class UserPhotoSectionView: UserSectionViewBase {
         
         // Create a photo renderer
         photoRenderer = PhotoRenderer()
+        photoRenderer.delegate = self
         contentView.addSubview(photoRenderer)
         
         // Create a load-more button
@@ -110,5 +111,12 @@ class UserPhotoSectionView: UserSectionViewBase {
         // Get a copy of the updated comments
         self.userStream = StorageService.sharedInstance.getUserStream(userId: userId)
         invalidateSize()
+    }
+    
+    // MARK: - PhotoRendererDelegate
+    
+    func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, sourceImageView: renderer.imageView)
+        NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
 }

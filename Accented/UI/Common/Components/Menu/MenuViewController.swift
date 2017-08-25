@@ -8,24 +8,44 @@
 
 import UIKit
 
+protocol MenuDelegate : NSObjectProtocol {
+    func didSelectMenuItem(_ menuItem : MenuItem)
+}
+
 class MenuViewController: UIViewController {
     
-    private let itemHeight : CGFloat = 24
+    private let paddingTop : CGFloat = 25
+    private let paddingBottom : CGFloat = 25
+    private let titlePaddingLeft : CGFloat = 20
+    private let itemHeight : CGFloat = 46
+    private let titleHeight : CGFloat = 40
     private var menuItems = [MenuItem]()
     private var renderers = [MenuItemRenderer]()
+    private var titleLabel : UILabel!
+    
+    weak var delegate : MenuDelegate?
     
     init(_ menuItems : [MenuItem]) {
         self.menuItems = menuItems
         super.init(nibName: nil, bundle: nil)
         guard menuItems.count > 0 else { fatalError("Menu item count must be greater than zero") }
         
-        view.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+        view.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        
+        // Add a title label
+        titleLabel = UILabel(frame : CGRect.zero)
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuTitleColor
+        titleLabel.font = ThemeManager.sharedInstance.currentTheme.menuTitleFont
+        view.addSubview(titleLabel)
         
         // Create menu item renderers
         for item in menuItems {
             let renderer = MenuItemRenderer(item)
             renderers.append(renderer)
             view.addSubview(renderer)
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(menuItemDidTap(_:)))
+            renderer.addGestureRecognizer(tap)
         }
     }
     
@@ -36,12 +56,28 @@ class MenuViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        for (index, renderer) in renderers.enumerated() {
+        var nextY : CGFloat = paddingTop
+        if let title = self.title {
+            titleLabel.text = title
+            titleLabel.sizeToFit()
+            
+            var f = titleLabel.frame
+            f.origin.x = titlePaddingLeft
+            f.origin.y = paddingTop
+            titleLabel.frame = f
+            nextY += titleHeight
+        } else {
+            titleLabel.isHidden = true
+        }
+        
+        for renderer in renderers {
             var f = renderer.frame
             f.size.width = view.bounds.size.width
             f.size.height = itemHeight
-            f.origin.y = itemHeight * CGFloat(index)
+            f.origin.y = nextY
             renderer.frame = f
+            
+            nextY += itemHeight
         }
     }
     
@@ -56,6 +92,17 @@ class MenuViewController: UIViewController {
     }
     
     private func estimatedHeight() -> CGFloat {
-        return itemHeight * CGFloat(menuItems.count)
+        var height : CGFloat = itemHeight * CGFloat(menuItems.count) + paddingTop + paddingBottom
+        if title != nil {
+            height += titleHeight
+        }
+        
+        return height
+    }
+    
+    @objc private func menuItemDidTap(_ tap : UITapGestureRecognizer) {
+        if let selectedRenderer = tap.view {
+            delegate?.didSelectMenuItem((selectedRenderer as! MenuItemRenderer).menuItem)
+        }
     }
 }

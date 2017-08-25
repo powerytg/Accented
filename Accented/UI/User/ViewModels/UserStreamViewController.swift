@@ -13,8 +13,10 @@ import UIKit
 class UserStreamViewController: StreamViewController {
     
     var user : UserModel
+    var displayStyle : StreamDisplayStyle
     
-    init(user : UserModel, stream: StreamModel) {
+    init(user : UserModel, stream: StreamModel, style : StreamDisplayStyle) {
+        self.displayStyle = style
         self.user = user
         super.init(stream)
     }
@@ -24,7 +26,11 @@ class UserStreamViewController: StreamViewController {
     }
     
     override func createViewModel() {
-        viewModel = UserStreamViewModel(user : user, stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        if displayStyle == .group {
+            viewModel = UserStreamViewModel(user : user, stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        } else if displayStyle == .card {
+            viewModel = UserStreamCardViewModel(user : user, stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        }
     }
     
     override func streamDidUpdate(_ notification : Notification) -> Void {

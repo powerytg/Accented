@@ -12,9 +12,9 @@ import UIKit
 
 class MenuItemRenderer: UIView {
 
-    private let paddingLeft : CGFloat = 25
+    private let paddingLeft : CGFloat = 34
     private let paddingRight : CGFloat = 25
-    private var menuItem : MenuItem
+    var menuItem : MenuItem
     private var titleLabel : UILabel!
     
     init(_ menuItem : MenuItem) {
@@ -43,5 +43,17 @@ class MenuItemRenderer: UIView {
         f.origin.y = bounds.height / 2 - f.height / 2
         f.size.width = bounds.width - paddingLeft - paddingRight
         titleLabel.frame = f
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2) { 
+            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuItemHighlightedColor
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2) {
+            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuItemNormalColor
+        }
     }
 }

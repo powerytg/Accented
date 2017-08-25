@@ -1,14 +1,16 @@
 //
-//  UserStreamLayout.swift
+//  UserStreamCardLayout.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/23/17.
+//  User stream card layout
+//
+//  Created by Tiangong You on 8/24/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class UserStreamLayout: PhotoGroupStreamLayout {
+class UserStreamCardLayout: PhotoCardStreamLayout {
 
     override func generateLayoutAttributesForStreamHeader() {
         if fullWidth == 0 {
@@ -23,5 +25,4 @@ class UserStreamLayout: PhotoGroupStreamLayout {
         layoutCache["navHeader"] = attrs
         contentHeight = UserStreamLayoutSpec.streamHeaderHeight
     }
-    
 }

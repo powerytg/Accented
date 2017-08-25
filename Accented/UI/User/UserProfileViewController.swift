@@ -35,6 +35,8 @@ class UserProfileViewController: SectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.black
+        
         // Initialize the loading progress view
         loadingView = LoadingViewController()
         loadingView!.loadingText = "Retrieving user profile"
