@@ -192,6 +192,10 @@ class AppTheme: NSObject {
         return UIFont(name: "HelveticaNeue-Light", size: 17)!
     }
     
+    var separatorColor : UIColor {
+        return UIColor(red: 55/255.0, green: 55/255.0, blue: 55/255.0, alpha: 0.5)
+    }
+
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

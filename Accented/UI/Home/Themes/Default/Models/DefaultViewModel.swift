@@ -63,7 +63,18 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
-        return StreamCardLayoutGenerator(maxWidth: maxWidth)
+        return PhotoGroupTemplateGenarator(maxWidth: maxWidth)
+    }
+
+    override func photoCellAtIndexPath(_ indexPath : IndexPath) -> UICollectionViewCell {
+        let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
+        let photo = group[(indexPath as NSIndexPath).item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
+        cell.photo = photo
+        cell.renderer.delegate = self
+        cell.setNeedsLayout()
+        
+        return cell
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -89,14 +100,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
                 let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
                 return loadingCell
             } else {
-                let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
-                let photo = group[(indexPath as NSIndexPath).item]
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
-                cell.photo = photo
-                cell.renderer.delegate = self
-                cell.setNeedsLayout()
-                
-                return cell
+                return photoCellAtIndexPath(indexPath)
             }
         }
     }

@@ -66,9 +66,9 @@ class UserStreamCardViewModel: PhotoSearchResultJournalViewModel {
         } else {
             let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
             let photo = group[(indexPath as NSIndexPath).item]
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! JournalPhotoCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! StreamCardPhotoCell
             cell.photo = photo
-            cell.photoView.delegate = self
+            cell.renderer.delegate = self
             cell.setNeedsLayout()
             
             return cell

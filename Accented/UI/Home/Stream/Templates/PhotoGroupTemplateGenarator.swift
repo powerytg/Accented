@@ -1,18 +1,20 @@
 //
-//  StreamCardLayoutGenerator.swift
+//  PhotoGroupTemplateGenarator.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/1/16.
-//  Copyright © 2016 Tiangong You. All rights reserved.
+//  Photo group style generator
+//
+//  Created by You, Tiangong on 8/25/17.
+//  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class StreamCardLayoutGenerator: StreamTemplateGenerator {
+class PhotoGroupTemplateGenarator: StreamTemplateGenerator {
     
     // Max width / height aspect ratio to allow using single line horizontal layout template
     let singleLandscapeAspectRatio : CGFloat = 1.64
-
+    
     override func generateLayoutMetadata(_ photos : [PhotoModel]) -> [StreamLayoutTemplate]{
         if photos.count == 0 {
             return []

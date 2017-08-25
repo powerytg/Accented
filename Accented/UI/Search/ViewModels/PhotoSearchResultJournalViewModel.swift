@@ -14,7 +14,7 @@ class PhotoSearchResultJournalViewModel: PhotoSearchResultViewModel {
     private let cardRendererReuseIdentifier = "renderer"
     
     override func registerCellTypes() {
-        collectionView.register(JournalPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
+        collectionView.register(StreamCardPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
     }
     
     override func createCollectionViewLayout() {
@@ -23,8 +23,10 @@ class PhotoSearchResultJournalViewModel: PhotoSearchResultViewModel {
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
-        return StreamJournalLayoutGenerator(maxWidth: maxWidth)
+        return PhotoCardTemplateGenerator(maxWidth: maxWidth)
     }
+    
+    
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
@@ -35,9 +37,9 @@ class PhotoSearchResultJournalViewModel: PhotoSearchResultViewModel {
         } else {
             let group = photoGroups[(indexPath as NSIndexPath).section]
             let photo = group[(indexPath as NSIndexPath).item]
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! JournalPhotoCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! StreamCardPhotoCell
             cell.photo = photo
-            cell.photoView.delegate = self
+            cell.renderer.delegate = self
             cell.setNeedsLayout()
             
             return cell

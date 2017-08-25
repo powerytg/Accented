@@ -56,6 +56,10 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
         fatalError("Not implemented in base class")
     }
     
+    func photoCellAtIndexPath(_ indexPath : IndexPath) -> UICollectionViewCell {
+        fatalError("Not implemented in base class")
+    }
+
     // MARL: - Stream loading and updating
     
     override func loadPageAt(_ page : Int) {

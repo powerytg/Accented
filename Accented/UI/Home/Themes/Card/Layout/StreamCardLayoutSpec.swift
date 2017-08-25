@@ -1,5 +1,5 @@
 //
-//  JournalPhotoLayoutSpec.swift
+//  SteamCardLayoutSpec.swift
 //  Accented
 //
 //  Created by Tiangong You on 5/20/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JournalPhotoLayoutSpec: NSObject {
+class SteamCardLayoutSpec: NSObject {
     
     // Top padding
     static let topPadding : CGFloat = 18
@@ -50,6 +50,5 @@ class JournalPhotoLayoutSpec: NSObject {
     static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 30)
     
     // Subtitle font
-    static let subtitleFont = UIFont(name: "HelveticaNeue-LightItalic", size: 15)    
+    static let subtitleFont = UIFont(name: "HelveticaNeue-LightItalic", size: 15)
 }
-

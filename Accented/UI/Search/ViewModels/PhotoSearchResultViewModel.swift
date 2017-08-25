@@ -27,7 +27,7 @@ class PhotoSearchResultViewModel: StreamViewModel, PhotoRendererDelegate {
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
-        return StreamCardLayoutGenerator(maxWidth: maxWidth)
+        return PhotoGroupTemplateGenarator(maxWidth: maxWidth)
     }
     
     // MARK: - Loading

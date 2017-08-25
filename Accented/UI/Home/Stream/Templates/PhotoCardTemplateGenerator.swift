@@ -1,15 +1,15 @@
 //
-//  StreamJournalLayoutGenerator.swift
+//  PhotoCardTemplateGenerator.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/20/16.
-//  Copyright © 2016 Tiangong You. All rights reserved.
+//  Created by You, Tiangong on 8/25/17.
+//  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class StreamJournalLayoutGenerator: StreamTemplateGenerator {
-
+class PhotoCardTemplateGenerator: StreamTemplateGenerator {
+    
     // Title measuring label
     private var titleMeasuringLabel = UILabel()
     
@@ -18,7 +18,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
     
     // Description measuring label
     private var descMeasuringLabel = UILabel()
-
+    
     required init(maxWidth: CGFloat) {
         super.init(maxWidth: maxWidth)
         
@@ -56,7 +56,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         
         return templates
     }
-
+    
     private func estimatedHeightForPhoto(_ photo : PhotoModel) -> CGFloat {
         var nextY : CGFloat = SteamCardLayoutSpec.topPadding
         
@@ -90,7 +90,7 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         } else {
             descText = nil
         }
-
+        
         if descText != nil && descText!.characters.count > 0 {
             descMeasuringLabel.text = descText
             descMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - SteamCardLayoutSpec.descHPadding * 2, height: 0)
@@ -102,6 +102,4 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         
         return nextY
     }
-    
-
 }

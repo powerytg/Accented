@@ -8,26 +8,13 @@
 
 import UIKit
 
-class DefaultStreamPhotoCell: UICollectionViewCell {
+class DefaultStreamPhotoCell: StreamPhotoCellBaseCollectionViewCell {
 
-    var renderer: PhotoRenderer!
-    var photo : PhotoModel?
     var effectLayer : CALayer {
         return self.layer
     }
     
-    override init(frame: CGRect) {
-        renderer = PhotoRenderer()
-        super.init(frame: frame)
-        
-        initialize()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initialize() -> Void {
+    override func initialize(){
         self.contentView.addSubview(renderer)
         self.contentView.clipsToBounds = true
         
@@ -49,13 +36,5 @@ class DefaultStreamPhotoCell: UICollectionViewCell {
         super.layoutSubviews()
         
         effectLayer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
-        
-        renderer.photo = photo
-        renderer.frame = contentView.bounds
     }
-    
-    override func prepareForReuse() {
-        renderer.photo = nil
-    }
-
 }
