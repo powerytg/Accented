@@ -1,5 +1,5 @@
 //
-//  SteamCardLayoutSpec.swift
+//  StreamCardLayoutSpec.swift
 //  Accented
 //
 //  Created by Tiangong You on 5/20/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SteamCardLayoutSpec: NSObject {
+class StreamCardLayoutSpec: NSObject {
     
     // Top padding
     static let topPadding : CGFloat = 18
@@ -31,6 +31,12 @@ class SteamCardLayoutSpec: NSObject {
     // Padding between the photo and the subtitle, as well between the photo and the descriptions
     static let photoVPadding : CGFloat = 15
     
+    // Photo left padding
+    static let photoLeftPadding : CGFloat = 5
+
+    // Photo right padding
+    static let photoRightPadding : CGFloat = 5
+
     // Max lines of title
     static let titleLabelLineCount = 2
     

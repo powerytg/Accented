@@ -19,7 +19,7 @@ class StreamCardLayout: DefaultStreamLayout {
         var currentSectionIndex = sectionStartIndex
         for template in templates {
             let frame = template.frames[0]
-            let finalRect = CGRect(x: 0, y: frame.origin.y + nextY, width: availableWidth, height: frame.size.height)
+            let finalRect = CGRect(x: leftMargin, y: frame.origin.y + nextY, width: availableWidth, height: frame.size.height)
             let indexPath = IndexPath(item: 0, section: currentSectionIndex)
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             attributes.frame = finalRect

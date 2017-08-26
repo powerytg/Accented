@@ -21,16 +21,16 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
     override func initialize() {
         // Title
         titleLabel.textColor = currentTheme.titleTextColor
-        titleLabel.font = SteamCardLayoutSpec.titleFont
-        titleLabel.numberOfLines = SteamCardLayoutSpec.titleLabelLineCount
+        titleLabel.font = StreamCardLayoutSpec.titleFont
+        titleLabel.numberOfLines = StreamCardLayoutSpec.titleLabelLineCount
         titleLabel.textAlignment = .center
         titleLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(titleLabel)
         
         // Subtitle
         subtitleLabel.textColor = UIColor(red: 147 / 255.0, green: 147 / 255.0, blue: 147 / 255.0, alpha: 1.0)
-        subtitleLabel.font = SteamCardLayoutSpec.subtitleFont
-        subtitleLabel.numberOfLines = SteamCardLayoutSpec.subtitleLineCount
+        subtitleLabel.font = StreamCardLayoutSpec.subtitleFont
+        subtitleLabel.numberOfLines = StreamCardLayoutSpec.subtitleLineCount
         subtitleLabel.textAlignment = .center
         subtitleLabel.lineBreakMode = .byTruncatingMiddle
         contentView.addSubview(subtitleLabel)
@@ -43,7 +43,7 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         // Descriptions
         descLabel.textColor = currentTheme.standardTextColor
         descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
-        descLabel.numberOfLines = SteamCardLayoutSpec.descLineCount
+        descLabel.numberOfLines = StreamCardLayoutSpec.descLineCount
         descLabel.textAlignment = .center
         descLabel.lineBreakMode = .byTruncatingTail
         contentView.addSubview(descLabel)
@@ -63,29 +63,30 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         let photoModel = photo!
         let w = self.contentView.bounds.width
         
-        var nextY : CGFloat = SteamCardLayoutSpec.topPadding
+        var nextY : CGFloat = StreamCardLayoutSpec.topPadding
         
         // Title label
         titleLabel.textColor = currentTheme.titleTextColor
         titleLabel.text = photoModel.title
-        layoutLabel(titleLabel, width: w, originY: nextY, padding: SteamCardLayoutSpec.titleHPadding)
-        nextY += titleLabel.frame.height + SteamCardLayoutSpec.titleVPadding
+        layoutLabel(titleLabel, width: w, originY: nextY, padding: StreamCardLayoutSpec.titleHPadding)
+        nextY += titleLabel.frame.height + StreamCardLayoutSpec.titleVPadding
         
         // Subtitle label
         subtitleLabel.text = photoModel.user.firstName
-        layoutLabel(subtitleLabel, width: w, originY: nextY, padding: SteamCardLayoutSpec.subtitleHPadding)
-        nextY += subtitleLabel.frame.height + SteamCardLayoutSpec.photoVPadding
+        layoutLabel(subtitleLabel, width: w, originY: nextY, padding: StreamCardLayoutSpec.subtitleHPadding)
+        nextY += subtitleLabel.frame.height + StreamCardLayoutSpec.photoVPadding
         
         // Photo
         let aspectRatio = photoModel.width / photoModel.height
         let desiredHeight = w / aspectRatio
         var f = renderer.frame
+        f.origin.x = StreamCardLayoutSpec.photoLeftPadding
         f.origin.y = nextY
-        f.size.width = w
-        f.size.height = min(desiredHeight, SteamCardLayoutSpec.maxPhotoHeight)
+        f.size.width = w - StreamCardLayoutSpec.photoLeftPadding - StreamCardLayoutSpec.photoRightPadding
+        f.size.height = min(desiredHeight, StreamCardLayoutSpec.maxPhotoHeight)
         renderer.frame = f
         renderer.photo = photoModel
-        nextY += f.height + SteamCardLayoutSpec.photoVPadding
+        nextY += f.height + StreamCardLayoutSpec.photoVPadding
         
         // Description
         descLabel.textColor = currentTheme.standardTextColor
@@ -100,9 +101,9 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
             descLabel.text = nil
         }
         
-        layoutLabel(descLabel, width: w, originY: nextY, padding: SteamCardLayoutSpec.descHPadding)
+        layoutLabel(descLabel, width: w, originY: nextY, padding: StreamCardLayoutSpec.descHPadding)
         
-        nextY += descLabel.frame.height + SteamCardLayoutSpec.bottomPadding / 2
+        nextY += descLabel.frame.height + StreamCardLayoutSpec.bottomPadding / 2
         
         f = footerView.frame
         f.origin.x = w / 2 - f.width / 2

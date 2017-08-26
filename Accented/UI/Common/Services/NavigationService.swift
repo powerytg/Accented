@@ -56,7 +56,7 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     }
 
     func navigateToSearchResultPage(tag : String) {
-        let vc = SearchResultViewController(tag: tag)
+        let vc = TagSearchResultViewController(tag: tag)
         rootNavigationController?.pushViewController(vc, animated: true)
     }
 

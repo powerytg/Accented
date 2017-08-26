@@ -15,27 +15,44 @@ class SearchResultBaseViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
-
+    @IBOutlet weak var searchButtonSpacingConstraint: NSLayoutConstraint!
+    
+    var keyword : String?
+    var tag : String?
+    
+    init(keyword : String) {
+        self.keyword = keyword
+        super.init(nibName: "SearchResultBaseViewController", bundle: nil)
+    }
+    
+    init(tag : String) {
+        self.tag = tag
+        super.init(nibName: "SearchResultBaseViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if keyword == nil && tag == nil {
+            fatalError("Keyword and tag cannot be both nil")
+        }
+        
+        // Setup title
+        titleLabel.preferredMaxLayoutWidth = 120
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func backButtonDidTap(_ sender: AnyObject) {
+        _ = navigationController?.popViewController(animated: true)
     }
-    */
-
+    
+    @IBAction func searchButtonDidTap(_ sender: AnyObject) {
+    }
 }

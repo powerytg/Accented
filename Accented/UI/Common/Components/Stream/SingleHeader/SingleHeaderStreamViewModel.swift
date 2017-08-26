@@ -10,7 +10,8 @@ import UIKit
 
 class SingleHeaderStreamViewModel: StreamViewModel, PhotoRendererDelegate {
     
-    private let cardRendererReuseIdentifier = "renderer"
+    let cardRendererReuseIdentifier = "renderer"
+    let streamHeaderReuseIdentifier = "streamHeader"
     
     // Section index for the headers
     private let headerSection = 0    
@@ -29,6 +30,9 @@ class SingleHeaderStreamViewModel: StreamViewModel, PhotoRendererDelegate {
     
     override func registerCellTypes() {
         collectionView.register(DefaultStreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
+        
+        let streamHeaderNib = UINib(nibName: "DefaultSingleStreamHeaderCell", bundle: nil)
+        collectionView.register(streamHeaderNib, forCellWithReuseIdentifier: streamHeaderReuseIdentifier)
     }
     
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
@@ -45,15 +49,15 @@ class SingleHeaderStreamViewModel: StreamViewModel, PhotoRendererDelegate {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == headerSection {
+        if !collection.loaded {
+            let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
+            return loadingCell
+        } else if indexPath.section == headerSection {
             if indexPath.item == 0 {
                 return streamHeader(indexPath)
             } else {
                 fatalError("There is no header cells beyond index 0")
             }
-        } else if !collection.loaded {
-            let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
-            return loadingCell
         } else {
             let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
             let photo = group[(indexPath as NSIndexPath).item]

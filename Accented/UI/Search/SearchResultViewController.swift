@@ -8,15 +8,9 @@
 
 import UIKit
 
-class SearchResultViewController: UIViewController, DeckViewControllerDataSource, DeckViewControllerDelegate, DeckNavigationBarDelegate {
+class SearchResultViewController: SearchResultBaseViewController, DeckViewControllerDataSource, DeckViewControllerDelegate, DeckNavigationBarDelegate {
 
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var navView: DeckNavigationBar!
-    
-    private var keyword : String?
-    private var tag : String?
+    private var navView: DeckNavigationBar!
     
     // Card deck, by default automatically select photo card (which is at index 0)
     private let deck = DeckViewController(initialSelectedIndex: 0)
@@ -26,54 +20,28 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
     private var userCard : SearchUserResultViewController?
     private let deckPaddingTop : CGFloat = 170
     
-    init(keyword : String) {
-        self.keyword = keyword
-        super.init(nibName: "SearchResultViewController", bundle: nil)
-    }
-    
-    init(tag : String) {
-        self.tag = tag
-        super.init(nibName: "SearchResultViewController", bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if keyword == nil && tag == nil {
-            fatalError("Keyword and tag cannot be both nil")
-        }
         
-        // Setup title
-        titleLabel.preferredMaxLayoutWidth = 120
-        if let keyword = self.keyword {
-            titleLabel.text = keyword
-            photoCard = SearchPhotoResultViewController(keyword: keyword)
-            userCard = SearchUserResultViewController(keyword: keyword)
-            
-            // Setup cards if we have both results from photos and users
-            setupCardsForMultipleResultTypes()
-        } else {
-            titleLabel.text = "#\(tag!)"
-            photoCard = SearchPhotoResultViewController(tag : tag!)
-            
-            // Setup photo result type
-            setupPhotoResultType()
-        }
+        titleLabel.text = keyword!
+        photoCard = SearchPhotoResultViewController(keyword: keyword!)
+        userCard = SearchUserResultViewController(keyword: keyword!)
         
-    }
-
-    private func setupCardsForMultipleResultTypes() {
-        let screenHeight = UIScreen.main.bounds.height
+        // Setup cards if we have both results from photos and users
+        let w = UIScreen.main.bounds.height
+        let h = UIScreen.main.bounds.height
+        let navFrame = CGRect(x: 16, y: deckPaddingTop, width: w - 16, height: 40)
+        navView = DeckNavigationBar(frame: navFrame)
+        deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(navView)
+        
+        
         addChildViewController(deck)
         view.addSubview(deck.view)
         deck.view.frame = CGRect(x: 0,
                                  y: deckPaddingTop,
                                  width: view.bounds.size.width,
-                                 height: screenHeight - deckPaddingTop)
+                                 height: h - deckPaddingTop)
         deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         deck.didMove(toParentViewController: self)
         deck.dataSource = self
@@ -83,6 +51,7 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
         navView.dataSource = self
         navView.delegate = self
     }
+
     
     private func setupPhotoResultType() {
         navView.isHidden = true
@@ -97,13 +66,6 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
                                                       height: screenHeight - deckPaddingTop)
         photoStreamViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         photoStreamViewController.didMove(toParentViewController: self)
-    }
-    
-    @IBAction func backButtonDidTap(_ sender: Any) {
-        _ = navigationController?.popViewController(animated: true)
-    }
-
-    @IBAction func searchButtonDidTap(_ sender: Any) {
     }
     
     // MARK: - DeckViewControllerDelegaate

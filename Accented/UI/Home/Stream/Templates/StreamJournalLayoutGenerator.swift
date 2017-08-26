@@ -24,20 +24,20 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
         
         // Initialize labels for measuring
         // Title
-        titleMeasuringLabel.font = SteamCardLayoutSpec.titleFont
-        titleMeasuringLabel.numberOfLines = SteamCardLayoutSpec.titleLabelLineCount
+        titleMeasuringLabel.font = StreamCardLayoutSpec.titleFont
+        titleMeasuringLabel.numberOfLines = StreamCardLayoutSpec.titleLabelLineCount
         titleMeasuringLabel.textAlignment = .center
         titleMeasuringLabel.lineBreakMode = .byTruncatingMiddle
         
         // Subtitle
-        subtitleMeasuringLabel.font = SteamCardLayoutSpec.subtitleFont
-        subtitleMeasuringLabel.numberOfLines = SteamCardLayoutSpec.subtitleLineCount
+        subtitleMeasuringLabel.font = StreamCardLayoutSpec.subtitleFont
+        subtitleMeasuringLabel.numberOfLines = StreamCardLayoutSpec.subtitleLineCount
         subtitleMeasuringLabel.textAlignment = .center
         subtitleMeasuringLabel.lineBreakMode = .byTruncatingMiddle
         
         // Descriptions
         descMeasuringLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
-        descMeasuringLabel.numberOfLines = SteamCardLayoutSpec.descLineCount
+        descMeasuringLabel.numberOfLines = StreamCardLayoutSpec.descLineCount
         descMeasuringLabel.textAlignment = .center
         descMeasuringLabel.lineBreakMode = .byTruncatingTail
     }
@@ -58,25 +58,25 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
     }
 
     private func estimatedHeightForPhoto(_ photo : PhotoModel) -> CGFloat {
-        var nextY : CGFloat = SteamCardLayoutSpec.topPadding
+        var nextY : CGFloat = StreamCardLayoutSpec.topPadding
         
         // Measure title
         titleMeasuringLabel.text = photo.title
-        titleMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - SteamCardLayoutSpec.titleHPadding * 2, height: 0)
+        titleMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - StreamCardLayoutSpec.titleHPadding * 2, height: 0)
         titleMeasuringLabel.sizeToFit()
-        nextY += titleMeasuringLabel.bounds.height + SteamCardLayoutSpec.titleVPadding
+        nextY += titleMeasuringLabel.bounds.height + StreamCardLayoutSpec.titleVPadding
         
         // Measure subtitle
         subtitleMeasuringLabel.text = photo.user.firstName
-        subtitleMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - SteamCardLayoutSpec.subtitleHPadding * 2, height: 0)
+        subtitleMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - StreamCardLayoutSpec.subtitleHPadding * 2, height: 0)
         subtitleMeasuringLabel.sizeToFit()
-        nextY += subtitleMeasuringLabel.bounds.height + SteamCardLayoutSpec.photoVPadding
+        nextY += subtitleMeasuringLabel.bounds.height + StreamCardLayoutSpec.photoVPadding
         
         // Measure photo
         let aspectRatio = photo.width / photo.height
         let desiredHeight = availableWidth / aspectRatio
-        let measuredPhotoHeight = min(desiredHeight, SteamCardLayoutSpec.maxPhotoHeight)
-        nextY += measuredPhotoHeight + SteamCardLayoutSpec.photoVPadding
+        let measuredPhotoHeight = min(desiredHeight, StreamCardLayoutSpec.maxPhotoHeight)
+        nextY += measuredPhotoHeight + StreamCardLayoutSpec.photoVPadding
         
         // Measure description
         var descText : String?
@@ -93,12 +93,12 @@ class StreamJournalLayoutGenerator: StreamTemplateGenerator {
 
         if descText != nil && descText!.characters.count > 0 {
             descMeasuringLabel.text = descText
-            descMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - SteamCardLayoutSpec.descHPadding * 2, height: 0)
+            descMeasuringLabel.frame = CGRect(x: 0, y: 0, width: availableWidth - StreamCardLayoutSpec.descHPadding * 2, height: 0)
             descMeasuringLabel.sizeToFit()
             nextY += descMeasuringLabel.bounds.height
         }
         
-        nextY += SteamCardLayoutSpec.bottomPadding
+        nextY += StreamCardLayoutSpec.bottomPadding
         
         return nextY
     }
