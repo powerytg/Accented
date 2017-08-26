@@ -53,12 +53,20 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
             titleLabel.text = keyword
             photoCard = SearchPhotoResultViewController(keyword: keyword)
             userCard = SearchUserResultViewController(keyword: keyword)
+            
+            // Setup cards if we have both results from photos and users
+            setupCardsForMultipleResultTypes()
         } else {
             titleLabel.text = "#\(tag!)"
             photoCard = SearchPhotoResultViewController(tag : tag!)
+            
+            // Setup photo result type
+            setupPhotoResultType()
         }
         
-        // Setup cards
+    }
+
+    private func setupCardsForMultipleResultTypes() {
         let screenHeight = UIScreen.main.bounds.height
         addChildViewController(deck)
         view.addSubview(deck.view)
@@ -75,7 +83,22 @@ class SearchResultViewController: UIViewController, DeckViewControllerDataSource
         navView.dataSource = self
         navView.delegate = self
     }
-
+    
+    private func setupPhotoResultType() {
+        navView.isHidden = true
+        
+        let screenHeight = UIScreen.main.bounds.height
+        let photoStreamViewController = SearchPhotoResultViewController(tag: tag!)
+        addChildViewController(photoStreamViewController)
+        self.view.addSubview(photoStreamViewController.view)
+        photoStreamViewController.view.frame = CGRect(x: 0,
+                                                      y: deckPaddingTop,
+                                                      width: view.bounds.size.width,
+                                                      height: screenHeight - deckPaddingTop)
+        photoStreamViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        photoStreamViewController.didMove(toParentViewController: self)
+    }
+    
     @IBAction func backButtonDidTap(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
     }

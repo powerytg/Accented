@@ -10,16 +10,15 @@
 
 import UIKit
 
-class UserStreamViewModel : PhotoSearchResultViewModel{
+class UserStreamViewModel : SingleHeaderStreamViewModel{
 
-    private let cardRendererReuseIdentifier = "renderer"
-    
-    // Section index for the headers
-    private let headerSection = 0
     private let streamHeaderIdentifier = "streamHeader"
-    private var streamHeaderCell : UserStreamHeaderCell?
 
     var user : UserModel
+
+    override var headerHeight: CGFloat {
+        return UserStreamLayoutSpec.streamHeaderHeight
+    }
     
     required init(user : UserModel, stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         self.user = user
@@ -30,10 +29,6 @@ class UserStreamViewModel : PhotoSearchResultViewModel{
         fatalError("init(stream:collectionView:flowLayoutDelegate:) has not been implemented")
     }
     
-    override var photoStartSection : Int {
-        return 1
-    }
-    
     override func registerCellTypes() {
         super.registerCellTypes()
         
@@ -41,11 +36,6 @@ class UserStreamViewModel : PhotoSearchResultViewModel{
         collectionView.register(streamHeaderNib, forCellWithReuseIdentifier: streamHeaderIdentifier)
     }
     
-    override func createCollectionViewLayout() {
-        layout = UserStreamLayout()
-        layout.footerReferenceSize = CGSize(width: 50, height: 50)
-    }
-
     override func loadPageAt(_ page : Int) {
         let params = ["tags" : "1"]
         let userStreamModel = stream as! UserStreamModel
@@ -54,47 +44,10 @@ class UserStreamViewModel : PhotoSearchResultViewModel{
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == headerSection {
-            if indexPath.item == 0 {
-                streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderIdentifier, for: indexPath) as? UserStreamHeaderCell
-                streamHeaderCell!.user = user
-                return streamHeaderCell!
-            } else {
-                fatalError("There is no header cells beyond index 0")
-            }
-        } else if !collection.loaded {
-            let loadingCell = collectionView.dequeueReusableCell(withReuseIdentifier: initialLoadingRendererReuseIdentifier, for: indexPath)
-            return loadingCell
-        } else {
-            let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
-            let photo = group[(indexPath as NSIndexPath).item]
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
-            cell.photo = photo
-            cell.renderer.delegate = self
-            cell.setNeedsLayout()
-            
-            return cell
-        }
+    override func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
+        let streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderIdentifier, for: indexPath) as! UserStreamHeaderCell
+        streamHeaderCell.user = user
+        return streamHeaderCell
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if !stream.loaded {
-            return photoStartSection + 1
-        } else {
-            return photoGroups.count + photoStartSection
-        }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == headerSection {
-            return 2
-        } else {
-            if !stream.loaded {
-                return 1
-            } else {
-                return photoGroups[section - photoStartSection].count
-            }
-        }
-    }
 }

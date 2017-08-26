@@ -10,6 +10,6 @@
 
 import UIKit
 
-class PhotoSearchResultLayout: PhotoGroupStreamLayout {
+class PhotoSearchResultLayout: HeaderlessStreamLayout {
     
 }

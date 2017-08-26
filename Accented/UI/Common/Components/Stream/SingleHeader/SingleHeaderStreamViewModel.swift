@@ -1,30 +1,26 @@
 //
-//  UserStreamCardViewModel.swift
+//  SingleHeaderStreamViewModel.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/24/17.
+//  Created by Tiangong You on 8/25/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class UserStreamCardViewModel: PhotoSearchResultJournalViewModel {
+class SingleHeaderStreamViewModel: StreamViewModel, PhotoRendererDelegate {
+    
     private let cardRendererReuseIdentifier = "renderer"
     
     // Section index for the headers
-    private let headerSection = 0
-    private let streamHeaderIdentifier = "streamHeader"
-    private var streamHeaderCell : UserStreamHeaderCell?
+    private let headerSection = 0    
     
-    var user : UserModel
-    
-    required init(user : UserModel, stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
-        self.user = user
-        super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
+    var headerHeight : CGFloat {
+        fatalError("Subclass must specify a header height")
     }
     
-    required init(stream: StreamModel, collectionView: UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
-        fatalError("init(stream:collectionView:flowLayoutDelegate:) has not been implemented")
+    required init(stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
+        super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
     }
     
     override var photoStartSection : Int {
@@ -32,31 +28,26 @@ class UserStreamCardViewModel: PhotoSearchResultJournalViewModel {
     }
     
     override func registerCellTypes() {
-        super.registerCellTypes()
-        
-        let streamHeaderNib = UINib(nibName: "UserStreamHeaderCell", bundle: nil)
-        collectionView.register(streamHeaderNib, forCellWithReuseIdentifier: streamHeaderIdentifier)
+        collectionView.register(DefaultStreamPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
     }
     
+    override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
+        return PhotoGroupTemplateGenarator(maxWidth: maxWidth)
+    }
+
     override func createCollectionViewLayout() {
-        layout = UserStreamLayout(headerHeight: UserStreamLayoutSpec.streamHeaderHeight)
+        layout = SingleHeaderStreamLayout(headerHeight: headerHeight)
         layout.footerReferenceSize = CGSize(width: 50, height: 50)
     }
     
-    override func loadPageAt(_ page : Int) {
-        let params = ["tags" : "1"]
-        let userStreamModel = stream as! UserStreamModel
-        APIService.sharedInstance.getUserPhotos(userId: userStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
-            self?.collectionFailedRefreshing(errorMessage)
-        }
+    func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
+        fatalError("Subclass must specify a stream header")
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == headerSection {
             if indexPath.item == 0 {
-                streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderIdentifier, for: indexPath) as? UserStreamHeaderCell
-                streamHeaderCell!.user = user
-                return streamHeaderCell!
+                return streamHeader(indexPath)
             } else {
                 fatalError("There is no header cells beyond index 0")
             }
@@ -66,7 +57,7 @@ class UserStreamCardViewModel: PhotoSearchResultJournalViewModel {
         } else {
             let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
             let photo = group[(indexPath as NSIndexPath).item]
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! StreamCardPhotoCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
             cell.photo = photo
             cell.renderer.delegate = self
             cell.setNeedsLayout()
@@ -93,5 +84,12 @@ class UserStreamCardViewModel: PhotoSearchResultJournalViewModel {
                 return photoGroups[section - photoStartSection].count
             }
         }
+    }
+
+    // MARK: - PhotoRendererDelegate
+    
+    func photoRendererDidReceiveTap(_ renderer: PhotoRenderer) {
+        let navContext = DetailNavigationContext(selectedPhoto: renderer.photo!, sourceImageView: renderer.imageView)
+        NavigationService.sharedInstance.navigateToDetailPage(navContext)
     }
 }
