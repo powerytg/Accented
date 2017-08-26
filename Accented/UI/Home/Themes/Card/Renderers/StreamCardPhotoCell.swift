@@ -12,7 +12,6 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
     private var titleLabel = UILabel()
     private var descLabel = UILabel()
     private var subtitleLabel = UILabel()
-    private var bottomLine = CALayer()
     private var footerView = UIImageView(image: UIImage(named: "DarkJournalFooter"))
 
     private var currentTheme : AppTheme {
@@ -52,7 +51,6 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         // Bottom line and footer
         footerView.contentMode = .scaleAspectFit
         contentView.addSubview(footerView)
-        self.layer.addSublayer(bottomLine)
     }
 
     override func layoutSubviews() {
@@ -104,26 +102,13 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         
         layoutLabel(descLabel, width: w, originY: nextY, padding: SteamCardLayoutSpec.descHPadding)
         
-        // Display the bottom line if there are descriptions. Otherwise hide the bottom line and show the footer symbol instead
-        if descLabel.text != nil && descLabel.text!.characters.count > 0 {
-            // Make the bottom line further away from the description
-            nextY += descLabel.frame.height + SteamCardLayoutSpec.bottomPadding
-            bottomLine.frame = CGRect(x: 0, y: nextY, width: w, height: 1)
-            bottomLine.backgroundColor = currentTheme.separatorColor.cgColor
-            footerView.isHidden = true
-            bottomLine.isHidden = false
-        } else {
-            // Make the footer closer to the photo
-            nextY += descLabel.frame.height + SteamCardLayoutSpec.bottomPadding / 2
-            footerView.isHidden = false
-            bottomLine.isHidden = true
-            
-            f = footerView.frame
-            f.size.width = w
-            f.size.height = SteamCardLayoutSpec.footerHeight
-            f.origin.y = nextY
-            footerView.frame = f
-        }
+        nextY += descLabel.frame.height + SteamCardLayoutSpec.bottomPadding / 2
+        
+        f = footerView.frame
+        f.size.width = w
+        f.size.height = SteamCardLayoutSpec.footerHeight
+        f.origin.y = nextY
+        footerView.frame = f
     }
     
     private func layoutLabel(_ label : UILabel, width : CGFloat, originY : CGFloat, padding : CGFloat) {

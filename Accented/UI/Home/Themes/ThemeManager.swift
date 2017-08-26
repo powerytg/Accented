@@ -12,6 +12,8 @@ class ThemeManager: NSObject {
     
     private let lightTheme = LightTheme()
     private let darkTheme = DarkTheme()
+    private let lightCardTheme = LightCardTheme()
+    private let darkCardTheme = DarkCardTheme()
     
     // Current theme, default to dark theme
     private var theme : AppTheme;
@@ -34,8 +36,8 @@ class ThemeManager: NSObject {
     // Singleton instance
     static let sharedInstance = ThemeManager()
     private override init() {
-        theme = darkTheme
-        themes = [darkTheme, lightTheme]
+        theme = darkCardTheme
+        themes = [darkTheme, lightTheme, darkCardTheme, lightCardTheme]
         super.init()
     }
 

@@ -48,7 +48,7 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
         layoutGenerator = createLayoutTemplateGenerator(availableWidth)        
     }
     
-    func registerCellTypes() -> Void {
+    func registerCellTypes() {
         fatalError("Not implemented in base class")
     }
     

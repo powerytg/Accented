@@ -47,8 +47,8 @@ class SteamCardLayoutSpec: NSObject {
     static let maxPhotoHeight : CGFloat = 240
     
     // Title font
-    static let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 30)
+    static let titleFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)
     
     // Subtitle font
-    static let subtitleFont = UIFont(name: "HelveticaNeue-LightItalic", size: 15)
+    static let subtitleFont = UIFont(name: "AvenirNextCondensed-Regular", size: 15)
 }

@@ -11,14 +11,14 @@ import UIKit
 class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDelegate {
     
     // Header navigation cell
-    private let headerNavReuseIdentifier = "headerNav"
+    let headerNavReuseIdentifier = "headerNav"
 
     // Header Buttons cell
-    private let headerButtonsReuseIdentifier = "headerButtons"
+    let headerButtonsReuseIdentifier = "headerButtons"
 
     private let cardRendererReuseIdentifier = "renderer"
-    private let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
-    private let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
+    let cardSectionHeaderRendererReuseIdentifier = "sectionHeader"
+    let cardSectionFooterRendererReuseIdentifier = "sectionFooter"
     
     // Header section, which includes the logo, the nav bar and the buttons
     private let headerSection = 0

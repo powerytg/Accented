@@ -109,6 +109,8 @@
 		18FE82121F4FE3F300CFAB47 /* UserStreamCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82111F4FE3F300CFAB47 /* UserStreamCardViewModel.swift */; };
 		18FE82141F4FEACE00CFAB47 /* StreamDisplayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82131F4FEACE00CFAB47 /* StreamDisplayStyle.swift */; };
 		18FE82161F4FEE5E00CFAB47 /* UserStreamLayoutSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82151F4FEE5E00CFAB47 /* UserStreamLayoutSpec.swift */; };
+		18FE82201F510EAB00CFAB47 /* DarkCardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE821F1F510EAB00CFAB47 /* DarkCardTheme.swift */; };
+		18FE82221F510ED400CFAB47 /* LightCardTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82211F510ED400CFAB47 /* LightCardTheme.swift */; };
 		32767FE93C7036D8595BB692 /* Pods_Accented.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2350E629F6B30A7B28301141 /* Pods_Accented.framework */; };
 		9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */; };
 		9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B108A911D921F4600DB76DE /* GetCommentsRequest.swift */; };
@@ -443,6 +445,8 @@
 		18FE82111F4FE3F300CFAB47 /* UserStreamCardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamCardViewModel.swift; sourceTree = "<group>"; };
 		18FE82131F4FEACE00CFAB47 /* StreamDisplayStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDisplayStyle.swift; sourceTree = "<group>"; };
 		18FE82151F4FEE5E00CFAB47 /* UserStreamLayoutSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamLayoutSpec.swift; sourceTree = "<group>"; };
+		18FE821F1F510EAB00CFAB47 /* DarkCardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkCardTheme.swift; sourceTree = "<group>"; };
+		18FE82211F510ED400CFAB47 /* LightCardTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightCardTheme.swift; sourceTree = "<group>"; };
 		2350E629F6B30A7B28301141 /* Pods_Accented.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Accented.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C8149936519F90090A8A05C /* Pods-Accented.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Accented.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Accented/Pods-Accented.debug.xcconfig"; sourceTree = "<group>"; };
 		9B108A8F1D921CCA00DB76DE /* RequestParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestParameters.swift; sourceTree = "<group>"; };
@@ -964,6 +968,8 @@
 				9B1A0FCC1F50C2A5005AA527 /* Renderers */,
 				9B1A0FC61F50B7C8005AA527 /* Layout */,
 				9B1A0FC71F50B7C8005AA527 /* Models */,
+				18FE821F1F510EAB00CFAB47 /* DarkCardTheme.swift */,
+				18FE82211F510ED400CFAB47 /* LightCardTheme.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -1690,6 +1696,7 @@
 				18AB00241D41CCCA00895192 /* DetailViewController.swift in Sources */,
 				18BD57201D56454E00376DE8 /* DetailNavigationContext.swift in Sources */,
 				9B6677031D340B0500B89009 /* NavigationService.swift in Sources */,
+				18FE82201F510EAB00CFAB47 /* DarkCardTheme.swift in Sources */,
 				184951C61ED0BD42006301E8 /* DetailComposerPresentationController.swift in Sources */,
 				9B3814001CE01E4D0066D3B9 /* DefaultNavBlurView.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
@@ -1897,6 +1904,7 @@
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,
+				18FE82221F510ED400CFAB47 /* LightCardTheme.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
 				9BA9ADDA1F4CD898006F0AC0 /* SharpenFilterNode.swift in Sources */,
 				187BA06D1ED3D3B2000E181E /* UserSearchResultRenderer.swift in Sources */,
