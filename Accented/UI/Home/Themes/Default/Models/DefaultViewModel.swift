@@ -69,7 +69,7 @@ class DefaultViewModel: StreamViewModel, StreamLayoutDelegate, PhotoRendererDele
     override func photoCellAtIndexPath(_ indexPath : IndexPath) -> UICollectionViewCell {
         let group = photoGroups[(indexPath as NSIndexPath).section - photoStartSection]
         let photo = group[(indexPath as NSIndexPath).item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! DefaultStreamPhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cardRendererReuseIdentifier, for: indexPath) as! StreamPhotoCellBaseCollectionViewCell
         cell.photo = photo
         cell.renderer.delegate = self
         cell.setNeedsLayout()
