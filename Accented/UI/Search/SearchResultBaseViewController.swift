@@ -1,14 +1,20 @@
 //
-//  TagSearchResultViewController.swift
+//  SearchResultBaseViewController.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/25/17.
+//  Base view controller for search result pages
+//
+//  Created by Tiangong You on 8/26/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class TagSearchResultViewController: UIViewController {
+class SearchResultBaseViewController: UIViewController {
+
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()

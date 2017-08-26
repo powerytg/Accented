@@ -82,8 +82,8 @@
 		187E5D531F513F8300169188 /* HeaderlessStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D521F513F8300169188 /* HeaderlessStreamLayout.swift */; };
 		187E5D561F51408600169188 /* SingleHeaderStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D551F51408600169188 /* SingleHeaderStreamViewModel.swift */; };
 		187E5D581F51419100169188 /* SingleHeaderStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D571F51419100169188 /* SingleHeaderStreamLayout.swift */; };
-		187E5D5B1F51465400169188 /* TagSearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D591F51465400169188 /* TagSearchResultViewController.swift */; };
-		187E5D5C1F51465400169188 /* TagSearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187E5D5A1F51465400169188 /* TagSearchResultViewController.xib */; };
+		187E5D5F1F51C20D00169188 /* SearchResultBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D5D1F51C20D00169188 /* SearchResultBaseViewController.swift */; };
+		187E5D601F51C20D00169188 /* SearchResultBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187E5D5E1F51C20D00169188 /* SearchResultBaseViewController.xib */; };
 		1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886201B1D8B647F00345440 /* DetailUserUtils.swift */; };
@@ -425,8 +425,8 @@
 		187E5D521F513F8300169188 /* HeaderlessStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderlessStreamLayout.swift; sourceTree = "<group>"; };
 		187E5D551F51408600169188 /* SingleHeaderStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHeaderStreamViewModel.swift; sourceTree = "<group>"; };
 		187E5D571F51419100169188 /* SingleHeaderStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHeaderStreamLayout.swift; sourceTree = "<group>"; };
-		187E5D591F51465400169188 /* TagSearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSearchResultViewController.swift; sourceTree = "<group>"; };
-		187E5D5A1F51465400169188 /* TagSearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagSearchResultViewController.xib; sourceTree = "<group>"; };
+		187E5D5D1F51C20D00169188 /* SearchResultBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultBaseViewController.swift; sourceTree = "<group>"; };
+		187E5D5E1F51C20D00169188 /* SearchResultBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultBaseViewController.xib; sourceTree = "<group>"; };
 		1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamJournalLayoutGenerator.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1886201B1D8B647F00345440 /* DetailUserUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserUtils.swift; sourceTree = "<group>"; };
@@ -907,8 +907,8 @@
 				187BA0531ED256E8000E181E /* Sections */,
 				187BA04F1ED25485000E181E /* SearchResultViewController.swift */,
 				187BA0501ED25485000E181E /* SearchResultViewController.xib */,
-				187E5D591F51465400169188 /* TagSearchResultViewController.swift */,
-				187E5D5A1F51465400169188 /* TagSearchResultViewController.xib */,
+				187E5D5D1F51C20D00169188 /* SearchResultBaseViewController.swift */,
+				187E5D5E1F51C20D00169188 /* SearchResultBaseViewController.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1634,7 +1634,7 @@
 				9B3813E71CE012180066D3B9 /* DefaultStreamButtonsCell.xib in Resources */,
 				9BA9ADC01F4CD898006F0AC0 /* ColorPunch.png in Resources */,
 				1872B7F91ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.xib in Resources */,
-				187E5D5C1F51465400169188 /* TagSearchResultViewController.xib in Resources */,
+				187E5D601F51C20D00169188 /* SearchResultBaseViewController.xib in Resources */,
 				9BA9ADC11F4CD898006F0AC0 /* ColorPunchCool.png in Resources */,
 				9BA9ADCD1F4CD898006F0AC0 /* PearlCamViewController.xib in Resources */,
 				9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */,
@@ -1858,7 +1858,6 @@
 				9B1A0FD41F50C8A4005AA527 /* PhotoGroupTemplateGenarator.swift in Sources */,
 				9B6115E11CCAC86C008F5257 /* StorageService.swift in Sources */,
 				9B108A921D921F4600DB76DE /* GetCommentsRequest.swift in Sources */,
-				187E5D5B1F51465400169188 /* TagSearchResultViewController.swift in Sources */,
 				18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */,
 				9B1A0FBC1F4F8C9F005AA527 /* MenuItemRenderer.swift in Sources */,
 				184951C21ED0B06A006301E8 /* DetailComposerViewController.swift in Sources */,
@@ -1943,6 +1942,7 @@
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
+				187E5D5F1F51C20D00169188 /* SearchResultBaseViewController.swift in Sources */,
 				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,
 				18FE81F41F4E1E9D00CFAB47 /* UserGallerySection.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,

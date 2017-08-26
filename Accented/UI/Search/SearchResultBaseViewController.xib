@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchResultBaseViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="oc9-xS-7JM" id="i62-gA-Lh8"/>
+                <outlet property="searchButton" destination="HhU-7W-Fze" id="qLy-bk-Y1w"/>
+                <outlet property="titleLabel" destination="RYk-FD-h2e" id="HWd-2U-SCX"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="oqe-KW-5ZQ">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYk-FD-h2e">
+                    <rect key="frame" x="368" y="36" width="30.333333333333314" height="20.333333333333336"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oc9-xS-7JM" userLabel="BackButton">
+                    <rect key="frame" x="15" y="30" width="34" height="34"/>
+                    <state key="normal" image="DetailBackButton"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhU-7W-Fze">
+                    <rect key="frame" x="309" y="30" width="34" height="34"/>
+                    <state key="normal" image="SearchButton"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="oqe-KW-5ZQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9NW-pK-zgK"/>
+                <constraint firstItem="RYk-FD-h2e" firstAttribute="leading" secondItem="HhU-7W-Fze" secondAttribute="trailing" constant="25" id="DTa-74-BvP"/>
+                <constraint firstAttribute="trailing" secondItem="RYk-FD-h2e" secondAttribute="trailing" constant="15.666666666666686" id="RoA-L5-2pR"/>
+                <constraint firstAttribute="bottom" secondItem="oqe-KW-5ZQ" secondAttribute="bottom" id="StI-YH-f3U"/>
+                <constraint firstItem="oqe-KW-5ZQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UAo-kJ-esp"/>
+                <constraint firstItem="RYk-FD-h2e" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="36" id="iXY-Tq-Tt4"/>
+                <constraint firstAttribute="trailing" secondItem="oqe-KW-5ZQ" secondAttribute="trailing" id="pOa-nq-IZW"/>
+                <constraint firstItem="oc9-xS-7JM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="s6f-E0-skb"/>
+                <constraint firstItem="oc9-xS-7JM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="xn8-xN-fg3"/>
+                <constraint firstItem="RYk-FD-h2e" firstAttribute="centerY" secondItem="HhU-7W-Fze" secondAttribute="centerY" id="xrI-PT-yl7"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="DarkButterfly" width="414" height="736"/>
+        <image name="DetailBackButton" width="34" height="34"/>
+        <image name="SearchButton" width="34" height="34"/>
+    </resources>
+</document>
