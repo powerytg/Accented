@@ -23,7 +23,10 @@ class StreamEvents: NSObject {
     
     // Request of display style change
     static let didRequestChangeDisplayStyle = Notification.Name("didRequestChangeDisplayStyle")
-    
+
+    // Request of sorting order change
+    static let didRequestChangeSortingOptions = Notification.Name("didRequestChangeSortingOptions")
+
     // MARK: Keys
     
     // Selected stream key

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TagSearchResultViewModel: SingleHeaderStreamViewModel, DefaultSingleStreamHeaderCellDelegate {
+class TagSearchResultViewModel: SingleHeaderStreamViewModel {
     
     override var headerHeight: CGFloat {
         return SingleHeaderStreamLayout.defaultHeaderHeight
@@ -17,11 +17,11 @@ class TagSearchResultViewModel: SingleHeaderStreamViewModel, DefaultSingleStream
     override func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
         let searchModel = stream as! PhotoSearchStreamModel
         let streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderReuseIdentifier, for: indexPath) as! DefaultSingleStreamHeaderCell
-        streamHeaderCell.delegate = self
         if stream.loaded {
             streamHeaderCell.isHidden = false
             streamHeaderCell.titleLabel.text = "#\(searchModel.tag!)"
             streamHeaderCell.subtitleLabel.text = "VIEW AS"
+            streamHeaderCell.orderButton.setTitle(TextUtils.sortOptionDisplayName(searchModel.sort), for: .normal)
         } else {
             streamHeaderCell.isHidden = true
         }
@@ -52,14 +52,5 @@ class TagSearchResultViewModel: SingleHeaderStreamViewModel, DefaultSingleStream
                                                     self?.collectionFailedRefreshing(errorMessage)
                 })
         }
-    }
-    
-    // MARK: - DefaultSingleStreamHeaderCellDelegate
-    func orderButtonDidTap() {
-        
-    }
-    
-    func displayStyleButtonDidTap() {
-        
     }
 }

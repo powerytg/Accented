@@ -11,6 +11,7 @@
 import UIKit
 
 class TagSearchStreamViewController: StreamViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,13 +27,7 @@ class TagSearchStreamViewController: StreamViewController {
         
         // Get a new copy of the stream
         let searchModel = stream as! PhotoSearchStreamModel
-        if let keyword = searchModel.keyword {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword, sort : searchModel.sort)
-        } else if let tag = searchModel.tag {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag, sort : searchModel.sort)
-        } else {
-            fatalError("Both keyword and tag cannot be nil")
-        }
+        stream = StorageService.sharedInstance.getPhotoSearchResult(tag: searchModel.tag!, sort : searchModel.sort)
         
         if let vm = streamViewModel {
             vm.collecitonDidUpdate(collection: stream, page: page)
@@ -51,5 +46,5 @@ class TagSearchStreamViewController: StreamViewController {
         if newStream != nil {
             switchStream(newStream!)
         }
-    }
+    }    
 }

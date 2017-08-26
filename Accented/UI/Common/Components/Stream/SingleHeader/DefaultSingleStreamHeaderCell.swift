@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol DefaultSingleStreamHeaderCellDelegate : NSObjectProtocol {
-    func orderButtonDidTap()
-    func displayStyleButtonDidTap()
-}
-
 class DefaultSingleStreamHeaderCell: UICollectionViewCell {
 
     @IBOutlet weak var orderButton: PushButton!
@@ -20,17 +15,16 @@ class DefaultSingleStreamHeaderCell: UICollectionViewCell {
     @IBOutlet weak var displayStyleButton: PushButton!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    weak var delegate : DefaultSingleStreamHeaderCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     @IBAction func orderButtonDidTap(_ sender: AnyObject) {
-        delegate?.orderButtonDidTap()
+        NotificationCenter.default.post(name: StreamEvents.didRequestChangeSortingOptions, object: nil)
     }
     
     @IBAction func displayStyleButtonDidTap(_ sender: AnyObject) {
-        delegate?.displayStyleButtonDidTap()
+        NotificationCenter.default.post(name: StreamEvents.didRequestChangeDisplayStyle, object: nil)        
     }
 }

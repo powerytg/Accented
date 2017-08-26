@@ -195,6 +195,7 @@
 		9B67C8FE1F51E2790045556F /* DefaultSingleStreamHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B67C8FC1F51E2790045556F /* DefaultSingleStreamHeaderCell.xib */; };
 		9B67C9021F51E5320045556F /* TagSearchStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C9011F51E5320045556F /* TagSearchStreamViewController.swift */; };
 		9B67C9041F51E5920045556F /* TagSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C9031F51E5920045556F /* TagSearchResultViewModel.swift */; };
+		9B67C9061F5202620045556F /* SortingOptionMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B67C9051F5202620045556F /* SortingOptionMenuItem.swift */; };
 		9B76AB541D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B76AB521D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift */; };
 		9B76AB551D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B76AB531D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib */; };
 		9B786E5A1CEE256800896A4C /* ThemeableBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */; };
@@ -543,6 +544,7 @@
 		9B67C8FC1F51E2790045556F /* DefaultSingleStreamHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultSingleStreamHeaderCell.xib; sourceTree = "<group>"; };
 		9B67C9011F51E5320045556F /* TagSearchStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSearchStreamViewController.swift; sourceTree = "<group>"; };
 		9B67C9031F51E5920045556F /* TagSearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSearchResultViewModel.swift; sourceTree = "<group>"; };
+		9B67C9051F5202620045556F /* SortingOptionMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingOptionMenuItem.swift; sourceTree = "<group>"; };
 		9B76AB521D121540003FD4D8 /* ThemeSelectorFooterRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorFooterRenderer.swift; sourceTree = "<group>"; };
 		9B76AB531D121540003FD4D8 /* ThemeSelectorFooterRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorFooterRenderer.xib; sourceTree = "<group>"; };
 		9B786E591CEE256800896A4C /* ThemeableBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeableBackgroundView.swift; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 			isa = PBXGroup;
 			children = (
 				1872B7F41ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift */,
+				9B67C9051F5202620045556F /* SortingOptionMenuItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1957,6 +1960,7 @@
 				9BA9ADE71F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */,
+				9B67C9061F5202620045556F /* SortingOptionMenuItem.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
 				187E5D5F1F51C20D00169188 /* SearchResultBaseViewController.swift in Sources */,
 				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,

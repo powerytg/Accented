@@ -103,6 +103,7 @@ class MenuViewController: UIViewController {
     @objc private func menuItemDidTap(_ tap : UITapGestureRecognizer) {
         if let selectedRenderer = tap.view {
             delegate?.didSelectMenuItem((selectedRenderer as! MenuItemRenderer).menuItem)
+            dismiss(animated: true, completion: nil)
         }
     }
 }
