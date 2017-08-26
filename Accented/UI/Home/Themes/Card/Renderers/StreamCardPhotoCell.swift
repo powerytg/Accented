@@ -49,7 +49,7 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         contentView.addSubview(descLabel)
         
         // Bottom line and footer
-        footerView.contentMode = .scaleAspectFit
+        footerView.sizeToFit()
         contentView.addSubview(footerView)
     }
 
@@ -105,8 +105,7 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         nextY += descLabel.frame.height + SteamCardLayoutSpec.bottomPadding / 2
         
         f = footerView.frame
-        f.size.width = w
-        f.size.height = SteamCardLayoutSpec.footerHeight
+        f.origin.x = w / 2 - f.width / 2
         f.origin.y = nextY
         footerView.frame = f
     }

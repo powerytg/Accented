@@ -12,7 +12,7 @@
 import UIKit
 
 class DefaultStreamLayout: StreamLayoutBase {
-    private let vGap : CGFloat = 20
+    let vGap : CGFloat = 20
     
     // Total height of the header
     private var headerHeight : CGFloat = 0

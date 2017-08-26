@@ -8,14 +8,16 @@
 
 import UIKit
 
-class StreamCardViewModel: DefaultViewModel {
-    private let cardRendererReuseIdentifier = "cardRenderer"
+class StreamCardViewModel: HomeStreamViewModel {
+    override var cardRendererReuseIdentifier : String {
+        return "cardRenderer"
+    }
     
     override func createCollectionViewLayout() {
         let defaultLayout = StreamCardLayout()
         defaultLayout.delegate = self
         layout = defaultLayout
-        layout.headerReferenceSize = CGSize(width: 50, height: 50)
+        
         layout.footerReferenceSize = CGSize(width: 50, height: 50)
     }
 
@@ -29,10 +31,6 @@ class StreamCardViewModel: DefaultViewModel {
         // Header buttons cell
         let headerButtonsCellNib = UINib(nibName: "DefaultStreamButtonsCell", bundle: nil)
         collectionView.register(headerButtonsCellNib, forCellWithReuseIdentifier: headerButtonsReuseIdentifier)
-        
-        // Section header
-        let sectionHeaderCellNib = UINib(nibName: "DefaultStreamSectionHeaderCell", bundle: nil)
-        collectionView.register(sectionHeaderCellNib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: cardSectionHeaderRendererReuseIdentifier)
     }
 
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
@@ -49,6 +47,4 @@ class StreamCardViewModel: DefaultViewModel {
         
         return cell
     }
-    
-    
 }

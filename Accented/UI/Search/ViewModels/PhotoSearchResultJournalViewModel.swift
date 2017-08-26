@@ -26,8 +26,6 @@ class PhotoSearchResultJournalViewModel: PhotoSearchResultViewModel {
         return PhotoCardTemplateGenerator(maxWidth: maxWidth)
     }
     
-    
-    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
