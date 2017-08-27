@@ -121,6 +121,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         case 0:
             let searchViewController = SearchViewController()
             present(searchViewController, animated: true, completion: nil)
+        case 1:
+            NavigationService.sharedInstance.navigateToCamera()
         default:
             break
         }

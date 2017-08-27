@@ -331,6 +331,10 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
         overlay?.exposureModeDidChange(mode)
     }
     
+    func backButtonDidTap() {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - ViewFinderDelegate
     
     func didTapOnViewFinder(_ point: CGPoint) {

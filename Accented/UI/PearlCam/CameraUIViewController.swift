@@ -23,6 +23,7 @@ protocol CameraOverlayDelegate : NSObjectProtocol {
     func userDidChangeFlashMode()
     func userDidUnlockAEL()
     func autoManualModeButtonDidTap()
+    func backButtonDidTap()
 }
 
 class CameraUIViewController: UIViewController, MeterViewDelegate {
@@ -42,6 +43,7 @@ class CameraUIViewController: UIViewController, MeterViewDelegate {
     @IBOutlet weak var osdLabel: UILabel!
     @IBOutlet weak var aelButton: UIButton!
     @IBOutlet weak var flashButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     private var exposureIndicatorOffset : CGFloat = 2
     private var viewFinder : ViewFinder?
@@ -319,6 +321,10 @@ class CameraUIViewController: UIViewController, MeterViewDelegate {
         guard isAutoExpModeSupported != nil && isManualExpModeSupported != nil else { return }
         guard isAutoExpModeSupported! && isManualExpModeSupported! else { return }
         delegate?.autoManualModeButtonDidTap()
+    }
+    
+    @IBAction func backButtonDidTap(_ sender: Any) {
+        delegate?.backButtonDidTap()
     }
     
     // MARK: - MeterViewDelegate

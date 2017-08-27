@@ -70,4 +70,8 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
 
+    func navigateToCamera() {
+        let vc = PearlCamViewController()
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
 }
