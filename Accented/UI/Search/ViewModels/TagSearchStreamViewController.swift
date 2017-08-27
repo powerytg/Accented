@@ -12,12 +12,27 @@ import UIKit
 
 class TagSearchStreamViewController: StreamViewController {
     
+    var displayStyle : StreamDisplayStyle
+    
+    init(_ stream: StreamModel, displayStyle : StreamDisplayStyle) {
+        self.displayStyle = displayStyle
+        super.init(stream)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func createViewModel() {
-        viewModel = TagSearchResultViewModel(stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        if displayStyle == .group {
+            viewModel = TagSearchResultViewModel(stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        } else if displayStyle == .card {
+            viewModel = TagSearchResultCardViewModel(stream: stream, collectionView: collectionView, flowLayoutDelegate: self)
+        }
     }
     
     override func streamDidUpdate(_ notification : Notification) -> Void {

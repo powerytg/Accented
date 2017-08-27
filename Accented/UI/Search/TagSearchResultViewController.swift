@@ -24,11 +24,7 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         titleLabel.text = nil
         searchButtonSpacingConstraint.constant = 0
         
-        let stream : PhotoSearchStreamModel = StorageService.sharedInstance.getPhotoSearchResult(tag: tag!, sort : sortingModel.selectedOption)        
-        streamViewController = TagSearchStreamViewController(stream)
-        addChildViewController(streamViewController)
-        self.view.insertSubview(streamViewController.view, at: 1)
-        streamViewController.didMove(toParentViewController: self)
+        createStreamViewController(.group)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +46,14 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         streamViewController.view.frame = view.bounds
     }
     
+    private func createStreamViewController(_ style : StreamDisplayStyle) {
+        let stream : PhotoSearchStreamModel = StorageService.sharedInstance.getPhotoSearchResult(tag: tag!, sort : sortingModel.selectedOption)
+        streamViewController = TagSearchStreamViewController(stream, displayStyle : style)
+        addChildViewController(streamViewController)
+        self.view.insertSubview(streamViewController.view, at: 1)
+        streamViewController.didMove(toParentViewController: self)
+    }
+
     // MARK : - Events
     @objc private func didRequestChangeDisplayStyle(_ notification : Notification) {
         let menuSheet = MenuViewController(displayStyleOptions)
@@ -87,11 +91,29 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         } else {
             // Display style options
             let selectedIndex = displayStyleOptions.index(of: menuItem)
+            var selectedDisplayStyle : StreamDisplayStyle
             if selectedIndex == 0 {
                 // Group style
+                selectedDisplayStyle = .group
             } else if selectedIndex == 1 {
-                // List style
+                // Card style
+                selectedDisplayStyle = .card
+            } else {
+                return
             }
+            
+            if selectedDisplayStyle == streamViewController.displayStyle {
+                return
+            }
+            
+            // Remove the previous stream view controller
+            streamViewController.willMove(toParentViewController: nil)
+            streamViewController.view.removeFromSuperview()
+            streamViewController.removeFromParentViewController()
+            
+            // Create a new stream view controller
+            createStreamViewController(selectedDisplayStyle)
+
         }
     }
 }

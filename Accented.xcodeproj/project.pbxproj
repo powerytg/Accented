@@ -83,6 +83,7 @@
 		187E5D581F51419100169188 /* SingleHeaderStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D571F51419100169188 /* SingleHeaderStreamLayout.swift */; };
 		187E5D5F1F51C20D00169188 /* SearchResultBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D5D1F51C20D00169188 /* SearchResultBaseViewController.swift */; };
 		187E5D601F51C20D00169188 /* SearchResultBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 187E5D5E1F51C20D00169188 /* SearchResultBaseViewController.xib */; };
+		187E5D631F52775000169188 /* TagSearchResultCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D621F52775000169188 /* TagSearchResultCardViewModel.swift */; };
 		1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886201B1D8B647F00345440 /* DetailUserUtils.swift */; };
@@ -431,6 +432,7 @@
 		187E5D571F51419100169188 /* SingleHeaderStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleHeaderStreamLayout.swift; sourceTree = "<group>"; };
 		187E5D5D1F51C20D00169188 /* SearchResultBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultBaseViewController.swift; sourceTree = "<group>"; };
 		187E5D5E1F51C20D00169188 /* SearchResultBaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultBaseViewController.xib; sourceTree = "<group>"; };
+		187E5D621F52775000169188 /* TagSearchResultCardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSearchResultCardViewModel.swift; sourceTree = "<group>"; };
 		1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamJournalLayoutGenerator.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1886201B1D8B647F00345440 /* DetailUserUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserUtils.swift; sourceTree = "<group>"; };
@@ -1510,6 +1512,7 @@
 				18FE82061F4FE15300CFAB47 /* PhotoSearchResultJournalViewModel.swift */,
 				9B67C9011F51E5320045556F /* TagSearchStreamViewController.swift */,
 				9B67C9031F51E5920045556F /* TagSearchResultViewModel.swift */,
+				187E5D621F52775000169188 /* TagSearchResultCardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				18BD57241D5667E300376DE8 /* UserModel.swift in Sources */,
 				18222A431EDE703200F0F02E /* UserFollowersViewModel.swift in Sources */,
 				186484991D6A24F800B8A9D2 /* CommentRenderer.swift in Sources */,
+				187E5D631F52775000169188 /* TagSearchResultCardViewModel.swift in Sources */,
 				9B8F37341D42C6B90090961E /* DetailSectionViewBase.swift in Sources */,
 				9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */,
 				9B89B1201D550F2900382744 /* DeckViewControllerDataSource.swift in Sources */,
