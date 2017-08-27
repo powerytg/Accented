@@ -15,6 +15,7 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     let displayStyleOptions = [MenuItem("View As Groups"),
                                MenuItem("View As List")]
 
+    private var menuBar : CompactMenuBar!
     private var streamViewController : TagSearchStreamViewController!
     private var sortingModel = PhotoSearchFilterModel()
     
@@ -25,6 +26,10 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         searchButtonSpacingConstraint.constant = 0
         
         createStreamViewController(.group)
+        
+        menuBar = CompactMenuBar(displayStyleOptions, title : "DISPLAY OPTIONS")
+        menuBar.delegate = self
+        view.addSubview(menuBar)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -43,7 +48,19 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        streamViewController.view.frame = view.bounds
+        if let streamController = streamViewController {
+            var f = streamController.view.frame
+            f.size.width = view.bounds.width
+            f.size.height = view.bounds.height - CompactMenuBar.defaultHeight
+            streamController.view.frame = f
+        }
+        
+        var f = menuBar.frame
+        f.size.width = view.bounds.width
+        f.size.height = CompactMenuBar.defaultHeight
+        f.origin.y = view.bounds.height - f.size.height
+        menuBar.frame = f
+
     }
     
     private func createStreamViewController(_ style : StreamDisplayStyle) {
@@ -117,4 +134,6 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         }
     }
 }
+
+private class TagSearchMenuOptions : MenuItem { }
 

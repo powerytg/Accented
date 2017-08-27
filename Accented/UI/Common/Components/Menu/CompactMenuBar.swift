@@ -19,6 +19,8 @@ class CompactMenuBar: UIView {
     private var iconView : UIImageView!
     var menuItems = [MenuItem]()
     
+    weak var delegate : MenuDelegate?
+    
     init(_ menuItems : [MenuItem], title : String? = nil) {
         self.menuItems = menuItems
         self.title = title
@@ -51,6 +53,7 @@ class CompactMenuBar: UIView {
         // Show the full menu sheet
         let menuSheet = MenuViewController(menuItems)
         menuSheet.title = title
+        menuSheet.delegate = delegate
         menuSheet.show()
     }
 }

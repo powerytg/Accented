@@ -8,12 +8,16 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegate {
+class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegate, MenuDelegate {
 
     var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
     var menuBar : CompactMenuBar!
     
+    let menuItems = [MenuItem("Search"),
+                     MenuItem("Take Photo"),
+                     MenuItem("Sign Out")]
+
     // Whether the entrance animation has been performed
     // This flag will be reset after theme change
     var entranceAnimationPerformed = false
@@ -103,13 +107,23 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     // MARK: - Menu
     
     private func createMenuBar() {
-        let menuItems = [MenuItem("My Photos"),
-                         MenuItem("My Galleries"),
-                         MenuItem("My Profile"),
-                         MenuItem("Take Photo"),
-                         MenuItem("Sign Out")]
         menuBar = CompactMenuBar(menuItems)
+        menuBar.delegate = self
         view.addSubview(menuBar)
+    }
+    
+    // MARK: - MenuDelegate
+    
+    func didSelectMenuItem(_ menuItem: MenuItem) {
+        let index = menuItems.index(of: menuItem)
+        guard index != nil else { return }
+        switch index! {
+        case 0:
+            let searchViewController = SearchViewController()
+            present(searchViewController, animated: true, completion: nil)
+        default:
+            break
+        }
     }
     
     // MARK: - Events

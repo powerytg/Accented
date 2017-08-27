@@ -18,7 +18,8 @@ class SearchResultViewController: SearchResultBaseViewController, DeckViewContro
     // Cards
     private var photoCard : SearchPhotoResultViewController!
     private var userCard : SearchUserResultViewController?
-    private let deckPaddingTop : CGFloat = 170
+    private let navPaddingtop : CGFloat = 85
+    private let deckPaddingTop : CGFloat = 150
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class SearchResultViewController: SearchResultBaseViewController, DeckViewContro
         // Setup cards if we have both results from photos and users
         let w = UIScreen.main.bounds.height
         let h = UIScreen.main.bounds.height
-        let navFrame = CGRect(x: 16, y: deckPaddingTop, width: w - 16, height: 40)
+        let navFrame = CGRect(x: 16, y: navPaddingtop, width: w - 16, height: 40)
         navView = DeckNavigationBar(frame: navFrame)
         deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(navView)

@@ -11,7 +11,7 @@
 import UIKit
 import KMPlaceholderTextView
 
-class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAnimation, UITextViewDelegate {
+class DetailComposerViewController: UIViewController, Composer, UITextViewDelegate {
 
     @IBOutlet weak var composerView: UIView!
     @IBOutlet weak var titleView: UIView!
@@ -29,7 +29,7 @@ class DetailComposerViewController: UIViewController, EntranceAnimation, ExitAni
     private let statusViewPaddingTop : CGFloat = 20
     private let titleBarMaskLayer = CAShapeLayer()
     private let titleBarRectCorner = UIRectCorner([.topLeft, .topRight])
-    private let transitionController = DetailComposerPresentationController()
+    private let transitionController = ComposerPresentationController()
     private var currentStatusView : UIView?
     
     override var nibName: String? {
