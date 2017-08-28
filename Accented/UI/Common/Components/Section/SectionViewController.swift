@@ -94,8 +94,12 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
     
     // MARK: - Events
     
-    @objc private func backButtonDidTap(_ sender : UIButton) {
+    func goBack() {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func backButtonDidTap(_ sender : UIButton) {
+        goBack()
     }
     
     // MARK: - SectionViewDelegate

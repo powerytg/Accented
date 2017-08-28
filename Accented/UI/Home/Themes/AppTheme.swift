@@ -193,7 +193,15 @@ class AppTheme: NSObject {
     }
 
     var mainMenuFont : UIFont {
-        return UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
+        return UIFont(name: "HelveticaNeue", size: 17)!
+    }
+
+    var mainMenuNormalColor : UIColor {
+        return UIColor.white
+    }
+
+    var mainMenuHighlightColor : UIColor {
+        return UIColor(red: 58 / 255.0, green: 139 / 255.0, blue: 235 / 255.0, alpha: 1)
     }
 
     var separatorColor : UIColor {

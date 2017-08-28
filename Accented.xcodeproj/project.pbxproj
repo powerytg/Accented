@@ -92,6 +92,8 @@
 		187E5D7D1F539A8400169188 /* MainMenuAuthenticatedUserSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D7C1F539A8400169188 /* MainMenuAuthenticatedUserSectionView.swift */; };
 		187E5D7F1F539ADD00169188 /* MenuSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D7E1F539ADD00169188 /* MenuSeparator.swift */; };
 		187E5D811F539C8400169188 /* MainMenuItemRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D801F539C8400169188 /* MainMenuItemRenderer.swift */; };
+		187E5D831F53A7B700169188 /* MainMenuThemeSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D821F53A7B700169188 /* MainMenuThemeSectionView.swift */; };
+		187E5D851F53A85300169188 /* MainMenuThemeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187E5D841F53A85300169188 /* MainMenuThemeRenderer.swift */; };
 		1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */; };
 		1884AA601CF001A9002109A9 /* JournalLayoutTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */; };
 		1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1886201B1D8B647F00345440 /* DetailUserUtils.swift */; };
@@ -447,6 +449,8 @@
 		187E5D7C1F539A8400169188 /* MainMenuAuthenticatedUserSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuAuthenticatedUserSectionView.swift; sourceTree = "<group>"; };
 		187E5D7E1F539ADD00169188 /* MenuSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuSeparator.swift; sourceTree = "<group>"; };
 		187E5D801F539C8400169188 /* MainMenuItemRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuItemRenderer.swift; sourceTree = "<group>"; };
+		187E5D821F53A7B700169188 /* MainMenuThemeSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuThemeSectionView.swift; sourceTree = "<group>"; };
+		187E5D841F53A85300169188 /* MainMenuThemeRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuThemeRenderer.swift; sourceTree = "<group>"; };
 		1884AA571CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamJournalLayoutGenerator.swift; sourceTree = "<group>"; };
 		1884AA5F1CF001A9002109A9 /* JournalLayoutTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalLayoutTemplate.swift; sourceTree = "<group>"; };
 		1886201B1D8B647F00345440 /* DetailUserUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserUtils.swift; sourceTree = "<group>"; };
@@ -703,6 +707,7 @@
 			isa = PBXGroup;
 			children = (
 				187E5D801F539C8400169188 /* MainMenuItemRenderer.swift */,
+				187E5D841F53A85300169188 /* MainMenuThemeRenderer.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -995,6 +1000,7 @@
 			children = (
 				187E5D7A1F53944600169188 /* MainMenuHeaderSectionView.swift */,
 				187E5D7C1F539A8400169188 /* MainMenuAuthenticatedUserSectionView.swift */,
+				187E5D821F53A7B700169188 /* MainMenuThemeSectionView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -1799,6 +1805,7 @@
 				9BDF19201ED77BB9003159E8 /* UserSearchResultStreamViewController.swift in Sources */,
 				9B3813E81CE012180066D3B9 /* DefaultStreamHeaderNavCell.swift in Sources */,
 				9BA58F741EE9E24400888E62 /* ImageUtils.swift in Sources */,
+				187E5D831F53A7B700169188 /* MainMenuThemeSectionView.swift in Sources */,
 				187E5D811F539C8400169188 /* MainMenuItemRenderer.swift in Sources */,
 				18222A571EDFCC5B00F0F02E /* UserStreamViewController.swift in Sources */,
 				9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */,
@@ -1979,6 +1986,7 @@
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				9B67C8FD1F51E2790045556F /* DefaultSingleStreamHeaderCell.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
+				187E5D851F53A85300169188 /* MainMenuThemeRenderer.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,

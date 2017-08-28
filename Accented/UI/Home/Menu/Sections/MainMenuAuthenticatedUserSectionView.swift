@@ -14,7 +14,7 @@ class MainMenuAuthenticatedUserSectionView: SectionViewBase {
 
     private let rowHeight : CGFloat = 32
     private let paddingTop : CGFloat = 32
-    private let separatorHeight : CGFloat = 8
+    private let separatorHeight : CGFloat = 16
     
     let menuOptions = [MenuItem("Search", image : UIImage(named: "SearchButtonMainMenu")),
                        MenuSeparator(),
@@ -51,7 +51,7 @@ class MainMenuAuthenticatedUserSectionView: SectionViewBase {
             }
         }
         
-        return totalHeight
+        return totalHeight + paddingTop
     }
 
     override func layoutSubviews() {
@@ -63,10 +63,20 @@ class MainMenuAuthenticatedUserSectionView: SectionViewBase {
             f.origin.x = contentLeftPadding
             f.origin.y = nextY
             f.size.width = contentView.bounds.width - contentLeftPadding - contentRightPadding
-            f.size.height = rowHeight
+
+            if renderer.menuItem is MenuSeparator {
+                f.size.height = separatorHeight
+            } else {
+                f.size.height = rowHeight
+            }
+            
             renderer.frame = f
             
-            nextY += rowHeight
+            if renderer.menuItem is MenuSeparator {
+                nextY += separatorHeight
+            } else {
+                nextY += rowHeight
+            }
         }
     }
 }

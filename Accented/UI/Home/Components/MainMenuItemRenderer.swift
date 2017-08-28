@@ -14,7 +14,7 @@ class MainMenuItemRenderer: UIView {
     private let paddingRight : CGFloat = 10
     private let paddingLeft : CGFloat = 50
     
-    private var menuItem : MenuItem
+    var menuItem : MenuItem
     private var titleLabel = UILabel(frame : CGRect.zero)
     private var imageView = UIImageView()
     
@@ -30,7 +30,7 @@ class MainMenuItemRenderer: UIView {
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .right
         titleLabel.lineBreakMode = .byTruncatingMiddle
-        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuItemNormalColor
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.mainMenuNormalColor
         titleLabel.font = ThemeManager.sharedInstance.currentTheme.mainMenuFont
         titleLabel.text = menuItem.text
         titleLabel.sizeToFit()
@@ -75,8 +75,7 @@ class MainMenuItemRenderer: UIView {
         }
         
         UIView.animate(withDuration: 0.2) {
-            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuItemHighlightedColor
-            self.backgroundColor = UIColor.black
+            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.mainMenuHighlightColor
         }
     }
     
@@ -86,8 +85,7 @@ class MainMenuItemRenderer: UIView {
         }
 
         UIView.animate(withDuration: 0.2) {
-            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.menuItemNormalColor
-            self.backgroundColor = UIColor.clear
+            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.mainMenuNormalColor
         }
     }
 }

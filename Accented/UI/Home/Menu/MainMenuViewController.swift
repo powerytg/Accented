@@ -24,10 +24,15 @@ class MainMenuViewController: SectionViewController {
         
         addSection(MainMenuHeaderSectionView(ModelBase()))
         addSection(MainMenuAuthenticatedUserSectionView(ModelBase()))
+        addSection(MainMenuThemeSectionView(ModelBase()))
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         backgroundView.frame = view.bounds
+    }
+    
+    override func goBack() {
+        dismiss(animated: true, completion: nil)
     }
 }
