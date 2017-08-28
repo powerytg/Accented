@@ -26,9 +26,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opz-VJ-IG2" customClass="DefaultThemeSelectorButton" customModule="Accented" customModuleProvider="target">
-                        <rect key="frame" x="161" y="62" width="129" height="30"/>
+                        <rect key="frame" x="173" y="62" width="105" height="30"/>
                         <inset key="contentEdgeInsets" minX="10" minY="6" maxX="10" maxY="6"/>
-                        <state key="normal" title="DISPLAY STYLE"/>
+                        <state key="normal" title="MAIN MENU"/>
                         <connections>
                             <action selector="displayButtonDidTap:" destination="gTV-IL-0wX" eventType="touchUpInside" id="CgG-bs-wQR"/>
                         </connections>

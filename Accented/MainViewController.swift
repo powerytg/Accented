@@ -13,13 +13,13 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     private var rightDrawerSize : CGSize
     private var rightDrawerGestureController : DrawerOpenGestureController?
     
-    // Theme selector
-    private var rightDrawer : ThemeSelectorViewController?
+    // Main menu
+    private var rightDrawer : UIViewController?
     
     required init?(coder aDecoder: NSCoder) {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
-        rightDrawerSize = CGSize(width: screenWidth * ThemeSelectorViewController.drawerWidthInPercentage, height: screenHeight)
+        rightDrawerSize = CGSize(width: screenWidth * MainMenuViewController.drawerWidthInPercentage, height: screenHeight)
 
         super.init(coder: aDecoder)
     }
@@ -57,10 +57,10 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         if currentUser == nil {
             debugPrint("Current user info not found")
             showSignInScreen()
-            return
+        } else {
+            StorageService.sharedInstance.currentUser = currentUser
+            proceedAfterSignIn()
         }
-        
-        proceedAfterSignIn()
     }
     
     private func proceedAfterSignIn() {
@@ -69,7 +69,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         self.pushViewController(homeViewController, animated: false)
         
         // Setup drawers
-        rightDrawer = ThemeSelectorViewController()
+        rightDrawer = MainMenuViewController()
         let rightDrawerAnimationContext = self.rightDrawerAnimationContext(true)
         self.rightDrawerGestureController = DrawerService.sharedInstance.addInteractiveGesture(rightDrawerAnimationContext, delegate: self)
     }

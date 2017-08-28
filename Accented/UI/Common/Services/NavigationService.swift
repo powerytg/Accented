@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class NavigationService: NSObject, UINavigationControllerDelegate {
 
@@ -73,5 +74,14 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     func navigateToCamera() {
         let vc = PearlCamViewController()
         rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func signout() {
+        StorageService.sharedInstance.signout()
+        AuthenticationService.sharedInstance.signout()
+        rootNavigationController?.popToRootViewController(animated: true)
+        
+        SDImageCache.shared().clearMemory()
+        SDImageCache.shared().clearDisk()
     }
 }

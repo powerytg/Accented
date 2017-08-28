@@ -107,4 +107,21 @@ class AuthenticationService: NSObject {
             return StorageService.sharedInstance.userFromJson(json!)
         }
     }
+    
+    func signout() {
+        debugPrint("Signing out")
+        
+        let userDefaults = UserDefaults.standard
+        userDefaults.removeObject(forKey: AuthenticationService.currentUserInfoKey)
+        userDefaults.removeObject(forKey: AuthenticationService.accessTokenStoreKey)
+        userDefaults.removeObject(forKey: AuthenticationService.accessTokenSecretStoreKey)
+        userDefaults.synchronize()
+        
+        debugPrint("Current user info cleared in NSUserDefaults")
+        debugPrint("access token cleared in NSUserDefaults")
+        debugPrint("access token secret cleared in NSUserDefaults")
+
+        accessToken = nil
+        accessTokenSecret = nil
+    }
 }

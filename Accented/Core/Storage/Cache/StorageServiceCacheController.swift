@@ -50,4 +50,16 @@ class StorageServiceCacheController: NSObject {
             return stream
         }
     }
+    
+    func clearAll() {
+        streamCache.removeAllObjects()
+        userCache.removeAllObjects()
+        commentsCache.removeAllObjects()
+        photoSearchResultCache.removeAllObjects()
+        userSearchResultCache.removeAllObjects()
+        userProfileCache.removeAllObjects()
+        userFollowersCache.removeAllObjects()
+        userPhotoCache.removeAllObjects()
+        userGalleryCache.removeAllObjects()
+    }
 }

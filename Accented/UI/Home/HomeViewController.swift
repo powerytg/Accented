@@ -123,6 +123,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
             present(searchViewController, animated: true, completion: nil)
         case 1:
             NavigationService.sharedInstance.navigateToCamera()
+        case 2:
+            NavigationService.sharedInstance.signout()
         default:
             break
         }

@@ -32,7 +32,7 @@ class StorageService: NSObject {
     var currentUser : UserModel?
     
     // Cache controller
-    let cacheController = StorageServiceCacheController()
+    var cacheController = StorageServiceCacheController()
 
     // Currently selected stream
     var currentStream : StreamModel = StreamModel(streamType: .Popular)
@@ -64,6 +64,12 @@ class StorageService: NSObject {
         
         // User gallery list returned
         notificationCenter.addObserver(self, selector: #selector(galleryListDidReturn(_:)), name: APIEvents.userGalleriesDidReturn, object: nil)
-        
+    }
+    
+    func signout() {
+        currentUser = nil
+        currentStream = StreamModel(streamType: .Popular)
+        currentPhotoSearchSortingOption = .highestRating
+        cacheController = StorageServiceCacheController()
     }
 }
