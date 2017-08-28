@@ -113,8 +113,6 @@
 		18FE81F61F4E20D500CFAB47 /* GalleryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */; };
 		18FE81F81F4E2CCC00CFAB47 /* UserPhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */; };
 		18FE81FC1F4E671C00CFAB47 /* UserPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */; };
-		18FE82011F4E6CA100CFAB47 /* UserStreamHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */; };
-		18FE82021F4E6CA100CFAB47 /* UserStreamHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */; };
 		18FE82041F4E6FAD00CFAB47 /* UserStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82031F4E6FAD00CFAB47 /* UserStreamLayout.swift */; };
 		18FE82071F4FE15300CFAB47 /* PhotoSearchResultJournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE82061F4FE15300CFAB47 /* PhotoSearchResultJournalViewModel.swift */; };
 		18FE820C1F4FE26F00CFAB47 /* PhotoCardStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE820B1F4FE26F00CFAB47 /* PhotoCardStreamLayout.swift */; };
@@ -470,8 +468,6 @@
 		18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryRenderer.swift; sourceTree = "<group>"; };
 		18FE81F71F4E2CCC00CFAB47 /* UserPhotoSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotoSectionView.swift; sourceTree = "<group>"; };
 		18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPhotosViewController.swift; sourceTree = "<group>"; };
-		18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamHeaderCell.swift; sourceTree = "<group>"; };
-		18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStreamHeaderCell.xib; sourceTree = "<group>"; };
 		18FE82031F4E6FAD00CFAB47 /* UserStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStreamLayout.swift; sourceTree = "<group>"; };
 		18FE82061F4FE15300CFAB47 /* PhotoSearchResultJournalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSearchResultJournalViewModel.swift; sourceTree = "<group>"; };
 		18FE820B1F4FE26F00CFAB47 /* PhotoCardStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCardStreamLayout.swift; sourceTree = "<group>"; };
@@ -737,8 +733,6 @@
 			children = (
 				18222A3E1EDCD46800F0F02E /* UserInfoEntryView.swift */,
 				18FE81F51F4E20D500CFAB47 /* GalleryRenderer.swift */,
-				18FE81FF1F4E6CA100CFAB47 /* UserStreamHeaderCell.swift */,
-				18FE82001F4E6CA100CFAB47 /* UserStreamHeaderCell.xib */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1696,7 +1690,6 @@
 				9BA9ADC11F4CD898006F0AC0 /* ColorPunchCool.png in Resources */,
 				9BA9ADCD1F4CD898006F0AC0 /* PearlCamViewController.xib in Resources */,
 				9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */,
-				18FE82021F4E6CA100CFAB47 /* UserStreamHeaderCell.xib in Resources */,
 				1872B8011ED7EC49009B6FC8 /* SearchResultSortingOptionRenderer.xib in Resources */,
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
@@ -1866,7 +1859,6 @@
 				9BC6C3CD1D9229B200DCC92E /* APIService+Queue.swift in Sources */,
 				9BA9ADD31F4CD898006F0AC0 /* Pipeline.swift in Sources */,
 				9BA9ADD41F4CD898006F0AC0 /* Processor.swift in Sources */,
-				18FE82011F4E6CA100CFAB47 /* UserStreamHeaderCell.swift in Sources */,
 				9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */,
 				187BA0591ED25C0C000E181E /* DeckNavigationBar.swift in Sources */,
 				18FE81FC1F4E671C00CFAB47 /* UserPhotosViewController.swift in Sources */,

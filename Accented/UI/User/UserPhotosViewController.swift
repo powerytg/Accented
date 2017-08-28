@@ -43,7 +43,7 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
         view.addSubview(headerView)
         
         // Stream controller
-        createStreamViewController(.group)
+        createStreamViewController(.group, animated: false)
         
         // Back button
         self.view.addSubview(backButton)
@@ -83,14 +83,27 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
         backButton.frame = f
     }
     
-    private func createStreamViewController(_ style : StreamDisplayStyle) {
+    private func createStreamViewController(_ style : StreamDisplayStyle, animated : Bool) {
         let stream = StorageService.sharedInstance.getUserStream(userId: user.userId)
         streamViewController = UserStreamViewController(user: user, stream: stream, style : style)
         addChildViewController(streamViewController)
+        
+        if animated {
+            streamViewController.view.alpha = 0
+            self.streamViewController.view.transform = CGAffineTransform(translationX: 0, y: -20)
+        }
+        
         self.view.insertSubview(streamViewController.view, at: 1)
         streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)
         streamViewController.didMove(toParentViewController: self)
         streamViewController.delegate = self
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: { 
+                self.streamViewController.view.alpha = 1
+                self.streamViewController.view.transform = CGAffineTransform.identity
+            })
+        }
     }
     
     // MARK: - Events
@@ -132,11 +145,15 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
         }
         
         // Remove the previous stream view controller
-        streamViewController.willMove(toParentViewController: nil)
-        streamViewController.view.removeFromSuperview()
-        streamViewController.removeFromParentViewController()
-        
-        // Create a new stream view controller
-        createStreamViewController(selectedStyle)
+        UIView.animate(withDuration: 0.2, animations: { 
+            self.streamViewController.view.alpha = 0
+            self.streamViewController.view.transform = CGAffineTransform(translationX: 0, y: 20)
+        }) { (finished) in
+            self.streamViewController.willMove(toParentViewController: nil)
+            self.streamViewController.view.removeFromSuperview()
+            self.streamViewController.removeFromParentViewController()
+
+            self.createStreamViewController(selectedStyle, animated: true)
+        }
     }
 }
