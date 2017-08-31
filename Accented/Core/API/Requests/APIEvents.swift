@@ -58,4 +58,9 @@ class APIEvents: NSObject {
     // Failed to load user galleries
     static let userGalleriesFailedReturn = Notification.Name("userGalleriesFailedReturn")
 
+    // Photo successfully uploaded
+    static let photoDidUpload = Notification.Name("photoDidUpload")
+    
+    // Photo failed to upload
+    static let photoFailedUpload = Notification.Name("photoFailedUpload")
 }

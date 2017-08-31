@@ -48,6 +48,10 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         NotificationCenter.default.addObserver(self, selector: #selector(streamDidUpdate(_:)), name: StorageServiceEvents.streamDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(streamSelectionWillChange(_:)), name: StreamEvents.streamSelectionWillChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+        
+        // Test code
+        let vc = ImageLoaderViewController()
+        present(vc, animated: true, completion: nil)
     }
     
     deinit {

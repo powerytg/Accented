@@ -47,6 +47,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        view.isUserInteractionEnabled = true
         super.viewWillDisappear(animated)
         camera.stop()
     }
@@ -262,6 +263,7 @@ class PearlCamViewController: UIViewController, CameraOverlayDelegate, CameraDel
     }
     
     func shutterButtonDidTap() {
+        view.isUserInteractionEnabled = false
         camera.capturePhoto()
     }
     

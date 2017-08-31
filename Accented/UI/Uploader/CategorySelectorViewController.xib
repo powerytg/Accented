@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategorySelectorViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="xlk-30-kcO" id="qgQ-JF-cmy"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="493" height="266"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELECT CATEGORY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkg-9J-QRP">
+                    <rect key="frame" x="189" y="10.000000000000002" width="114" height="14.66666666666667"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xlk-30-kcO">
+                    <rect key="frame" x="0.0" y="45" width="493" height="220.33333333333331"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
+                    <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </tableView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DarkJournalBubble" translatesAutoresizingMaskIntoConstraints="NO" id="3cw-Jr-MMq">
+                    <rect key="frame" x="0.0" y="124" width="127" height="141"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="xlk-30-kcO" secondAttribute="trailing" id="Dxv-Dw-J2Z"/>
+                <constraint firstItem="xlk-30-kcO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rsr-m1-73O"/>
+                <constraint firstItem="xlk-30-kcO" firstAttribute="top" secondItem="Vkg-9J-QRP" secondAttribute="bottom" constant="20" id="bXA-Nz-40c"/>
+                <constraint firstItem="Vkg-9J-QRP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="k9G-qR-p8x"/>
+                <constraint firstItem="Vkg-9J-QRP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="u6c-em-7AF"/>
+                <constraint firstAttribute="bottom" secondItem="xlk-30-kcO" secondAttribute="bottom" constant="0.66666666666668561" id="zYK-gD-ff1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="DarkJournalBubble" width="127" height="141"/>
+    </resources>
+</document>

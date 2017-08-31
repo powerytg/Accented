@@ -65,7 +65,7 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         #if STANDALONE_MODE
             confirmButton.setTitle("SAVE", for: .normal)
         #else
-            confirmButton.setTitle("CONFIRM", for: .normal)
+            confirmButton.setTitle("UPLOAD", for: .normal)
         #endif
     }
     
@@ -180,7 +180,9 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
     
     @IBAction func confirmButtonDidTap(_ sender: Any) {
         #if STANDALONE_MODE
-            didTapOnSaveButton()
+            didTapOnSaveButton(proceedToUpload: false)
+        #else
+            didTapOnSaveButton(proceedToUpload : true)
         #endif
     }
 
@@ -201,7 +203,7 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         })
     }
     
-    private func didTapOnSaveButton() {
+    private func didTapOnSaveButton(proceedToUpload : Bool) {
         // Check for the authorization to save to photo library
         let authStatus = PHPhotoLibrary.authorizationStatus()
         if authStatus == .denied || authStatus == .restricted {
@@ -211,14 +213,14 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
             PHPhotoLibrary.requestAuthorization({ [weak self] (newStatus) in
                 DispatchQueue.main.async {
                     if newStatus == .authorized {
-                        self?.renderProdImageAndSave()
+                        self?.renderProdImageAndSave(proceedToUpload : proceedToUpload)
                     } else {
                         self?.showPhotoLibraryAccessDeniedError()
                     }
                 }
             })
         } else if authStatus == .authorized {
-            renderProdImageAndSave()
+            renderProdImageAndSave(proceedToUpload : proceedToUpload)
         }
     }
     
@@ -232,7 +234,7 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         })
     }
     
-    private func renderProdImageAndSave() {
+    private func renderProdImageAndSave(proceedToUpload : Bool) {
         view.isUserInteractionEnabled = false
         filterManager.renderProductionImage(completion: { (renderedData) in
             PHPhotoLibrary.shared().performChanges( {
@@ -247,6 +249,10 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
                     }
                     
                     self?.view.isUserInteractionEnabled = true
+                    if proceedToUpload {
+                        // In embedded mode, the user will be taken
+                        self?.showUploader()
+                    }
                 }
             })
         })
@@ -299,6 +305,11 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         }
         
         currentAdjustmentUI = nil
+    }
+    
+    private func showUploader() {
+        let uploader = ImageLoaderViewController()
+        present(uploader, animated: true, completion: nil)
     }
     
     // MARK: - AdjustmentSelectorDelegate

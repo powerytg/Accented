@@ -56,4 +56,16 @@ class RequestParameters: NSObject {
 
     // Gallery cover size
     static let coverSize = "cover_size"
+    
+    // Uploaded photo name
+    static let name = "name"
+    
+    // Uploaded photo description
+    static let desc = "description"
+    
+    // Category
+    static let category = "category"
+    
+    // Privacy
+    static let privacy = "privacy"
 }

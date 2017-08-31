@@ -45,6 +45,46 @@ enum PhotoSearchSortingOptions : String {
     // case commentsCount = "comments_count" // Sort by the number of comments, most commented first
 }
 
+// Categories
+enum Category : Int {
+    case uncategorized = 0
+    case abstract = 10
+    case aerial = 29
+    case animals = 11
+    case blackAndWhite = 5
+    case celebrities = 1
+    case cityAndArchitecture = 9
+    case commerical = 15
+    case concert = 16
+    case family = 20
+    case fashion = 14
+    case film = 2
+    case fineArt = 24
+    case food = 23
+    case journalism = 3
+    case landscapes = 8
+    case macro = 12
+    case nature = 18
+    case night = 30
+    case nude = 4
+    case people = 7
+    case performingArts = 19
+    case sport = 17
+    case stillLife = 6
+    case street = 21
+    case transportation = 26
+    case travel = 13
+    case underwater = 22
+    case urbanExploration = 27
+    case wedding = 25
+}
+
+// Privacy
+enum Privacy : Int {
+    case publicPhoto = 0
+    case privatePhoto = 1
+}
+
 class APIService: NSObject {
     
     // Singleton instance
