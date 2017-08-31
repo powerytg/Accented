@@ -293,6 +293,12 @@
 		9BA9ADEA1F4CD898006F0AC0 /* PearlFXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BA9ADB81F4CD898006F0AC0 /* PearlFXViewController.xib */; };
 		9BB590031CDAB6D700E78581 /* PushButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590021CDAB6D700E78581 /* PushButton.swift */; };
 		9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB590F51CDD33EB00E78581 /* BlurView.swift */; };
+		9BC5C8F61F58CE2500740037 /* CategorySelectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8F51F58CE2500740037 /* CategorySelectorModel.swift */; };
+		9BC5C8F81F58CE3900740037 /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8F71F58CE3900740037 /* CategoryEntry.swift */; };
+		9BC5C8FC1F58D13A00740037 /* SheetMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8FA1F58D13A00740037 /* SheetMenuViewController.swift */; };
+		9BC5C8FD1F58D13A00740037 /* SheetMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5C8FB1F58D13A00740037 /* SheetMenuViewController.xib */; };
+		9BC5C8FF1F58D34E00740037 /* BottomSheetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8FE1F58D34E00740037 /* BottomSheetModel.swift */; };
+		9BC5C9011F58D35700740037 /* BottomSheetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C9001F58D35700740037 /* BottomSheetEntry.swift */; };
 		9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */; };
 		9BC6C3CD1D9229B200DCC92E /* APIService+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CC1D9229B200DCC92E /* APIService+Queue.swift */; };
 		9BC6C3CF1D9229C900DCC92E /* APIService+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CE1D9229C900DCC92E /* APIService+Base.swift */; };
@@ -657,6 +663,12 @@
 		9BA9ADB81F4CD898006F0AC0 /* PearlFXViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PearlFXViewController.xib; sourceTree = "<group>"; };
 		9BB590021CDAB6D700E78581 /* PushButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushButton.swift; sourceTree = "<group>"; };
 		9BB590F51CDD33EB00E78581 /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		9BC5C8F51F58CE2500740037 /* CategorySelectorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorySelectorModel.swift; sourceTree = "<group>"; };
+		9BC5C8F71F58CE3900740037 /* CategoryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryEntry.swift; sourceTree = "<group>"; };
+		9BC5C8FA1F58D13A00740037 /* SheetMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetMenuViewController.swift; sourceTree = "<group>"; };
+		9BC5C8FB1F58D13A00740037 /* SheetMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SheetMenuViewController.xib; sourceTree = "<group>"; };
+		9BC5C8FE1F58D34E00740037 /* BottomSheetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetModel.swift; sourceTree = "<group>"; };
+		9BC5C9001F58D35700740037 /* BottomSheetEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheetEntry.swift; sourceTree = "<group>"; };
 		9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetStreamPhotosRequest.swift; sourceTree = "<group>"; };
 		9BC6C3CC1D9229B200DCC92E /* APIService+Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Queue.swift"; sourceTree = "<group>"; };
 		9BC6C3CE1D9229C900DCC92E /* APIService+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Base.swift"; sourceTree = "<group>"; };
@@ -838,6 +850,7 @@
 		185514A51CD447D900B572CE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9BC5C8F91F58D12300740037 /* BottomSheet */,
 				9B1A0FB31F4F89E5005AA527 /* Menu */,
 				9B7B16BC1EE0BB8900412840 /* Section */,
 				18222A051EDB5FD300F0F02E /* Pager */,
@@ -1021,6 +1034,7 @@
 		187E5D8A1F55024F00169188 /* Uploader */ = {
 			isa = PBXGroup;
 			children = (
+				9BC5C8F11F58CE1700740037 /* Models */,
 				187E5D8B1F55026B00169188 /* ImageLoaderViewController.swift */,
 				187E5D8C1F55026B00169188 /* ImageLoaderViewController.xib */,
 				1804F4B71F5516970073697D /* CategorySelectorViewController.swift */,
@@ -1557,6 +1571,26 @@
 			path = FilterUI;
 			sourceTree = "<group>";
 		};
+		9BC5C8F11F58CE1700740037 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5C8F51F58CE2500740037 /* CategorySelectorModel.swift */,
+				9BC5C8F71F58CE3900740037 /* CategoryEntry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9BC5C8F91F58D12300740037 /* BottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5C8FA1F58D13A00740037 /* SheetMenuViewController.swift */,
+				9BC5C8FB1F58D13A00740037 /* SheetMenuViewController.xib */,
+				9BC5C8FE1F58D34E00740037 /* BottomSheetModel.swift */,
+				9BC5C9001F58D35700740037 /* BottomSheetEntry.swift */,
+			);
+			path = BottomSheet;
+			sourceTree = "<group>";
+		};
 		9BDF19021ED778B6003159E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1704,6 +1738,7 @@
 				9B3813E91CE012180066D3B9 /* DefaultStreamHeaderNavCell.xib in Resources */,
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
 				9BA9ADBB1F4CD898006F0AC0 /* CameraUIViewController.xib in Resources */,
+				9BC5C8FD1F58D13A00740037 /* SheetMenuViewController.xib in Resources */,
 				9B3813ED1CE012180066D3B9 /* DefaultStreamInlineLoadingCell.xib in Resources */,
 				9B3813F21CE012180066D3B9 /* DefaultStreamSectionHeaderCell.xib in Resources */,
 				9BA9ADE21F4CD898006F0AC0 /* ColorFilterViewController.xib in Resources */,
@@ -1822,6 +1857,7 @@
 				18BD57201D56454E00376DE8 /* DetailNavigationContext.swift in Sources */,
 				9B6677031D340B0500B89009 /* NavigationService.swift in Sources */,
 				18FE82201F510EAB00CFAB47 /* DarkCardTheme.swift in Sources */,
+				9BC5C8FC1F58D13A00740037 /* SheetMenuViewController.swift in Sources */,
 				9B3814001CE01E4D0066D3B9 /* DefaultNavBlurView.swift in Sources */,
 				9B6115E31CCAC8CE008F5257 /* StorageServiceEvents.swift in Sources */,
 				187E5D7F1F539ADD00169188 /* MenuSeparator.swift in Sources */,
@@ -1874,6 +1910,7 @@
 				9BA9ADE11F4CD898006F0AC0 /* ColorFilterViewController.swift in Sources */,
 				9B108A901D921CCA00DB76DE /* RequestParameters.swift in Sources */,
 				9B7B17E41EE21FC500412840 /* GalleryCollectionModel.swift in Sources */,
+				9BC5C8F61F58CE2500740037 /* CategorySelectorModel.swift in Sources */,
 				18FE81EA1F4DEAE000CFAB47 /* SectionViewController.swift in Sources */,
 				187E5D531F513F8300169188 /* HeaderlessStreamLayout.swift in Sources */,
 				9BA9ADDC1F4CD898006F0AC0 /* VignetteFilterNode.swift in Sources */,
@@ -1922,6 +1959,7 @@
 				18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */,
 				186AF5651D5AD54200A9928F /* DetailLightBoxAnimation.swift in Sources */,
 				9B1F517B1DBA808700BEB731 /* CommentsViewModel.swift in Sources */,
+				9BC5C9011F58D35700740037 /* BottomSheetEntry.swift in Sources */,
 				9BA9ADBA1F4CD898006F0AC0 /* CameraUIViewController.swift in Sources */,
 				1872B7F81ED7E0C4009B6FC8 /* SearchResultSortingBottomSheetViewController.swift in Sources */,
 				187E5D6E1F533F2400169188 /* Composer.swift in Sources */,
@@ -2019,6 +2057,7 @@
 				9B67C8FD1F51E2790045556F /* DefaultSingleStreamHeaderCell.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				187E5D851F53A85300169188 /* MainMenuThemeRenderer.swift in Sources */,
+				9BC5C8F81F58CE3900740037 /* CategoryEntry.swift in Sources */,
 				9B3813FB1CE013200066D3B9 /* DefaultViewModel.swift in Sources */,
 				18BD57281D57A02500376DE8 /* DetailTagSectionView.swift in Sources */,
 				9B6115D61CCA9944008F5257 /* GreetingsViewController.swift in Sources */,
@@ -2053,6 +2092,7 @@
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,
 				18FE82221F510ED400CFAB47 /* LightCardTheme.swift in Sources */,
+				9BC5C8FF1F58D34E00740037 /* BottomSheetModel.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,
 				9BA9ADDA1F4CD898006F0AC0 /* SharpenFilterNode.swift in Sources */,
 				187BA06D1ED3D3B2000E181E /* UserSearchResultRenderer.swift in Sources */,

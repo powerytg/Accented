@@ -6,9 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategorySelectorViewController" customModule="Accented" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SheetMenuViewController" customModule="Accented" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="xlk-30-kcO" id="qgQ-JF-cmy"/>
+                <outlet property="tableView" destination="Pre-dQ-35n" id="PFi-eT-5oO"/>
+                <outlet property="titleLabel" destination="XWI-hn-HYr" id="dnG-DI-7Yh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,30 +18,31 @@
             <rect key="frame" x="0.0" y="0.0" width="493" height="266"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SELECT CATEGORY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkg-9J-QRP">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWI-hn-HYr" userLabel="TitleView">
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xlk-30-kcO">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="46" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pre-dQ-35n">
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="scrollIndicatorInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
                     <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DarkJournalBubble" translatesAutoresizingMaskIntoConstraints="NO" id="3cw-Jr-MMq">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DarkJournalBubble" translatesAutoresizingMaskIntoConstraints="NO" id="0E3-mk-kaA">
                     <frame key="frameInset" minY="124" width="127" height="141"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="xlk-30-kcO" secondAttribute="trailing" id="Dxv-Dw-J2Z"/>
-                <constraint firstItem="xlk-30-kcO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Rsr-m1-73O"/>
-                <constraint firstItem="xlk-30-kcO" firstAttribute="top" secondItem="Vkg-9J-QRP" secondAttribute="bottom" constant="20" id="bXA-Nz-40c"/>
-                <constraint firstItem="Vkg-9J-QRP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="k9G-qR-p8x"/>
-                <constraint firstItem="Vkg-9J-QRP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="u6c-em-7AF"/>
-                <constraint firstAttribute="bottom" secondItem="xlk-30-kcO" secondAttribute="bottom" constant="0.66666666666668561" id="zYK-gD-ff1"/>
+                <constraint firstAttribute="bottom" secondItem="Pre-dQ-35n" secondAttribute="bottom" constant="0.33333333333331439" id="1b3-vA-8rW"/>
+                <constraint firstAttribute="trailing" secondItem="XWI-hn-HYr" secondAttribute="trailing" constant="190" id="B3k-zd-yCG"/>
+                <constraint firstItem="Pre-dQ-35n" firstAttribute="top" secondItem="XWI-hn-HYr" secondAttribute="bottom" constant="20" id="CWS-VS-GsA"/>
+                <constraint firstItem="Pre-dQ-35n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HNc-2g-Ikt"/>
+                <constraint firstItem="XWI-hn-HYr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="OOJ-AW-yWz"/>
+                <constraint firstItem="XWI-hn-HYr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="189" id="mYo-B6-M3y"/>
+                <constraint firstAttribute="trailing" secondItem="Pre-dQ-35n" secondAttribute="trailing" id="nyj-oA-CWE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
