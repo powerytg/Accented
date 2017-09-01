@@ -296,6 +296,8 @@
 		9BC5C8F81F58CE3900740037 /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8F71F58CE3900740037 /* CategoryEntry.swift */; };
 		9BC5C8FC1F58D13A00740037 /* SheetMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C8FA1F58D13A00740037 /* SheetMenuViewController.swift */; };
 		9BC5C8FD1F58D13A00740037 /* SheetMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5C8FB1F58D13A00740037 /* SheetMenuViewController.xib */; };
+		9BC5C9C21F59D90D00740037 /* UserGalleryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC5C9C01F59D90D00740037 /* UserGalleryListViewController.swift */; };
+		9BC5C9C31F59D90D00740037 /* UserGalleryListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BC5C9C11F59D90D00740037 /* UserGalleryListViewController.xib */; };
 		9BC6C3CB1D92299700DCC92E /* GetStreamPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */; };
 		9BC6C3CD1D9229B200DCC92E /* APIService+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CC1D9229B200DCC92E /* APIService+Queue.swift */; };
 		9BC6C3CF1D9229C900DCC92E /* APIService+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC6C3CE1D9229C900DCC92E /* APIService+Base.swift */; };
@@ -663,6 +665,8 @@
 		9BC5C8F71F58CE3900740037 /* CategoryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryEntry.swift; sourceTree = "<group>"; };
 		9BC5C8FA1F58D13A00740037 /* SheetMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetMenuViewController.swift; sourceTree = "<group>"; };
 		9BC5C8FB1F58D13A00740037 /* SheetMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SheetMenuViewController.xib; sourceTree = "<group>"; };
+		9BC5C9C01F59D90D00740037 /* UserGalleryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGalleryListViewController.swift; sourceTree = "<group>"; };
+		9BC5C9C11F59D90D00740037 /* UserGalleryListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserGalleryListViewController.xib; sourceTree = "<group>"; };
 		9BC6C3CA1D92299700DCC92E /* GetStreamPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetStreamPhotosRequest.swift; sourceTree = "<group>"; };
 		9BC6C3CC1D9229B200DCC92E /* APIService+Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Queue.swift"; sourceTree = "<group>"; };
 		9BC6C3CE1D9229C900DCC92E /* APIService+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Base.swift"; sourceTree = "<group>"; };
@@ -700,6 +704,7 @@
 		18093AFA1CCB3AB500EFCE44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9BC5C9BC1F59D8DA00740037 /* Gallery */,
 				187E5D8A1F55024F00169188 /* Uploader */,
 				9BA9AD801F4CD898006F0AC0 /* PearlCam */,
 				9BA9AD981F4CD898006F0AC0 /* PearlFX */,
@@ -1582,6 +1587,15 @@
 			path = BottomSheet;
 			sourceTree = "<group>";
 		};
+		9BC5C9BC1F59D8DA00740037 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				9BC5C9C01F59D90D00740037 /* UserGalleryListViewController.swift */,
+				9BC5C9C11F59D90D00740037 /* UserGalleryListViewController.xib */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
 		9BDF19021ED778B6003159E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1756,6 +1770,7 @@
 				9BA9ADC51F4CD898006F0AC0 /* Lenox.png in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9BA9ADC91F4CD898006F0AC0 /* Red.png in Resources */,
+				9BC5C9C31F59D90D00740037 /* UserGalleryListViewController.xib in Resources */,
 				9B67C8FE1F51E2790045556F /* DefaultSingleStreamHeaderCell.xib in Resources */,
 				9B3813F01CE012180066D3B9 /* DefaultStreamSectionFooterCell.xib in Resources */,
 				9BA9ADCA1F4CD898006F0AC0 /* Remy.png in Resources */,
@@ -2041,6 +2056,7 @@
 				184951D11ED0E769006301E8 /* AddCommentRequest.swift in Sources */,
 				18FE81F81F4E2CCC00CFAB47 /* UserPhotoSectionView.swift in Sources */,
 				18222A531EDFC56600F0F02E /* GetUserPhotosRequest.swift in Sources */,
+				9BC5C9C21F59D90D00740037 /* UserGalleryListViewController.swift in Sources */,
 				187BA05D1ED275BB000E181E /* PhotoSearchStreamModel.swift in Sources */,
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				9B67C8FD1F51E2790045556F /* DefaultSingleStreamHeaderCell.swift in Sources */,
