@@ -76,6 +76,10 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
     
+    func popToRootController(animated : Bool) {
+        rootNavigationController?.popToRootViewController(animated: animated)
+    }
+    
     func signout() {
         StorageService.sharedInstance.signout()
         AuthenticationService.sharedInstance.signout()

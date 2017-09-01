@@ -8,13 +8,11 @@
 
 import UIKit
 
-class CategoryEntry: NSObject {
+class CategoryEntry: MenuItem {
     var category : Category
-    var title : String
     
-    init(category : Category, title : String) {
+    init(category : Category, text : String) {
         self.category = category
-        self.title = title
-        super.init()
+        super.init(text)
     }
 }

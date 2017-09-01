@@ -91,6 +91,7 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
                 let jsonString = String(data: jsonData, encoding: .utf8)
                 AuthenticationService.sharedInstance.putCurrentUserInfoToCache(userJson: jsonString!)
                 StorageService.sharedInstance.currentUser = currentUser
+                StorageService.sharedInstance.putUserProfileToCache(currentUser)
                 
                 // Go back to the home screen
                 NotificationCenter.default.post(name: AuthenticationService.userDidSignIn, object: nil)

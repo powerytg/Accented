@@ -11,10 +11,10 @@
 import UIKit
 
 class SortingOptionMenuItem: MenuItem {
-    var sortingOption : PhotoSearchSortingOptions
+    var option : PhotoSearchSortingOptions
     
-    init(_ sortingOption : PhotoSearchSortingOptions) {
-        self.sortingOption = sortingOption
-        super.init(TextUtils.sortOptionDisplayName(sortingOption))
+    init(option : PhotoSearchSortingOptions, text: String) {
+        self.option = option
+        super.init(TextUtils.sortOptionDisplayName(option))
     }
 }

@@ -64,7 +64,8 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     }
     
     private func createStreamViewController(_ style : StreamDisplayStyle) {
-        let stream : PhotoSearchStreamModel = StorageService.sharedInstance.getPhotoSearchResult(tag: tag!, sort : sortingModel.selectedOption)
+        let sortingOption = sortingModel.selectedItem as! SortingOptionMenuItem
+        let stream : PhotoSearchStreamModel = StorageService.sharedInstance.getPhotoSearchResult(tag: tag!, sort : sortingOption.option)
         streamViewController = TagSearchStreamViewController(stream, displayStyle : style)
         addChildViewController(streamViewController)
         self.view.insertSubview(streamViewController.view, at: 1)
@@ -80,13 +81,7 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     }
     
     @objc private func didRequestChangeSortingOption(_ notification : Notification) {
-        var menuOptions = [MenuItem]()
-        for option in sortingModel.supportedPhotoSearchSortingOptions {
-            let menuItem = SortingOptionMenuItem(option)
-            menuOptions.append(menuItem)
-        }
-        
-        let menuSheet = MenuViewController(menuOptions)
+        let menuSheet = MenuViewController(sortingModel.items)
         menuSheet.delegate = self
         menuSheet.title = "SORTING OPTIONS"
         menuSheet.show()
@@ -97,9 +92,9 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     func didSelectMenuItem(_ menuItem: MenuItem) {
         if menuItem is SortingOptionMenuItem {
             // Sorting options
-            let option = (menuItem as! SortingOptionMenuItem).sortingOption
-            if option != sortingModel.selectedOption {
-                sortingModel.selectedOption = option
+            let option = (menuItem as! SortingOptionMenuItem).option
+            if menuItem != sortingModel.selectedItem {
+                sortingModel.selectedItem = menuItem
                 StorageService.sharedInstance.currentPhotoSearchSortingOption = option
                 
                 // Notify the steam to update

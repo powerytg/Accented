@@ -8,8 +8,9 @@
 
 import UIKit
 import KMPlaceholderTextView
+import RMessage
 
-class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate {
+class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate, SheetMenuDelegate {
 
     @IBOutlet weak var composerView: UIView!
     @IBOutlet weak var titleView: UIView!
@@ -27,11 +28,18 @@ class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate 
     private let titleBarRectCorner = UIRectCorner([.topLeft, .topRight])
     private let textEditBackgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
     private let textEditCornderRadius : CGFloat = 4
+    
+    let categoryModel = CategorySelectorModel()
 
-    init() {
+    private var imageData : Data
+    
+    init(imageData : Data) {
+        self.imageData = imageData
         super.init(nibName: "ImageLoaderViewController", bundle: nil)
+        
         modalPresentationStyle = .custom
         transitioningDelegate = transitionController
+        categoryModel.title = "SELECT CATEGORY"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,6 +127,18 @@ class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate 
         toggleUploadButtonState()
     }
     
+    @IBAction func categoryButtonDidTap(_ sender: Any) {
+        let categorySelector = SheetMenuViewController(model: categoryModel)
+        categorySelector.delegate = self
+        
+        let animationContext = DrawerAnimationContext(content: categorySelector)
+        animationContext.anchor = .bottom
+        animationContext.container = self
+        animationContext.drawerSize = CGSize(width: UIScreen.main.bounds.size.width, height: 266)
+        DrawerService.sharedInstance.presentDrawer(animationContext)
+
+    }
+    
     private func toggleUploadButtonState() {
         if (nameEdit.text?.lengthOfBytes(using: .utf8) != 0 && descEdit.text?.lengthOfBytes(using: .utf8) != 0) {
             sendButton.isEnabled = true
@@ -127,4 +147,52 @@ class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate 
         }
     }
     
+    @IBAction func uploadButtonDidTap(_ sender: Any) {
+        guard nameEdit.text != nil else { return }
+        guard descEdit.text != nil else { return }
+        
+        let privacy : Privacy = (privacyView.selectedSegmentIndex == 0) ? .publicPhoto : .privatePhoto
+        var category : Category
+        if let selectedCategory = categoryModel.selectedItem {
+            category = (selectedCategory as! CategoryEntry).category
+        } else {
+            category = .uncategorized
+        }
+        
+        view.isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 0.5
+        }
+        
+        RMessage.showNotification(withTitle: "Publishing photo...", type: .success, customTypeName: nil, callback: nil)
+        APIService.sharedInstance.uploadPhoto(name: nameEdit.text!, description: descEdit.text!, category: category, privacy: privacy, image: imageData, success: { [weak self] in
+            self?.uploadDidSucceed()
+        }) { [weak self] (errorMessage) in
+            self?.view.isUserInteractionEnabled = true
+            RMessage.showNotification(withTitle: errorMessage, type: .error, customTypeName: nil, callback: nil)
+            UIView.animate(withDuration: 0.3) {
+                self?.view.alpha = 1
+            }
+        }
+    }
+    
+    private func uploadDidSucceed() {
+        RMessage.showNotification(withTitle: "Publishing completed", type: .success, customTypeName: nil, callback: nil)
+        
+        // Wait for a few seconds and then go back
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { 
+            NavigationService.sharedInstance.popToRootController(animated: false)
+            if let currentUser = StorageService.sharedInstance.currentUser {
+                NavigationService.sharedInstance.navigateToUserStreamPage(user: currentUser)
+            }
+        }
+    }
+    
+    // MARK: - SheetMenuDelegate
+    func sheetMenuSelectedOptionDidChange(menuSheet: SheetMenuViewController, selectedIndex: Int) {
+        let selectedItem = categoryModel.items[selectedIndex] as! CategoryEntry
+        categoryModel.selectedItem = selectedItem
+        menuSheet.dismiss(animated: true, completion: nil)
+        categoryButton.setTitle(selectedItem.text, for: .normal)
+    }
 }

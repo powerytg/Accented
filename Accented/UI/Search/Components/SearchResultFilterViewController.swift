@@ -39,7 +39,9 @@ class SearchResultFilterViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        sortButton.setTitle(TextUtils.sortOptionDisplayName(self.sortingModel.selectedOption), for: .normal)
+        if let sortingOption = self.sortingModel.selectedItem {
+            sortButton.setTitle(sortingOption.text, for: .normal)
+        }
     }
     
     @IBAction func sortingButtonDidTap(_ sender: Any) {

@@ -52,6 +52,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lyj-mZ-2up" userLabel="SendButton">
                                     <rect key="frame" x="329" y="4.6666666666666643" width="27" height="26.000000000000007"/>
                                     <state key="normal" image="SendCommentButton"/>
+                                    <connections>
+                                        <action selector="uploadButtonDidTap:" destination="-1" eventType="touchUpInside" id="bwf-uX-rxn"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.15686274510000001" green="0.94509803920000002" blue="0.50588235290000005" alpha="0.75" colorSpace="calibratedRGB"/>
@@ -99,6 +102,9 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6jQ-Bl-24G" customClass="PushButton" customModule="Accented" customModuleProvider="target">
                             <rect key="frame" x="139" y="97" width="195" height="30"/>
                             <state key="normal" title="Uncategoried"/>
+                            <connections>
+                                <action selector="categoryButtonDidTap:" destination="-1" eventType="touchUpInside" id="hFj-0m-TrI"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="(required)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mzu-ap-2tA">
                             <rect key="frame" x="139" y="140.66666666666666" width="202" height="30"/>

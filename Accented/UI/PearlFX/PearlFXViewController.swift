@@ -251,7 +251,7 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
                     self?.view.isUserInteractionEnabled = true
                     if proceedToUpload {
                         // In embedded mode, the user will be taken
-                        self?.showUploader()
+                        self?.showUploader(imageData : renderedData)
                     }
                 }
             })
@@ -307,8 +307,8 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         currentAdjustmentUI = nil
     }
     
-    private func showUploader() {
-        let uploader = ImageLoaderViewController()
+    private func showUploader(imageData : Data) {
+        let uploader = ImageLoaderViewController(imageData : imageData)
         present(uploader, animated: true, completion: nil)
     }
     

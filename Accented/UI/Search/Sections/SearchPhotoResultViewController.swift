@@ -10,7 +10,7 @@
 
 import UIKit
 
-class SearchPhotoResultViewController: CardViewController, SearchResultFilterViewControllerDelegate, SearchResultSortingBottomSheetViewControllerDelegate {
+class SearchPhotoResultViewController: CardViewController, SearchResultFilterViewControllerDelegate, SheetMenuDelegate {
 
     var streamViewController : PhotoSearchResultStreamViewController!
     var sortingOptionsViewController : SearchResultFilterViewController!
@@ -38,11 +38,12 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
         super.viewDidLoad()
         title = "PHOTOS"
         
+        let sortingOption = sortingModel.selectedItem as! SortingOptionMenuItem
         var stream : PhotoSearchStreamModel
         if let keyword = self.keyword {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword, sort : sortingModel.selectedOption)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(keyword: keyword, sort : sortingOption.option)
         } else if let tag = self.tag {
-            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag, sort : sortingModel.selectedOption)
+            stream = StorageService.sharedInstance.getPhotoSearchResult(tag: tag, sort : sortingOption.option)
         } else {
             fatalError("Neither tag nor keyword is specified")
         }
@@ -72,7 +73,7 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
     // MARK: - SearchResultFilterViewControllerDelegate
     func sortingButtonDidTap() {
         guard let topVC = NavigationService.sharedInstance.topViewController() else { return }
-        let bottomSheet = SearchResultSortingBottomSheetViewController(sortingModel : sortingModel)
+        let bottomSheet = SearchResultSortingBottomSheetViewController(model: sortingModel)
         bottomSheet.delegate = self
         let animationContext = DrawerAnimationContext(content: bottomSheet)
         animationContext.anchor = .bottom
@@ -81,17 +82,18 @@ class SearchPhotoResultViewController: CardViewController, SearchResultFilterVie
         DrawerService.sharedInstance.presentDrawer(animationContext)
     }
 
-    // MARK: - SearchResultSortingBottomSheetViewControllerDelegate
-    func sortingOptionDidChange(bottomSheet: SearchResultSortingBottomSheetViewController, option: PhotoSearchSortingOptions) {
-        bottomSheet.dismiss(animated: true, completion: nil)
+    // MARK: - SheetMenuDelegate
+    func sheetMenuSelectedOptionDidChange(menuSheet: SheetMenuViewController, selectedIndex: Int) {
+        menuSheet.dismiss(animated: true, completion: nil)
         
-        if option != sortingModel.selectedOption {
-            sortingModel.selectedOption = option
-            StorageService.sharedInstance.currentPhotoSearchSortingOption = option
+        if sortingModel.selectedItem == nil || sortingModel.items.index(of: sortingModel.selectedItem!) != selectedIndex {
+            let selectedOption = sortingModel.items[selectedIndex] as! SortingOptionMenuItem
+            sortingModel.selectedItem = selectedOption
+            StorageService.sharedInstance.currentPhotoSearchSortingOption = selectedOption.option
             sortingOptionsViewController.view.setNeedsLayout()
             
             // Notify the steam to update
-            streamViewController.sortConditionDidChange(sort : option)
+            streamViewController.sortConditionDidChange(sort : selectedOption.option)
         }
     }
 }

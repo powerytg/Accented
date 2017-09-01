@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SheetMenuViewControllerDelegate : NSObjectProtocol {
+protocol SheetMenuDelegate : NSObjectProtocol {
     func sheetMenuSelectedOptionDidChange(menuSheet : SheetMenuViewController, selectedIndex : Int)
 }
 
@@ -17,17 +17,21 @@ class SheetMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    private var model : BottomSheetModel
+    private var model : MenuModel
     private let cellIdentifier = "cell"
-    weak var delegate : SheetMenuViewControllerDelegate?
+    weak var delegate : SheetMenuDelegate?
     
-    var initialSelectedIndex : Int {
-        return 0
+    var menuSheetTitle : String? {
+        didSet {
+            titleLabel.text = menuSheetTitle
+        }
     }
     
-    init(model : BottomSheetModel) {
+    var initialSelectedIndex = 0
+    
+    init(model : MenuModel) {
         self.model = model
-        super.init(nibName: "SearchResultSortingBottomSheetViewController", bundle: nil)
+        super.init(nibName: "SheetMenuViewController", bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,7 +41,13 @@ class SheetMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cellNib = UINib(nibName: "SearchResultSortingOptionRenderer", bundle: nil)
+        if let menuTitle = model.title {
+            titleLabel.text = menuTitle
+        } else {
+            titleLabel.isHidden = true
+        }
+        
+        let cellNib = UINib(nibName: "SheetMenuRenderer", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: cellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,32 +71,31 @@ class SheetMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortingModel.supportedPhotoSearchSortingOptions.count
+        return model.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let option = sortingModel.supportedPhotoSearchSortingOptions[indexPath.row]
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SearchResultSortingOptionRenderer
+        let entry = model.items[indexPath.row]
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? SheetMenuRenderer
         if cell == nil {
-            cell = SearchResultSortingOptionRenderer(option: option, identifier: cellIdentifier)
+            cell = SheetMenuRenderer(menuItem: entry, identifier: cellIdentifier)
         }
         
-        cell!.isSelected = (option == sortingModel.selectedOption)
-        cell!.option = option
+        cell!.isSelected = (indexPath.row == initialSelectedIndex)
+        cell!.menuItem = entry
         return cell!
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.transform = CGAffineTransform(translationX: 0, y: 80)
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.3, delay: 0.03 * Double(indexPath.row), options: .curveEaseOut, animations: {
-            cell.transform = CGAffineTransform.identity
-            cell.alpha = 1
-            }, completion: nil)
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        cell.transform = CGAffineTransform(translationX: 0, y: 80)
+//        cell.alpha = 0
+//        UIView.animate(withDuration: 0.3, delay: 0.03 * Double(indexPath.row), options: .curveEaseOut, animations: {
+//            cell.transform = CGAffineTransform.identity
+//            cell.alpha = 1
+//            }, completion: nil)
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let option = sortingModel.supportedPhotoSearchSortingOptions[indexPath.row]
         delegate?.sheetMenuSelectedOptionDidChange(menuSheet: self, selectedIndex: indexPath.row)
     }
 

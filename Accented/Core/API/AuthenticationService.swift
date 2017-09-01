@@ -104,7 +104,12 @@ class AuthenticationService: NSObject {
                 return nil
             }
             
-            return StorageService.sharedInstance.userFromJson(json!)
+            let currentUser = StorageService.sharedInstance.userFromJson(json!)
+            if currentUser != nil {
+                StorageService.sharedInstance.putUserProfileToCache(currentUser!)
+            }
+            
+            return currentUser
         }
     }
     

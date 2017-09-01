@@ -10,15 +10,20 @@
 
 import UIKit
 
-class PhotoSearchFilterModel: NSObject {
-    // Current selected sorting option (specific to this model)
-    var selectedOption : PhotoSearchSortingOptions
-    
-    // Support sorting options for photo search, in order
-    var supportedPhotoSearchSortingOptions : [PhotoSearchSortingOptions] = [.highestRating, .timesViewed, .createdAt, .rating]
-    
+class PhotoSearchFilterModel: MenuModel {
     override init() {
-        selectedOption = StorageService.sharedInstance.currentPhotoSearchSortingOption
         super.init()
+
+        items = [SortingOptionMenuItem(option: .highestRating, text: "Top Rated"),
+                 SortingOptionMenuItem(option: .timesViewed, text: "Most Viewed"),
+                 SortingOptionMenuItem(option: .createdAt, text: "Latest"),
+                 SortingOptionMenuItem(option: .rating, text: "Most Popular")]
+        
+        for item in items {
+            let sortingOption = item as! SortingOptionMenuItem
+            if sortingOption.option == StorageService.sharedInstance.currentPhotoSearchSortingOption {
+                selectedItem = sortingOption
+            }
+        }
     }
 }

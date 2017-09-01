@@ -1,16 +1,16 @@
 //
-//  SearchResultSortingOptionRenderer.swift
+//  SheetMenuRenderer.swift
 //  Accented
 //
-//  Created by Tiangong You on 5/25/17.
+//  Created by Tiangong You on 8/31/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class SearchResultSortingOptionRenderer: UITableViewCell {
-    
-    @IBOutlet weak var optionLabel: UILabel!
+class SheetMenuRenderer: UITableViewCell {
+
+    @IBOutlet weak var titleLabel: UILabel!
     
     private let normalBackgroundColor = UIColor.clear
     private let highlightBackgroundColor = UIColor(red: 27 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
@@ -19,10 +19,10 @@ class SearchResultSortingOptionRenderer: UITableViewCell {
     private let highlightFont = UIFont(name: "HelveticaNeue", size: 17)!
     private let normalFont = UIFont(name: "HelveticaNeue-Light", size: 17)!
     
-    var option : PhotoSearchSortingOptions?
+    var menuItem : MenuItem?
     
-    init(option : PhotoSearchSortingOptions, identifier : String) {
-        self.option = option
+    init(menuItem : MenuItem, identifier : String) {
+        self.menuItem = menuItem
         super.init(style: .default, reuseIdentifier: identifier)
         initialize()
     }
@@ -40,38 +40,38 @@ class SearchResultSortingOptionRenderer: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         if selected {
             backgroundColor = highlightBackgroundColor
-            optionLabel.textColor = highlightTextColor
-            optionLabel.font = highlightFont
+            titleLabel.textColor = highlightTextColor
+            titleLabel.font = highlightFont
         } else {
             backgroundColor = normalBackgroundColor
-            optionLabel.textColor = normalTextColor
-            optionLabel.font = normalFont
+            titleLabel.textColor = normalTextColor
+            titleLabel.font = normalFont
         }
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-
+        
         if highlighted {
             backgroundColor = highlightBackgroundColor
-            optionLabel.textColor = highlightTextColor
+            titleLabel.textColor = highlightTextColor
         } else {
             backgroundColor = normalBackgroundColor
-            optionLabel.textColor = normalTextColor
+            titleLabel.textColor = normalTextColor
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let option = self.option {
-            optionLabel.text = TextUtils.sortOptionDisplayName(option)
+        if let menuItem = self.menuItem {
+            titleLabel.text = menuItem.text
         }
     }
 }
