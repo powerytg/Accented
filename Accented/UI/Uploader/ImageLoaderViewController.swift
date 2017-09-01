@@ -164,10 +164,13 @@ class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate,
             self.view.alpha = 0.5
         }
         
-        RMessage.showNotification(withTitle: "Publishing photo...", type: .success, customTypeName: nil, callback: nil)
+        RMessage.showNotification(withTitle: "Publishing photo...", subtitle: "", type: .success, customTypeName: nil, duration: TimeInterval(RMessageDuration.endless.rawValue), callback: nil)
+        
         APIService.sharedInstance.uploadPhoto(name: nameEdit.text!, description: descEdit.text!, category: category, privacy: privacy, image: imageData, success: { [weak self] in
+            RMessage.dismissActiveNotification()
             self?.uploadDidSucceed()
         }) { [weak self] (errorMessage) in
+            RMessage.dismissActiveNotification()
             self?.view.isUserInteractionEnabled = true
             RMessage.showNotification(withTitle: errorMessage, type: .error, customTypeName: nil, callback: nil)
             UIView.animate(withDuration: 0.3) {
@@ -180,11 +183,10 @@ class ImageLoaderViewController: UIViewController, Composer, UITextViewDelegate,
         RMessage.showNotification(withTitle: "Publishing completed", type: .success, customTypeName: nil, callback: nil)
         
         // Wait for a few seconds and then go back
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { 
-            NavigationService.sharedInstance.popToRootController(animated: false)
-            if let currentUser = StorageService.sharedInstance.currentUser {
-                NavigationService.sharedInstance.navigateToUserStreamPage(user: currentUser)
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.dismiss(animated: true, completion: {
+                NavigationService.sharedInstance.popToRootController(animated: true)
+            })
         }
     }
     
