@@ -234,6 +234,8 @@
 		9B8F3D9B1D493ACE0090961E /* DetailProxyAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */; };
 		9B94F9131D243E4200291973 /* DrawerOpenGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B94F9121D243E4200291973 /* DrawerOpenGestureController.swift */; };
 		9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */; };
+		9B961A8C1F60B0C600AACA33 /* UserGalleryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B961A8B1F60B0C600AACA33 /* UserGalleryListViewModel.swift */; };
+		9B961A8F1F60B29400AACA33 /* UserGalleryListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B961A8E1F60B29400AACA33 /* UserGalleryListLayout.swift */; };
 		9B9E9E8D1DBA9EFE009D5D19 /* DetailCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E8C1DBA9EFE009D5D19 /* DetailCommentCell.swift */; };
 		9B9E9E8F1DBAA476009D5D19 /* CommentsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E8E1DBAA476009D5D19 /* CommentsLayout.swift */; };
 		9B9E9E941DBAD664009D5D19 /* InfiniteLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9E9E931DBAD664009D5D19 /* InfiniteLoadingViewController.swift */; };
@@ -603,6 +605,8 @@
 		9B8F3D9A1D493ACE0090961E /* DetailProxyAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailProxyAnimation.swift; sourceTree = "<group>"; };
 		9B94F9121D243E4200291973 /* DrawerOpenGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerOpenGestureController.swift; sourceTree = "<group>"; };
 		9B94F9141D243ED400291973 /* DrawerDismissGestureController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerDismissGestureController.swift; sourceTree = "<group>"; };
+		9B961A8B1F60B0C600AACA33 /* UserGalleryListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGalleryListViewModel.swift; sourceTree = "<group>"; };
+		9B961A8E1F60B29400AACA33 /* UserGalleryListLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGalleryListLayout.swift; sourceTree = "<group>"; };
 		9B9E9E8C1DBA9EFE009D5D19 /* DetailCommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCommentCell.swift; sourceTree = "<group>"; };
 		9B9E9E8E1DBAA476009D5D19 /* CommentsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsLayout.swift; sourceTree = "<group>"; };
 		9B9E9E931DBAD664009D5D19 /* InfiniteLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingViewController.swift; sourceTree = "<group>"; };
@@ -1435,6 +1439,22 @@
 			path = Deck;
 			sourceTree = "<group>";
 		};
+		9B961A871F60AEFE00AACA33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B961A8B1F60B0C600AACA33 /* UserGalleryListViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9B961A8D1F60B27C00AACA33 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				9B961A8E1F60B29400AACA33 /* UserGalleryListLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		9B9C9A3B1D42845D00B015F4 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
@@ -1590,6 +1610,8 @@
 		9BC5C9BC1F59D8DA00740037 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				9B961A8D1F60B27C00AACA33 /* Layout */,
+				9B961A871F60AEFE00AACA33 /* Models */,
 				9BC5C9C01F59D90D00740037 /* UserGalleryListViewController.swift */,
 				9BC5C9C11F59D90D00740037 /* UserGalleryListViewController.xib */,
 			);
@@ -1905,6 +1927,7 @@
 				9B3813CD1CE010770066D3B9 /* HeadlineTemplate.swift in Sources */,
 				18FE82161F4FEE5E00CFAB47 /* UserStreamLayoutSpec.swift in Sources */,
 				18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */,
+				9B961A8C1F60B0C600AACA33 /* UserGalleryListViewModel.swift in Sources */,
 				187E5D7D1F539A8400169188 /* MainMenuAuthenticatedUserSectionView.swift in Sources */,
 				187E5D7B1F53944600169188 /* MainMenuHeaderSectionView.swift in Sources */,
 				9BA9ADE51F4CD898006F0AC0 /* VignetteFilterViewController.swift in Sources */,
@@ -1956,6 +1979,7 @@
 				9BA9ADB91F4CD898006F0AC0 /* CameraController.swift in Sources */,
 				9B3813CA1CE010770066D3B9 /* StreamViewController.swift in Sources */,
 				9B1A0FBE1F4F9115005AA527 /* CompactMenuBar.swift in Sources */,
+				9B961A8F1F60B29400AACA33 /* UserGalleryListLayout.swift in Sources */,
 				18FE82121F4FE3F300CFAB47 /* UserStreamCardViewModel.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */,
