@@ -225,6 +225,9 @@
 		9B832F771D8C83400069FC77 /* StorageService+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832F761D8C83400069FC77 /* StorageService+Cache.swift */; };
 		9B832FDE1D8C97E20069FC77 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDD1D8C97E20069FC77 /* APIRequest.swift */; };
 		9B832FE01D8C98E80069FC77 /* APIEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B832FDF1D8C98E80069FC77 /* APIEvents.swift */; };
+		9B8909011F633F4500011064 /* GalleryListRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8908FF1F633F4500011064 /* GalleryListRenderer.swift */; };
+		9B8909021F633F4500011064 /* GalleryListRenderer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B8909001F633F4500011064 /* GalleryListRenderer.xib */; };
+		9B8909041F63430C00011064 /* UserGalleryListStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B8909031F63430C00011064 /* UserGalleryListStreamViewController.swift */; };
 		9B89B1121D54FA8D00382744 /* DeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1111D54FA8D00382744 /* DeckViewController.swift */; };
 		9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B1131D54FBAC00382744 /* CardViewController.swift */; };
 		9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B89B11B1D55017100382744 /* DeckCacheController.swift */; };
@@ -596,6 +599,9 @@
 		9B832F761D8C83400069FC77 /* StorageService+Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Cache.swift"; sourceTree = "<group>"; };
 		9B832FDD1D8C97E20069FC77 /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		9B832FDF1D8C98E80069FC77 /* APIEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEvents.swift; sourceTree = "<group>"; };
+		9B8908FF1F633F4500011064 /* GalleryListRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryListRenderer.swift; sourceTree = "<group>"; };
+		9B8909001F633F4500011064 /* GalleryListRenderer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryListRenderer.xib; sourceTree = "<group>"; };
+		9B8909031F63430C00011064 /* UserGalleryListStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGalleryListStreamViewController.swift; sourceTree = "<group>"; };
 		9B89B1111D54FA8D00382744 /* DeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckViewController.swift; sourceTree = "<group>"; };
 		9B89B1131D54FBAC00382744 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		9B89B11B1D55017100382744 /* DeckCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckCacheController.swift; sourceTree = "<group>"; };
@@ -708,6 +714,7 @@
 		18093AFA1CCB3AB500EFCE44 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9B8908FB1F633F2000011064 /* Renderers */,
 				9BC5C9BC1F59D8DA00740037 /* Gallery */,
 				187E5D8A1F55024F00169188 /* Uploader */,
 				9BA9AD801F4CD898006F0AC0 /* PearlCam */,
@@ -1424,6 +1431,15 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		9B8908FB1F633F2000011064 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				9B8908FF1F633F4500011064 /* GalleryListRenderer.swift */,
+				9B8909001F633F4500011064 /* GalleryListRenderer.xib */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
 		9B89B10F1D54FA7E00382744 /* Deck */ = {
 			isa = PBXGroup;
 			children = (
@@ -1443,6 +1459,7 @@
 			isa = PBXGroup;
 			children = (
 				9B961A8B1F60B0C600AACA33 /* UserGalleryListViewModel.swift */,
+				9B8909031F63430C00011064 /* UserGalleryListStreamViewController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1789,6 +1806,7 @@
 				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
 				9BA9ADE41F4CD898006F0AC0 /* MonochromeFilterViewController.xib in Resources */,
 				9BA9ADC81F4CD898006F0AC0 /* lookup_soft_elegance_2.png in Resources */,
+				9B8909021F633F4500011064 /* GalleryListRenderer.xib in Resources */,
 				9BA9ADC51F4CD898006F0AC0 /* Lenox.png in Resources */,
 				9B6115DB1CCA9BAD008F5257 /* SignInViewController.xib in Resources */,
 				9BA9ADC91F4CD898006F0AC0 /* Red.png in Resources */,
@@ -1941,6 +1959,7 @@
 				9BC5C8F61F58CE2500740037 /* CategorySelectorModel.swift in Sources */,
 				18FE81EA1F4DEAE000CFAB47 /* SectionViewController.swift in Sources */,
 				187E5D531F513F8300169188 /* HeaderlessStreamLayout.swift in Sources */,
+				9B8909011F633F4500011064 /* GalleryListRenderer.swift in Sources */,
 				9BA9ADDC1F4CD898006F0AC0 /* VignetteFilterNode.swift in Sources */,
 				9BA9ADCC1F4CD898006F0AC0 /* PearlCamViewController.swift in Sources */,
 				185514A71CD447E600B572CE /* BlurredBackbroundView.swift in Sources */,
@@ -2031,6 +2050,7 @@
 				9B3BA5C51D67A51300AF588A /* StorageService+Comments.swift in Sources */,
 				18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */,
 				9B3813CE1CE010770066D3B9 /* QuadTemplate.swift in Sources */,
+				9B8909041F63430C00011064 /* UserGalleryListStreamViewController.swift in Sources */,
 				18FE82101F4FE3BA00CFAB47 /* UserStreamCardLayout.swift in Sources */,
 				9BFFB6271D1358AD00B178F3 /* DrawerService.swift in Sources */,
 				9B94F9151D243ED400291973 /* DrawerDismissGestureController.swift in Sources */,

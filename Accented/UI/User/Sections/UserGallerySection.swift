@@ -67,7 +67,7 @@ class UserGallerySection: UserSectionViewBase {
     }
     
     @objc private func loadMoreButtonDidTap(_ sender : NSObject) {
-        
+        NavigationService.sharedInstance.navigateToUserGalleryListPage(user: user)
     }
     
     override func layoutSubviews() {

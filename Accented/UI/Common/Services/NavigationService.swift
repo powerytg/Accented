@@ -76,14 +76,19 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
     
+    func navigateToUserGalleryListPage(user : UserModel) {
+        let vc = UserGalleryListViewController(user: user)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
     func popToRootController(animated : Bool) {
-        rootNavigationController?.popToRootViewController(animated: animated)
+        _ = rootNavigationController?.popToRootViewController(animated: animated)
     }
     
     func signout() {
         StorageService.sharedInstance.signout()
         AuthenticationService.sharedInstance.signout()
-        rootNavigationController?.popToRootViewController(animated: true)
+        _ = rootNavigationController?.popToRootViewController(animated: true)
         
         SDImageCache.shared().clearMemory()
         SDImageCache.shared().clearDisk()

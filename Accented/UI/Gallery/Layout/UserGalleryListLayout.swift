@@ -76,11 +76,10 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
             var attrs = layoutCache[cacheKey]
             if attrs == nil {
                 let indexPath = IndexPath(item: index, section: 0)
-                let cellStyle = delegate?.cellStyleForItemAtIndexPath(indexPath)
-                var left : CGFloat = (index % 2 == 0) ? paddingLeft : (paddingLeft + galleryWidth + hGap)
+                let left : CGFloat = (index % 2 == 0) ? paddingLeft : (paddingLeft + galleryWidth + hGap)
                 
                 attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-                attrs!.frame = CGRect(x: left, y: nextY, width: measuredSize.width, height: measuredSize.height)
+                attrs!.frame = CGRect(x: left, y: nextY, width: galleryWidth, height: galleryHeight)
                 layoutCache[cacheKeyForGallery(gallery)] = attrs!
             }
             
@@ -97,7 +96,7 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
         let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
         footerAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: footerHeight)
         layoutCache[footerCacheKey] = footerAttributes
-        nextY += footerHeight + gap
+        nextY += footerHeight + vGap
         
         contentHeight = nextY
     }
