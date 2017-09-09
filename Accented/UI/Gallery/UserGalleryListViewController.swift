@@ -10,7 +10,7 @@
 
 import UIKit
 
-class UserGalleryListViewController: UIViewController {
+class UserGalleryListViewController: UIViewController, InfiniteLoadingViewControllerDelegate {
     
     private let headerCompressionStart : CGFloat = 50
     private let headerCompressionDist : CGFloat = 200
@@ -60,6 +60,8 @@ class UserGalleryListViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        backgroundView.frame = view.bounds
         streamViewController.view.frame = view.bounds
         streamViewController.view.setNeedsLayout()
         
@@ -75,9 +77,9 @@ class UserGalleryListViewController: UIViewController {
     }
     
     private func createStreamViewController() {
-        let galleryList = StorageService.sharedInstance.getUserGalleries(userId: user.userId)
-        streamViewController = UserGalleryListStreamViewController(galleryCollection: galleryList)
+        streamViewController = UserGalleryListStreamViewController(user : user)
         addChildViewController(streamViewController)
+        streamViewController.delegate = self
         
         self.view.insertSubview(streamViewController.view, at: 1)
         streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height)

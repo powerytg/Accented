@@ -69,6 +69,8 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        backgroundView.frame = view.bounds
+        
         streamViewController.view.frame = view.bounds
         streamViewController.view.setNeedsLayout()
         

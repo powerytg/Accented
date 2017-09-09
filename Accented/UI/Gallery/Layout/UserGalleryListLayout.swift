@@ -16,6 +16,7 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
     private var hGap : CGFloat = 10
     private var vGap : CGFloat = 10
     private var availableWidth : CGFloat = 0
+    private var headerHeight : CGFloat = 210
     
     override init() {
         super.init()
@@ -61,21 +62,55 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
         return layoutAttributes
     }
     
+    private func generateLayoutAttributesForStreamHeader() {
+        if availableWidth == 0 {
+            availableWidth = UIScreen.main.bounds.width
+        }
+        
+        // Stream header
+        let indexPath = IndexPath(item : 0, section : 0)
+        let headerCellSize = CGSize(width: availableWidth, height: headerHeight)
+        let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attrs.frame = CGRect(x: 0, y: 0, width: headerCellSize.width, height: headerCellSize.height)
+        layoutCache["streamHeader"] = attrs
+        contentHeight = headerHeight
+    }
+
+    override func generateLayoutAttributesForLoadingState() {
+        if availableWidth == 0 {
+            availableWidth = UIScreen.main.bounds.width
+        }
+        
+        let indexPath = IndexPath(item : 0, section : 0)
+        let nextY = contentHeight
+        let loadingCellSize = CGSize(width: availableWidth, height: 150)
+        let loadingCellAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        loadingCellAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: loadingCellSize.height)
+        
+        contentHeight += loadingCellSize.height
+        layoutCache["loadingCell"] = loadingCellAttributes
+    }
+
     override func generateLayoutAttributesIfNeeded() {
         guard collection != nil else { return }
         
+        // Generate header layout attributes if absent
+        if layoutCache.count == 0 {
+            generateLayoutAttributesForStreamHeader()
+        }
+
         // If there's a previous loading indicator, reset its section height to 0
         updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
         
         let galleryWidth = (availableWidth - hGap) / 2
         let galleryHeight = galleryWidth + 15
-        var nextY : CGFloat = paddingTop
+        var nextY : CGFloat = headerHeight
         for (index, gallery) in collection!.items.enumerated() {
             // Ignore if the cell already has a layout
             let cacheKey = cacheKeyForGallery(gallery)
             var attrs = layoutCache[cacheKey]
             if attrs == nil {
-                let indexPath = IndexPath(item: index, section: 0)
+                let indexPath = IndexPath(item: index, section: 1)
                 let left : CGFloat = (index % 2 == 0) ? paddingLeft : (paddingLeft + galleryWidth + hGap)
                 
                 attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
@@ -92,7 +127,7 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
         // If not loading, then the footer is simply not visible
         let footerHeight = defaultLoadingIndicatorHeight
         let footerCacheKey = loadingIndicatorCacheKey
-        let indexPath = IndexPath(item: 0, section: 0)
+        let indexPath = IndexPath(item: 0, section: 1)
         let footerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, with: indexPath)
         footerAttributes.frame = CGRect(x: 0, y: nextY, width: availableWidth, height: footerHeight)
         layoutCache[footerCacheKey] = footerAttributes

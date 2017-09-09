@@ -9,11 +9,12 @@
 import UIKit
 
 class UserGalleryListStreamViewController: InfiniteLoadingViewController<GalleryModel> {
-
+    private var user : UserModel
     private var galleryCollection : GalleryCollectionModel
     
-    init(galleryCollection : GalleryCollectionModel) {
-        self.galleryCollection = galleryCollection
+    init(user : UserModel) {
+        self.user = user
+        self.galleryCollection = StorageService.sharedInstance.getUserGalleries(userId: user.userId)
         super.init()
     }
     
@@ -30,7 +31,7 @@ class UserGalleryListStreamViewController: InfiniteLoadingViewController<Gallery
     }
     
     override func createViewModel() {
-        viewModel = UserGalleryListViewModel(collection : galleryCollection, collectionView : collectionView)
+        viewModel = UserGalleryListViewModel(user : user, collection : galleryCollection, collectionView : collectionView)
     }
     
 }
