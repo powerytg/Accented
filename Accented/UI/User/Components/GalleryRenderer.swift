@@ -56,6 +56,10 @@ class GalleryRenderer: UIView {
         layer.shadowOpacity = 0.25
         layer.shadowRadius = 5
         layer.shadowOffset = CGSize(width: 0, height: 2)
+        
+        // Events
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnRenderer(_:)))
+        addGestureRecognizer(tap)
     }
     
     override func layoutSubviews() {
@@ -80,5 +84,12 @@ class GalleryRenderer: UIView {
         // Set thumbnail image
         imageView.frame = self.bounds
         imageView.sd_setImage(with: coverUrl)
+    }
+    
+    // MARK: - Events
+    @objc private func didTapOnRenderer(_ sender : UITapGestureRecognizer) {
+        if let gallery = self.gallery {
+            NavigationService.sharedInstance.navigateToGalleryPage(gallery: gallery)
+        }
     }
 }

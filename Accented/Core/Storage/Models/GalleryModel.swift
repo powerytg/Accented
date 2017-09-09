@@ -40,6 +40,7 @@ class GalleryModel: ModelBase {
         
         modelId = json["id"].stringValue
         galleryId = json["id"].stringValue
+        userId = json["user_id"].stringValue
         desc = json["description"].string
         subtitle = json["subtitle"].string
         creationDate = dateFormatter.date(from: json["created_at"].stringValue)

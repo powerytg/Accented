@@ -15,6 +15,9 @@ class RequestParameters: NSObject {
     // User id
     static let userId = "user_id"
     
+    // Gallery id
+    static let galleryId = "gallery_id"
+    
     // Page
     static let page = "page"
     

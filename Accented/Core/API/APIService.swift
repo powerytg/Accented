@@ -23,6 +23,7 @@ enum StreamType : String {
     case User = "user"  // User photos
     case UserFriends = "user_friends" // User friends photos
     case Search = "search"  // Search result
+    case Gallery = "gallery" // Gallery photos
 }
 
 // Image size definitions
@@ -43,6 +44,15 @@ enum PhotoSearchSortingOptions : String {
     // case score = "_score" // Sort by query score, best match first
     // case votesCount = "votes_count" // Sort by the number of votes, most voted on first
     // case commentsCount = "comments_count" // Sort by the number of comments, most commented first
+}
+
+// Gallery stream Sorting options
+enum GalleryStreamSortingOptions : String {
+    case position = "position" // Default: order specified by user manually
+    case createdAt = "created_at" // Default: sort by time of upload, most recent first
+    case rating = "rating" // Sort by current rating, highest rated first
+    case highestRating = "highest_rating" // Sort by highest rating achieved, highest rated first
+    case timesViewed = "times_viewed" // Sort by the number of views, most viewed first
 }
 
 // Categories

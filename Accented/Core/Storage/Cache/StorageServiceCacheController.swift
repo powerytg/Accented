@@ -38,6 +38,9 @@ class StorageServiceCacheController: NSObject {
     // User galleries cache
     let userGalleryCache = NSCache<NSString, GalleryCollectionModel>()
 
+    // User gallery photo cache
+    let galleryPhotoCache = NSCache<NSString, GalleryStreamModel>()
+    
     // Get a cached object. If the object is not cached then create a new one and put it into the cache
     func getCachedResource<T : NSCopying>(cacheKey : String,
                            inCache cache : NSCache<NSString, T>,
@@ -61,5 +64,6 @@ class StorageServiceCacheController: NSObject {
         userFollowersCache.removeAllObjects()
         userPhotoCache.removeAllObjects()
         userGalleryCache.removeAllObjects()
+        galleryPhotoCache.removeAllObjects()
     }
 }

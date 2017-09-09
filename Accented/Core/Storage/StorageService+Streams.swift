@@ -50,6 +50,7 @@ extension StorageService {
         let tag = userInfo[RequestParameters.tag] as? String
         let sort = userInfo[RequestParameters.sort] as? PhotoSearchSortingOptions
         let userId = userInfo[RequestParameters.userId] as? String
+        let galleryId = userInfo[RequestParameters.galleryId] as? String
         
         var stream : StreamModel!
         switch streamType {
@@ -61,6 +62,11 @@ extension StorageService {
             }
         case .User:
             stream = getUserStream(userId: userId!)
+        case .Gallery:
+            if userId != nil && galleryId != nil {
+                stream = getGalleryPhotoStream(userId: userId!, galleryId: galleryId!)
+            }
+            
         default:
             stream = self.getStream(streamType)
         }
@@ -81,6 +87,8 @@ extension StorageService {
             putPhotoSearchResultToCache(stream as! PhotoSearchStreamModel)
         } else if stream is UserStreamModel {
             putUserStreamToCache(stream as! UserStreamModel)
+        } else if stream is GalleryStreamModel {
+            putGalleryStreamToCache(stream as! GalleryStreamModel)
         } else {
             putStreamToCache(stream)
         }

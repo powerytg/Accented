@@ -81,6 +81,11 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
     
+    func navigateToGalleryPage(gallery : GalleryModel) {
+        let vc = UserGalleryViewController(userId : gallery.userId, gallery: gallery)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
     func popToRootController(animated : Bool) {
         _ = rootNavigationController?.popToRootViewController(animated: animated)
     }

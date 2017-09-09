@@ -31,6 +31,8 @@ class TextUtils: NSObject {
             return "Search Result"
         case .UserFriends:
             return "Photos From Your Friends"
+        case .Gallery:
+            return "Gallery"
         }
     }
     
@@ -56,6 +58,8 @@ class TextUtils: NSObject {
             return "Search Result"
         case .UserFriends:
             return "Photos From Your Friends"
+        case .Gallery:
+            return "Gallery"
         }
     }
     
@@ -80,5 +84,20 @@ class TextUtils: NSObject {
         case .timesViewed:
             return "Most Viewed"
         }
-    }    
+    }
+    
+    static func gallerySortOptionDisplayName(_ option : GalleryStreamSortingOptions) -> String {
+        switch option {
+        case .position:
+            return "Default"
+        case .createdAt:
+            return "Latest"
+        case .highestRating:
+            return "Top Rated"
+        case .rating:
+            return "Most Popular"
+        case .timesViewed:
+            return "Most Viewed"
+        }
+    }
 }
