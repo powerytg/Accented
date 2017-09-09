@@ -10,7 +10,7 @@
 
 import UIKit
 
-class MainMenuAuthenticatedUserSectionView: SectionViewBase {
+class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
 
     private let rowHeight : CGFloat = 32
     private let paddingTop : CGFloat = 32

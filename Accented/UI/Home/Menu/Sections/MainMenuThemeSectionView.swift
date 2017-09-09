@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainMenuThemeSectionView: SectionViewBase {
+class MainMenuThemeSectionView: MainMenuSectionBase {
     private let paddingTop : CGFloat = 15
     private let paddingLeft : CGFloat = 20
     private let paddingRight : CGFloat = 20

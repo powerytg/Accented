@@ -35,8 +35,10 @@ class AuthenticationService: NSObject {
     // Retained authenticator
     var authenticator : OAuth1Swift!
     
-    // Sign in event
+    // Sign in events
     static let userDidSignIn = Notification.Name("userDidSignIn")
+    static let userDidSkipSignIn = Notification.Name("userDidSkipSignIn")
+    static let userDidSignOut = Notification.Name("userDidSignOut")
     
     private override init() {
         // Ignore
@@ -84,6 +86,11 @@ class AuthenticationService: NSObject {
         )
     }
 
+    func skipSignIn() {
+        accessToken = nil
+        accessTokenSecret = nil
+    }
+    
     func putCurrentUserInfoToCache(userJson : String) {
         let userDefaults = UserDefaults.standard
         userDefaults.set(userJson, forKey: AuthenticationService.currentUserInfoKey)

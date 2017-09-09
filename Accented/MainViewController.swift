@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MainViewController: UINavigationController, DrawerOpenGestureControllerDelegate {
 
     private var rightDrawerSize : CGSize
     private var rightDrawerGestureController : DrawerOpenGestureController?
+    private var shouldShowSignInScreen = false
     
     // Main menu
     private var rightDrawer : UIViewController?
@@ -32,8 +34,22 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         // Initialize navigation service
         NavigationService.sharedInstance.initWithRootNavigationController(self)
         
+        // When the app launches for the first time, decide whether to show the sign in screen
+        let hasOAuthCredentials = AuthenticationService.sharedInstance.retrieveStoredOAuthTokens()
+        let currentUser = AuthenticationService.sharedInstance.getCurrentUserInfoFromCache()
+        if hasOAuthCredentials && currentUser != nil {
+            shouldShowSignInScreen = false
+        } else {
+            shouldShowSignInScreen = true
+        }
+        
         // Events
         NotificationCenter.default.addObserver(self, selector: #selector(userDidSignIn(_:)), name: AuthenticationService.userDidSignIn, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidSkipSignIn(_:)), name: AuthenticationService.userDidSkipSignIn, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(userDidSignOut(_:)), name: AuthenticationService.userDidSignOut, object: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
     }
     
@@ -43,22 +59,12 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Retrieve OAuth tokens. If the tokens are absent, prompt the user to the sign in screen
-        let authService = AuthenticationService.sharedInstance
-        if !authService.retrieveStoredOAuthTokens() {
-            debugPrint("Tokens not found")
-            showSignInScreen()
-            return
-        }
-        
-        // Retrieve current user info. If not found (or cannot read), prompt the user to the sign in screen
-        let currentUser = authService.getCurrentUserInfoFromCache()
-        if currentUser == nil {
-            debugPrint("Current user info not found")
-            showSignInScreen()
+
+        // Decide whether to show home stream or the greetings screen
+        if shouldShowSignInScreen {
+            shouldShowSignInScreen = false
+            showGreetingsScreen()
         } else {
-            StorageService.sharedInstance.currentUser = currentUser
             proceedAfterSignIn()
         }
     }
@@ -82,7 +88,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         }
     }
     
-    private func showSignInScreen() {
+    private func showGreetingsScreen() {
         let greetingsViewController = GreetingsViewController(nibName: "GreetingsViewController", bundle: nil)
         self.present(greetingsViewController, animated: false, completion: nil)
     }
@@ -101,11 +107,29 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         }
     }
     
-    func didRequestRightDrawer(_ notification : Notification) {
+    @objc private func userDidSkipSignIn(_ notification : Notification) {
+        dismiss(animated: true) {
+            self.proceedAfterSignIn()
+        }
+    }
+    
+    @objc private func didRequestRightDrawer(_ notification : Notification) {
         let animationContext = self.rightDrawerAnimationContext(false)
         DrawerService.sharedInstance.presentDrawer(animationContext)
     }
     
+    @objc private func userDidSignOut(_ notification : Notification) {
+        StorageService.sharedInstance.signout()
+        APIService.sharedInstance.signout()
+        popToRootViewController(animated: false)
+        
+        SDImageCache.shared().clearMemory()
+        SDImageCache.shared().clearDisk()
+        
+        // Return to greetings screen
+        showGreetingsScreen()
+    }
+
     //MARK: Private
     
     func rightDrawerAnimationContext(_ interactive : Bool) -> DrawerAnimationContext {

@@ -100,21 +100,14 @@ class APIService: NSObject {
     // Singleton instance
     static let sharedInstance = APIService()
     private override init() {
-        let authenticationService = AuthenticationService.sharedInstance
-        client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
-                                  consumerSecret: authenticationService.consumerSecret,
-                                  oauthToken: authenticationService.accessToken!,
-                                  oauthTokenSecret: authenticationService.accessTokenSecret!,
-                                  version: .oauth1)
-        
         super.init()
-        
-        // Initialize cache
-        initializeCache()
+
+        // Initialize API client and cache
+        initialize()
     }
     
     // OAuth client for making API calls
-    var client : OAuthSwiftClient
+    var client : OAuthSwiftClient!
     
     // HTTP cache
     internal var cacheController : Cache<NSData>?
@@ -126,4 +119,32 @@ class APIService: NSObject {
     // On-going API requests
     internal var pendingRequestQueue = [String]()
     
+    func initialize() {
+        let authenticationService = AuthenticationService.sharedInstance
+        if AuthenticationService.sharedInstance.accessToken != nil && authenticationService.accessTokenSecret != nil {
+            client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
+                                      consumerSecret: authenticationService.consumerSecret,
+                                      oauthToken: authenticationService.accessToken!,
+                                      oauthTokenSecret: authenticationService.accessTokenSecret!,
+                                      version: .oauth1)
+        } else {
+            client = OAuthSwiftClient(consumerKey: authenticationService.consumerKey,
+                                      consumerSecret: authenticationService.consumerSecret,
+                                      version: .oauth1)
+        }
+        
+        // Prepare API response cache
+        initializeCache()
+    }
+    
+    func skipSignIn() {
+        initialize()
+    }
+    
+    func signout() {
+        AuthenticationService.sharedInstance.signout()
+        
+        // Recreate the API clients
+        initialize()
+    }
 }

@@ -14,6 +14,7 @@ class GreetingsViewController: UIViewController {
     @IBOutlet weak var titleView: UIImageView!
     @IBOutlet weak var subTitleView: UILabel!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var skipSignInButton: UIButton!
     
     private var animationStarted = false
     
@@ -35,7 +36,10 @@ class GreetingsViewController: UIViewController {
         
         self.signInButton.alpha = 0
         self.signInButton.transform = CGAffineTransform(translationX: 0, y: 30)
-        
+
+        self.skipSignInButton.alpha = 0
+        self.skipSignInButton.transform = CGAffineTransform(translationX: 0, y: 30)
+
         // Events
         signInButton.addTarget(self, action: #selector(signInButtonDidTap(_:)), for: UIControlEvents.touchUpInside)
     }
@@ -78,7 +82,13 @@ class GreetingsViewController: UIViewController {
                 self?.signInButton.alpha = 1
                 self?.signInButton.transform = CGAffineTransform.identity
             })
-            
+
+            // Skip Sign in button
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.4, animations: {
+                self?.skipSignInButton.alpha = 1
+                self?.skipSignInButton.transform = CGAffineTransform.identity
+            })
+
             }, completion: { [weak self] (Bool) in
                 self?.logoView.performPerspectiveAnimation()
         })
@@ -90,4 +100,9 @@ class GreetingsViewController: UIViewController {
         present(navController, animated: true, completion: nil)
     }
 
+    @IBAction func skipSignInButtonDidTap(_ sender: Any) {
+        AuthenticationService.sharedInstance.skipSignIn()
+        APIService.sharedInstance.skipSignIn()
+        NotificationCenter.default.post(name: AuthenticationService.userDidSkipSignIn, object: nil)
+    }
 }

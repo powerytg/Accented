@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 class NavigationService: NSObject, UINavigationControllerDelegate {
 
@@ -91,11 +90,6 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
     }
     
     func signout() {
-        StorageService.sharedInstance.signout()
-        AuthenticationService.sharedInstance.signout()
-        _ = rootNavigationController?.popToRootViewController(animated: true)
-        
-        SDImageCache.shared().clearMemory()
-        SDImageCache.shared().clearDisk()
+        NotificationCenter.default.post(name: AuthenticationService.userDidSignOut, object: nil)
     }
 }

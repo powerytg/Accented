@@ -22,9 +22,9 @@ class MainMenuViewController: SectionViewController {
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
         
-        addSection(MainMenuHeaderSectionView(ModelBase()))
-        addSection(MainMenuAuthenticatedUserSectionView(ModelBase()))
-        addSection(MainMenuThemeSectionView(ModelBase()))
+        addSection(MainMenuHeaderSectionView(drawer : self))
+        addSection(MainMenuAuthenticatedUserSectionView(drawer : self))
+        addSection(MainMenuThemeSectionView(drawer : self))
     }
     
     override func viewWillLayoutSubviews() {

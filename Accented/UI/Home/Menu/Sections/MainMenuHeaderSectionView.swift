@@ -8,17 +8,17 @@
 
 import UIKit
 
-class MainMenuHeaderSectionView: SectionViewBase {
+class MainMenuHeaderSectionView: MainMenuSectionBase {
     
     private var avatarView = UIImageView()
-    private var authorLabel = UILabel()
+    private var authorButton = UIButton()
     
     // Fixed height
     static let sectionHeight : CGFloat = 180
     
     private let labelPaddingLeft : CGFloat = 120
     private let avatarSize : CGFloat = 40
-    private let avatarPaddingTop : CGFloat = 26
+    private let avatarPaddingTop : CGFloat = 36
     private let avatarPaddingRight : CGFloat = 15
     private let gap : CGFloat = 25
     
@@ -28,32 +28,31 @@ class MainMenuHeaderSectionView: SectionViewBase {
         avatarView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarView)
         
-        authorLabel.textColor = UIColor.white
-        authorLabel.font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
-        authorLabel.textAlignment = .right
-        authorLabel.numberOfLines = 1
-        authorLabel.lineBreakMode = .byTruncatingMiddle
-        contentView.addSubview(authorLabel)
+        authorButton.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        authorButton.titleLabel?.font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
+        authorButton.contentHorizontalAlignment = .right
+        contentView.addSubview(authorButton)
         
         if let user = StorageService.sharedInstance.currentUser {
             if let avatarUrl = DetailUserUtils.preferredAvatarUrl(user) {
                 avatarView.sd_setImage(with: avatarUrl)
             }
             
-            authorLabel.text = TextUtils.preferredAuthorName(user).uppercased()
+            authorButton.setTitleColor(UIColor.white, for: .normal)
+            authorButton.setTitle(TextUtils.preferredAuthorName(user).uppercased(), for: .normal)
         } else {
-            authorLabel.text = "Sign In"
+            authorButton.setTitleColor(UIColor(red: 30 / 255.0, green: 128 / 255.0, blue: 243 / 255.0, alpha: 1.0), for: .normal)
+            authorButton.setTitle("Sign In To 500px", for: .normal)
         }
         
-        authorLabel.sizeToFit()
+        authorButton.sizeToFit()
         
         // Gestures
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnUserProfile(_:)))
-        authorLabel.isUserInteractionEnabled = true
-        authorLabel.addGestureRecognizer(tap)
-        
         avatarView.isUserInteractionEnabled = true
         avatarView.addGestureRecognizer(tap)
+        
+        authorButton.addTarget(self, action: #selector(didTapOnUserProfile(_:)), for: .touchUpInside)
     }
     
     override func layoutSubviews() {
@@ -69,11 +68,11 @@ class MainMenuHeaderSectionView: SectionViewBase {
             avatarView.frame = f
             nextX -= (avatarSize + gap)
             
-            f = authorLabel.frame
+            f = authorButton.frame
             f.origin.x = labelPaddingLeft
             f.origin.y = avatarPaddingTop
             f.size.width = nextX - f.origin.x
-            authorLabel.frame = f
+            authorButton.frame = f
 
             // Avatar shadow
             avatarView.layer.shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: avatarSize, height: avatarSize)).cgPath
@@ -82,28 +81,30 @@ class MainMenuHeaderSectionView: SectionViewBase {
             avatarView.layer.shadowRadius = 3
             avatarView.layer.shadowOffset = CGSize(width: 0, height: 2)
         } else {
-            var f = authorLabel.frame
-            f = authorLabel.frame
+            var f = authorButton.frame
+            f = authorButton.frame
             f.origin.x = labelPaddingLeft
             f.origin.y = avatarPaddingTop
             f.size.width = nextX - f.origin.x
-            authorLabel.frame = f
+            authorButton.frame = f
         }
     }
     
     // MARK: - Measurements
     
     override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
-        return 60
+        return 80
     }
     
     // MARK : - Events
     
-    @objc private func didTapOnUserProfile(_ tap : UITapGestureRecognizer) {
-        if let user = StorageService.sharedInstance.currentUser {
-            NavigationService.sharedInstance.navigateToUserProfilePage(user: user)
-        } else {
-            NavigationService.sharedInstance.signout()
-        }
+    @objc private func didTapOnUserProfile(_ sender : AnyObject) {
+        drawer?.dismiss(animated: true, completion: { 
+            if let user = StorageService.sharedInstance.currentUser {
+                NavigationService.sharedInstance.navigateToUserProfilePage(user: user)
+            } else {
+                NavigationService.sharedInstance.signout()
+            }
+        })
     }
 }

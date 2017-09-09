@@ -71,6 +71,9 @@ class SignInViewController: UIViewController, UIWebViewDelegate, OAuthSwiftURLHa
             self?.progressView.alpha = 1
             self?.indicator.startAnimating()
         }) { [weak self] (finished) in
+            // Initialize API clients
+            APIService.sharedInstance.initialize()
+            
             self?.requestCurrentUserInfo()
         }
     }
