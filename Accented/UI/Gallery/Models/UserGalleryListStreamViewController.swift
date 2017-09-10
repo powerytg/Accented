@@ -24,6 +24,12 @@ class UserGalleryListStreamViewController: InfiniteLoadingViewController<Gallery
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Load stream if necessary
+        if let vm = viewModel {
+            vm.collection = galleryCollection
+            vm.loadIfNecessary()
+        }
     }
 
     override func didReceiveMemoryWarning() {

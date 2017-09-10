@@ -116,7 +116,11 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
     }
     
     func canLoadMore() -> Bool {
-        return collection.totalCount! > collection.items.count && collection.items.count < maxAllowedItemCount
+        if !collection.loaded {
+            return true
+        } else {
+            return collection.totalCount! > collection.items.count && collection.items.count < maxAllowedItemCount
+        }
     }
     
     func collecitonDidUpdate(collection : CollectionModel<T>, page : Int) -> Void {
@@ -189,8 +193,10 @@ class InfiniteLoadingViewModel<T : ModelBase>: NSObject, UICollectionViewDataSou
             loadingView.viewModel = self
             self.loadingCell = loadingView
             if canLoadMore() {
-                // If there are no more items in the stream to load, show the ending status
-                if collection.items.count >= collection.totalCount! {
+                if !collection.loaded {
+                    loadingView.showLoadingState()
+                } else if collection.items.count >= collection.totalCount! {
+                    // If there are no more items in the stream to load, show the ending status
                     loadingView.showEndingState()
                 } else {
                     // Otherwise, always show the loading state, even if the previous attempt of loading failed. This is because we'll trigger loadNextPage() regardless of footer state

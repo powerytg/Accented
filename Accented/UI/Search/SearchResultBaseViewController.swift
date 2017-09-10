@@ -54,7 +54,6 @@ class SearchResultBaseViewController: UIViewController {
     }
     
     @IBAction func searchButtonDidTap(_ sender: AnyObject) {
-        let searchViewController = SearchViewController()
-        present(searchViewController, animated: true, completion: nil)
+        NavigationService.sharedInstance.navigateToSearch(from: self)
     }
 }

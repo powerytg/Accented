@@ -24,6 +24,9 @@ class MainMenuThemeSectionView: MainMenuSectionBase {
             let renderer = MainMenuThemeRenderer(theme)
             contentView.addSubview(renderer)
             renderers.append(renderer)
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(didSelectTheme(_:)))
+            renderer.addGestureRecognizer(tap)
         }
     }
     
@@ -44,6 +47,17 @@ class MainMenuThemeSectionView: MainMenuSectionBase {
             renderer.frame = f
             
             nextY += rowHeight + gap
+        }
+    }
+    
+    @objc private func didSelectTheme(_ tap : UITapGestureRecognizer) {
+        guard tap.view != nil else { return }
+        guard tap.view! is MainMenuThemeRenderer else { return }
+        let renderer = tap.view! as! MainMenuThemeRenderer
+        let selectedTheme = renderer.theme
+        if selectedTheme != ThemeManager.sharedInstance.currentTheme {
+            ThemeManager.sharedInstance.currentTheme = selectedTheme
+            drawer?.dismiss(animated: true, completion: nil)
         }
     }
 }

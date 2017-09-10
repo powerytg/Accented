@@ -85,6 +85,11 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
     
+    func navigateToSearch(from: UIViewController) {
+        let searchViewController = SearchViewController()
+        from.present(searchViewController, animated: true, completion: nil)
+    }
+    
     func popToRootController(animated : Bool) {
         _ = rootNavigationController?.popToRootViewController(animated: animated)
     }

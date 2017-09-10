@@ -14,7 +14,10 @@ class StreamEvents: NSObject {
     
     // Stream is about the change
     static let streamSelectionWillChange = Notification.Name("streamSelectionWillChange")
-    
+
+    // Stream selection has changed
+    static let streamSelectionDidChange = Notification.Name("streamSelectionDidChange")
+
     // Request of left drawer
     static let didRequestLeftDrawer = Notification.Name("didRequestLeftDrawer")
     

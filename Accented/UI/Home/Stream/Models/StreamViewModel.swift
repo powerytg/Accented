@@ -89,6 +89,7 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
         
         if endIndex < startIndex {
             debugPrint("End index \(endIndex) is smaller than start index \(startIndex)!")
+            delegate?.viewModelDidUpdate()
             return
         }
         

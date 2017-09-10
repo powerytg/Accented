@@ -119,8 +119,7 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         guard index != nil else { return }
         switch index! {
         case 0:
-            let searchViewController = SearchViewController()
-            present(searchViewController, animated: true, completion: nil)
+            NavigationService.sharedInstance.navigateToSearch(from: self)
         case 1:
             NavigationService.sharedInstance.navigateToCamera()
         case 2:
@@ -141,6 +140,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
         
         StorageService.sharedInstance.currentStream = StorageService.sharedInstance.getStream(streamType!)
         streamViewController!.switchStream(StorageService.sharedInstance.currentStream)
+        
+        NotificationCenter.default.post(name: StreamEvents.streamSelectionDidChange, object: nil)
     }
     
     @objc private func appThemeDidChange(_ notification : Notification) {

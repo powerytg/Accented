@@ -78,8 +78,15 @@ class GalleryRenderer: UIView {
         f.size.height = measuredTitleSize.height
         titleLabel.frame = f
         
-        guard let coverUrlString = gallery.coverPhotoUrl else { return }
-        guard let coverUrl = URL(string: coverUrlString) else { return }
+        guard let coverUrlString = gallery.coverPhotoUrl else {
+            imageView.image = nil
+            return
+        }
+        
+        guard let coverUrl = URL(string: coverUrlString) else {
+            imageView.image = nil
+            return
+        }
         
         // Set thumbnail image
         imageView.frame = self.bounds

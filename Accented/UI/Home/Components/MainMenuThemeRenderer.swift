@@ -10,10 +10,11 @@ import UIKit
 
 class MainMenuThemeRenderer: UIView {
     private let padding : CGFloat = 12
-    private var theme : AppTheme
     private var imageView = UIImageView()
     private var titleLabel = UILabel()
 
+    var theme : AppTheme
+    
     init(_ theme : AppTheme) {
         self.theme = theme
         super.init(frame: CGRect.zero)
@@ -36,6 +37,8 @@ class MainMenuThemeRenderer: UIView {
 
         if theme == ThemeManager.sharedInstance.currentTheme {
             applySelectedState()
+        } else {
+            applyUnselectedState()
         }
     }
     

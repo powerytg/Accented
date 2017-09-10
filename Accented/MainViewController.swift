@@ -9,20 +9,11 @@
 import UIKit
 import SDWebImage
 
-class MainViewController: UINavigationController, DrawerOpenGestureControllerDelegate {
+class MainViewController: UINavigationController {
 
-    private var rightDrawerSize : CGSize
-    private var rightDrawerGestureController : DrawerOpenGestureController?
     private var shouldShowSignInScreen = false
     
-    // Main menu
-    private var rightDrawer : UIViewController?
-    
     required init?(coder aDecoder: NSCoder) {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        rightDrawerSize = CGSize(width: screenWidth * MainMenuViewController.drawerWidthInPercentage, height: screenHeight)
-
         super.init(coder: aDecoder)
     }
     
@@ -38,6 +29,7 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         let hasOAuthCredentials = AuthenticationService.sharedInstance.retrieveStoredOAuthTokens()
         let currentUser = AuthenticationService.sharedInstance.getCurrentUserInfoFromCache()
         if hasOAuthCredentials && currentUser != nil {
+            StorageService.sharedInstance.currentUser = currentUser
             shouldShowSignInScreen = false
         } else {
             shouldShowSignInScreen = true
@@ -73,11 +65,6 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         // Show the home view controller as root
         let homeViewController = HomeViewController()
         self.pushViewController(homeViewController, animated: false)
-        
-        // Setup drawers
-        rightDrawer = MainMenuViewController()
-        let rightDrawerAnimationContext = self.rightDrawerAnimationContext(true)
-        self.rightDrawerGestureController = DrawerService.sharedInstance.addInteractiveGesture(rightDrawerAnimationContext, delegate: self)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -93,12 +80,6 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         self.present(greetingsViewController, animated: false, completion: nil)
     }
     
-    //MARK: DrawerOpenGestureControllerDelegate
-    
-    func drawerAnimationContextForInteractiveGesture() -> DrawerAnimationContext {
-        return self.rightDrawerAnimationContext(true)
-    }
-    
     //MARK: Events
     
     @objc private func userDidSignIn(_ notification : Notification) {
@@ -108,13 +89,25 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
     }
     
     @objc private func userDidSkipSignIn(_ notification : Notification) {
-        dismiss(animated: true) {
-            self.proceedAfterSignIn()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.presentedViewController?.view.alpha = 0
+        }) { [weak self] (finished) in
+            self?.dismiss(animated: false) { [weak self] in
+                self?.proceedAfterSignIn()
+            }
         }
     }
     
     @objc private func didRequestRightDrawer(_ notification : Notification) {
-        let animationContext = self.rightDrawerAnimationContext(false)
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        let drawerSize = CGSize(width: screenWidth * MainMenuViewController.drawerWidthInPercentage, height: screenHeight)
+        let drawer = MainMenuViewController()
+        
+        let animationContext = DrawerAnimationContext(content: drawer)
+        animationContext.anchor = .right
+        animationContext.container = self
+        animationContext.drawerSize = CGSize(width: drawerSize.width, height: drawerSize.height)
         DrawerService.sharedInstance.presentDrawer(animationContext)
     }
     
@@ -129,17 +122,4 @@ class MainViewController: UINavigationController, DrawerOpenGestureControllerDel
         // Return to greetings screen
         showGreetingsScreen()
     }
-
-    //MARK: Private
-    
-    func rightDrawerAnimationContext(_ interactive : Bool) -> DrawerAnimationContext {
-        let animationContext = DrawerAnimationContext(content : rightDrawer!)
-        animationContext.container = self
-        animationContext.drawerSize = rightDrawerSize
-        animationContext.anchor = .right
-        animationContext.interactive = interactive
-        
-        return animationContext
-    }
-    
 }

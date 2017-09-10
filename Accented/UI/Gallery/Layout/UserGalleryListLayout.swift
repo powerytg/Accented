@@ -133,7 +133,7 @@ class UserGalleryListLayout: InfiniteLoadingLayout<GalleryModel> {
         layoutCache[footerCacheKey] = footerAttributes
         nextY += footerHeight + vGap
         
-        contentHeight = nextY
+        contentHeight = nextY + galleryHeight + vGap
     }
     
     private func cacheKeyForGallery(_ gallery : GalleryModel) -> String {

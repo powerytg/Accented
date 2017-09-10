@@ -43,11 +43,18 @@ class DefaultStreamSelectorView: UIView {
         initialize()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func initialize() {
         self.layer.addSublayer(topLine)
         self.layer.addSublayer(bottomLine)
         
         createTabs()
+        
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(streamDidChange(_:)), name: StreamEvents.streamSelectionDidChange, object: nil)
     }
 
     override func layoutSubviews() {
@@ -159,5 +166,11 @@ class DefaultStreamSelectorView: UIView {
         default:
             fatalError("StreamType not implemented")
         }
+    }
+    
+    // MARK : - Events
+    
+    @objc private func streamDidChange(_ notification : Notification) {
+        setNeedsLayout()
     }
 }
