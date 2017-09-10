@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class AboutViewController: UIViewController {
+class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var aboutHeaderLabel: UILabel!
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var aboutButton: PushButton!
@@ -41,15 +42,19 @@ class AboutViewController: UIViewController {
     }
     
     @IBAction func feedbackButtonDidTap(_ sender: Any) {
-        let to = "powerytg@gmail.com"
-        let subject = "Accent app feedback"
-        let urlString = "mailto:\(to)?subject=\(subject)"
-        if let url = URL(string: urlString) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients(["powerytg@gmail.com"])
+        composer.setSubject("Accented app feedback")
+        present(composer, animated: true, completion: nil)
     }
     
     @IBAction func backButtonDidTap(_ sender: Any) {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - MFMailComposeViewControllerDelegate
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }

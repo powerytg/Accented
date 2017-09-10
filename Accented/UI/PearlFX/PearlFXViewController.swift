@@ -62,11 +62,11 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
         filterSelectorView.delegate = self
         adjustmentSelectorView.delegate = self
         
-        #if STANDALONE_MODE
-            confirmButton.setTitle("SAVE", for: .normal)
-        #else
+        if isAuthenticatedUser() {
             confirmButton.setTitle("UPLOAD", for: .normal)
-        #endif
+        } else {
+            confirmButton.setTitle("SAVE", for: .normal)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -179,11 +179,11 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
     }
     
     @IBAction func confirmButtonDidTap(_ sender: Any) {
-        #if STANDALONE_MODE
-            didTapOnSaveButton(proceedToUpload: false)
-        #else
+        if isAuthenticatedUser() {
             didTapOnSaveButton(proceedToUpload : true)
-        #endif
+        } else {
+            didTapOnSaveButton(proceedToUpload: false)
+        }
     }
 
     private func renderProdImageAndShare() {
@@ -367,5 +367,13 @@ class PearlFXViewController: UIViewController, FilterSelectorViewDelegate, Adjus
     // MARK: - AdjustmentUIDelegate
     func didRequestDismissCurrentAdjustmentUI() {
         dismissCurrentAdjustmentUI(nil)
+    }
+    
+    private func isAuthenticatedUser() -> Bool {
+        #if STANDALONE_MODE
+            return false
+        #else
+            return (StorageService.sharedInstance.currentUser != nil)
+        #endif
     }
 }

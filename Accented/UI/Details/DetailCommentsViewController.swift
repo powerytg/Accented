@@ -47,6 +47,9 @@ class DetailCommentsViewController: InfiniteLoadingViewController<CommentModel> 
         composeButton.titleLabel?.font = ThemeManager.sharedInstance.currentTheme.navButtonFont
         composeButton.addTarget(self, action: #selector(composeButtonDidTap(_:)), for: .touchUpInside)
         composeButton.sizeToFit()
+        
+        // Only registerd user can post comments
+        composeButton.isHidden = (StorageService.sharedInstance.currentUser == nil)
     }
     
     override func didReceiveMemoryWarning() {
