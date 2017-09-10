@@ -18,6 +18,14 @@ class LightTheme: AppTheme {
         return UIImage(named: "LightThemeThumbnail")
     }
 
+    override var rootViewBackgroundColor: UIColor {
+        return UIColor.white
+    }
+    
+    override var backgroundDecorImage: UIImage {
+        return UIImage(named: "LightButterfly")!
+    }
+    
     override var streamBackgroundColor : UIColor {
         return UIColor.white
     }

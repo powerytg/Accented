@@ -20,4 +20,8 @@ class LightCardTheme: LightTheme {
     override var streamViewModelClass : StreamViewModel.Type {
         return StreamCardViewModel.self
     }
+    
+    override var backgroundViewClass : ThemeableBackgroundView.Type {
+        return CardBackgroundView.self
+    }
 }

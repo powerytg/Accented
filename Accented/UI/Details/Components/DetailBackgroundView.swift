@@ -27,8 +27,9 @@ class DetailBackgroundView: UIImageView {
     }
     
     private func initialize() {
+        backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         self.clipsToBounds = true
-        self.image = UIImage(named: "DarkButterfly")
+        self.image = ThemeManager.sharedInstance.currentTheme.backgroundDecorImage
         self.contentMode = .scaleAspectFill
     }
     

@@ -32,6 +32,10 @@ class AppTheme: NSObject {
     var rootViewBackgroundColor : UIColor {
         return UIColor.black
     }
+    
+    var backgroundDecorImage : UIImage {
+        return UIImage(named: "DarkButterfly")!
+    }
 
     // Home stream background color
     var streamBackgroundColor : UIColor {

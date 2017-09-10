@@ -142,6 +142,7 @@
 		18D0BF351ED5211B008677FE /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF341ED5211B008677FE /* CollectionModel.swift */; };
 		18D0BF381ED52259008677FE /* CommentCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF371ED52259008677FE /* CommentCollectionModel.swift */; };
 		18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */; };
+		18EEB52A1F66069000F6B357 /* CardBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EEB5291F66069000F6B357 /* CardBackgroundView.swift */; };
 		18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */; };
 		18FE81EA1F4DEAE000CFAB47 /* SectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81E91F4DEAE000CFAB47 /* SectionViewController.swift */; };
 		18FE81F21F4DF88600CFAB47 /* UserHeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE81F11F4DF88600CFAB47 /* UserHeaderSectionView.swift */; };
@@ -542,6 +543,7 @@
 		18D0BF341ED5211B008677FE /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		18D0BF371ED52259008677FE /* CommentCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionModel.swift; sourceTree = "<group>"; };
 		18D0BF3A1ED525F0008677FE /* StorageServiceCacheController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageServiceCacheController.swift; sourceTree = "<group>"; };
+		18EEB5291F66069000F6B357 /* CardBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBackgroundView.swift; sourceTree = "<group>"; };
 		18EED5E91ED68BCF00507D6D /* StorageService+Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StorageService+Users.swift"; sourceTree = "<group>"; };
 		18FE81E91F4DEAE000CFAB47 /* SectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionViewController.swift; sourceTree = "<group>"; };
 		18FE81F11F4DF88600CFAB47 /* UserHeaderSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHeaderSectionView.swift; sourceTree = "<group>"; };
@@ -945,6 +947,7 @@
 				18222A1B1EDBC98600F0F02E /* LoadingViewController.xib */,
 				9B7B167F1EDF69F500412840 /* DesaturatedBackgroundView.swift */,
 				9B544D711EE9FA2B006DB738 /* InteractiveImageView.swift */,
+				18EEB5291F66069000F6B357 /* CardBackgroundView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2103,6 +2106,7 @@
 				186FF9551F64FEA20002B815 /* UserFriendsPhotosViewController.swift in Sources */,
 				1804F4C91F590D2B0073697D /* MenuModel.swift in Sources */,
 				187E5D6E1F533F2400169188 /* Composer.swift in Sources */,
+				18EEB52A1F66069000F6B357 /* CardBackgroundView.swift in Sources */,
 				9BA9ADBD1F4CD898006F0AC0 /* MeterView.swift in Sources */,
 				18320D7C1F650CF300755967 /* StorageService+Photos.swift in Sources */,
 				184951D51ED133F8006301E8 /* ModelBase.swift in Sources */,
