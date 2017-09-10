@@ -86,7 +86,7 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
     }
     
     private func createStreamViewController(_ style : StreamDisplayStyle, animated : Bool) {
-        let stream = StorageService.sharedInstance.getUserFriendsStream(userId: user.userId)
+        let stream = StorageService.sharedInstance.getStream(.UserFriends)
         streamViewController = UserFriendsPhotosStreamViewController(user: user, stream: stream, style : style)
         addChildViewController(streamViewController)
         

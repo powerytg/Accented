@@ -38,14 +38,6 @@ class UserFriendsStreamCardViewModel: SingleHeaderStreamViewModel {
         fatalError("init(stream:collectionView:flowLayoutDelegate:) has not been implemented")
     }
     
-    override func loadPageAt(_ page : Int) {
-        let params = ["tags" : "1"]
-        let userFriendsStreamModel = stream as! UserFriendsStreamModel
-        APIService.sharedInstance.getUserFriendsPhotos(userId: userFriendsStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
-            self?.collectionFailedRefreshing(errorMessage)
-        }
-    }
-    
     override func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
         let streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderReuseIdentifier, for: indexPath) as! DefaultSingleStreamHeaderCell
         let userName = TextUtils.preferredAuthorName(user).uppercased()

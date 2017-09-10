@@ -77,8 +77,6 @@
 		186FF9471F64F3F70002B815 /* UserFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9461F64F3F70002B815 /* UserFriendsModel.swift */; };
 		186FF9491F64F4550002B815 /* GetUserFriendsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */; };
 		186FF94B1F64F7F10002B815 /* UserFriendsStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF94A1F64F7F10002B815 /* UserFriendsStreamViewController.swift */; };
-		186FF94D1F64FB9A0002B815 /* GetUserFriendsPhotosRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF94C1F64FB9A0002B815 /* GetUserFriendsPhotosRequest.swift */; };
-		186FF94F1F64FCD10002B815 /* UserFriendsStreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF94E1F64FCD10002B815 /* UserFriendsStreamModel.swift */; };
 		186FF9511F64FDBF0002B815 /* UserFriendsStreamViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9501F64FDBF0002B815 /* UserFriendsStreamViewModel.swift */; };
 		186FF9531F64FE400002B815 /* UserFriendsStreamCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9521F64FE400002B815 /* UserFriendsStreamCardViewModel.swift */; };
 		186FF9551F64FEA20002B815 /* UserFriendsPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9541F64FEA20002B815 /* UserFriendsPhotosViewController.swift */; };
@@ -479,8 +477,6 @@
 		186FF9461F64F3F70002B815 /* UserFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsModel.swift; sourceTree = "<group>"; };
 		186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserFriendsRequest.swift; sourceTree = "<group>"; };
 		186FF94A1F64F7F10002B815 /* UserFriendsStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsStreamViewController.swift; sourceTree = "<group>"; };
-		186FF94C1F64FB9A0002B815 /* GetUserFriendsPhotosRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserFriendsPhotosRequest.swift; sourceTree = "<group>"; };
-		186FF94E1F64FCD10002B815 /* UserFriendsStreamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsStreamModel.swift; sourceTree = "<group>"; };
 		186FF9501F64FDBF0002B815 /* UserFriendsStreamViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsStreamViewModel.swift; sourceTree = "<group>"; };
 		186FF9521F64FE400002B815 /* UserFriendsStreamCardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsStreamCardViewModel.swift; sourceTree = "<group>"; };
 		186FF9541F64FEA20002B815 /* UserFriendsPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsPhotosViewController.swift; sourceTree = "<group>"; };
@@ -1437,7 +1433,6 @@
 				9B7B17E31EE21FC500412840 /* GalleryCollectionModel.swift */,
 				1804F4D51F6370190073697D /* GalleryStreamModel.swift */,
 				186FF9461F64F3F70002B815 /* UserFriendsModel.swift */,
-				186FF94E1F64FCD10002B815 /* UserFriendsStreamModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1510,7 +1505,6 @@
 				187E5D881F546B9E00169188 /* UploadPhotoRequest.swift */,
 				1804F4D31F636E5A0073697D /* GetGalleryPhotosRequest.swift */,
 				186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */,
-				186FF94C1F64FB9A0002B815 /* GetUserFriendsPhotosRequest.swift */,
 				18320D771F650AFD00755967 /* VotePhotoRequest.swift */,
 				18320D791F650BA900755967 /* DeleteVotePhotoRequest.swift */,
 				18320D811F65CC1000755967 /* FollowUserRequest.swift */,
@@ -2195,7 +2189,6 @@
 				9B3813C81CE010770066D3B9 /* StreamState.swift in Sources */,
 				1884AA581CEFE37E002109A9 /* StreamJournalLayoutGenerator.swift in Sources */,
 				187E5D871F546AF100169188 /* APIService+Photos.swift in Sources */,
-				186FF94D1F64FB9A0002B815 /* GetUserFriendsPhotosRequest.swift in Sources */,
 				9B6115E61CCAC91E008F5257 /* StreamModel.swift in Sources */,
 				9B9E9E941DBAD664009D5D19 /* InfiniteLoadingViewController.swift in Sources */,
 				9BA9ADDD1F4CD898006F0AC0 /* WhitebalanceFilterNode.swift in Sources */,
@@ -2254,7 +2247,6 @@
 				186FF9471F64F3F70002B815 /* UserFriendsModel.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
-				186FF94F1F64FCD10002B815 /* UserFriendsStreamModel.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,
 				18FE82221F510ED400CFAB47 /* LightCardTheme.swift in Sources */,
 				188A57311D505EF300AA427E /* DetailDescriptionSectionView.swift in Sources */,

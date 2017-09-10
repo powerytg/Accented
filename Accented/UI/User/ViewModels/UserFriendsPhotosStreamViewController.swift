@@ -37,8 +37,7 @@ class UserFriendsPhotosStreamViewController: StreamViewController {
         guard streamId == stream.streamId else { return }
         
         // Get a new copy of the stream
-        let friendsModel = stream as! UserFriendsStreamModel
-        stream = StorageService.sharedInstance.getUserFriendsStream(userId: friendsModel.userId)
+        stream = StorageService.sharedInstance.getStream(.UserFriends)
         
         if let vm = streamViewModel {
             vm.collecitonDidUpdate(collection: stream, page: page)

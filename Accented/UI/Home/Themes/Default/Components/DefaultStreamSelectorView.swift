@@ -18,7 +18,7 @@ class DefaultStreamSelectorView: UIView {
     
     var compressionRateio : CGFloat = 0
     
-    let displayStreamTypes : [StreamType] = [StreamType.Popular, StreamType.FreshToday, StreamType.Upcoming, StreamType.Editors]
+    var displayStreamTypes = [StreamType]()
     private var currentTab : UIButton?
     
     private var unselectedColor : UIColor {
@@ -50,6 +50,12 @@ class DefaultStreamSelectorView: UIView {
     private func initialize() {
         self.layer.addSublayer(topLine)
         self.layer.addSublayer(bottomLine)
+        
+        if StorageService.sharedInstance.currentUser != nil {
+            displayStreamTypes = [.UserFriends, .Popular, .FreshToday, .Editors]
+        } else {
+            displayStreamTypes = [.Popular, .FreshToday, .Upcoming, .Editors]
+        }
         
         createTabs()
         
@@ -163,6 +169,8 @@ class DefaultStreamSelectorView: UIView {
             return "UPCOMING"
         case .Editors:
             return "EDITORS' CHOICE"
+        case .UserFriends:
+            return "ACTIVITIES"
         default:
             fatalError("StreamType not implemented")
         }

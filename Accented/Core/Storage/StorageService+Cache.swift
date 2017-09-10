@@ -81,14 +81,6 @@ extension StorageService {
         })
     }
 
-    // Retrieve a user's friends photo stream from cache
-    func getUserFriendsStream(userId : String) -> UserFriendsStreamModel {
-        let cacheKey = userId
-        return cacheController.getCachedResource(cacheKey: cacheKey, inCache: cacheController.userFriendsPhotoCache, creationCallback: { () -> UserFriendsStreamModel in
-            return UserFriendsStreamModel(userId : userId)
-        })
-    }
-
     // Retrieve a user's galleries from cache
     func getUserGalleries(userId : String) -> GalleryCollectionModel {
         let cacheKey = userId
@@ -158,12 +150,6 @@ extension StorageService {
     func putUserStreamToCache(_ collection : UserStreamModel) {
         let cacheKey = NSString(string: collection.modelId!)
         cacheController.userPhotoCache.setObject(collection, forKey: cacheKey)
-    }
-
-    // Put a user friends stream to cache
-    func putUserFriendsStreamToCache(_ collection : UserFriendsStreamModel) {
-        let cacheKey = NSString(string: collection.modelId!)
-        cacheController.userFriendsPhotoCache.setObject(collection, forKey: cacheKey)
     }
 
     // Put a user gallery collection to cache

@@ -12,6 +12,7 @@ class GetStreamPhotosRequest: APIRequest {
     
     private var streamType : StreamType
     private var page : Int
+    private var userId : String?
     
     init(_ streamType : StreamType, page : Int = 1, params : [String : String], success : SuccessAction?, failure : FailureAction?) {
         self.streamType = streamType
@@ -25,6 +26,12 @@ class GetStreamPhotosRequest: APIRequest {
         parameters[RequestParameters.feature] = streamType.rawValue
         parameters[RequestParameters.page] = String(page)
         parameters[RequestParameters.includeStates] = "1"
+        
+        // If the type of userFriends, then use current user's id by default
+        if streamType == .UserFriends && StorageService.sharedInstance.currentUser != nil {
+            userId = StorageService.sharedInstance.currentUser!.userId
+            parameters[RequestParameters.userId] = userId
+        }
         
         if params[RequestParameters.imageSize] == nil {
             parameters[RequestParameters.imageSize] = APIRequest.defaultImageSizesForStream.map({ (size) -> String in
@@ -40,9 +47,13 @@ class GetStreamPhotosRequest: APIRequest {
     
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
-        let userInfo : [String : Any] = [RequestParameters.feature : streamType.rawValue,
+        var userInfo : [String : Any] = [RequestParameters.feature : streamType.rawValue,
                                          RequestParameters.page : page,
                                          RequestParameters.response : data]
+        
+        if userId != nil {
+            userInfo[RequestParameters.userId] = userId!
+        }
         
         NotificationCenter.default.post(name: APIEvents.streamPhotosDidReturn, object: nil, userInfo: userInfo)
         
@@ -54,7 +65,11 @@ class GetStreamPhotosRequest: APIRequest {
     override func handleFailure(_ error: Error) {
         super.handleFailure(error)
         
-        let userInfo : [String : String] = [RequestParameters.errorMessage : error.localizedDescription]
+        var userInfo : [String : String] = [RequestParameters.errorMessage : error.localizedDescription]
+        if userId != nil {
+            userInfo[RequestParameters.userId] = userId!
+        }
+
         NotificationCenter.default.post(name: APIEvents.streamPhotosFailedReturn, object: nil, userInfo: userInfo)
         
         if let failure = failureAction {

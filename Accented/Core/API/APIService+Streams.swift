@@ -38,13 +38,6 @@ extension APIService {
         get(request: request)
     }
 
-    // Get user friends photos
-    func getUserFriendsPhotos(userId : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
-        let request = GetUserFriendsPhotosRequest(userId: userId, page: page, params: parameters, success: success, failure: failure)
-        request.ignoreCache = (page == 1)
-        get(request: request)
-    }
-
     // Get gallery photos
     func getGalleryPhotos(userId : String, galleryId : String, page : Int = 1, parameters:[String : String] = [:], success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) -> Void {
         let request = GetGalleryPhotosRequest(userId: userId, galleryId : galleryId, page: page, params: parameters, success: success, failure: failure)

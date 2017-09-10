@@ -30,7 +30,7 @@ class TextUtils: NSObject {
         case .Search:
             return "Search Result"
         case .UserFriends:
-            return "Photos From Your Friends"
+            return "Recent Activities"
         case .Gallery:
             return "Gallery"
         }
@@ -57,7 +57,7 @@ class TextUtils: NSObject {
         case .Search:
             return "Search Result"
         case .UserFriends:
-            return "Photos From Your Friends"
+            return "Recent Activities"
         case .Gallery:
             return "Gallery"
         }
