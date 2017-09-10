@@ -10,6 +10,7 @@
 
 import UIKit
 import TTTAttributedLabel
+import RMessage
 
 class DetailDescriptionSectionView: DetailSectionViewBase {
     
@@ -71,6 +72,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         voteButton.setImage(UIImage(named : icon), for: .normal)
         voteButton.sizeToFit()
         contentView.addSubview(voteButton)
+        voteButton.addTarget(self, action: #selector(voteButtonDidTap(_:)), for: .touchUpInside)
     }
     
     override func layoutSubviews() {
@@ -203,16 +205,20 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         titleLabel.alpha = 0
         dateLabel.alpha = 0
         descLabel.alpha = 0
+        voteButton.alpha = 0
         
         titleLabel.transform = CGAffineTransform(translationX: 0, y: 30)
         dateLabel.transform = CGAffineTransform(translationX: 0, y: 30)
         descLabel.transform = CGAffineTransform(translationX: 0, y: 30)
+        voteButton.transform = CGAffineTransform(translationX: 0, y: 30)
     }
     
     override func performEntranceAnimation() {
         UIView .addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 1, animations: { [weak self] in
             self?.titleLabel.alpha = 1
             self?.titleLabel.transform = CGAffineTransform.identity
+            self?.voteButton.alpha = 1
+            self?.voteButton.transform = CGAffineTransform.identity
         })
         
         UIView .addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1, animations: { [weak self] in
@@ -224,5 +230,36 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             self?.descLabel.alpha = 1
             self?.descLabel.transform = CGAffineTransform.identity
         })
+    }
+    
+    @objc private func voteButtonDidTap(_ tap : UITapGestureRecognizer) {
+        voteButton.alpha = 0.5
+        voteButton.isUserInteractionEnabled = false
+        
+        if photo.voted {
+            APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: { [weak self] in
+                self?.photo.voted = true
+                self?.voteButton.setImage(UIImage(named: "UpVote"), for: .normal)
+                self?.voteButton.alpha = 1
+                self?.voteButton.isUserInteractionEnabled = true
+                RMessage.showNotification(withTitle: "You removed vote for this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
+            }, failure: { [weak self] (errorMessage) in
+                RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+                self?.voteButton.alpha = 1
+                self?.voteButton.isUserInteractionEnabled = true
+            })
+        } else {
+            APIService.sharedInstance.votePhoto(photoId: photo.photoId, success: { [weak self] in
+                self?.photo.voted = true
+                self?.voteButton.setImage(UIImage(named: "DownVote"), for: .normal)
+                self?.voteButton.alpha = 1
+                self?.voteButton.isUserInteractionEnabled = true
+                RMessage.showNotification(withTitle: "You liked this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
+                }, failure: { [weak self] (errorMessage) in
+                    RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+                    self?.voteButton.alpha = 1
+                    self?.voteButton.isUserInteractionEnabled = true
+            })
+        }
     }
 }

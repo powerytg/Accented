@@ -31,6 +31,22 @@ enum ImageSize : String {
     case Small = "30"   // 256px on the longest side
     case Medium = "31"  // 450px high
     case Large = "4"    // 900px on the longest side
+    
+    // The below sizes can be recognized but not used in the app
+    case px70 = "1"
+    case px140 = "2"
+    case px280 = "3"
+    case px100 = "100"
+    case px200 = "200"
+    case px440 = "440"
+    case px600 = "600"
+    case px1170 = "5"
+    case px1080 = "6"
+    case px300 = "20"
+    case px600Cropped = "21"
+    case px1080Cropped = "1080"
+    case px1600 = "1600"
+    case px2048 = "2048"
 }
 
 // Photo Search Sorting options

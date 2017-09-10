@@ -45,18 +45,20 @@ class PhotoModel: ModelBase {
         
         // Image urls
         for (_, imageJson):(String, JSON) in json["images"] {
+            guard imageJson["https_url"].string != nil else { continue }
             // Parse size metadta
-            let imageSizeString = String(imageJson["size"].int!)
-            let size = ImageSize(rawValue: imageSizeString)
-            imageUrls[size!] = imageJson["https_url"].string!
+            let imageSizeString = String(imageJson["size"].intValue)
+            if let size = ImageSize(rawValue: imageSizeString) {
+                imageUrls[size] = imageJson["https_url"].stringValue
+            }
         }
         
         // Original width and height
-        width = CGFloat(json["width"].int!)
-        height = CGFloat(json["height"].int!)
+        width = CGFloat(json["width"].intValue)
+        height = CGFloat(json["height"].intValue)
         
         // Title
-        title = json["name"].string!
+        title = json["name"].stringValue
         
         // Description
         desc = json["description"].string
