@@ -102,6 +102,15 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
                         MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
                         MenuItem(action: .ViewInFullScreen, text: "View In Full Screen")]
         
+        // A user cannot like his/her own photo
+        if let currentUser = StorageService.sharedInstance.currentUser {
+            if photo.user.userId == currentUser.userId {
+                if let index = signedInMenu.index(of: voteMenuItem) {
+                    signedInMenu.remove(at: index)
+                }
+            }
+        }
+        
         signedOutMenu = [MenuItem(action: .Home, text: "Home"),
                          MenuItem(action: .ViewComments, text: "View Comments"),
                          MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),

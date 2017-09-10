@@ -76,7 +76,16 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         voteButton.addTarget(self, action: #selector(voteButtonDidTap(_:)), for: .touchUpInside)
         
         // Vote/unvote is only available for registered users
-        voteButton.isHidden = (StorageService.sharedInstance.currentUser == nil)
+        // A user cannot like his/her own photo
+        if let currentUser = StorageService.sharedInstance.currentUser {
+            if photo.user.userId == currentUser.userId {
+                voteButton.isHidden = true
+            } else {
+                voteButton.isHidden = false
+            }
+        } else {
+            voteButton.isHidden = true
+        }
         
         // Events
         NotificationCenter.default.addObserver(self, selector: #selector(photoVoteDidUpdate(_:)), name: StorageServiceEvents.photoVoteDidUpdate, object: nil)
