@@ -15,6 +15,7 @@ enum MenuActions {
     case None
     
     // Home
+    case About
     case SignIn
     case SignOut
     case PopularPhotos

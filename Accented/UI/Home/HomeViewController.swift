@@ -13,10 +13,7 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     var backgroundView : ThemeableBackgroundView?
     var streamViewController : HomeStreamViewController?
     var menuBar : CompactMenuBar!
-    
-    let menuItems = [MenuItem(action: .Search, text: "Search"),
-                     MenuItem(action: .PearlCam, text: "Take Photo"),
-                     MenuItem(action: .SignOut, text: "Sign Out")]
+    var menu = [MenuItem]()
 
     // Whether the entrance animation has been performed
     // This flag will be reset after theme change
@@ -107,7 +104,19 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     // MARK: - Menu
     
     private func createMenuBar() {
-        menuBar = CompactMenuBar(menuItems)
+        if StorageService.sharedInstance.currentUser != nil {
+            menu = [MenuItem(action: .Search, text: "Search"),
+                    MenuItem(action: .PearlCam, text: "Take Photo"),
+                    MenuItem(action: .About, text: "Feedback And About"),
+                    MenuItem(action: .SignOut, text: "Sign Out")]
+        } else {
+            menu = [MenuItem(action: .SignIn, text: "Sign In"),
+                    MenuItem(action: .Search, text: "Search"),
+                    MenuItem(action: .PearlCam, text: "Take Photo"),
+                    MenuItem(action: .About, text: "Feedback And About")]
+        }
+        
+        menuBar = CompactMenuBar(menu)
         menuBar.delegate = self
         view.addSubview(menuBar)
     }
@@ -120,6 +129,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
             NavigationService.sharedInstance.navigateToSearch(from: self)
         case .PearlCam:
             NavigationService.sharedInstance.navigateToCamera()
+        case .About:
+            NavigationService.sharedInstance.navigateToAboutPage()
         case .SignOut:
             NavigationService.sharedInstance.signout()
         default:

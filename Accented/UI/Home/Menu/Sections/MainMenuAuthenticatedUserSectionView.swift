@@ -27,6 +27,7 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                        MenuSeparator(),
                        MenuItem(action:.PearlCam, text: "Pearl Cam"),
                        MenuSeparator(),
+                       MenuItem(action:.About, text: "Feedback And About"),
                        MenuItem(action:.SignOut, text: "Sign Out")]
 
     let signedOutOptions = [MenuItem(action : .Search, text: "Search", image : UIImage(named: "SearchButtonMainMenu")),
@@ -38,6 +39,7 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                            MenuSeparator(),
                            MenuItem(action:.PearlCam, text: "Pearl Cam"),
                            MenuSeparator(),
+                           MenuItem(action:.About, text: "Feedback And About"),
                            MenuItem(action:.SignIn, text: "Sign In")]
 
     private var renderers = [MainMenuItemRenderer]()
@@ -168,6 +170,10 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                 if let currentUser = StorageService.sharedInstance.currentUser {
                     NavigationService.sharedInstance.navigateToUserFriendsPhotosPage(user: currentUser)
                 }
+            })
+        case .About:
+            drawer?.dismiss(animated: true, completion: {
+                NavigationService.sharedInstance.navigateToAboutPage()
             })
         default:
             break

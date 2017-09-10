@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="aboutButton" destination="Iao-yL-chP" id="FTd-EH-6pm"/>
+                <outlet property="aboutHeaderLabel" destination="vqe-Sh-aWw" id="wTZ-zx-ovt"/>
+                <outlet property="aboutTextView" destination="Oq7-S6-i5d" id="IcI-GS-75G"/>
+                <outlet property="feedbackButton" destination="CHk-rp-B9y" id="ymD-EM-aWr"/>
+                <outlet property="feedbackHeaderLabel" destination="sgc-kU-2vn" id="CPi-wh-1RD"/>
+                <outlet property="feedbackTextView" destination="9I5-zb-jUz" id="oSV-g4-v7M"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAM-1N-Ndl" userLabel="BackButton">
+                    <rect key="frame" x="10" y="30" width="34" height="34"/>
+                    <state key="normal" image="DetailBackButton"/>
+                    <connections>
+                        <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="Bd0-PF-b5Y"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqe-Sh-aWw">
+                    <rect key="frame" x="20" y="94" width="46" height="24"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oq7-S6-i5d">
+                    <rect key="frame" x="20" y="131" width="374" height="149.66666666666669"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <string key="text">Designed for photographers, by a real photographer
+
+The goal of the Accented is simple -- create a truely enjoyable 500px client can match up to the stunning photos captured with your cameras.
+
+To learn more about the auhtor of the app, click on the button below to visit my home page:</string>
+                    <color key="textColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9I5-zb-jUz">
+                    <rect key="frame" x="20" y="387.66666666666669" width="374" height="49.666666666666629"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <string key="text">Your feedback helps us improving the app. 
+Please use the following button to leave feedback</string>
+                    <color key="textColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FEEDBACK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgc-kU-2vn">
+                    <rect key="frame" x="20" y="349.66666666666669" width="69.666666666666671" height="24"/>
+                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Bold" family="Avenir Next Condensed" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHk-rp-B9y" customClass="PushButton" customModule="Accented" customModuleProvider="target">
+                    <rect key="frame" x="20" y="452.33333333333331" width="136" height="26"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                    <state key="normal" title="SEND FEEDBACK"/>
+                    <connections>
+                        <action selector="feedbackButtonDidTap:" destination="-1" eventType="touchUpInside" id="kfm-ag-EFw"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-yL-chP" customClass="PushButton" customModule="Accented" customModuleProvider="target">
+                    <rect key="frame" x="20" y="295.66666666666669" width="140" height="26"/>
+                    <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                    <state key="normal" title="MORE ABOUT ME"/>
+                    <connections>
+                        <action selector="aboutButtonDidTap:" destination="-1" eventType="touchUpInside" id="vnC-zJ-8Oo"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vqe-Sh-aWw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="94" id="2y1-rh-zFC"/>
+                <constraint firstItem="Iao-yL-chP" firstAttribute="top" secondItem="Oq7-S6-i5d" secondAttribute="bottom" constant="15" id="KkO-8T-ldW"/>
+                <constraint firstItem="Iao-yL-chP" firstAttribute="leading" secondItem="Oq7-S6-i5d" secondAttribute="leading" id="LaE-V5-2dJ"/>
+                <constraint firstAttribute="trailing" secondItem="Oq7-S6-i5d" secondAttribute="trailing" constant="20" id="M68-O7-XQe"/>
+                <constraint firstItem="bAM-1N-Ndl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="RJ5-lh-prG"/>
+                <constraint firstItem="Oq7-S6-i5d" firstAttribute="top" secondItem="vqe-Sh-aWw" secondAttribute="bottom" constant="13" id="VOt-Pg-Ff1"/>
+                <constraint firstItem="sgc-kU-2vn" firstAttribute="leading" secondItem="vqe-Sh-aWw" secondAttribute="leading" id="VoD-x0-FXq"/>
+                <constraint firstItem="bAM-1N-Ndl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="WaX-1j-cUC"/>
+                <constraint firstItem="CHk-rp-B9y" firstAttribute="leading" secondItem="9I5-zb-jUz" secondAttribute="leading" id="dUs-fX-Suf"/>
+                <constraint firstItem="Oq7-S6-i5d" firstAttribute="leading" secondItem="vqe-Sh-aWw" secondAttribute="leading" id="eVW-SV-j6H"/>
+                <constraint firstItem="9I5-zb-jUz" firstAttribute="top" secondItem="sgc-kU-2vn" secondAttribute="bottom" constant="14" id="gso-zf-qGN"/>
+                <constraint firstItem="CHk-rp-B9y" firstAttribute="top" secondItem="9I5-zb-jUz" secondAttribute="bottom" constant="15" id="qAq-is-HDF"/>
+                <constraint firstItem="9I5-zb-jUz" firstAttribute="leading" secondItem="sgc-kU-2vn" secondAttribute="leading" id="qXx-zJ-iuo"/>
+                <constraint firstAttribute="trailing" secondItem="9I5-zb-jUz" secondAttribute="trailing" constant="20" id="rpY-9L-Xk6"/>
+                <constraint firstItem="vqe-Sh-aWw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="w6l-GK-tJH"/>
+                <constraint firstItem="sgc-kU-2vn" firstAttribute="top" secondItem="Iao-yL-chP" secondAttribute="bottom" constant="28" id="w7e-zP-9fL"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="DetailBackButton" width="34" height="34"/>
+    </resources>
+</document>

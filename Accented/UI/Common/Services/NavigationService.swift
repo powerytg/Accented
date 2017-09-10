@@ -100,6 +100,11 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         from.present(searchViewController, animated: true, completion: nil)
     }
     
+    func navigateToAboutPage() {
+        let vc = AboutViewController(nibName: "AboutViewController", bundle: nil)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
     func popToRootController(animated : Bool) {
         _ = rootNavigationController?.popToRootViewController(animated: animated)
     }
