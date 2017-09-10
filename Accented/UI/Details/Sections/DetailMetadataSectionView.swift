@@ -16,10 +16,6 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     private var infoEntries = [(String, String)]()
     private var renderers = [UserInfoEntryView]()
     
-    override var title: String? {
-        return "INFO"
-    }
-
     private var exifLabel = UILabel()
     
     override func initialize() {
@@ -45,7 +41,7 @@ class DetailMetadataSectionView: DetailSectionViewBase {
     
     override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
         if infoEntries.count > 0 {
-            return rendererHeight * CGFloat(infoEntries.count) + sectionTitleHeight
+            return rendererHeight * CGFloat(infoEntries.count)
         } else {
             return 0
         }

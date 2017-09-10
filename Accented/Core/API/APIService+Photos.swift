@@ -27,4 +27,15 @@ extension APIService {
             request.handleFailure(error)
         })
     }
+    
+    func votePhoto(photoId : String, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = VotePhotoRequest(photoId: photoId, success: success, failure: failure)
+        post(request: request)
+    }
+    
+    func deleteVote(photoId : String, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = DeleteVotePhotoRequest(photoId: photoId, success: success, failure: failure)
+        delete(request: request)
+    }
+
 }

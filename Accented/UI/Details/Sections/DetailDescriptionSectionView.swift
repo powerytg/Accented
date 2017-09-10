@@ -16,6 +16,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     private var titleLabel = UILabel()
     private var dateLabel = UILabel()
     private var descLabel = TTTAttributedLabel(frame: CGRect.zero)
+    private var voteButton : UIButton!
     
     private let titleFont = UIFont(name: "HelveticaNeue-Thin", size: 34)
     private let dateFont = UIFont(name: "HelveticaNeue", size: 14)
@@ -56,6 +57,20 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         descLabel.activeLinkAttributes = [NSForegroundColorAttributeName : linkPressColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
         contentView.addSubview(descLabel)
+        
+        // Vote button
+        // Note: Xcode crashes due to sigbart if seeing this:
+        // let icon = photo.voted ? "DownVote" : "UpVote"
+        var icon : String
+        if photo.voted {
+            icon = "DownVote"
+        } else {
+            icon = "UpVote"
+        }
+        voteButton = UIButton(type: .custom)
+        voteButton.setImage(UIImage(named : icon), for: .normal)
+        voteButton.sizeToFit()
+        contentView.addSubview(voteButton)
     }
     
     override func layoutSubviews() {
@@ -104,6 +119,12 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         } else {
             descLabel.isHidden = true
         }
+        
+        // Vote button
+        f = voteButton.frame
+        f.origin.x = titleLabel.frame.maxX + 25
+        f.origin.y = titleLabel.frame.midY - f.size.height / 2
+        voteButton.frame = f
     }
     
     // MARK: - Measurments

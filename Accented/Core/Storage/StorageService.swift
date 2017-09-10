@@ -67,6 +67,10 @@ class StorageService: NSObject {
 
         // User gallery list returned
         notificationCenter.addObserver(self, selector: #selector(galleryListDidReturn(_:)), name: APIEvents.userGalleriesDidReturn, object: nil)
+        
+        // Photo vote changed
+        notificationCenter.addObserver(self, selector: #selector(photoVoteDidUpdate(_:)), name: APIEvents.photoDidVote, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(photoVoteDidUpdate(_:)), name: APIEvents.photoDidDeleteVote, object: nil)
     }
     
     func signout() {

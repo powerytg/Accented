@@ -71,4 +71,7 @@ class RequestParameters: NSObject {
     
     // Privacy
     static let privacy = "privacy"
+    
+    // Vote
+    static let vote = "vote"
 }

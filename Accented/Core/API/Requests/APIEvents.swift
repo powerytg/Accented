@@ -69,4 +69,17 @@ class APIEvents: NSObject {
     
     // Photo failed to upload
     static let photoFailedUpload = Notification.Name("photoFailedUpload")
+    
+    // Vote photo did succeed
+    static let photoDidVote = Notification.Name("photoDidVote")
+    
+    // Vote photo did fail
+    static let photoFailedVote = Notification.Name("photoFailedVote")
+
+    // Delete vote did succeed
+    static let photoDidDeleteVote = Notification.Name("photoDidDeleteVote")
+    
+    // Delete vote did fail
+    static let photoFailedDeleteVote = Notification.Name("photoFailedDeleteVote")
+
 }
