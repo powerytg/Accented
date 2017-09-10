@@ -81,5 +81,17 @@ class APIEvents: NSObject {
     
     // Delete vote did fail
     static let photoFailedDeleteVote = Notification.Name("photoFailedDeleteVote")
+    
+    // Added user to followers list
+    static let didFollowUser = Notification.Name("didFollowUser")
+
+    // Failed to add user to followers list
+    static let failedFollowUser = Notification.Name("failedFollowUser")
+
+    // Removed user from followers list
+    static let didUnfollowUser = Notification.Name("didUnfollowUser")
+    
+    // Failed to remove user from followers list
+    static let failedUnfollowUser = Notification.Name("failedUnfollowUser")
 
 }

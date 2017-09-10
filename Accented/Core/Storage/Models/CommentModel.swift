@@ -39,6 +39,7 @@ class CommentModel: ModelBase {
         
         // User
         user = UserModel(json: json["user"])
+        StorageService.sharedInstance.putUserToCache(user)
     }
 
     override func copy(with zone: NSZone? = nil) -> Any {

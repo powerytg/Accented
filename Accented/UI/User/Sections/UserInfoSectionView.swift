@@ -15,11 +15,18 @@ class UserInfoSectionView: UserSectionViewBase {
     
     // Renderers
     private var renderers = [UserInfoEntryView]()
-    
     private let rendererHeight : CGFloat = 26
 
+    // Follow button
+    private var followButton = PushButton()
+    private let followButtonVPadding : CGFloat = 15
+    
     override var title: String? {
         return "CONTACT"
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func initialize() {
@@ -30,6 +37,22 @@ class UserInfoSectionView: UserSectionViewBase {
         
         // Create renderers
         createRenderers()
+        
+        // Create follow button
+        initializeFollowButton()
+        
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(userFollowingStateDidChange(_:)), name: StorageServiceEvents.userFollowingStateDidUpdate, object: nil)
+    }
+    
+    private func initializeFollowButton() {
+        followButton.contentEdgeInsets = UIEdgeInsetsMake(4, 8, 4, 8)
+        followButton.setTitle(titleForFollowButton(), for: .normal)
+        contentView.addSubview(followButton)
+        followButton.addTarget(self, action: #selector(followButtonDidTap(_:)), for: .touchUpInside)
+        followButton.sizeToFit()
+        // Follow button is available for users other than the current user
+        followButton.isHidden = !hasFollowButton()
     }
     
     private func compileInfoEntries() {
@@ -108,10 +131,20 @@ class UserInfoSectionView: UserSectionViewBase {
             
             nextY += f.size.height
         }
+        
+        var f = followButton.frame
+        f.origin.x = contentLeftPadding
+        f.origin.y = nextY + followButtonVPadding
+        followButton.frame = f
     }
     
     override func calculateContentHeight(maxWidth: CGFloat) -> CGFloat {
-        return rendererHeight * CGFloat(infoEntries.count) + sectionTitleHeight
+        var infoSize = rendererHeight * CGFloat(infoEntries.count) + sectionTitleHeight
+        if hasFollowButton() {
+            infoSize += followButton.frame.height + followButtonVPadding
+        }
+        
+        return infoSize
     }
     
     override func adjustTextClarity() {
@@ -121,6 +154,8 @@ class UserInfoSectionView: UserSectionViewBase {
     }
     
     func invalidate() {
+        followButton.removeFromSuperview()
+        
         infoEntries.removeAll()
         for renderer in renderers {
             renderer.removeFromSuperview()
@@ -130,6 +165,60 @@ class UserInfoSectionView: UserSectionViewBase {
 
         compileInfoEntries()
         createRenderers()
+        initializeFollowButton()
         invalidateSize()
+    }
+    
+    private func titleForFollowButton() -> String? {
+        if let following = user.following {
+            if following == true {
+                return "REMOVE FROM FRIENDS"
+            } else {
+                return "ADD TO FRIENDS"
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    private func hasFollowButton() -> Bool {
+        if let currentUser = StorageService.sharedInstance.currentUser {
+            if currentUser.userId == user.userId {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return false
+        }
+    }
+    
+    @objc private func followButtonDidTap(_ sender : AnyObject) {
+        followButton.alpha = 0.5
+        followButton.isUserInteractionEnabled = false
+        
+        if user.following == true {
+            APIService.sharedInstance.unfollowUser(userId: user.userId, success: nil, failure: { [weak self] (errorMessage) in
+                self?.followButton.alpha = 1
+                self?.followButton.isUserInteractionEnabled = true
+            })
+        } else {
+            APIService.sharedInstance.followUser(userId: user.userId, success: nil, failure: { [weak self] (errorMessage) in
+                self?.followButton.alpha = 1
+                self?.followButton.isUserInteractionEnabled = true
+            })
+        }
+    }
+    
+    @objc private func userFollowingStateDidChange(_ notification : Notification) {
+        let updatedUser = notification.userInfo![StorageServiceEvents.user] as! UserModel
+        guard user.userId == updatedUser.userId else { return }
+        
+        user.following = updatedUser.following
+        
+        followButton.alpha = 1
+        followButton.isUserInteractionEnabled = true
+        followButton.setTitle(titleForFollowButton(), for: .normal)
+        followButton.sizeToFit()
     }
 }

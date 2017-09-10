@@ -41,4 +41,18 @@ extension APIService {
         let request = GetUserFriendsRequest(userId: userId, page: page, success: success, failure: failure)
         get(request: request)
     }
+    
+    // Follow user
+    func followUser(userId : String, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = FollowUserRequest(userId: userId, success: success, failure: failure)
+        post(request: request)
+    }
+    
+    // Unfollow user
+    func unfollowUser(userId : String, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = UnfollowUserRequest(userId: userId, success: success, failure: failure)
+        delete(request: request)
+    }
+
 }
+

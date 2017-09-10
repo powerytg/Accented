@@ -12,6 +12,11 @@ extension StorageService {
     
     // MARK : - Read operations
     
+    // Retrieve a copy of the user from cache
+    func getUser(_ userId : String) -> UserModel? {
+        return cacheController.userCache.object(forKey: NSString(string: userId))
+    }
+    
     // Retrieve a copy of the stream model
     func getStream(_ streamType : StreamType) -> StreamModel {
         return cacheController.getCachedResource(cacheKey: streamType.rawValue, inCache: cacheController.streamCache, creationCallback: { () -> StreamModel in
@@ -101,6 +106,11 @@ extension StorageService {
     }
 
     // MARK : - Write operations
+    
+    // Put a user to cache
+    func putUserToCache(_ user : UserModel) {
+        cacheController.userCache.setObject(user, forKey: NSString(string: user.userId))
+    }
     
     // Put a stream to cache
     func putStreamToCache(_ collection : StreamModel) {

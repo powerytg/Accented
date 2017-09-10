@@ -1,34 +1,32 @@
 //
-//  GetUserInfoRequest.swift
+//  UnfollowUserRequest.swift
 //  Accented
 //
-//  Get user profile request
+//  Request to unfollow user
 //
-//  Created by Tiangong You on 5/28/17.
+//  Created by Tiangong You on 9/10/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class GetUserInfoRequest: APIRequest {
+class UnfollowUserRequest: APIRequest {
     private var userId : String
     
     init(userId : String, success : SuccessAction?, failure : FailureAction?) {
         self.userId = userId
-        super.init(success: success, failure: failure)
         
-        // User profile will always be refreshed from server, thus ignoring cache
+        super.init(success: success, failure: failure)
         ignoreCache = true
-        url = "\(APIRequest.baseUrl)users/show"
-        parameters[RequestParameters.userId] = userId
+        url = "\(APIRequest.baseUrl)users/\(userId)/friends"
     }
     
     override func handleSuccess(data: Data, response: HTTPURLResponse?) {
         super.handleSuccess(data: data, response: response)
-        
         let userInfo : [String : Any] = [RequestParameters.userId : userId,
                                          RequestParameters.response : data]
-        NotificationCenter.default.post(name: APIEvents.userProfileDidReturn, object: nil, userInfo: userInfo)
+        
+        NotificationCenter.default.post(name: APIEvents.didUnfollowUser, object: nil, userInfo: userInfo)
         
         if let success = successAction {
             success()
@@ -39,7 +37,7 @@ class GetUserInfoRequest: APIRequest {
         super.handleFailure(error)
         
         let userInfo : [String : String] = [RequestParameters.errorMessage : error.localizedDescription]
-        NotificationCenter.default.post(name: APIEvents.userProfileFailedReturn, object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: APIEvents.failedUnfollowUser, object: nil, userInfo: userInfo)
         
         if let failure = failureAction {
             failure(error.localizedDescription)

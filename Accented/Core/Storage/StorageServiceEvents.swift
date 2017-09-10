@@ -41,8 +41,11 @@ class StorageServiceEvents: NSObject {
     // User gallery list updated
     static let userGalleryListDidUpdate = Notification.Name("userGalleryListDidUpdate")
 
-    // Photo did update
+    // Photo did update vote status
     static let photoVoteDidUpdate = Notification.Name("photoVoteDidUpdate")
+    
+    // User following status did update
+    static let userFollowingStateDidUpdate = Notification.Name("userFollowingStateDidUpdate")
     
     // MARK: - Parameters
     
@@ -72,6 +75,9 @@ class StorageServiceEvents: NSObject {
     
     // Photo
     static let photo = "photo"
+    
+    // User
+    static let user = "user"
     
     // Sort
     static let sort = "sort"

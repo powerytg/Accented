@@ -16,6 +16,7 @@ extension StorageService {
             let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
             let json = JSON(jsonObject)
             let user = UserModel(json: json["user"])
+            StorageService.sharedInstance.putUserToCache(user)
             return user
         } catch {
             debugPrint(error)
@@ -37,7 +38,9 @@ extension StorageService {
                 let totalCount = json["total_items"].int!
                 
                 for (_, userJSON):(String, JSON) in json["users"] {
-                    newUsers.append(UserModel(json: userJSON))
+                    let newUser = UserModel(json: userJSON)
+                    newUsers.append(newUser)
+                    StorageService.sharedInstance.putUserToCache(newUser)
                 }
                 
                 self?.mergeUserSearchResult(keyword, users: newUsers, page: page, totalCount : totalCount)
@@ -57,6 +60,7 @@ extension StorageService {
                 let json = JSON(jsonObject)
                 let user = UserModel(json: json["user"])
                 self?.putUserProfileToCache(user)
+                self?.putUserToCache(user)
                 
                 DispatchQueue.main.async {
                     let userInfo : [String : AnyObject] = [StorageServiceEvents.userId : userId as AnyObject]
@@ -82,7 +86,9 @@ extension StorageService {
                 let totalCount = json["followers_count"].int!
                 
                 for (_, userJSON):(String, JSON) in json["followers"] {
-                    newUsers.append(UserModel(json: userJSON))
+                    let newUser = UserModel(json: userJSON)
+                    newUsers.append(newUser)
+                    self?.putUserToCache(newUser)
                 }
                 
                 self?.mergeUserFollowersResult(userId, users: newUsers, page: page, totalCount : totalCount)
@@ -106,10 +112,66 @@ extension StorageService {
                 let totalCount = json["friends_count"].int!
                 
                 for (_, userJSON):(String, JSON) in json["friends"] {
-                    newUsers.append(UserModel(json: userJSON))
+                    let newUser = UserModel(json: userJSON)
+                    self?.putUserToCache(newUser)
+                    newUsers.append(newUser)
                 }
                 
                 self?.mergeUserFriendsResult(userId, users: newUsers, page: page, totalCount : totalCount)
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
+    
+    internal func didFollowUser(_ notification : Notification) -> Void {
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        parsingQueue.async {
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+                let json = JSON(jsonObject)
+                let userJson = json["user"]
+                let updatedUser = UserModel(json: userJson)
+                updatedUser.following = true
+                
+                if let userInCache = self.getUser(updatedUser.userId) {
+                    userInCache.following = updatedUser.following
+                    self.putUserToCache(userInCache)
+                } else {
+                    self.putUserToCache(updatedUser)
+                }
+                
+                DispatchQueue.main.async {
+                    let userInfo : [String : Any] = [StorageServiceEvents.user : updatedUser]
+                    NotificationCenter.default.post(name: StorageServiceEvents.userFollowingStateDidUpdate, object: nil, userInfo: userInfo)
+                }
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
+    
+    internal func didUnfollowUser(_ notification : Notification) -> Void {
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        parsingQueue.async {
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+                let json = JSON(jsonObject)
+                let userJson = json["user"]
+                let updatedUser = UserModel(json: userJson)
+                updatedUser.following = true
+                
+                if let userInCache = self.getUser(updatedUser.userId) {
+                    userInCache.following = updatedUser.following
+                    self.putUserToCache(userInCache)
+                } else {
+                    self.putUserToCache(updatedUser)
+                }
+                
+                DispatchQueue.main.async {
+                    let userInfo : [String : Any] = [StorageServiceEvents.user : updatedUser]
+                    NotificationCenter.default.post(name: StorageServiceEvents.userFollowingStateDidUpdate, object: nil, userInfo: userInfo)
+                }
             } catch {
                 debugPrint(error)
             }

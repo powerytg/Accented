@@ -79,6 +79,7 @@ class PhotoModel: ModelBase {
         
         // User
         user = UserModel(json: json["user"])
+        StorageService.sharedInstance.putUserToCache(user)
         
         // Tags
         for (_, tagJSON):(String, JSON) in json["tags"] {

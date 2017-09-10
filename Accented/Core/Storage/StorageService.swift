@@ -71,6 +71,10 @@ class StorageService: NSObject {
         // Photo vote changed
         notificationCenter.addObserver(self, selector: #selector(photoDidVote(_:)), name: APIEvents.photoDidVote, object: nil)
         notificationCenter.addObserver(self, selector: #selector(photoDidUnVote(_:)), name: APIEvents.photoDidDeleteVote, object: nil)
+        
+        // User following state changed
+        notificationCenter.addObserver(self, selector: #selector(didFollowUser(_:)), name: APIEvents.didFollowUser, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUnfollowUser(_:)), name: APIEvents.didUnfollowUser, object: nil)
     }
     
     func signout() {
