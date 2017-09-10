@@ -20,6 +20,7 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
     var scrollView = UIScrollView()
     var contentView = UIView()
     var backButton = UIButton(type: .custom)
+    var menuBar : CompactMenuBar?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,9 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
         backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
+        
+        // Optional menu bar
+        createMenuBar()
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,6 +53,10 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
         sections.append(section)
         section.delegate = self
         contentView.addSubview(section)
+    }
+    
+    func createMenuBar() {
+        // Subclass can opt to create an optional menu bar
     }
     
     // MARK: - Layout
@@ -87,9 +95,15 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
         }
         
         // Update scroll view content size
-        scrollView.frame = view.bounds
         scrollView.contentSize = CGSize(width: view.bounds.size.width, height: nextY + contentBottomPadding)
         contentView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        
+        if let menuBar = self.menuBar {
+            menuBar.frame = CGRect(x: 0, y: view.bounds.height - CompactMenuBar.defaultHeight, width: view.bounds.width, height: CompactMenuBar.defaultHeight)
+            scrollView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - menuBar.frame.height)
+        } else {
+            scrollView.frame = view.bounds
+        }
     }
     
     // MARK: - Events

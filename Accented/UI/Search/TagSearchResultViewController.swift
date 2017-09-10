@@ -12,8 +12,8 @@ import UIKit
 
 class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegate {
     
-    let displayStyleOptions = [MenuItem("View As Groups"),
-                               MenuItem("View As List")]
+    let displayStyleOptions = [MenuItem(action: .None, text: "View As Groups"),
+                               MenuItem(action: .None, text: "View As List")]
 
     private var menuBar : CompactMenuBar!
     private var streamViewController : TagSearchStreamViewController!

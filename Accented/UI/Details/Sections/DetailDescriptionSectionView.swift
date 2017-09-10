@@ -68,11 +68,22 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         } else {
             icon = "UpVote"
         }
+        
         voteButton = UIButton(type: .custom)
         voteButton.setImage(UIImage(named : icon), for: .normal)
         voteButton.sizeToFit()
         contentView.addSubview(voteButton)
         voteButton.addTarget(self, action: #selector(voteButtonDidTap(_:)), for: .touchUpInside)
+        
+        // Vote/unvote is only available for registered users
+        voteButton.isHidden = (StorageService.sharedInstance.currentUser == nil)
+        
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(photoVoteDidUpdate(_:)), name: StorageServiceEvents.photoVoteDidUpdate, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func layoutSubviews() {
@@ -237,29 +248,31 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         voteButton.isUserInteractionEnabled = false
         
         if photo.voted {
-            APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: { [weak self] in
-                self?.photo.voted = true
-                self?.voteButton.setImage(UIImage(named: "UpVote"), for: .normal)
-                self?.voteButton.alpha = 1
-                self?.voteButton.isUserInteractionEnabled = true
-                RMessage.showNotification(withTitle: "You removed vote for this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
-            }, failure: { [weak self] (errorMessage) in
-                RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+            APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: nil, failure: { [weak self] (errorMessage) in
                 self?.voteButton.alpha = 1
                 self?.voteButton.isUserInteractionEnabled = true
             })
         } else {
-            APIService.sharedInstance.votePhoto(photoId: photo.photoId, success: { [weak self] in
-                self?.photo.voted = true
-                self?.voteButton.setImage(UIImage(named: "DownVote"), for: .normal)
-                self?.voteButton.alpha = 1
-                self?.voteButton.isUserInteractionEnabled = true
-                RMessage.showNotification(withTitle: "You liked this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
-                }, failure: { [weak self] (errorMessage) in
-                    RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+            APIService.sharedInstance.votePhoto(photoId: photo.photoId, success: nil, failure: { [weak self] (errorMessage) in
                     self?.voteButton.alpha = 1
                     self?.voteButton.isUserInteractionEnabled = true
             })
+        }
+    }
+    
+    // Events
+    @objc private func photoVoteDidUpdate(_ notification : Notification) {
+        let updatedPhoto = notification.userInfo![StorageServiceEvents.photo] as! PhotoModel
+        guard updatedPhoto.photoId == photo.photoId else { return }
+        photo.voted = updatedPhoto.voted
+    
+        voteButton.alpha = 1
+        voteButton.isUserInteractionEnabled = true
+        
+        if photo.voted {
+            voteButton.setImage(UIImage(named: "DownVote"), for: .normal)
+        } else {
+            voteButton.setImage(UIImage(named: "UpVote"), for: .normal)
         }
     }
 }

@@ -13,6 +13,6 @@ class GallerySortingOptionMenuItem: MenuItem {
     
     init(option : GalleryStreamSortingOptions, text: String) {
         self.option = option
-        super.init(TextUtils.gallerySortOptionDisplayName(option))
+        super.init(action: .None, text: TextUtils.gallerySortOptionDisplayName(option))
     }
 }

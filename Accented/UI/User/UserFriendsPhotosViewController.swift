@@ -18,8 +18,8 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
     private var headerView : UserHeaderSectionView!
     private var backgroundView : DetailBackgroundView!
     
-    private let displayStyles = [MenuItem("Display As Groups"),
-                                 MenuItem("Display As List")]
+    private let displayStyles = [MenuItem(action: .None, text: "Display As Groups"),
+                                 MenuItem(action: .None, text: "Display As List")]
     
     init(user : UserModel) {
         // Get an updated copy of user profile

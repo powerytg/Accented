@@ -9,8 +9,9 @@
 //
 
 import UIKit
+import RMessage
 
-class DetailViewController: SectionViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation {
+class DetailViewController: SectionViewController, DetailEntranceProxyAnimation, DetailLightBoxAnimation, MenuDelegate {
 
     // Photo model
     var photo : PhotoModel
@@ -33,6 +34,11 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
     // Temporary proxy image view when pinching on the main photo view
     private var pinchProxyImageView : UIImageView?
 
+    // Menu
+    private let voteMenuItem = MenuItem(action: .Vote, text: "Vote")
+    private var signedInMenu = [MenuItem]()
+    private var signedOutMenu = [MenuItem]()
+
     init(context : DetailNavigationContext) {
         self.entranceAnimationImageView = context.sourceImageView
         self.photo = context.initialSelectedPhoto
@@ -49,8 +55,15 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         // Background view
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
+        
+        // Events
+        NotificationCenter.default.addObserver(self, selector: #selector(photoVoteDidUpdate(_:)), name: StorageServiceEvents.photoVoteDidUpdate, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func initializeSections() {
         self.photoSection = DetailPhotoSectionView(photo)
         addSection(DetailHeaderSectionView(photo))
@@ -72,6 +85,36 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         photoSection.addGestureRecognizer(zoom)
         
         view.setNeedsLayout()
+    }
+    
+    override func createMenuBar() {
+        // Construct menu bar
+        if photo.voted {
+            voteMenuItem.text = "Unlike Photo"
+        } else {
+            voteMenuItem.text = "Like Photo"
+        }
+        
+        signedInMenu = [MenuItem(action: .Home, text: "Home"),
+                        voteMenuItem,
+                        MenuItem(action: .ViewComments, text: "View Comments"),
+                        MenuItem(action: .AddComment, text: "Add Comment"),
+                        MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
+                        MenuItem(action: .ViewInFullScreen, text: "View In Full Screen")]
+        
+        signedOutMenu = [MenuItem(action: .Home, text: "Home"),
+                         MenuItem(action: .ViewComments, text: "View Comments"),
+                         MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
+                         MenuItem(action: .ViewInFullScreen, text: "View In Full Screen")]
+
+        if StorageService.sharedInstance.currentUser != nil {
+            menuBar = CompactMenuBar(signedInMenu)
+        } else {
+            menuBar = CompactMenuBar(signedOutMenu)
+        }
+        
+        menuBar!.delegate = self
+        view.addSubview(menuBar!)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -210,6 +253,27 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         }
     }
     
+    // MARK: - MenuDelegate
+    func didSelectMenuItem(_ menuItem: MenuItem) {
+        switch menuItem.action {
+        case .Home:
+            NavigationService.sharedInstance.popToRootController(animated: true)
+        case .Vote:
+            votePhoto()
+        case .ViewInFullScreen:
+            presentLightBoxViewController(sourceImageView: heroPhotoView, useSourceImageViewAsProxy: false)
+        case .ViewComments:
+            NavigationService.sharedInstance.navigateToCommentsPage(photo)
+        case .AddComment:
+            let composerViewController = DetailComposerViewController(photo : photo)
+            present(composerViewController, animated: true, completion: nil)
+        case .ViewUserProfile:
+            NavigationService.sharedInstance.navigateToUserProfilePage(user: photo.user)
+        default:
+            break
+        }
+    }
+    
     // MARK: - Private
     
     private func presentLightBoxViewController(sourceImageView: UIImageView, useSourceImageViewAsProxy : Bool) {
@@ -219,5 +283,33 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         lightboxViewController.transitioningDelegate = lightboxTransitioningDelegate
         
         self.present(lightboxViewController, animated: true, completion: nil)
+    }
+    
+    private func votePhoto() {
+        if photo.voted {
+            APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: nil, failure: { (errorMessage) in
+                RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+                
+            })
+        } else {
+            APIService.sharedInstance.votePhoto(photoId: photo.photoId, success: nil, failure: { (errorMessage) in
+                RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
+            })
+        }
+    }
+    
+    // Events
+    @objc private func photoVoteDidUpdate(_ notification : Notification) {
+        let updatedPhoto = notification.userInfo![StorageServiceEvents.photo] as! PhotoModel
+        guard updatedPhoto.photoId == photo.photoId else { return }
+        photo.voted = updatedPhoto.voted
+        
+        if photo.voted {
+            RMessage.showNotification(withTitle: "You liked this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
+            voteMenuItem.text = "Unlike Photo"
+        } else {
+            RMessage.showNotification(withTitle: "You removed vote for this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
+            voteMenuItem.text = "Like Photo"
+        }
     }
 }

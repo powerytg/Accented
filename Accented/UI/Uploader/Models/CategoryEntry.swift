@@ -13,6 +13,6 @@ class CategoryEntry: MenuItem {
     
     init(category : Category, text : String) {
         self.category = category
-        super.init(text)
+        super.init(action: .None, text: text)
     }
 }

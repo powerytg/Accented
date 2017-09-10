@@ -21,8 +21,8 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
     private var headerView : UserHeaderSectionView!
     private var backgroundView : DetailBackgroundView!
     
-    private let displayStyles = [MenuItem("Display As Groups"),
-                                 MenuItem("Display As List")]
+    private let displayStyles = [MenuItem(action: .None, text: "Display As Groups"),
+                                 MenuItem(action: .None, text: "Display As List")]
     
     init(userId : String, gallery : GalleryModel) {
         self.user = StorageService.sharedInstance.getUserProfile(userId: gallery.userId)!

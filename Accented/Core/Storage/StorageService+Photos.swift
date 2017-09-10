@@ -11,7 +11,7 @@ import SwiftyJSON
 
 extension StorageService {
 
-    internal func photoVoteDidUpdate(_ notification : Notification) -> Void {
+    internal func photoDidVote(_ notification : Notification) -> Void {
         let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
         parsingQueue.async {
             do {
@@ -19,14 +19,36 @@ extension StorageService {
                 let json = JSON(jsonObject)
                 let photoJson = json["photo"]
                 let photo = PhotoModel(json: photoJson)
+                photo.voted = true
                 
                 DispatchQueue.main.async {
                     let userInfo : [String : Any] = [StorageServiceEvents.photo : photo]
-                    NotificationCenter.default.post(name: StorageServiceEvents.photoDidUpdate, object: nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: StorageServiceEvents.photoVoteDidUpdate, object: nil, userInfo: userInfo)
                 }
             } catch {
                 debugPrint(error)
             }
         }
-    }    
+    }
+    
+    internal func photoDidUnVote(_ notification : Notification) -> Void {
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        parsingQueue.async {
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+                let json = JSON(jsonObject)
+                let photoJson = json["photo"]
+                let photo = PhotoModel(json: photoJson)
+                photo.voted = false
+                
+                DispatchQueue.main.async {
+                    let userInfo : [String : Any] = [StorageServiceEvents.photo : photo]
+                    NotificationCenter.default.post(name: StorageServiceEvents.photoVoteDidUpdate, object: nil, userInfo: userInfo)
+                }
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
+
 }

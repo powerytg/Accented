@@ -12,6 +12,6 @@ import UIKit
 
 class MenuSeparator: MenuItem {
     init() {
-        super.init("Separator")
+        super.init(action: .None, text: "Separator")
     }
 }

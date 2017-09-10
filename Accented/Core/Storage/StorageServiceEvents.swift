@@ -42,7 +42,7 @@ class StorageServiceEvents: NSObject {
     static let userGalleryListDidUpdate = Notification.Name("userGalleryListDidUpdate")
 
     // Photo did update
-    static let photoDidUpdate = Notification.Name("photoDidUpdate")
+    static let photoVoteDidUpdate = Notification.Name("photoVoteDidUpdate")
     
     // MARK: - Parameters
     

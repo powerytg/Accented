@@ -16,29 +16,29 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
     private let paddingTop : CGFloat = 32
     private let separatorHeight : CGFloat = 16
     
-    let signedInOptions = [MainMenuItem(action : .Search, text: "Search", image : UIImage(named: "SearchButtonMainMenu")),
+    let signedInOptions = [MenuItem(action : .Search, text: "Search", image : UIImage(named: "SearchButtonMainMenu")),
                        MenuSeparator(),
-                       MainMenuItem(action:.MyPhotos, text: "My Photos"),
-                       MainMenuItem(action:.MyGalleries, text: "My Galleries"),
-                       MainMenuItem(action:.MyProfile, text: "My Profile"),
+                       MenuItem(action:.MyPhotos, text: "My Photos"),
+                       MenuItem(action:.MyGalleries, text: "My Galleries"),
+                       MenuItem(action:.MyProfile, text: "My Profile"),
                        MenuSeparator(),
-                       MainMenuItem(action:.MyFriends, text: "My Friends"),
-                       MainMenuItem(action:.FriendsPhotos, text: "My Friends' Photos"),
+                       MenuItem(action:.MyFriends, text: "My Friends"),
+                       MenuItem(action:.FriendsPhotos, text: "My Friends' Photos"),
                        MenuSeparator(),
-                       MainMenuItem(action:.PearlCam, text: "Pearl Cam"),
+                       MenuItem(action:.PearlCam, text: "Pearl Cam"),
                        MenuSeparator(),
-                       MainMenuItem(action:.SignOut, text: "Sign Out")]
+                       MenuItem(action:.SignOut, text: "Sign Out")]
 
-    let signedOutOptions = [MainMenuItem(action : .Search, text: "Search", image : UIImage(named: "SearchButtonMainMenu")),
+    let signedOutOptions = [MenuItem(action : .Search, text: "Search", image : UIImage(named: "SearchButtonMainMenu")),
                            MenuSeparator(),
-                           MainMenuItem(action:.PopularPhotos, text: "Popular Photos"),
-                           MainMenuItem(action:.FreshPhotos, text: "Fresh"),
-                           MainMenuItem(action:.UpcomingPhotos, text: "Upcoming"),
-                           MainMenuItem(action:.EditorsChoice, text: "Editors' Choice"),
+                           MenuItem(action:.PopularPhotos, text: "Popular Photos"),
+                           MenuItem(action:.FreshPhotos, text: "Fresh"),
+                           MenuItem(action:.UpcomingPhotos, text: "Upcoming"),
+                           MenuItem(action:.EditorsChoice, text: "Editors' Choice"),
                            MenuSeparator(),
-                           MainMenuItem(action:.PearlCam, text: "Pearl Cam"),
+                           MenuItem(action:.PearlCam, text: "Pearl Cam"),
                            MenuSeparator(),
-                           MainMenuItem(action:.SignIn, text: "Sign In")]
+                           MenuItem(action:.SignIn, text: "Sign In")]
 
     private var renderers = [MainMenuItemRenderer]()
     private var currentMenu : [MenuItem]!
@@ -106,12 +106,10 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
         guard tap.view! is MainMenuItemRenderer else { return }
         
         let renderer = tap.view! as! MainMenuItemRenderer
-        guard renderer.menuItem is MainMenuItem else { return }
-
-        didSelectMenuItem(renderer.menuItem as! MainMenuItem)
+        didSelectMenuItem(renderer.menuItem)
     }
     
-    private func didSelectMenuItem(_ item : MainMenuItem) {
+    private func didSelectMenuItem(_ item : MenuItem) {
         switch item.action {
         case .SignIn:
             drawer?.dismiss(animated: false, completion: nil)
@@ -171,6 +169,8 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                     NavigationService.sharedInstance.navigateToUserFriendsPhotosPage(user: currentUser)
                 }
             })
+        default:
+            break
         }
     }
         

@@ -1,16 +1,20 @@
 //
-//  MainMenuActions.swift
+//  MenuActions.swift
 //  Accented
 //
-//  List of actions available on the main menu
+//  List of all menu actions
 //
-//  Created by Tiangong You on 9/9/17.
+//  Created by Tiangong You on 9/10/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-enum MainMenuActions {
+enum MenuActions {
+    // Unspecified
+    case None
+    
+    // Home
     case SignIn
     case SignOut
     case PopularPhotos
@@ -24,4 +28,12 @@ enum MainMenuActions {
     case MyPhotos
     case MyFriends
     case FriendsPhotos
+    
+    // Details
+    case Home
+    case Vote
+    case ViewComments
+    case ViewUserProfile
+    case ViewInFullScreen
+    case AddComment
 }

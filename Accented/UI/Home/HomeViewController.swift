@@ -14,9 +14,9 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     var streamViewController : HomeStreamViewController?
     var menuBar : CompactMenuBar!
     
-    let menuItems = [MenuItem("Search"),
-                     MenuItem("Take Photo"),
-                     MenuItem("Sign Out")]
+    let menuItems = [MenuItem(action: .Search, text: "Search"),
+                     MenuItem(action: .PearlCam, text: "Take Photo"),
+                     MenuItem(action: .SignOut, text: "Sign Out")]
 
     // Whether the entrance animation has been performed
     // This flag will be reset after theme change
@@ -115,14 +115,12 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
     // MARK: - MenuDelegate
     
     func didSelectMenuItem(_ menuItem: MenuItem) {
-        let index = menuItems.index(of: menuItem)
-        guard index != nil else { return }
-        switch index! {
-        case 0:
+        switch menuItem.action {
+        case .Search:
             NavigationService.sharedInstance.navigateToSearch(from: self)
-        case 1:
+        case .PearlCam:
             NavigationService.sharedInstance.navigateToCamera()
-        case 2:
+        case .SignOut:
             NavigationService.sharedInstance.signout()
         default:
             break

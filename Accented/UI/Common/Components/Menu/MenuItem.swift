@@ -11,8 +11,10 @@ import UIKit
 class MenuItem: NSObject {
     var text : String
     var image : UIImage?
+    var action : MenuActions
     
-    init(_ text : String, image : UIImage? = nil) {
+    init(action : MenuActions, text : String, image : UIImage? = nil) {
+        self.action = action
         self.text = text
         self.image = image
         super.init()

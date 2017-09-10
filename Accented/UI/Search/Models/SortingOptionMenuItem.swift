@@ -15,6 +15,6 @@ class SortingOptionMenuItem: MenuItem {
     
     init(option : PhotoSearchSortingOptions, text: String) {
         self.option = option
-        super.init(TextUtils.sortOptionDisplayName(option))
+        super.init(action: .None, text: TextUtils.sortOptionDisplayName(option))
     }
 }
