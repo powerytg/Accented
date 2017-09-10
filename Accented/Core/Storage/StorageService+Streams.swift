@@ -66,7 +66,8 @@ extension StorageService {
             if userId != nil && galleryId != nil {
                 stream = getGalleryPhotoStream(userId: userId!, galleryId: galleryId!)
             }
-            
+        case .UserFriends:
+            stream = getUserFriendsStream(userId: userId!)
         default:
             stream = self.getStream(streamType)
         }
@@ -87,6 +88,8 @@ extension StorageService {
             putPhotoSearchResultToCache(stream as! PhotoSearchStreamModel)
         } else if stream is UserStreamModel {
             putUserStreamToCache(stream as! UserStreamModel)
+        } else if stream is UserFriendsStreamModel {
+            putUserFriendsStreamToCache(stream as! UserFriendsStreamModel)
         } else if stream is GalleryStreamModel {
             putGalleryStreamToCache(stream as! GalleryStreamModel)
         } else {

@@ -165,9 +165,12 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                     NavigationService.sharedInstance.navigateToUserFriendsPage(user: currentUser)
                 }
             })
-            break
         case .FriendsPhotos:
-            break
+            drawer?.dismiss(animated: true, completion: {
+                if let currentUser = StorageService.sharedInstance.currentUser {
+                    NavigationService.sharedInstance.navigateToUserFriendsPhotosPage(user: currentUser)
+                }
+            })
         }
     }
         

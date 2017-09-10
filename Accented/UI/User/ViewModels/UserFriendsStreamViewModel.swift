@@ -1,14 +1,14 @@
 //
-//  UserStreamCardViewModel.swift
+//  UserFriendsStreamViewModel.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/24/17.
+//  Created by Tiangong You on 9/9/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class UserStreamCardViewModel: SingleHeaderStreamViewModel {
+class UserFriendsStreamViewModel : SingleHeaderStreamViewModel{
     
     var user : UserModel
     
@@ -16,19 +16,6 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
         return UserStreamLayoutSpec.streamHeaderHeight
     }
     
-    override var cardRendererReuseIdentifier : String {
-        return "cardRenderer"
-    }
-    
-    override func registerCellTypes() {
-        super.registerCellTypes()
-        collectionView.register(StreamCardPhotoCell.self, forCellWithReuseIdentifier: cardRendererReuseIdentifier)
-    }
-    
-    override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
-        return PhotoCardTemplateGenerator(maxWidth: maxWidth)
-    }
-
     required init(user : UserModel, stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         self.user = user
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
@@ -40,8 +27,8 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
     
     override func loadPageAt(_ page : Int) {
         let params = ["tags" : "1"]
-        let userStreamModel = stream as! UserStreamModel
-        APIService.sharedInstance.getUserPhotos(userId: userStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
+        let userFriendsStreamModel = stream as! UserFriendsStreamModel
+        APIService.sharedInstance.getUserFriendsPhotos(userId: userFriendsStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedRefreshing(errorMessage)
         }
     }
@@ -67,4 +54,5 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
         streamHeaderCell.orderLabel.isHidden = true
         return streamHeaderCell
     }
+    
 }

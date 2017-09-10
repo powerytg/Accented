@@ -1,14 +1,14 @@
 //
-//  UserStreamCardViewModel.swift
+//  UserFriendsStreamCardViewModel.swift
 //  Accented
 //
-//  Created by Tiangong You on 8/24/17.
+//  Created by Tiangong You on 9/9/17.
 //  Copyright © 2017 Tiangong You. All rights reserved.
 //
 
 import UIKit
 
-class UserStreamCardViewModel: SingleHeaderStreamViewModel {
+class UserFriendsStreamCardViewModel: SingleHeaderStreamViewModel {
     
     var user : UserModel
     
@@ -28,7 +28,7 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
     override func createLayoutTemplateGenerator(_ maxWidth: CGFloat) -> StreamTemplateGenerator {
         return PhotoCardTemplateGenerator(maxWidth: maxWidth)
     }
-
+    
     required init(user : UserModel, stream : StreamModel, collectionView : UICollectionView, flowLayoutDelegate: UICollectionViewDelegateFlowLayout) {
         self.user = user
         super.init(stream: stream, collectionView: collectionView, flowLayoutDelegate: flowLayoutDelegate)
@@ -40,8 +40,8 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
     
     override func loadPageAt(_ page : Int) {
         let params = ["tags" : "1"]
-        let userStreamModel = stream as! UserStreamModel
-        APIService.sharedInstance.getUserPhotos(userId: userStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
+        let userFriendsStreamModel = stream as! UserFriendsStreamModel
+        APIService.sharedInstance.getUserFriendsPhotos(userId: userFriendsStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedRefreshing(errorMessage)
         }
     }
@@ -49,7 +49,7 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
     override func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
         let streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderReuseIdentifier, for: indexPath) as! DefaultSingleStreamHeaderCell
         let userName = TextUtils.preferredAuthorName(user).uppercased()
-        streamHeaderCell.titleLabel.text = "PHOTOS FROM\n\(userName)'S FRIENDS"
+        streamHeaderCell.titleLabel.text = "\(userName)'S \nPUBLIC PHOTOS"
         
         if let photoCount = user.photoCount {
             if photoCount == 0 {

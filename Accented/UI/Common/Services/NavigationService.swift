@@ -89,7 +89,12 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         let vc = UserFriendsViewController(user: user)
         rootNavigationController?.pushViewController(vc, animated: true)
     }
-    
+
+    func navigateToUserFriendsPhotosPage(user : UserModel) {
+        let vc = UserFriendsPhotosViewController(user: user)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+
     func navigateToSearch(from: UIViewController) {
         let searchViewController = SearchViewController()
         from.present(searchViewController, animated: true, completion: nil)
