@@ -36,4 +36,9 @@ extension APIService {
         get(request: request)
     }
 
+    // Get user friends
+    func getUserFriends(userId : String, page : Int = 1, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = GetUserFriendsRequest(userId: userId, page: page, success: success, failure: failure)
+        get(request: request)
+    }
 }

@@ -31,7 +31,10 @@ class StorageServiceCacheController: NSObject {
     
     // User followers cache
     let userFollowersCache = NSCache<NSString, UserFollowersModel>()
-    
+
+    // User friends cache
+    let userFriendsCache = NSCache<NSString, UserFriendsModel>()
+
     // User photos cache
     let userPhotoCache = NSCache<NSString, UserStreamModel>()
 
@@ -62,6 +65,7 @@ class StorageServiceCacheController: NSObject {
         userSearchResultCache.removeAllObjects()
         userProfileCache.removeAllObjects()
         userFollowersCache.removeAllObjects()
+        userFriendsCache.removeAllObjects()
         userPhotoCache.removeAllObjects()
         userGalleryCache.removeAllObjects()
         galleryPhotoCache.removeAllObjects()

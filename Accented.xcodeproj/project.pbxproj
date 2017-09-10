@@ -66,6 +66,11 @@
 		186FF93A1F6491F00002B815 /* MainMenuSectionBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9391F6491F00002B815 /* MainMenuSectionBase.swift */; };
 		186FF93F1F64A0180002B815 /* MainMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF93E1F64A0180002B815 /* MainMenuItem.swift */; };
 		186FF9411F64A0250002B815 /* MainMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9401F64A0250002B815 /* MainMenuActions.swift */; };
+		186FF9431F64F33B0002B815 /* UserFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9421F64F33B0002B815 /* UserFriendsViewController.swift */; };
+		186FF9451F64F3B30002B815 /* UserFriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9441F64F3B30002B815 /* UserFriendsViewModel.swift */; };
+		186FF9471F64F3F70002B815 /* UserFriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9461F64F3F70002B815 /* UserFriendsModel.swift */; };
+		186FF9491F64F4550002B815 /* GetUserFriendsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */; };
+		186FF94B1F64F7F10002B815 /* UserFriendsStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186FF94A1F64F7F10002B815 /* UserFriendsStreamViewController.swift */; };
 		1870821E1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */; };
 		1870821F1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */; };
 		187082221D07DD9000FDAAEB /* ThemeSelectorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */; };
@@ -451,6 +456,11 @@
 		186FF9391F6491F00002B815 /* MainMenuSectionBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuSectionBase.swift; sourceTree = "<group>"; };
 		186FF93E1F64A0180002B815 /* MainMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuItem.swift; sourceTree = "<group>"; };
 		186FF9401F64A0250002B815 /* MainMenuActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuActions.swift; sourceTree = "<group>"; };
+		186FF9421F64F33B0002B815 /* UserFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsViewController.swift; sourceTree = "<group>"; };
+		186FF9441F64F3B30002B815 /* UserFriendsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsViewModel.swift; sourceTree = "<group>"; };
+		186FF9461F64F3F70002B815 /* UserFriendsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsModel.swift; sourceTree = "<group>"; };
+		186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserFriendsRequest.swift; sourceTree = "<group>"; };
+		186FF94A1F64F7F10002B815 /* UserFriendsStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFriendsStreamViewController.swift; sourceTree = "<group>"; };
 		1870821C1D07CFFD00FDAAEB /* ThemeSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorViewController.swift; sourceTree = "<group>"; };
 		1870821D1D07CFFD00FDAAEB /* ThemeSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeSelectorViewController.xib; sourceTree = "<group>"; };
 		187082201D07DD9000FDAAEB /* ThemeSelectorRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSelectorRenderer.swift; sourceTree = "<group>"; };
@@ -827,6 +837,8 @@
 				18FE820F1F4FE3BA00CFAB47 /* UserStreamCardLayout.swift */,
 				18FE82111F4FE3F300CFAB47 /* UserStreamCardViewModel.swift */,
 				18FE82151F4FEE5E00CFAB47 /* UserStreamLayoutSpec.swift */,
+				186FF9441F64F3B30002B815 /* UserFriendsViewModel.swift */,
+				186FF94A1F64F7F10002B815 /* UserFriendsStreamViewController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -990,6 +1002,7 @@
 				1872B8071EDA7B46009B6FC8 /* UserProfileViewController.swift */,
 				1872B8081EDA7B46009B6FC8 /* UserProfileViewController.xib */,
 				18FE81FB1F4E671C00CFAB47 /* UserPhotosViewController.swift */,
+				186FF9421F64F33B0002B815 /* UserFriendsViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -1401,6 +1414,7 @@
 				9B7B17E11EE21A7A00412840 /* GalleryModel.swift */,
 				9B7B17E31EE21FC500412840 /* GalleryCollectionModel.swift */,
 				1804F4D51F6370190073697D /* GalleryStreamModel.swift */,
+				186FF9461F64F3F70002B815 /* UserFriendsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1472,6 +1486,7 @@
 				9B7B17E51EE2239000412840 /* GetCurrentUserInfoRequest.swift */,
 				187E5D881F546B9E00169188 /* UploadPhotoRequest.swift */,
 				1804F4D31F636E5A0073697D /* GetGalleryPhotosRequest.swift */,
+				186FF9481F64F4550002B815 /* GetUserFriendsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -2040,6 +2055,7 @@
 				9B3BA5C71D67A58D00AF588A /* ReplyModel.swift in Sources */,
 				9B9E9E8F1DBAA476009D5D19 /* CommentsLayout.swift in Sources */,
 				9B3813D41CE010770066D3B9 /* StreamTemplateGenerator.swift in Sources */,
+				186FF9451F64F3B30002B815 /* UserFriendsViewModel.swift in Sources */,
 				9BDF19191ED77B9E003159E8 /* UserSearchResultLayout.swift in Sources */,
 				187BA0781ED40CD6000E181E /* APIService+Users.swift in Sources */,
 				9B67C9021F51E5320045556F /* TagSearchStreamViewController.swift in Sources */,
@@ -2134,8 +2150,10 @@
 				9B3813C71CE010770066D3B9 /* StreamLayoutBase.swift in Sources */,
 				187E5D561F51408600169188 /* SingleHeaderStreamViewModel.swift in Sources */,
 				18D0BF3B1ED525F0008677FE /* StorageServiceCacheController.swift in Sources */,
+				186FF9491F64F4550002B815 /* GetUserFriendsRequest.swift in Sources */,
 				9BFC4C2A1DA7474E004E1B21 /* RefreshHeaderView.swift in Sources */,
 				9BA9ADD61F4CD898006F0AC0 /* ContrastFilterNode.swift in Sources */,
+				186FF94B1F64F7F10002B815 /* UserFriendsStreamViewController.swift in Sources */,
 				1872B7F51ED7D4E9009B6FC8 /* PhotoSearchFilterModel.swift in Sources */,
 				187E5D691F53382F00169188 /* SearchViewController.swift in Sources */,
 				9B3813AC1CE00DF30066D3B9 /* ThemeManager.swift in Sources */,
@@ -2188,11 +2206,13 @@
 				9BA9ADE71F4CD898006F0AC0 /* WhiteBalanceFilterViewController.swift in Sources */,
 				9BB590F61CDD33EB00E78581 /* BlurView.swift in Sources */,
 				9B7B17E21EE21A7A00412840 /* GalleryModel.swift in Sources */,
+				186FF9431F64F33B0002B815 /* UserFriendsViewController.swift in Sources */,
 				9B67C9061F5202620045556F /* SortingOptionMenuItem.swift in Sources */,
 				9B3813D01CE010770066D3B9 /* SingleLandscapeTemplate.swift in Sources */,
 				187E5D5F1F51C20D00169188 /* SearchResultBaseViewController.swift in Sources */,
 				9B89B11C1D55017100382744 /* DeckCacheController.swift in Sources */,
 				18FE81F41F4E1E9D00CFAB47 /* UserGallerySection.swift in Sources */,
+				186FF9471F64F3F70002B815 /* UserFriendsModel.swift in Sources */,
 				9B54707C1CEE90DF001F6C3C /* TextUtils.swift in Sources */,
 				186AF5541D5830CB00A9928F /* DetailMetadataSectionView.swift in Sources */,
 				186AF55D1D598B6C00A9928F /* CommentModel.swift in Sources */,

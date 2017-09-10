@@ -60,7 +60,14 @@ extension StorageService {
             return UserFollowersModel(userId : userId)
         })
     }
-    
+
+    // Retrieve the friends of an user
+    func getUserFriends(userId : String) -> UserFriendsModel {
+        return cacheController.getCachedResource(cacheKey: userId, inCache: cacheController.userFriendsCache, creationCallback: { () -> UserFriendsModel in
+            return UserFriendsModel(userId : userId)
+        })
+    }
+
     // Retrieve a user's photo stream from cache
     func getUserStream(userId : String) -> UserStreamModel {
         let cacheKey = userId
@@ -122,7 +129,13 @@ extension StorageService {
         let cacheKey = NSString(string: collection.modelId!)
         cacheController.userFollowersCache.setObject(collection, forKey: cacheKey)
     }
-    
+
+    // Put a user friends collection to cache
+    func putUserFriendsToCache(_ collection : UserFriendsModel) {
+        let cacheKey = NSString(string: collection.modelId!)
+        cacheController.userFriendsCache.setObject(collection, forKey: cacheKey)
+    }
+
     // Put a user stream to cache
     func putUserStreamToCache(_ collection : UserStreamModel) {
         let cacheKey = NSString(string: collection.modelId!)

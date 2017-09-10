@@ -61,7 +61,10 @@ class StorageService: NSObject {
         
         // User followers returned
         notificationCenter.addObserver(self, selector: #selector(userFollowersDidReturn(_:)), name: APIEvents.userFollowersDidReturn, object: nil)
-        
+
+        // User friends returned
+        notificationCenter.addObserver(self, selector: #selector(userFriendsDidReturn(_:)), name: APIEvents.userFriendsDidReturn, object: nil)
+
         // User gallery list returned
         notificationCenter.addObserver(self, selector: #selector(galleryListDidReturn(_:)), name: APIEvents.userGalleriesDidReturn, object: nil)
     }

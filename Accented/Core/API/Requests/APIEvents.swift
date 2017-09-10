@@ -52,6 +52,12 @@ class APIEvents: NSObject {
     // Failed to load user followers
     static let userFollowersFailedReturn = Notification.Name("userFollowersFailedReturn")
 
+    // User friends retrieved
+    static let userFriendsDidReturn = Notification.Name("userFriendsDidReturn")
+    
+    // Failed to load user friends
+    static let userFriendsFailedReturn = Notification.Name("userFriendsFailedReturn")
+
     // User galleries retrieved
     static let userGalleriesDidReturn = Notification.Name("userGalleriesDidReturn")
     

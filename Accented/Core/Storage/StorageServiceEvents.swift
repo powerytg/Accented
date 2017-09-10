@@ -35,6 +35,9 @@ class StorageServiceEvents: NSObject {
     // User followers updated
     static let userFollowersDidUpdate = Notification.Name("userFollowersDidUpdate")
 
+    // User friends updated
+    static let userFriendsDidUpdate = Notification.Name("userFriendsDidUpdate")
+
     // User gallery list updated
     static let userGalleryListDidUpdate = Notification.Name("userGalleryListDidUpdate")
 

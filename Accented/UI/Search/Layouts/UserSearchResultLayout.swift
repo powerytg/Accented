@@ -17,6 +17,7 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
     private var width : CGFloat = 0
     private let leftMargin : CGFloat = 15
     private let rightMargin : CGFloat = 15
+    var paddingTop : CGFloat = 0
     
     override init() {
         super.init()
@@ -60,7 +61,7 @@ class UserSearchResultLayout: InfiniteLoadingLayout<UserModel> {
         // If there's a previous loading indicator, reset its section height to 0
         updateCachedLayoutHeight(cacheKey: loadingIndicatorCacheKey, toHeight: 0)
 
-        var nextY : CGFloat = 0
+        var nextY : CGFloat = paddingTop
         for (index, user) in collection!.items.enumerated() {
             // Ignore if the user already has a layout
             let cacheKey = cacheKeyForUser(user)

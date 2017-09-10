@@ -92,6 +92,30 @@ extension StorageService {
         }
     }
     
+    internal func userFriendsDidReturn(_ notification : Notification) -> Void {
+        let jsonData : Data = notification.userInfo![RequestParameters.response] as! Data
+        let userId = notification.userInfo![RequestParameters.userId] as! String
+        
+        parsingQueue.async { [weak self] in
+            var newUsers = [UserModel]()
+            
+            do {
+                let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions())
+                let json = JSON(jsonObject)
+                let page = json["page"].int!
+                let totalCount = json["friends_count"].int!
+                
+                for (_, userJSON):(String, JSON) in json["friends"] {
+                    newUsers.append(UserModel(json: userJSON))
+                }
+                
+                self?.mergeUserFriendsResult(userId, users: newUsers, page: page, totalCount : totalCount)
+            } catch {
+                debugPrint(error)
+            }
+        }
+    }
+    
     private func mergeUserSearchResult(_ keyword : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
         let collection = getUserSearchResult(keyword: keyword)
         collection.totalCount = totalCount
@@ -135,6 +159,29 @@ extension StorageService {
             let userInfo : [String : AnyObject] = [StorageServiceEvents.userId : userId as AnyObject,
                                                    StorageServiceEvents.page : page as AnyObject]
             NotificationCenter.default.post(name: StorageServiceEvents.userFollowersDidUpdate, object: nil, userInfo: userInfo)
+        }
+    }
+    
+    private func mergeUserFriendsResult(_ userId : String, users: [UserModel], page: Int, totalCount : Int) -> Void {
+        let collection = getUserFriends(userId: userId)
+        collection.totalCount = totalCount
+        
+        // If it's the first page and the new content is not strictly equal to the first page, then discard the entire stream
+        if page == 1 && !isEqualCollection(newItems: users, oldItems: getFirstPage(collection.items)) {
+            collection.items = []
+        }
+        
+        // Merge collecton
+        let result = mergeModelCollections(newModels: users, withModels: collection.items)
+        collection.items = result
+        
+        // Put the friends collection back to cache
+        putUserFriendsToCache(collection)
+        
+        DispatchQueue.main.async {
+            let userInfo : [String : AnyObject] = [StorageServiceEvents.userId : userId as AnyObject,
+                                                   StorageServiceEvents.page : page as AnyObject]
+            NotificationCenter.default.post(name: StorageServiceEvents.userFriendsDidUpdate, object: nil, userInfo: userInfo)
         }
     }
 }
