@@ -49,6 +49,11 @@ class MainViewController: UINavigationController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        SDImageCache.shared().clearMemory()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
