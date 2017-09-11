@@ -24,6 +24,10 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
     private let displayStyles = [MenuItem(action: .None, text: "Display As Groups"),
                                  MenuItem(action: .None, text: "Display As List")]
     
+    // Menu
+    private var menu = [MenuItem(action : .Home, text: "Home")]
+    private var menuBar : CompactMenuBar!
+
     init(userId : String, gallery : GalleryModel) {
         self.user = StorageService.sharedInstance.getUserProfile(userId: gallery.userId)!
         self.gallery = gallery
@@ -53,6 +57,11 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
         backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
+        
+        // Create a menu
+        menuBar = CompactMenuBar(menu)
+        menuBar.delegate = self
+        view.addSubview(menuBar)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +83,7 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
         super.viewWillLayoutSubviews()
         backgroundView.frame = view.bounds
         
-        streamViewController.view.frame = view.bounds
+        streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - CompactMenuBar.defaultHeight)
         streamViewController.view.setNeedsLayout()
         
         var f = headerView.frame
@@ -86,6 +95,13 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
         f.origin.x = 10
         f.origin.y = 30
         backButton.frame = f
+        
+        f = menuBar.frame
+        f.origin.x = 0
+        f.origin.y = view.bounds.height - CompactMenuBar.defaultHeight
+        f.size.width = view.bounds.width
+        f.size.height = CompactMenuBar.defaultHeight
+        menuBar.frame = f
     }
     
     private func createStreamViewController(_ style : StreamDisplayStyle, animated : Bool) {
@@ -138,6 +154,11 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
     // MARK : - MenuDelegate
     
     func didSelectMenuItem(_ menuItem: MenuItem) {
+        if menuItem.action == .Home {
+            NavigationService.sharedInstance.popToRootController(animated: true)
+            return
+        }
+        
         let index = displayStyles.index(of: menuItem)
         var selectedStyle : StreamDisplayStyle
         if index == 0 {

@@ -8,12 +8,16 @@
 
 import UIKit
 
-class SearchResultViewController: SearchResultBaseViewController, DeckViewControllerDataSource, DeckViewControllerDelegate, DeckNavigationBarDelegate {
+class SearchResultViewController: SearchResultBaseViewController, DeckViewControllerDataSource, DeckViewControllerDelegate, DeckNavigationBarDelegate, MenuDelegate {
 
     private var navView: DeckNavigationBar!
     
     // Card deck, by default automatically select photo card (which is at index 0)
     private let deck = DeckViewController(initialSelectedIndex: 0)
+    
+    // Menu
+    private var menu = [MenuItem(action : .Home, text: "Home")]
+    private var menuBar : CompactMenuBar!
     
     // Cards
     private var photoCard : SearchPhotoResultViewController!
@@ -42,7 +46,7 @@ class SearchResultViewController: SearchResultBaseViewController, DeckViewContro
         deck.view.frame = CGRect(x: 0,
                                  y: deckPaddingTop,
                                  width: view.bounds.size.width,
-                                 height: h - deckPaddingTop)
+                                 height: h - deckPaddingTop - CompactMenuBar.defaultHeight)
         deck.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         deck.didMove(toParentViewController: self)
         deck.dataSource = self
@@ -51,6 +55,13 @@ class SearchResultViewController: SearchResultBaseViewController, DeckViewContro
         
         navView.dataSource = self
         navView.delegate = self
+        
+        // Create a menu
+        menuBar = CompactMenuBar(menu)
+        menuBar.frame = CGRect(x: 0, y: h - CompactMenuBar.defaultHeight, width: view.bounds.width, height: CompactMenuBar.defaultHeight)
+        menuBar.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        menuBar.delegate = self
+        view.addSubview(menuBar)
     }
 
     
@@ -99,6 +110,13 @@ class SearchResultViewController: SearchResultBaseViewController, DeckViewContro
             return photoCard
         } else {
             return userCard!
+        }
+    }
+    
+    // MARK: - MenuDelegate
+    func didSelectMenuItem(_ menuItem: MenuItem) {
+        if menuItem.action == .Home {
+            NavigationService.sharedInstance.popToRootController(animated: true)
         }
     }
 }

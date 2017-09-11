@@ -21,6 +21,10 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
     private let displayStyles = [MenuItem(action: .None, text: "Display As Groups"),
                                  MenuItem(action: .None, text: "Display As List")]
     
+    // Menu
+    private var menu = [MenuItem(action : .Home, text: "Home")]
+    private var menuBar : CompactMenuBar!
+
     init(user : UserModel) {
         // Get an updated copy of user profile
         self.user = StorageService.sharedInstance.getUserProfile(userId: user.userId)!
@@ -50,6 +54,11 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
         backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
+        
+        // Create a menu
+        menuBar = CompactMenuBar(menu)
+        menuBar.delegate = self
+        view.addSubview(menuBar)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,7 +80,7 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
         super.viewWillLayoutSubviews()
         backgroundView.frame = view.bounds
         
-        streamViewController.view.frame = view.bounds
+        streamViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - CompactMenuBar.defaultHeight)
         streamViewController.view.setNeedsLayout()
         
         var f = headerView.frame
@@ -83,6 +92,13 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
         f.origin.x = 10
         f.origin.y = 30
         backButton.frame = f
+        
+        f = menuBar.frame
+        f.origin.x = 0
+        f.origin.y = view.bounds.height - CompactMenuBar.defaultHeight
+        f.size.width = view.bounds.width
+        f.size.height = CompactMenuBar.defaultHeight
+        menuBar.frame = f
     }
     
     private func createStreamViewController(_ style : StreamDisplayStyle, animated : Bool) {
@@ -135,6 +151,11 @@ class UserFriendsPhotosViewController: UIViewController, InfiniteLoadingViewCont
     // MARK : - MenuDelegate
     
     func didSelectMenuItem(_ menuItem: MenuItem) {
+        if menuItem.action == .Home {
+            NavigationService.sharedInstance.popToRootController(animated: true)
+            return
+        }
+
         let index = displayStyles.index(of: menuItem)
         var selectedStyle : StreamDisplayStyle
         if index == 0 {

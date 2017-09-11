@@ -12,7 +12,8 @@ import UIKit
 
 class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegate {
     
-    let displayStyleOptions = [MenuItem(action: .None, text: "View As Groups"),
+    let displayStyleOptions = [MenuItem(action: .Home, text: "Home"),
+                               MenuItem(action: .None, text: "View As Groups"),
                                MenuItem(action: .None, text: "View As List")]
 
     private var menuBar : CompactMenuBar!
@@ -90,7 +91,10 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     // MARK : - MenuDelegate
     
     func didSelectMenuItem(_ menuItem: MenuItem) {
-        if menuItem is SortingOptionMenuItem {
+        if menuItem.action == .Home {
+            NavigationService.sharedInstance.popToRootController(animated: true)
+        }
+        else if menuItem is SortingOptionMenuItem {
             // Sorting options
             let option = (menuItem as! SortingOptionMenuItem).option
             if menuItem != sortingModel.selectedItem {
