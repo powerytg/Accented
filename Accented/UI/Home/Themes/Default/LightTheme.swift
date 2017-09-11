@@ -38,6 +38,10 @@ class LightTheme: AppTheme {
         return false
     }
 
+    override var menuBackgroundColor : UIColor {
+        return UIColor.white
+    }
+
     override var titleTextColor : UIColor {
         return UIColor(red: 80 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1.0)
     }
@@ -46,6 +50,16 @@ class LightTheme: AppTheme {
         return UIColor(red: 60 / 255.0, green: 60 / 255.0, blue: 60 / 255.0, alpha: 1.0)
     }
     
+    // Card title color
+    override var cardTitleColor : UIColor {
+        return UIColor(red: 114 / 255.0, green: 114 / 255.0, blue: 114 / 255.0, alpha: 1)
+    }
+    
+    // Card desc color
+    override var cardDescColor : UIColor {
+        return UIColor(red: 159 / 255.0, green: 159 / 255.0, blue: 159 / 255.0, alpha: 1)
+    }
+
     override var statusBarStyle : UIStatusBarStyle {
         return .default
     }
@@ -72,6 +86,10 @@ class LightTheme: AppTheme {
     
     override var pushButtonTextColor : UIColor {
         return UIColor(red: 76 / 255.0, green: 76 / 255.0, blue: 76 / 255.0, alpha: 1)
+    }
+
+    override var navButtonSelectedColor : UIColor {
+        return UIColor(red: 143/255.0, green: 167/255.0, blue: 183/255.0, alpha: 1.0)
     }
 
     init() {

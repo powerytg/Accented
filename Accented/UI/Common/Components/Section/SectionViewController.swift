@@ -37,7 +37,12 @@ class SectionViewController: UIViewController, SectionViewDelegate, UIScrollView
         
         // Back button
         self.view.addSubview(backButton)
-        backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        } else {
+            backButton.setImage(UIImage(named: "LightDetailBackButton"), for: .normal)
+        }
+        
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
         

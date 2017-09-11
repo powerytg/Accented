@@ -12,9 +12,9 @@ import UIKit
 
 class TagButton: UIButton {
     private let tagButtonInset = UIEdgeInsetsMake(4, 8, 4, 8)
-    private let tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
+    private var tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
     private let tagButtonActiveBackground = UIColor(red: 128 / 255.0, green: 128 / 255.0, blue: 128 / 255.0, alpha: 0.5)
-    private let tagButtonBorderColor = UIColor.black
+    private var tagButtonBorderColor = UIColor.black
     private let tagButtonRadius : CGFloat = 4
     private let tagButtonFont = UIFont(name: "AvenirNextCondensed-Medium", size: 15)!
 
@@ -29,8 +29,18 @@ class TagButton: UIButton {
     }
     
     private func initialize() {
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            tagButtonBorderColor = UIColor.black
+            tagButtonBackground = UIColor(red: 32 / 255.0, green: 32 / 255.0, blue: 32 / 255.0, alpha: 1)
+            setTitleColor(ThemeManager.sharedInstance.currentTheme.standardTextColor, for: .normal)
+        } else {
+            tagButtonBorderColor = UIColor(red: 159 / 255.0, green: 159 / 255.0, blue: 159 / 255.0, alpha: 1)
+            tagButtonBackground = UIColor.white
+            setTitleColor(ThemeManager.sharedInstance.currentTheme.standardTextColor, for: .normal)
+        }
+
         titleLabel?.font = tagButtonFont
-        setTitleColor(UIColor.white, for: .normal)
+        
         contentEdgeInsets = tagButtonInset
         layer.cornerRadius = tagButtonRadius
         layer.borderWidth = 1.0

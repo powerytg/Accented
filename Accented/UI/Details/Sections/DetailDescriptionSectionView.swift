@@ -40,14 +40,14 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         
         // Title label
         titleLabel.font = titleFont
-        titleLabel.textColor = UIColor.white
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
         contentView.addSubview(titleLabel)
 
         // Date label
         dateLabel.font = dateFont
-        dateLabel.textColor = UIColor.white
+        dateLabel.textColor = ThemeManager.sharedInstance.currentTheme.standardTextColor
         contentView.addSubview(dateLabel)
         
         // Desc label

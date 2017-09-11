@@ -30,7 +30,7 @@ class DetailHeaderSectionView: DetailSectionViewBase {
         avatarView.contentMode = .scaleAspectFit
         contentView.addSubview(avatarView)
         
-        authorLabel.textColor = UIColor.white
+        authorLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
         authorLabel.font = UIFont(name: "AvenirNextCondensed-DemiBold", size: 17)!
         authorLabel.textAlignment = .right
         authorLabel.numberOfLines = 1
