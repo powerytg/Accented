@@ -87,4 +87,14 @@ class MainMenuThemeRenderer: UIView {
             }
         }
     }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIView.animate(withDuration: 0.2) {
+            if self.theme == ThemeManager.sharedInstance.currentTheme {
+                self.applySelectedState()
+            }else {
+                self.applyUnselectedState()
+            }
+        }
+    }
 }

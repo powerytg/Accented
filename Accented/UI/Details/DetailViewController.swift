@@ -89,7 +89,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
     
     override func createMenuBar() {
         // Construct menu bar
-        if photo.voted {
+        if photo.voted == true {
             voteMenuItem.text = "Unlike Photo"
         } else {
             voteMenuItem.text = "Like Photo"
@@ -295,7 +295,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
     }
     
     private func votePhoto() {
-        if photo.voted {
+        if photo.voted == true {
             APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: nil, failure: { (errorMessage) in
                 RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
                 
@@ -313,7 +313,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         guard updatedPhoto.photoId == photo.photoId else { return }
         photo.voted = updatedPhoto.voted
         
-        if photo.voted {
+        if photo.voted == true {
             RMessage.showNotification(withTitle: "You liked this photo", subtitle: nil, type: .success, customTypeName: nil, callback: nil)
             voteMenuItem.text = "Unlike Photo"
         } else {

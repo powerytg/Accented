@@ -92,6 +92,14 @@ class LightTheme: AppTheme {
         return UIColor(red: 143/255.0, green: 167/255.0, blue: 183/255.0, alpha: 1.0)
     }
 
+    override var mainMenuNormalColor : UIColor {
+        return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
+    }
+
+    override var menuTitleColor: UIColor {
+        return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
+    }
+    
     init() {
         super.init(themeType: .light)
     }

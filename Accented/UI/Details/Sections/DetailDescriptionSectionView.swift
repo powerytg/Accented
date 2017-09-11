@@ -63,7 +63,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         // Note: Xcode crashes due to sigbart if seeing this:
         // let icon = photo.voted ? "DownVote" : "UpVote"
         var icon : String
-        if photo.voted {
+        if photo.voted == true {
             icon = "DownVote"
         } else {
             icon = "UpVote"
@@ -256,7 +256,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         voteButton.alpha = 0.5
         voteButton.isUserInteractionEnabled = false
         
-        if photo.voted {
+        if photo.voted == true {
             APIService.sharedInstance.deleteVote(photoId: photo.photoId, success: nil, failure: { [weak self] (errorMessage) in
                 self?.voteButton.alpha = 1
                 self?.voteButton.isUserInteractionEnabled = true
@@ -278,7 +278,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         voteButton.alpha = 1
         voteButton.isUserInteractionEnabled = true
         
-        if photo.voted {
+        if photo.voted == true {
             voteButton.setImage(UIImage(named: "DownVote"), for: .normal)
         } else {
             voteButton.setImage(UIImage(named: "UpVote"), for: .normal)

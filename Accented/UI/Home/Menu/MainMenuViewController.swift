@@ -12,14 +12,14 @@ class MainMenuViewController: SectionViewController {
 
     static let drawerWidthInPercentage : CGFloat = 0.8
     
-    private var backgroundView = UIImageView(image: UIImage(named: "DarkButterfly"))
+    private var backgroundView : DetailBackgroundView!
     private var avatarView = UIImageView()
     private var currentUserLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backgroundView.contentMode = .scaleAspectFill
+        backgroundView = DetailBackgroundView(frame: view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
         
         addSection(MainMenuHeaderSectionView(drawer : self))

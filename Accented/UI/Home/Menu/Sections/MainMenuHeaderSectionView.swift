@@ -38,7 +38,7 @@ class MainMenuHeaderSectionView: MainMenuSectionBase {
                 avatarView.sd_setImage(with: avatarUrl)
             }
             
-            authorButton.setTitleColor(UIColor.white, for: .normal)
+            authorButton.setTitleColor(ThemeManager.sharedInstance.currentTheme.menuTitleColor, for: .normal)
             authorButton.setTitle(TextUtils.preferredAuthorName(user).uppercased(), for: .normal)
         } else {
             authorButton.setTitleColor(UIColor(red: 30 / 255.0, green: 128 / 255.0, blue: 243 / 255.0, alpha: 1.0), for: .normal)
