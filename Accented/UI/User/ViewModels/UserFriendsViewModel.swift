@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import RMessage
 
 class UserFriendsViewModel: InfiniteLoadingViewModel<UserModel>  {
     
@@ -40,6 +41,7 @@ class UserFriendsViewModel: InfiniteLoadingViewModel<UserModel>  {
     override func loadPageAt(_ page : Int) {
         APIService.sharedInstance.getUserFriends(userId: collection.modelId!, page: page, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }
     }
     

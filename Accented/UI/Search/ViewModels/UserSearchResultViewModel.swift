@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import RMessage
 
 class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
     
@@ -38,6 +39,7 @@ class UserSearchResultViewModel : InfiniteLoadingViewModel<UserModel> {
     override func loadPageAt(_ page : Int) {
         APIService.sharedInstance.searchUsers(keyword: collection.modelId!, page: page, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }
     }
 

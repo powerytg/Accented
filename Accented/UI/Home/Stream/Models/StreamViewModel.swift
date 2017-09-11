@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import RMessage
 
 class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
 
@@ -66,6 +67,7 @@ class StreamViewModel: InfiniteLoadingViewModel<PhotoModel> {
         let params = ["tags" : "1"]
         APIService.sharedInstance.getPhotos(streamType: stream.streamType, page: page, parameters: params, success: nil, failure: { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         })
     }
     

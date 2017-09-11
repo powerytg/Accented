@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import RMessage
 
 class UserGalleryListViewModel: InfiniteLoadingViewModel<GalleryModel> {
     private let galleryRendererIdentifier = "gallery"
@@ -43,6 +44,7 @@ class UserGalleryListViewModel: InfiniteLoadingViewModel<GalleryModel> {
     override func loadPageAt(_ page : Int) {
         APIService.sharedInstance.getGalleries(userId: collection.modelId!, page: page, parameters: [String : String](), success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }
     }
 

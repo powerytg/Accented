@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMessage
 
 class GalleryStreamCardViewModel: SingleHeaderStreamViewModel {
     
@@ -42,6 +43,7 @@ class GalleryStreamCardViewModel: SingleHeaderStreamViewModel {
         let params = ["tags" : "1"]
         APIService.sharedInstance.getGalleryPhotos(userId: gallery.userId, galleryId: gallery.galleryId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedRefreshing(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }
     }
     

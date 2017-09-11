@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import RMessage
 
 class UserStreamViewModel : SingleHeaderStreamViewModel{
 
@@ -32,6 +33,7 @@ class UserStreamViewModel : SingleHeaderStreamViewModel{
         let userStreamModel = stream as! UserStreamModel
         APIService.sharedInstance.getUserPhotos(userId: userStreamModel.userId, page: page, parameters: params, success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedRefreshing(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }
     }
     

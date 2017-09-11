@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMessage
 
 class CommentsViewModel : InfiniteLoadingViewModel<CommentModel>, CommentsLayoutDelegate {
 
@@ -67,6 +68,7 @@ class CommentsViewModel : InfiniteLoadingViewModel<CommentModel>, CommentsLayout
     override func loadPageAt(_ page : Int) {
         APIService.sharedInstance.getComments(collection.modelId!, page: page, parameters: [String : String](), success: nil) { [weak self] (errorMessage) in
             self?.collectionFailedLoading(errorMessage)
+            RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
         }        
     }
     

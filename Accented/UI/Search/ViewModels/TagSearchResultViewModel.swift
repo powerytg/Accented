@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RMessage
 
 class TagSearchResultViewModel: SingleHeaderStreamViewModel {
     
@@ -41,6 +42,7 @@ class TagSearchResultViewModel: SingleHeaderStreamViewModel {
                                                    success: nil,
                                                    failure: { [weak self] (errorMessage) in
                                                     self?.collectionFailedRefreshing(errorMessage)
+                                                    RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
                 })
         } else if let tag = searchModel.tag {
             APIService.sharedInstance.searchPhotos(tag : tag,
@@ -50,6 +52,7 @@ class TagSearchResultViewModel: SingleHeaderStreamViewModel {
                                                    success: nil,
                                                    failure: { [weak self] (errorMessage) in
                                                     self?.collectionFailedRefreshing(errorMessage)
+                                                    RMessage.showNotification(withTitle: errorMessage, subtitle: nil, type: .error, customTypeName: nil, callback: nil)
                 })
         }
     }

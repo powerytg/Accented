@@ -52,6 +52,7 @@ class MainViewController: UINavigationController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         SDImageCache.shared().clearMemory()
+        APIService.sharedInstance.removeExpiredCache()
     }
 
     override func viewDidAppear(_ animated: Bool) {
