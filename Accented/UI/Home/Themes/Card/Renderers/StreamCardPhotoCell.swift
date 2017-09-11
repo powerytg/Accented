@@ -13,12 +13,20 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
     private var descLabel = UILabel()
     private var subtitleLabel = UILabel()
     private var footerView = UIImageView(image: UIImage(named: "DarkJournalFooter"))
+    private var cardBackgroundLayer = CALayer()
 
     private var currentTheme : AppTheme {
         return ThemeManager.sharedInstance.currentTheme
     }
 
     override func initialize() {
+        // Background (only available in light card theme)
+        contentView.layer.insertSublayer(cardBackgroundLayer, at: 0)
+        cardBackgroundLayer.shadowColor = UIColor.black.cgColor
+        cardBackgroundLayer.shadowOpacity = 0.2
+        cardBackgroundLayer.cornerRadius = 12
+        cardBackgroundLayer.shadowRadius = 34
+        
         // Title
         titleLabel.textColor = currentTheme.titleTextColor
         titleLabel.font = StreamCardLayoutSpec.titleFont
@@ -64,6 +72,14 @@ class StreamCardPhotoCell: StreamPhotoCellBaseCollectionViewCell {
         let w = self.contentView.bounds.width
         
         var nextY : CGFloat = StreamCardLayoutSpec.topPadding
+        
+        // Background
+        if currentTheme is LightCardTheme {
+            cardBackgroundLayer.isHidden = false
+            cardBackgroundLayer.frame = contentView.bounds
+        } else {
+            cardBackgroundLayer.isHidden = true
+        }
         
         // Title label
         titleLabel.textColor = currentTheme.titleTextColor
