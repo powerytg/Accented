@@ -98,6 +98,8 @@ class PhotoCardTemplateGenerator: StreamTemplateGenerator {
             nextY += descMeasuringLabel.bounds.height
         }
         
+        // Add footer
+        nextY += StreamCardLayoutSpec.footerHeight + StreamCardLayoutSpec.footerTopPadding + StreamCardLayoutSpec.footerBottomPadding
         nextY += StreamCardLayoutSpec.bottomPadding
         
         return nextY

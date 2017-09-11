@@ -11,10 +11,10 @@ import UIKit
 class StreamCardLayoutSpec: NSObject {
     
     // Top padding
-    static let topPadding : CGFloat = 18
+    static let topPadding : CGFloat = 3
     
     // Bottom padding
-    static let bottomPadding : CGFloat = 20
+    static let bottomPadding : CGFloat = 10
     
     // Padding between the title and the subtitle
     static let titleVPadding : CGFloat = 5
@@ -32,10 +32,10 @@ class StreamCardLayoutSpec: NSObject {
     static let photoVPadding : CGFloat = 15
     
     // Photo left padding
-    static let photoLeftPadding : CGFloat = 5
+    static let photoLeftPadding : CGFloat = 3
 
     // Photo right padding
-    static let photoRightPadding : CGFloat = 5
+    static let photoRightPadding : CGFloat = 3
 
     // Max lines of title
     static let titleLabelLineCount = 2
@@ -48,6 +48,12 @@ class StreamCardLayoutSpec: NSObject {
     
     // Footer decor height
     static let footerHeight : CGFloat = 12
+    
+    // Footer top padding
+    static let footerTopPadding : CGFloat = 22
+    
+    // Footer bottom padding
+    static let footerBottomPadding : CGFloat = 4
     
     // Max height of photo
     static let maxPhotoHeight : CGFloat = 240

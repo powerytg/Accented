@@ -62,6 +62,16 @@ class AppTheme: NSObject {
         return UIColor.white
     }
 
+    // Card title color
+    var cardTitleColor : UIColor {
+        return UIColor(red: 114 / 255.0, green: 114 / 255.0, blue: 114 / 255.0, alpha: 1)
+    }
+
+    // Card desc color
+    var cardDescColor : UIColor {
+        return UIColor(red: 159 / 255.0, green: 159 / 255.0, blue: 159 / 255.0, alpha: 1)
+    }
+    
     // Description text color
     var descTextColor : UIColor {
         return UIColor(red: 160/255.0, green: 160/255.0, blue: 160/255.0, alpha: 1)
