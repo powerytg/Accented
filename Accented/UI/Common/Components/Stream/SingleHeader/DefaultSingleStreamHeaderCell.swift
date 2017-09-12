@@ -18,6 +18,10 @@ class DefaultSingleStreamHeaderCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        subtitleLabel.textColor = ThemeManager.sharedInstance.currentTheme.subtitleTextColor
+        orderLabel.textColor = ThemeManager.sharedInstance.currentTheme.subtitleTextColor
     }
 
     @IBAction func orderButtonDidTap(_ sender: AnyObject) {

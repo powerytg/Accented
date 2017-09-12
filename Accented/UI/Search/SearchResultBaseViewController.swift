@@ -40,8 +40,15 @@ class SearchResultBaseViewController: UIViewController {
         if keyword == nil && tag == nil {
             fatalError("Keyword and tag cannot be both nil")
         }
-        
+
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        } else {
+            backButton.setImage(UIImage(named: "LightDetailBackButton"), for: .normal)
+        }
+
         // Setup title
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
         titleLabel.preferredMaxLayoutWidth = 120
     }
 

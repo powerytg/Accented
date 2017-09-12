@@ -41,7 +41,7 @@ class UserProfileViewController: SectionViewController, MenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         
         // Initialize the loading progress view
         loadingView = LoadingViewController()

@@ -23,9 +23,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkButterfly" translatesAutoresizingMaskIntoConstraints="NO" id="oqe-KW-5ZQ">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObT-xx-7of" userLabel="Background" customClass="DetailBackgroundView" customModule="Accented" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                </imageView>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYk-FD-h2e">
                     <rect key="frame" x="368" y="36" width="30.333333333333314" height="20.666666666666664"/>
                     <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
@@ -49,21 +50,20 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="oqe-KW-5ZQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9NW-pK-zgK"/>
+                <constraint firstItem="ObT-xx-7of" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C9P-Wz-3as"/>
                 <constraint firstItem="RYk-FD-h2e" firstAttribute="leading" secondItem="HhU-7W-Fze" secondAttribute="trailing" constant="25" id="DTa-74-BvP"/>
                 <constraint firstAttribute="trailing" secondItem="RYk-FD-h2e" secondAttribute="trailing" constant="15.666666666666686" id="RoA-L5-2pR"/>
-                <constraint firstAttribute="bottom" secondItem="oqe-KW-5ZQ" secondAttribute="bottom" id="StI-YH-f3U"/>
-                <constraint firstItem="oqe-KW-5ZQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UAo-kJ-esp"/>
                 <constraint firstItem="HhU-7W-Fze" firstAttribute="centerY" secondItem="oc9-xS-7JM" secondAttribute="centerY" id="hmc-4x-rQQ"/>
                 <constraint firstItem="RYk-FD-h2e" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="36" id="iXY-Tq-Tt4"/>
-                <constraint firstAttribute="trailing" secondItem="oqe-KW-5ZQ" secondAttribute="trailing" id="pOa-nq-IZW"/>
+                <constraint firstAttribute="trailing" secondItem="ObT-xx-7of" secondAttribute="trailing" id="mpn-u4-1Sp"/>
+                <constraint firstItem="ObT-xx-7of" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pz7-AW-YFi"/>
                 <constraint firstItem="oc9-xS-7JM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="s6f-E0-skb"/>
+                <constraint firstAttribute="bottom" secondItem="ObT-xx-7of" secondAttribute="bottom" id="sh7-R1-91l"/>
                 <constraint firstItem="oc9-xS-7JM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="xn8-xN-fg3"/>
             </constraints>
         </view>
     </objects>
     <resources>
-        <image name="DarkButterfly" width="414" height="736"/>
         <image name="DetailBackButton" width="34" height="34"/>
         <image name="SearchButton" width="34" height="34"/>
     </resources>

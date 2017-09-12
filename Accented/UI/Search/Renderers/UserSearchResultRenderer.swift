@@ -21,6 +21,9 @@ class UserSearchResultRenderer: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        subLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(didReceiveTap(_:)))
         contentView.addGestureRecognizer(tap)
     }

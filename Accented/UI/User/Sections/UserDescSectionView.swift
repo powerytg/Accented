@@ -26,7 +26,7 @@ class UserDescSectionView: UserSectionViewBase {
         super.createContentView()
         
         descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
-        descLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
+        descLabel.textColor = ThemeManager.sharedInstance.currentTheme.userProfileDescTextColor
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .byWordWrapping
         descLabel.linkAttributes = [NSForegroundColorAttributeName : linkColor, NSUnderlineStyleAttributeName : NSUnderlineStyle.styleNone.rawValue]
@@ -47,7 +47,8 @@ class UserDescSectionView: UserSectionViewBase {
         guard let desc = user.about else { return 0 }
         
         let descFont = ThemeManager.sharedInstance.currentTheme.descFont
-        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
+        let descColor = ThemeManager.sharedInstance.currentTheme.descTextColorHex
+        let descStringWithStyles = NSString(format:"<span style=\"color: \(descColor); font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
         guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return 0 }
         
         let options : [String : Any] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,

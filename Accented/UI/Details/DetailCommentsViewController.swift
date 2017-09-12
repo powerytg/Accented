@@ -25,19 +25,26 @@ class DetailCommentsViewController: InfiniteLoadingViewController<CommentModel> 
     private var composeButton = UIButton()
     
     // Nav bar
-    private var navBarView = UIVisualEffectView(effect : UIBlurEffect(style : .dark))
+    private var navBarView : UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         
         // Nav bar
+        let blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
+        navBarView = UIVisualEffectView(effect : blurEffect)
         self.view.addSubview(navBarView)
         
         // Back button
         self.view.addSubview(backButton)
-        backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        } else {
+            backButton.setImage(UIImage(named: "LightDetailBackButton"), for: .normal)
+        }
+
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
         
@@ -45,6 +52,7 @@ class DetailCommentsViewController: InfiniteLoadingViewController<CommentModel> 
         self.view.addSubview(composeButton)
         composeButton.setTitle("ADD COMMENT", for: .normal)
         composeButton.titleLabel?.font = ThemeManager.sharedInstance.currentTheme.navButtonFont
+        composeButton.setTitleColor(ThemeManager.sharedInstance.currentTheme.pushButtonTextColor, for: .normal)
         composeButton.addTarget(self, action: #selector(composeButtonDidTap(_:)), for: .touchUpInside)
         composeButton.sizeToFit()
         

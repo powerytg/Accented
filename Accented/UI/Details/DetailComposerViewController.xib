@@ -14,10 +14,13 @@
                 <outlet property="backButton" destination="RR3-pD-3xS" id="YJ5-54-fgR"/>
                 <outlet property="composerHeightConstraint" destination="l9U-V7-Owh" id="Ljz-hE-MrM"/>
                 <outlet property="composerView" destination="riD-iM-QvW" id="zIt-jy-0bx"/>
+                <outlet property="errorLabelView" destination="MAL-G3-A2F" id="cB1-vc-Tu2"/>
                 <outlet property="errorView" destination="9lC-m3-lpk" id="9Lu-5e-d8A"/>
                 <outlet property="progressIndicator" destination="Cg2-MP-5zz" id="ago-3e-QzB"/>
+                <outlet property="progressLabelView" destination="7p9-c5-X9W" id="bpc-Im-CgQ"/>
                 <outlet property="progressView" destination="EqG-I9-iae" id="CHZ-iF-rfo"/>
                 <outlet property="sendButton" destination="ADQ-xf-zq6" id="roA-OZ-OEG"/>
+                <outlet property="successLabelView" destination="pZx-uk-e0Q" id="RLM-yw-STL"/>
                 <outlet property="successView" destination="V6b-8I-F6f" id="R5P-0i-7qF"/>
                 <outlet property="textView" destination="UII-Ey-4Af" id="aiH-rH-O9D"/>
                 <outlet property="titleView" destination="heP-1b-PmO" id="T7L-Q3-qW0"/>

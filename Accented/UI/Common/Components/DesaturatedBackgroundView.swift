@@ -89,7 +89,12 @@ class DesaturatedBackgroundView: UIImageView {
         self.image = source
         
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
+            if ThemeManager.sharedInstance.currentTheme is DarkTheme {
                 self?.alpha = 0.4
+            } else {
+                self?.alpha = 0.2
+            }
+            
             }, completion: { [weak self] (finished) in
                 self?.delegate?.backgroundViewDidFinishedTransition()
             })

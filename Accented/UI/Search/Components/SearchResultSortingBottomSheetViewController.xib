@@ -33,15 +33,10 @@
                     <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkJournalBubble" translatesAutoresizingMaskIntoConstraints="NO" id="0Zf-jh-Fap">
-                    <rect key="frame" x="0.0" y="125" width="127" height="141"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84688035102739723" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="0Zf-jh-Fap" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="14x-gu-IZK"/>
                 <constraint firstItem="V7L-MZ-wAL" firstAttribute="top" secondItem="586-Wl-JM2" secondAttribute="bottom" constant="20" id="34j-TY-lzi"/>
-                <constraint firstAttribute="bottom" secondItem="0Zf-jh-Fap" secondAttribute="bottom" id="DQs-cj-E3N"/>
                 <constraint firstAttribute="trailing" secondItem="V7L-MZ-wAL" secondAttribute="trailing" id="FUL-FX-GNV"/>
                 <constraint firstAttribute="bottom" secondItem="V7L-MZ-wAL" secondAttribute="bottom" id="Me9-6E-6nM"/>
                 <constraint firstAttribute="trailing" secondItem="586-Wl-JM2" secondAttribute="trailing" constant="112" id="ezh-US-cYO"/>
@@ -53,7 +48,4 @@
             <point key="canvasLocation" x="104.5" y="-111"/>
         </view>
     </objects>
-    <resources>
-        <image name="DarkJournalBubble" width="127" height="141"/>
-    </resources>
 </document>

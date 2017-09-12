@@ -15,8 +15,8 @@ class UserInfoEntryView: UIView {
     private var infoEntry : (String, String)
     private var nameLabel = UILabel()
     private var valueLabel = UILabel()
-    private let nameColor = UIColor(red: 202 / 255.0, green: 202 / 255.0, blue: 202 / 255.0, alpha: 1.0)
-    private let valueColor = UIColor(red: 104 / 255.0, green: 104 / 255.0, blue: 104 / 255.0, alpha: 1.0)
+    private var nameColor : UIColor!
+    private var valueColor : UIColor!
     private let nameFont = UIFont(name: "AvenirNextCondensed-DemiBold", size: 15)!
     private let valueFont = UIFont(name: "AvenirNextCondensed-Regular", size: 15)!
     private let paddingLeft : CGFloat = 6
@@ -26,6 +26,9 @@ class UserInfoEntryView: UIView {
     init(_ entry : (String, String)) {
         self.infoEntry = entry
         super.init(frame: CGRect.zero)
+
+        nameColor = ThemeManager.sharedInstance.currentTheme.detailEntryViewNameTextColor
+        valueColor = ThemeManager.sharedInstance.currentTheme.detailEntryValueTextColor
         
         addSubview(nameLabel)
         addSubview(valueLabel)

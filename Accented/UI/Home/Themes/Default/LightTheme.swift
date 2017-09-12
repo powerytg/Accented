@@ -49,6 +49,10 @@ class LightTheme: AppTheme {
     override var titleTextColor : UIColor {
         return UIColor(red: 80 / 255.0, green: 80 / 255.0, blue: 80 / 255.0, alpha: 1.0)
     }
+    
+    override var subtitleTextColor: UIColor {
+        return UIColor(red: 100 / 255.0, green: 100 / 255.0, blue: 100 / 255.0, alpha: 1.0)
+    }
 
     override var standardTextColor : UIColor {
         return UIColor(red: 60 / 255.0, green: 60 / 255.0, blue: 60 / 255.0, alpha: 1.0)
@@ -61,7 +65,7 @@ class LightTheme: AppTheme {
     
     // Card desc color
     override var cardDescColor : UIColor {
-        return UIColor(red: 159 / 255.0, green: 159 / 255.0, blue: 159 / 255.0, alpha: 1)
+        return UIColor(red: 100 / 255.0, green: 100 / 255.0, blue: 100 / 255.0, alpha: 1)
     }
 
     override var statusBarStyle : UIStatusBarStyle {
@@ -100,6 +104,10 @@ class LightTheme: AppTheme {
         return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
     }
 
+    override var mainMenuHighlightColor: UIColor {
+        return UIColor(red: 143/255.0, green: 167/255.0, blue: 183/255.0, alpha: 1.0)
+    }
+    
     override var menuTitleColor: UIColor {
         return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
     }
@@ -113,11 +121,47 @@ class LightTheme: AppTheme {
     }
 
     override var commentBubbleTextColor : UIColor {
-        return UIColor(red: 137 / 255.0, green: 141 / 255.0, blue: 151 / 255.0, alpha: 1)
+        return UIColor(red: 100 / 255.0, green: 103 / 255.0, blue: 113 / 255.0, alpha: 1)
     }
 
     override var loadingSpinnerStyle : UIActivityIndicatorViewStyle {
         return .gray
+    }
+
+    override var deckNavUnselectedTextColor : UIColor {
+        return UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
+    }
+    
+    override var deckNavSelectedTextColor : UIColor {
+        return UIColor(red: 143/255.0, green: 167/255.0, blue: 183/255.0, alpha: 1.0)
+    }
+
+    override var detailEntryViewNameTextColor : UIColor {
+        return UIColor(red: 143/255.0, green: 167/255.0, blue: 183/255.0, alpha: 1.0)
+    }
+
+    override var detailEntryValueTextColor: UIColor {
+        return UIColor(red: 80/255.0, green: 80/255.0, blue: 80/255.0, alpha: 1.0)
+    }
+    
+    override var composerBackground : UIColor {
+        return UIColor.white
+    }
+
+    override var composerTextColor : UIColor {
+        return UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
+    }
+    
+    override var composerPlaceholderTextColor : UIColor {
+        return UIColor(red: 170/255.0, green: 170/255.0, blue: 170/255.0, alpha: 1)
+    }
+
+    override var userProfileDescTextColor: UIColor {
+        return UIColor(red: 33/255.0, green: 33/255.0, blue: 33/255.0, alpha: 1)
+    }
+
+    override var descTextColorHex : String {
+        return "#767676"
     }
 
     init() {

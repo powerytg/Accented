@@ -63,6 +63,7 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
             f.size.width = view.bounds.width
             f.size.height = view.bounds.height - CompactMenuBar.defaultHeight
             streamController.view.frame = f
+            streamController.view.setNeedsLayout()
         }
         
         var f = menuBar.frame

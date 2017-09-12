@@ -38,7 +38,6 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
         // Create curtain view
         if ThemeManager.sharedInstance.currentTheme.drawerUseBlurBackground {
             let blurView = BlurView(frame: CGRect.zero)
-            blurView.blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
             curtainView = blurView
         } else {
             curtainView = UIView()

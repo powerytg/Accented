@@ -14,6 +14,7 @@ protocol SearchResultFilterViewControllerDelegate : NSObjectProtocol {
 
 class SearchResultFilterViewController: UIViewController {
 
+    @IBOutlet weak var sortByLabel: UILabel!
     @IBOutlet weak var sortButton: PushButton!
     private var sortingModel : PhotoSearchFilterModel
     
@@ -30,6 +31,7 @@ class SearchResultFilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sortByLabel.textColor = ThemeManager.sharedInstance.currentTheme.subtitleTextColor
     }
 
     override func didReceiveMemoryWarning() {

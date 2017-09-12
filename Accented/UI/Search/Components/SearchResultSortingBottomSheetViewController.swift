@@ -13,6 +13,8 @@ class SearchResultSortingBottomSheetViewController: SheetMenuViewController {
     override init(model: MenuModel) {
         super.init(model: model)
         
+        view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
+        
         for (index, entry) in model.items.enumerated() {
             let option = entry as! SortingOptionMenuItem
             if option.option == StorageService.sharedInstance.currentPhotoSearchSortingOption {

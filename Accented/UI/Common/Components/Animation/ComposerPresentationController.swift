@@ -38,7 +38,6 @@ class ComposerPresentationController: NSObject, UIViewControllerTransitioningDel
         (composer as! UIViewController).view.frame = containerView.bounds
         blurView.frame = containerView.bounds
         blurView.alpha = 0
-        blurView.blurEffect = UIBlurEffect(style: .dark)
         composer.entranceAnimationWillBegin()
         
         UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {

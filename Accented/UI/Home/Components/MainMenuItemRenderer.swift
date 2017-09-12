@@ -88,4 +88,14 @@ class MainMenuItemRenderer: UIView {
             self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.mainMenuNormalColor
         }
     }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if menuItem is MenuSeparator || menuItem.image != nil {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.titleLabel.textColor = ThemeManager.sharedInstance.currentTheme.mainMenuNormalColor
+        }
+    }
 }

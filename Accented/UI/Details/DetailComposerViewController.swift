@@ -23,6 +23,9 @@ class DetailComposerViewController: UIViewController, Composer, UITextViewDelega
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     @IBOutlet weak var composerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var errorLabelView: UILabel!
+    @IBOutlet weak var progressLabelView: UILabel!
+    @IBOutlet weak var successLabelView: UILabel!
     
     private var photo : PhotoModel
     private let cornerRadius : CGFloat = 20
@@ -49,6 +52,17 @@ class DetailComposerViewController: UIViewController, Composer, UITextViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        composerView.backgroundColor = ThemeManager.sharedInstance.currentTheme.composerBackground
+        textView.placeholderColor = ThemeManager.sharedInstance.currentTheme.composerPlaceholderTextColor
+        textView.textColor = ThemeManager.sharedInstance.currentTheme.composerTextColor
+        
+        successLabelView.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        errorLabelView.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        progressLabelView.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        
+        progressIndicator.activityIndicatorViewStyle = ThemeManager.sharedInstance.currentTheme.loadingSpinnerStyle
+        
         composerView.alpha = 0
         composerView.layer.cornerRadius = cornerRadius
         textView.delegate = self

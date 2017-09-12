@@ -41,6 +41,11 @@ class SearchViewController: UIViewController, Composer, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        composerView.backgroundColor = ThemeManager.sharedInstance.currentTheme.composerBackground
+        textView.placeholderColor = ThemeManager.sharedInstance.currentTheme.composerPlaceholderTextColor
+        textView.textColor = ThemeManager.sharedInstance.currentTheme.composerTextColor
+        
         composerView.alpha = 0
         composerView.layer.cornerRadius = cornerRadius
         textView.delegate = self

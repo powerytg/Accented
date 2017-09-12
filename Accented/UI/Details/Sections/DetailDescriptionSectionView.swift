@@ -192,8 +192,8 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
     
     private func formattedDescriptionString(_ photo : PhotoModel) -> NSAttributedString? {
         guard let desc = photo.desc else { return nil }
-        
-        let descStringWithStyles = NSString(format:"<span style=\"color: #989898; font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
+        let descColor = ThemeManager.sharedInstance.currentTheme.descTextColorHex
+        let descStringWithStyles = NSString(format:"<span style=\"color: \(descColor); font-family: \(descFont.fontName); font-size: \(descFont.pointSize)\">%@</span>" as NSString, desc) as String
         guard let data = descStringWithStyles.data(using: String.Encoding.utf8) else { return nil }
         
         let options : [String : Any] = [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,

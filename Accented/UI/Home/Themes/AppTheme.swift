@@ -72,6 +72,11 @@ class AppTheme: NSObject {
         return UIColor.white
     }
 
+    // Subtitle text color
+    var subtitleTextColor : UIColor {
+        return UIColor(red: 150/255.0, green: 150/255.0, blue: 150/255.0, alpha: 1)
+    }
+
     // Standard text color
     var standardTextColor : UIColor {
         return UIColor.white
@@ -250,7 +255,51 @@ class AppTheme: NSObject {
     var commentBubbleTextColor : UIColor {
         return UIColor(red: 170 / 255.0, green: 170 / 255.0, blue: 170 / 255.0, alpha: 1)
     }
+
+    // Deck nav bar unselected color
+    var deckNavUnselectedTextColor : UIColor {
+        return UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
+    }
+
+    var deckNavSelectedTextColor : UIColor {
+        return UIColor.white
+    }
+
+    // Name text color of an entry pair
+    var detailEntryViewNameTextColor : UIColor {
+        return UIColor(red: 202 / 255.0, green: 202 / 255.0, blue: 202 / 255.0, alpha: 1.0)
+    }
     
+    // Value text color of an entry pair
+    var detailEntryValueTextColor : UIColor {
+        return UIColor(red: 104 / 255.0, green: 104 / 255.0, blue: 104 / 255.0, alpha: 1.0)
+    }
+    
+    // Composer background
+    var composerBackground : UIColor {
+        return UIColor(red: 54/255.0, green: 54/255.0, blue: 54/255.0, alpha: 1)
+    }
+    
+    // Composer text color
+    var composerTextColor : UIColor {
+        return UIColor.white
+    }
+    
+    // Composer placeholder text color
+    var composerPlaceholderTextColor : UIColor {
+        return UIColor(red: 128/255.0, green: 128/255.0, blue: 128/255.0, alpha: 1)
+    }
+
+    // User profile desc color
+    var userProfileDescTextColor : UIColor {
+        return UIColor(red: 160/255.0, green: 160/255.0, blue: 160/255.0, alpha: 1)
+    }
+
+    // Desc text color hex code
+    var descTextColorHex : String {
+        return "#989898"
+    }
+
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

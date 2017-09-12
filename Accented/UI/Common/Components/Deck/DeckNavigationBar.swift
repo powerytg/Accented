@@ -32,10 +32,8 @@ class DeckNavigationBar: UIView {
     private let indicatorPaddingLeft : CGFloat = 5
     private let indicatorPaddingRight : CGFloat = 10
     private let gap : CGFloat = 25
-    private let unselectedColor = UIColor(red: 81 / 255.0, green: 81 / 255.0, blue: 81 / 255.0, alpha: 1)
-    private let unselectedHighContrastColor = UIColor(red: 190 / 255.0, green: 190 / 255.0, blue: 190 / 255.0, alpha: 1)
-    private let selectedColor = UIColor.white
-    private var highContrastMode = false
+    private var unselectedColor : UIColor!
+    private var selectedColor : UIColor!
     
     weak var delegate : DeckNavigationBarDelegate?
     
@@ -50,8 +48,11 @@ class DeckNavigationBar: UIView {
     }
     
     private func initialize() {
+        unselectedColor = ThemeManager.sharedInstance.currentTheme.deckNavUnselectedTextColor
+        selectedColor = ThemeManager.sharedInstance.currentTheme.deckNavSelectedTextColor
+        
         addSubview(indicator)
-        indicator.backgroundColor = ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor        
+        indicator.backgroundColor = ThemeManager.sharedInstance.currentTheme.navButtonSelectedColor
     }
     
     // Reference to the data source
@@ -86,7 +87,7 @@ class DeckNavigationBar: UIView {
         super.layoutSubviews()
         guard navButtons.count > 0 else { return }
         
-        let normalColor = highContrastMode ? self.unselectedHighContrastColor : self.unselectedColor
+        let normalColor = self.unselectedColor
         
         var nextX : CGFloat = indicatorPaddingLeft
         for (index, button) in navButtons.enumerated() {
@@ -127,18 +128,5 @@ class DeckNavigationBar: UIView {
         
         delegate?.navButtonSelectedIndexDidChange(fromIndex: selectedIndex, toIndex: toIndex!)
         selectedIndex = toIndex!
-    }
-    
-    func adjustTextClarity() {
-        highContrastMode = true
-        
-        for button in navButtons {
-            button.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 0)
-            button.titleLabel?.layer.shadowOpacity = 1
-            button.titleLabel?.layer.shadowRadius = 1
-            button.titleLabel?.layer.shadowOpacity = 0.6
-        }
-        
-        setNeedsLayout()
     }
 }
