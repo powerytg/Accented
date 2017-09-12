@@ -26,23 +26,23 @@ class CompactMenuBar: UIView {
         self.title = title
         super.init(frame: CGRect.zero)
         
-        backgroundColor = ThemeManager.sharedInstance.currentTheme.menuBarBackgroundColor
-        
-        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
-            iconView = UIImageView(image: UIImage(named: "MenuIcon"))
-        } else {
-            iconView = UIImageView(image: UIImage(named: "LightMenuIcon"))
-        }
+        applyStyles()
         
         iconView.sizeToFit()
         addSubview(iconView)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnMenuBar(_:)))
         addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func layoutSubviews() {
@@ -60,5 +60,19 @@ class CompactMenuBar: UIView {
         menuSheet.title = title
         menuSheet.delegate = delegate
         menuSheet.show()
+    }
+    
+    @objc private func appThemeDidChange(_ notification : Notification) {
+        applyStyles()
+    }
+    
+    private func applyStyles() {
+        backgroundColor = ThemeManager.sharedInstance.currentTheme.menuBarBackgroundColor
+        
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            iconView = UIImageView(image: UIImage(named: "MenuIcon"))
+        } else {
+            iconView = UIImageView(image: UIImage(named: "LightMenuIcon"))
+        }
     }
 }

@@ -20,13 +20,25 @@ class PushButton: UIButton {
         initialize()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     func initialize() {
+        self.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+        applyStyles()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
+    }
+
+    @objc private func appThemeDidChange(_ notification : Notification) {
+        applyStyles()
+    }
+    
+    private func applyStyles() {
         self.layer.borderColor = ThemeManager.sharedInstance.currentTheme.pushButtonBorderColor.cgColor
         self.layer.borderWidth = 1.0
         self.backgroundColor = ThemeManager.sharedInstance.currentTheme.pushButtonBackgroundColor
-        
         self.setTitleColor(ThemeManager.sharedInstance.currentTheme.pushButtonTextColor, for: .normal)
-        self.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 14)
     }
-
 }

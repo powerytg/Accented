@@ -43,6 +43,8 @@ class MainViewController: UINavigationController {
         NotificationCenter.default.addObserver(self, selector: #selector(userDidSignOut(_:)), name: AuthenticationService.userDidSignOut, object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(didRequestRightDrawer(_:)), name: StreamEvents.didRequestRightDrawer, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appThemeDidChange(_:)), name: ThemeManagerEvents.appThemeDidChange, object: nil)
     }
     
     deinit {
@@ -127,5 +129,9 @@ class MainViewController: UINavigationController {
         
         // Return to greetings screen
         showGreetingsScreen()
+    }
+    
+    @objc private func appThemeDidChange(_ notification : Notification) {
+        view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
     }
 }
