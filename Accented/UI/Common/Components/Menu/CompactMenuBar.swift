@@ -26,9 +26,14 @@ class CompactMenuBar: UIView {
         self.title = title
         super.init(frame: CGRect.zero)
         
-        backgroundColor = UIColor.black
+        backgroundColor = ThemeManager.sharedInstance.currentTheme.menuBarBackgroundColor
         
-        iconView = UIImageView(image: UIImage(named: "MenuIcon"))
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            iconView = UIImageView(image: UIImage(named: "MenuIcon"))
+        } else {
+            iconView = UIImageView(image: UIImage(named: "LightMenuIcon"))
+        }
+        
         iconView.sizeToFit()
         addSubview(iconView)
         

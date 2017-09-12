@@ -47,16 +47,26 @@ class AppTheme: NSObject {
         return UIBlurEffect(style: .dark)
     }
     
+    // Loading spinner sstyle
+    var loadingSpinnerStyle : UIActivityIndicatorViewStyle {
+        return .white
+    }
+    
     // Whether the background requires desaturated image
     var shouldUseDesaturatedBackground : Bool {
         return true
     }
     
     // Menu bar color
-    var menuBackgroundColor : UIColor {
+    var menuBarBackgroundColor : UIColor {
         return UIColor.black
     }
-    
+
+    // Menu sheet color
+    var menuSheetBackgroundColor : UIColor {
+        return UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+    }
+
     // Title text color
     var titleTextColor : UIColor {
         return UIColor.white
@@ -211,22 +221,36 @@ class AppTheme: NSObject {
         return UIFont(name: "HelveticaNeue-Light", size: 17)!
     }
 
+    // Main menu font
     var mainMenuFont : UIFont {
         return UIFont(name: "HelveticaNeue", size: 17)!
     }
 
+    // Main menu item normal color
     var mainMenuNormalColor : UIColor {
         return UIColor.white
     }
 
+    // Main menu item highlighted/selected color
     var mainMenuHighlightColor : UIColor {
         return UIColor(red: 58 / 255.0, green: 139 / 255.0, blue: 235 / 255.0, alpha: 1)
     }
 
+    // Whether to use blurry background when a drawer is open
+    var drawerUseBlurBackground : Bool {
+        return false
+    }
+    
+    // Menu separator color
     var separatorColor : UIColor {
         return UIColor(red: 55/255.0, green: 55/255.0, blue: 55/255.0, alpha: 0.5)
     }
 
+    // Detail page comment bubble text color
+    var commentBubbleTextColor : UIColor {
+        return UIColor(red: 170 / 255.0, green: 170 / 255.0, blue: 170 / 255.0, alpha: 1)
+    }
+    
     init(themeType : AppThemeType) {
         self.themeType = themeType
     }

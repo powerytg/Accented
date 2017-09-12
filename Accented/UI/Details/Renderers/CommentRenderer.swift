@@ -67,7 +67,7 @@ class CommentRenderer: UIView {
 
         // body label
         addSubview(contentLabel)
-        contentLabel.textColor = UIColor(red: 170 / 255.0, green: 170 / 255.0, blue: 170 / 255.0, alpha: 1)
+        contentLabel.textColor = ThemeManager.sharedInstance.currentTheme.commentBubbleTextColor
         contentLabel.numberOfLines = 0
         contentLabel.lineBreakMode = .byWordWrapping
         contentLabel.font = CommentRenderer.contentFont
@@ -84,13 +84,23 @@ class CommentRenderer: UIView {
 
         authorLabel.text = TextUtils.preferredAuthorName(comment!.user).uppercased()
         contentLabel.text = comment!.body
-        
-        switch style {
-        case .Light:
-            backgroundView.image = UIImage(named: "LightBubble")
-        case .Dark:
-            backgroundView.image = UIImage(named: "DarkBubble")
+
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            switch style {
+            case .Light:
+                backgroundView.image = UIImage(named: "Bubble1")
+            case .Dark:
+                backgroundView.image = UIImage(named: "Bubble2")
+            }
+        } else {
+            switch style {
+            case .Light:
+                backgroundView.image = UIImage(named: "LightBubble1")
+            case .Dark:
+                backgroundView.image = UIImage(named: "LightBubble2")
+            }
         }
+
 
         var f = backgroundView.frame
         f.origin.x = CommentRenderer.avatarSize + CommentRenderer.backgroundMarginLeft

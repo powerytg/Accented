@@ -38,7 +38,11 @@ class LightTheme: AppTheme {
         return false
     }
 
-    override var menuBackgroundColor : UIColor {
+    override var menuBarBackgroundColor : UIColor {
+        return UIColor.white
+    }
+
+    override var menuSheetBackgroundColor : UIColor {
         return UIColor.white
     }
 
@@ -100,6 +104,22 @@ class LightTheme: AppTheme {
         return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
     }
     
+    override var menuItemNormalColor : UIColor {
+        return UIColor(red: 66 / 255.0, green: 66 / 255.0, blue: 66 / 255.0, alpha: 1.0)
+    }
+
+    override var drawerUseBlurBackground : Bool {
+        return true
+    }
+
+    override var commentBubbleTextColor : UIColor {
+        return UIColor(red: 137 / 255.0, green: 141 / 255.0, blue: 151 / 255.0, alpha: 1)
+    }
+
+    override var loadingSpinnerStyle : UIActivityIndicatorViewStyle {
+        return .gray
+    }
+
     init() {
         super.init(themeType: .light)
     }

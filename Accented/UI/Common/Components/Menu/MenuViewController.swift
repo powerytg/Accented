@@ -30,7 +30,7 @@ class MenuViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         guard menuItems.count > 0 else { fatalError("Menu item count must be greater than zero") }
         
-        view.backgroundColor = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+        view.backgroundColor = ThemeManager.sharedInstance.currentTheme.menuSheetBackgroundColor
         
         // Add a title label
         titleLabel = UILabel(frame : CGRect.zero)

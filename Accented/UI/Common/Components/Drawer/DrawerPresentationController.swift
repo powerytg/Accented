@@ -14,7 +14,7 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     private var animationContext : DrawerAnimationContext
     
     // Curtain view
-    private var curtainView = UIView()
+    private var curtainView : UIView!
     
     // Open animator
     var openAnimator : DrawerOpenAnimator?
@@ -34,6 +34,15 @@ class DrawerPresentationController: UIPresentationController, UIViewControllerTr
     required init(animationContext : DrawerAnimationContext) {
         self.animationContext = animationContext
         super.init(presentedViewController: animationContext.content, presenting: animationContext.container!)
+        
+        // Create curtain view
+        if ThemeManager.sharedInstance.currentTheme.drawerUseBlurBackground {
+            let blurView = BlurView(frame: CGRect.zero)
+            blurView.blurEffect = ThemeManager.sharedInstance.currentTheme.backgroundBlurEffect
+            curtainView = blurView
+        } else {
+            curtainView = UIView()
+        }
         
         animationContext.presentationController = self
         animationContext.backgroundView = curtainView

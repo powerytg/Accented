@@ -27,7 +27,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
     
     // Status label will be visible if there are no comments, or if the comments are being loaded
     private var statusLabel = UILabel()
-    private var loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    private var loadingSpinner : UIActivityIndicatorView!
     
     // Cached section height
     private var calculatedSectionHeight : CGFloat = 0
@@ -59,6 +59,8 @@ class DetailCommentSectionView: DetailSectionViewBase {
     override func initialize() {
         super.initialize()
         
+        loadingSpinner = UIActivityIndicatorView(activityIndicatorStyle: ThemeManager.sharedInstance.currentTheme.loadingSpinnerStyle)
+        
         // Status label
         contentView.addSubview(statusLabel)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +84,7 @@ class DetailCommentSectionView: DetailSectionViewBase {
         }
         
         // Create a load-more button
+        loadMoreButton.setTitleColor(ThemeManager.sharedInstance.currentTheme.pushButtonTextColor, for: .normal)
         loadMoreButton.titleLabel?.font = ThemeManager.sharedInstance.currentTheme.navButtonFont
         loadMoreButton.setTitle("See more comments", for: .normal)
         loadMoreButton.sizeToFit()
