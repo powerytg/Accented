@@ -12,9 +12,12 @@ import UIKit
 
 class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegate {
     
-    let displayStyleOptions = [MenuItem(action: .Home, text: "Home"),
-                               MenuItem(action: .None, text: "View As Groups"),
-                               MenuItem(action: .None, text: "View As List")]
+    let displayStyleOptions = [MenuItem(action: .ViewAsGroup, text: "View As Groups"),
+                               MenuItem(action: .ViewAsList, text: "View As List")]
+
+    let menuOptions = [MenuItem(action: .Home, text: "Home"),
+                               MenuItem(action: .ViewAsGroup, text: "View As Groups"),
+                               MenuItem(action: .ViewAsList, text: "View As List")]
 
     private var menuBar : CompactMenuBar!
     private var streamViewController : TagSearchStreamViewController!
@@ -28,7 +31,7 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
         
         createStreamViewController(.group)
         
-        menuBar = CompactMenuBar(displayStyleOptions, title : "DISPLAY OPTIONS")
+        menuBar = CompactMenuBar(menuOptions)
         menuBar.delegate = self
         view.addSubview(menuBar)
     }
@@ -91,10 +94,7 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
     // MARK : - MenuDelegate
     
     func didSelectMenuItem(_ menuItem: MenuItem) {
-        if menuItem.action == .Home {
-            NavigationService.sharedInstance.popToRootController(animated: true)
-        }
-        else if menuItem is SortingOptionMenuItem {
+        if menuItem is SortingOptionMenuItem {
             // Sorting options
             let option = (menuItem as! SortingOptionMenuItem).option
             if menuItem != sortingModel.selectedItem {
@@ -105,17 +105,17 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
                 streamViewController.sortConditionDidChange(sort : option)
             }
         } else {
-            // Display style options
-            let selectedIndex = displayStyleOptions.index(of: menuItem)
-            var selectedDisplayStyle : StreamDisplayStyle
-            if selectedIndex == 0 {
-                // Group style
-                selectedDisplayStyle = .group
-            } else if selectedIndex == 1 {
-                // Card style
-                selectedDisplayStyle = .card
-            } else {
+            var selectedDisplayStyle = streamViewController.displayStyle
+            switch menuItem.action {
+            case .Home:
+                NavigationService.sharedInstance.popToRootController(animated: true)
                 return
+            case .ViewAsGroup:
+                selectedDisplayStyle = .group
+            case .ViewAsList:
+                selectedDisplayStyle = .card
+            default:
+                break
             }
             
             if selectedDisplayStyle == streamViewController.displayStyle {
@@ -129,7 +129,6 @@ class TagSearchResultViewController: SearchResultBaseViewController, MenuDelegat
             
             // Create a new stream view controller
             createStreamViewController(selectedDisplayStyle)
-
         }
     }
 }

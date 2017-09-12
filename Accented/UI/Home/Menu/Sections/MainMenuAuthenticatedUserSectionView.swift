@@ -23,7 +23,7 @@ class MainMenuAuthenticatedUserSectionView: MainMenuSectionBase {
                        MenuItem(action:.MyProfile, text: "My Profile"),
                        MenuSeparator(),
                        MenuItem(action:.MyFriends, text: "My Friends"),
-                       MenuItem(action:.FriendsPhotos, text: "My Friends' Photos"),
+                       MenuItem(action:.FriendsPhotos, text: "Recent Activities"),
                        MenuSeparator(),
                        MenuItem(action:.PearlCam, text: "Pearl Cam"),
                        MenuSeparator(),

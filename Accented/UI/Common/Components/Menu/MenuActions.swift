@@ -43,4 +43,6 @@ enum MenuActions {
     case ViewUserPhotos
     case ViewUserGalleries
     case ViewUserFriends
+    case ViewAsList
+    case ViewAsGroup
 }

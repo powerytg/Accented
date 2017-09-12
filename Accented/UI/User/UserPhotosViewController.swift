@@ -38,7 +38,7 @@ class UserPhotosViewController: UIViewController, InfiniteLoadingViewControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.black
+        self.view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
         

@@ -12,7 +12,7 @@ import UIKit
 import TTTAttributedLabel
 import RMessage
 
-class DetailDescriptionSectionView: DetailSectionViewBase {
+class DetailDescriptionSectionView: DetailSectionViewBase, TTTAttributedLabelDelegate {
     
     private var titleLabel = UILabel()
     private var dateLabel = UILabel()
@@ -52,6 +52,7 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
         
         // Desc label
         descLabel.font = descFont
+        descLabel.delegate = self
         descLabel.textColor = ThemeManager.sharedInstance.currentTheme.descTextColor
         descLabel.numberOfLines = 0
         descLabel.lineBreakMode = .byWordWrapping
@@ -282,6 +283,13 @@ class DetailDescriptionSectionView: DetailSectionViewBase {
             voteButton.setImage(UIImage(named: "DownVote"), for: .normal)
         } else {
             voteButton.setImage(UIImage(named: "UpVote"), for: .normal)
+        }
+    }
+    
+    // MARK: - TTTAttributedLabelDelegate
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
 }

@@ -11,7 +11,7 @@
 import UIKit
 import TTTAttributedLabel
 
-class UserDescSectionView: UserSectionViewBase {
+class UserDescSectionView: UserSectionViewBase, TTTAttributedLabelDelegate {
     private let linkColor = ThemeManager.sharedInstance.currentTheme.linkColor
     private let linkHighlightColor = ThemeManager.sharedInstance.currentTheme.linkHighlightColor
     private var descLabel = TTTAttributedLabel(frame: CGRect.zero)
@@ -25,6 +25,7 @@ class UserDescSectionView: UserSectionViewBase {
     override func createContentView() {
         super.createContentView()
         
+        descLabel.delegate = self
         descLabel.font = ThemeManager.sharedInstance.currentTheme.descFont
         descLabel.textColor = ThemeManager.sharedInstance.currentTheme.userProfileDescTextColor
         descLabel.numberOfLines = 0
@@ -79,5 +80,12 @@ class UserDescSectionView: UserSectionViewBase {
         descLabel.layer.shadowOpacity = 1
         descLabel.layer.shadowRadius = 1
         descLabel.layer.shadowOpacity = 0.6
+    }
+    
+    // MARK: - TTTAttributedLabelDelegate
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 }
