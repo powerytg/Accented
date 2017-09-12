@@ -52,6 +52,8 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.clear
+        
         // Background view
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
@@ -170,6 +172,8 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         for view in entranceAnimationViews {
             view.entranceAnimationDidFinish()
         }
+        
+        view.backgroundColor = ThemeManager.sharedInstance.currentTheme.rootViewBackgroundColor
     }
     
     func desitinationRectForProxyView(_ photo: PhotoModel) -> CGRect {
