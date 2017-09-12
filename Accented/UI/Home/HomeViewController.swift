@@ -134,6 +134,8 @@ class HomeViewController: UIViewController, InfiniteLoadingViewControllerDelegat
             NavigationService.sharedInstance.navigateToAboutPage()
         case .SignOut:
             NavigationService.sharedInstance.signout()
+        case .SignIn:
+            NavigationService.sharedInstance.signout()
         default:
             break
         }

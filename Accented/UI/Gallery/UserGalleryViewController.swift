@@ -53,13 +53,12 @@ class UserGalleryViewController: UIViewController, InfiniteLoadingViewController
         createStreamViewController(.group, animated: false)
         
         // Back button
-        self.view.addSubview(backButton)
         if ThemeManager.sharedInstance.currentTheme is DarkTheme {
             backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
         } else {
             backButton.setImage(UIImage(named: "LightDetailBackButton"), for: .normal)
         }
-
+        self.view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(backButtonDidTap(_:)), for: .touchUpInside)
         backButton.sizeToFit()
         

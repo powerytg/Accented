@@ -164,6 +164,10 @@ class LightTheme: AppTheme {
         return "#767676"
     }
 
+    override var aboutTextColor: UIColor {
+        return UIColor(red: 66/255.0, green: 66/255.0, blue: 66/255.0, alpha: 1)
+    }
+    
     init() {
         super.init(themeType: .light)
     }

@@ -299,6 +299,11 @@ class AppTheme: NSObject {
     var descTextColorHex : String {
         return "#989898"
     }
+    
+    // About text color
+    var aboutTextColor : UIColor {
+        return UIColor(red: 202/255.0, green: 202/255.0, blue: 202/255.0, alpha: 1)
+    }
 
     init(themeType : AppThemeType) {
         self.themeType = themeType

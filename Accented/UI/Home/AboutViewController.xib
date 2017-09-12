@@ -14,6 +14,7 @@
                 <outlet property="aboutButton" destination="Iao-yL-chP" id="FTd-EH-6pm"/>
                 <outlet property="aboutHeaderLabel" destination="vqe-Sh-aWw" id="wTZ-zx-ovt"/>
                 <outlet property="aboutTextView" destination="Oq7-S6-i5d" id="IcI-GS-75G"/>
+                <outlet property="backButton" destination="bAM-1N-Ndl" id="iZz-mO-za0"/>
                 <outlet property="feedbackButton" destination="CHk-rp-B9y" id="ymD-EM-aWr"/>
                 <outlet property="feedbackHeaderLabel" destination="sgc-kU-2vn" id="CPi-wh-1RD"/>
                 <outlet property="feedbackTextView" destination="9I5-zb-jUz" id="oSV-g4-v7M"/>

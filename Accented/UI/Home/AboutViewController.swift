@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 
 class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate {
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var aboutHeaderLabel: UILabel!
     @IBOutlet weak var aboutTextView: UITextView!
     @IBOutlet weak var aboutButton: PushButton!
@@ -22,8 +23,22 @@ class AboutViewController: UIViewController, MFMailComposeViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if ThemeManager.sharedInstance.currentTheme is DarkTheme {
+            backButton.setImage(UIImage(named: "DetailBackButton"), for: .normal)
+        } else {
+            backButton.setImage(UIImage(named: "LightDetailBackButton"), for: .normal)
+        }
+
         backgroundView = DetailBackgroundView(frame: self.view.bounds)
         self.view.insertSubview(backgroundView, at: 0)
+        
+        aboutTextView.textColor = ThemeManager.sharedInstance.currentTheme.aboutTextColor
+        
+        feedbackTextView.textColor = ThemeManager.sharedInstance.currentTheme.aboutTextColor
+
+        aboutHeaderLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
+        
+        feedbackHeaderLabel.textColor = ThemeManager.sharedInstance.currentTheme.titleTextColor
     }
 
     override func didReceiveMemoryWarning() {
