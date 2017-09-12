@@ -114,7 +114,7 @@ class AppTheme: NSObject {
 
     // Nav button selected color
     var navButtonSelectedColor : UIColor {
-        return UIColor(red: 88/255.0, green: 240/255.0, blue: 213/255.0, alpha: 1.0)
+        return UIColor(red: 240/255.0, green: 33/255.0, blue: 101/255.0, alpha: 1.0)
     }
 
     // Nav bar border color
