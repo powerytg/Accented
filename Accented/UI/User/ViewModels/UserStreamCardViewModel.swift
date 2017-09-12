@@ -51,7 +51,7 @@ class UserStreamCardViewModel: SingleHeaderStreamViewModel {
     override func streamHeader(_ indexPath : IndexPath) -> UICollectionViewCell {
         let streamHeaderCell = collectionView.dequeueReusableCell(withReuseIdentifier: streamHeaderReuseIdentifier, for: indexPath) as! DefaultSingleStreamHeaderCell
         let userName = TextUtils.preferredAuthorName(user).uppercased()
-        streamHeaderCell.titleLabel.text = "PHOTOS FROM\n\(userName)'S FRIENDS"
+        streamHeaderCell.titleLabel.text = "\(userName)'S \nPUBLIC PHOTOS"
         
         if let photoCount = user.photoCount {
             if photoCount == 0 {
