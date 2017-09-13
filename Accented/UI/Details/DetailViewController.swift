@@ -102,7 +102,9 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
                         MenuItem(action: .ViewComments, text: "View Comments"),
                         MenuItem(action: .AddComment, text: "Add Comment"),
                         MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
-                        MenuItem(action: .ViewInFullScreen, text: "View In Full Screen")]
+                        MenuItem(action: .ViewInFullScreen, text: "View In Full Screen"),
+                        MenuSeparator(),
+                        MenuItem(action: .ReportPhoto, text: "Report This Photo")]
         
         // A user cannot like his/her own photo
         if let currentUser = StorageService.sharedInstance.currentUser {
@@ -116,7 +118,9 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         signedOutMenu = [MenuItem(action: .Home, text: "Home"),
                          MenuItem(action: .ViewComments, text: "View Comments"),
                          MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
-                         MenuItem(action: .ViewInFullScreen, text: "View In Full Screen")]
+                         MenuItem(action: .ViewInFullScreen, text: "View In Full Screen"),
+                         MenuSeparator(),
+                         MenuItem(action: .ReportPhoto, text: "Report This Photo")]
 
         if StorageService.sharedInstance.currentUser != nil {
             menuBar = CompactMenuBar(signedInMenu)
@@ -282,6 +286,9 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
             present(composerViewController, animated: true, completion: nil)
         case .ViewUserProfile:
             NavigationService.sharedInstance.navigateToUserProfilePage(user: photo.user)
+        case .ReportPhoto:
+            let vc = ReportContentViewController(photo)
+            present(vc, animated: true, completion: nil)
         default:
             break
         }

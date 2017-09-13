@@ -37,6 +37,7 @@ enum MenuActions {
     case ViewUserProfile
     case ViewInFullScreen
     case AddComment
+    case ReportPhoto
     
     // User
     case Follow

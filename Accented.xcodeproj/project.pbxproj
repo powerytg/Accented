@@ -344,6 +344,8 @@
 		9BDF19211ED77BB9003159E8 /* UserSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF191D1ED77BB9003159E8 /* UserSearchResultViewModel.swift */; };
 		9BDF1C401ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */; };
 		9BEF07B31CDA615B0060D86C /* InlineLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */; };
+		9BF7BE661F69E0A80099B7D5 /* ReportContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF7BE641F69E0A80099B7D5 /* ReportContentViewController.swift */; };
+		9BF7BE671F69E0A80099B7D5 /* ReportContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7BE651F69E0A80099B7D5 /* ReportContentViewController.xib */; };
 		9BFAE2C91D6F63F300F41B70 /* RenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFAE2C81D6F63F300F41B70 /* RenderService.swift */; };
 		9BFC4C2A1DA7474E004E1B21 /* RefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */; };
 		9BFFB6231D134A0000B178F3 /* DrawerAnimationParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */; };
@@ -744,6 +746,8 @@
 		9BDF191D1ED77BB9003159E8 /* UserSearchResultViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchResultViewModel.swift; sourceTree = "<group>"; };
 		9BDF1C3F1ED8CA0D003159E8 /* PhotoGroupStreamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGroupStreamLayout.swift; sourceTree = "<group>"; };
 		9BEF07B21CDA615B0060D86C /* InlineLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InlineLoadingView.swift; sourceTree = "<group>"; };
+		9BF7BE641F69E0A80099B7D5 /* ReportContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportContentViewController.swift; sourceTree = "<group>"; };
+		9BF7BE651F69E0A80099B7D5 /* ReportContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportContentViewController.xib; sourceTree = "<group>"; };
 		9BFAE2C81D6F63F300F41B70 /* RenderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderService.swift; sourceTree = "<group>"; };
 		9BFC4C291DA7474E004E1B21 /* RefreshHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshHeaderView.swift; sourceTree = "<group>"; };
 		9BFFB6221D134A0000B178F3 /* DrawerAnimationParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerAnimationParams.swift; sourceTree = "<group>"; };
@@ -1455,6 +1459,8 @@
 				184951C11ED0B06A006301E8 /* DetailComposerViewController.xib */,
 				187BA0461ED23AEE000E181E /* DetailCommentsViewController.swift */,
 				9B7B16BA1EE0AD1A00412840 /* DetailFullScreenImageViewController.swift */,
+				9BF7BE641F69E0A80099B7D5 /* ReportContentViewController.swift */,
+				9BF7BE651F69E0A80099B7D5 /* ReportContentViewController.xib */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -1863,6 +1869,7 @@
 				9BA9ADCB1F4CD898006F0AC0 /* PearlCam.xcassets in Resources */,
 				1872B80A1EDA7B46009B6FC8 /* UserProfileViewController.xib in Resources */,
 				184C06841CBB1020008A1E37 /* LaunchScreen.storyboard in Resources */,
+				9BF7BE671F69E0A80099B7D5 /* ReportContentViewController.xib in Resources */,
 				9B3813E91CE012180066D3B9 /* DefaultStreamHeaderNavCell.xib in Resources */,
 				9B3813EB1CE012180066D3B9 /* DefaultStreamInitialLoadingCell.xib in Resources */,
 				9BA9ADBB1F4CD898006F0AC0 /* CameraUIViewController.xib in Resources */,
@@ -2208,6 +2215,7 @@
 				18222A451EDE705B00F0F02E /* GetUserFollowersRequest.swift in Sources */,
 				186FF9571F64FF130002B815 /* UserFriendsPhotosStreamViewController.swift in Sources */,
 				9B67C8FD1F51E2790045556F /* DefaultSingleStreamHeaderCell.swift in Sources */,
+				9BF7BE661F69E0A80099B7D5 /* ReportContentViewController.swift in Sources */,
 				9B89B1141D54FBAC00382744 /* CardViewController.swift in Sources */,
 				187E5D851F53A85300169188 /* MainMenuThemeRenderer.swift in Sources */,
 				9BC5C8F81F58CE3900740037 /* CategoryEntry.swift in Sources */,

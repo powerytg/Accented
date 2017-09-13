@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportContentViewController" customModule="Accented" customModuleProvider="target">
+            <connections>
+                <outlet property="composerHeightConstraint" destination="M0V-tB-ecV" id="G3c-RQ-ytV"/>
+                <outlet property="composerView" destination="mQS-Kt-SX7" id="IZa-s0-Mux"/>
+                <outlet property="titleView" destination="wJ6-9J-u4x" id="wpB-xM-9Nl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mQS-Kt-SX7" userLabel="ContainerView">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wJ6-9J-u4x" userLabel="Titlebar">
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sua-RP-EdB" userLabel="BackButton">
+                                    <state key="normal" image="Back"/>
+                                    <connections>
+                                        <action selector="backButtonDidTap:" destination="-1" eventType="touchUpInside" id="FzY-7z-WnT"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REPORT THIS PHOTO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeR-QP-bRM">
+                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-DemiBold" family="Avenir Next Condensed" pointSize="15"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                    <size key="shadowOffset" width="0.0" height="1"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="YeR-QP-bRM" firstAttribute="centerX" secondItem="wJ6-9J-u4x" secondAttribute="centerX" id="KoS-Vd-SxN"/>
+                                <constraint firstItem="YeR-QP-bRM" firstAttribute="centerY" secondItem="wJ6-9J-u4x" secondAttribute="centerY" id="TfQ-1z-4e3"/>
+                                <constraint firstItem="sua-RP-EdB" firstAttribute="centerY" secondItem="wJ6-9J-u4x" secondAttribute="centerY" id="Ydo-Yw-k94"/>
+                                <constraint firstItem="sua-RP-EdB" firstAttribute="leading" secondItem="wJ6-9J-u4x" secondAttribute="leading" constant="8" id="d5C-gV-dvZ"/>
+                                <constraint firstAttribute="height" constant="34" id="vez-T5-kNW"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reason To Report" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYm-cn-Mo2">
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iZ-2C-2aN" customClass="PushButton" customModule="Accented" customModuleProvider="target">
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2U9-0G-Y5A">
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1GG-B2-1Yq" userLabel="TextView" customClass="KMPlaceholderTextView" customModule="KMPlaceholderTextView">
+                            <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="(optional)"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                    <color key="value" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9x4-4L-VYQ">
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMr-mH-DUT">
+                            <state key="normal" title="Report Photo">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.21176470589999999" green="0.21176470589999999" blue="0.21176470589999999" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="0iZ-2C-2aN" firstAttribute="top" secondItem="eYm-cn-Mo2" secondAttribute="bottom" constant="14" id="0tv-8j-Iii"/>
+                        <constraint firstItem="1GG-B2-1Yq" firstAttribute="top" secondItem="2U9-0G-Y5A" secondAttribute="bottom" constant="8" id="4Oe-yM-nbu"/>
+                        <constraint firstAttribute="bottom" secondItem="9x4-4L-VYQ" secondAttribute="bottom" constant="20" id="9jF-sm-oKW"/>
+                        <constraint firstItem="wJ6-9J-u4x" firstAttribute="top" secondItem="mQS-Kt-SX7" secondAttribute="top" id="AkK-jz-DfS"/>
+                        <constraint firstItem="0iZ-2C-2aN" firstAttribute="leading" secondItem="eYm-cn-Mo2" secondAttribute="leading" id="CQL-XB-gCt"/>
+                        <constraint firstAttribute="bottom" secondItem="nMr-mH-DUT" secondAttribute="bottom" constant="20" id="F89-AH-v7U"/>
+                        <constraint firstItem="2U9-0G-Y5A" firstAttribute="leading" secondItem="eYm-cn-Mo2" secondAttribute="leading" id="FhE-u0-5vK"/>
+                        <constraint firstItem="eYm-cn-Mo2" firstAttribute="leading" secondItem="mQS-Kt-SX7" secondAttribute="leading" constant="16" id="HL3-1L-3e3"/>
+                        <constraint firstAttribute="height" constant="350" id="M0V-tB-ecV"/>
+                        <constraint firstAttribute="trailing" secondItem="wJ6-9J-u4x" secondAttribute="trailing" id="Uzd-Kh-SBF"/>
+                        <constraint firstItem="eYm-cn-Mo2" firstAttribute="top" secondItem="mQS-Kt-SX7" secondAttribute="top" constant="42" id="XjK-7T-Ftq"/>
+                        <constraint firstAttribute="trailing" secondItem="nMr-mH-DUT" secondAttribute="trailing" constant="15" id="Xyv-PG-tAA"/>
+                        <constraint firstAttribute="trailing" secondItem="1GG-B2-1Yq" secondAttribute="trailing" constant="15" id="aj4-U4-AiY"/>
+                        <constraint firstItem="wJ6-9J-u4x" firstAttribute="leading" secondItem="mQS-Kt-SX7" secondAttribute="leading" id="dGC-bu-Gb5"/>
+                        <constraint firstAttribute="bottom" secondItem="1GG-B2-1Yq" secondAttribute="bottom" constant="80" id="eEl-KU-1z7"/>
+                        <constraint firstItem="2U9-0G-Y5A" firstAttribute="top" secondItem="0iZ-2C-2aN" secondAttribute="bottom" constant="25" id="eRn-d7-C7L"/>
+                        <constraint firstItem="9x4-4L-VYQ" firstAttribute="leading" secondItem="mQS-Kt-SX7" secondAttribute="leading" constant="15" id="yiC-BN-K3m"/>
+                        <constraint firstItem="1GG-B2-1Yq" firstAttribute="leading" secondItem="mQS-Kt-SX7" secondAttribute="leading" constant="15" id="ylO-3S-2Qn"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y74-5P-7gX" userLabel="BackgroundView" customClass="DetailBackgroundView" customModule="Accented" customModuleProvider="target">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="y74-5P-7gX" secondAttribute="trailing" id="K3Q-2c-A7K"/>
+                <constraint firstAttribute="bottom" secondItem="y74-5P-7gX" secondAttribute="bottom" id="XA5-Gl-KkJ"/>
+                <constraint firstItem="mQS-Kt-SX7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="a0l-20-H3Y"/>
+                <constraint firstAttribute="trailing" secondItem="mQS-Kt-SX7" secondAttribute="trailing" constant="25" id="aAO-qO-G3L"/>
+                <constraint firstItem="mQS-Kt-SX7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="25" id="c3T-R5-hfX"/>
+                <constraint firstItem="y74-5P-7gX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jHn-il-bj2"/>
+                <constraint firstItem="y74-5P-7gX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mLL-ah-51I"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="Back" width="27" height="26"/>
+    </resources>
+</document>
