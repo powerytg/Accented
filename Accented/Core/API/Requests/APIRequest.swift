@@ -24,7 +24,7 @@ class APIRequest: NSObject {
     
     // Default excluded categories ("4" is nude content)
     // https://github.com/500px/api-documentation/blob/master/basics/formats_and_terms.md#categories
-    static let defaultExcludedCategories = ["4"]
+    static let defaultExcludedCategories = ["nude"]
     
     // Success action
     var successAction : SuccessAction?
