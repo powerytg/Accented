@@ -103,8 +103,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
                         MenuItem(action: .AddComment, text: "Add Comment"),
                         MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
                         MenuItem(action: .ViewInFullScreen, text: "View In Full Screen"),
-                        MenuSeparator(),
-                        MenuItem(action: .ReportPhoto, text: "Report This Photo")]
+                        MenuItem(action: .ReportPhoto, text: "Report Inappropriate Content")]
         
         // A user cannot like his/her own photo
         if let currentUser = StorageService.sharedInstance.currentUser {
@@ -119,8 +118,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
                          MenuItem(action: .ViewComments, text: "View Comments"),
                          MenuItem(action: .ViewUserProfile, text: "View Artist Profile"),
                          MenuItem(action: .ViewInFullScreen, text: "View In Full Screen"),
-                         MenuSeparator(),
-                         MenuItem(action: .ReportPhoto, text: "Report This Photo")]
+                         MenuItem(action: .ReportPhoto, text: "Report Inappropriate Content")]
 
         if StorageService.sharedInstance.currentUser != nil {
             menuBar = CompactMenuBar(signedInMenu)
@@ -287,8 +285,7 @@ class DetailViewController: SectionViewController, DetailEntranceProxyAnimation,
         case .ViewUserProfile:
             NavigationService.sharedInstance.navigateToUserProfilePage(user: photo.user)
         case .ReportPhoto:
-            let vc = ReportContentViewController(photo)
-            present(vc, animated: true, completion: nil)
+            NavigationService.sharedInstance.navigateToReportPage(photo: photo)
         default:
             break
         }

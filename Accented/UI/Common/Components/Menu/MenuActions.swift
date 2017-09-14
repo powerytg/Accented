@@ -46,4 +46,13 @@ enum MenuActions {
     case ViewUserFriends
     case ViewAsList
     case ViewAsGroup
+    
+    // Report content
+    case ReportOffensive
+    case ReportSpam
+    case ReportOfftopic
+    case ReportCopyright
+    case ReportWrongContent
+    case ReportAdultContent
+    case ReportOtherReason
 }

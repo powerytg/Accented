@@ -19,6 +19,9 @@
 		1804F4DC1F6374070073697D /* UserGalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1804F4DA1F6374070073697D /* UserGalleryViewController.xib */; };
 		1804F4DE1F6374A70073697D /* GalleryStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804F4DD1F6374A70073697D /* GalleryStreamViewController.swift */; };
 		1804F4E01F64713B0073697D /* GalleryStreamCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804F4DF1F64713B0073697D /* GalleryStreamCardViewModel.swift */; };
+		1806EF6E1F6A065900340B19 /* ReportPhotoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806EF6D1F6A065900340B19 /* ReportPhotoRequest.swift */; };
+		1806EF711F6A14AF00340B19 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1806EF6F1F6A14AF00340B19 /* TermsViewController.swift */; };
+		1806EF721F6A14AF00340B19 /* TermsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1806EF701F6A14AF00340B19 /* TermsViewController.xib */; };
 		18180B761ED5522A003F0054 /* InfiniteLoadingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18180B751ED5522A003F0054 /* InfiniteLoadingLayout.swift */; };
 		18180B781ED679F1003F0054 /* InfiniteLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18180B771ED679F1003F0054 /* InfiniteLoadable.swift */; };
 		18222A0A1EDB5FE300F0F02E /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222A091EDB5FE300F0F02E /* PagerViewController.swift */; };
@@ -419,6 +422,9 @@
 		1804F4DA1F6374070073697D /* UserGalleryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserGalleryViewController.xib; sourceTree = "<group>"; };
 		1804F4DD1F6374A70073697D /* GalleryStreamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryStreamViewController.swift; sourceTree = "<group>"; };
 		1804F4DF1F64713B0073697D /* GalleryStreamCardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryStreamCardViewModel.swift; sourceTree = "<group>"; };
+		1806EF6D1F6A065900340B19 /* ReportPhotoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportPhotoRequest.swift; sourceTree = "<group>"; };
+		1806EF6F1F6A14AF00340B19 /* TermsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		1806EF701F6A14AF00340B19 /* TermsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermsViewController.xib; sourceTree = "<group>"; };
 		18180B751ED5522A003F0054 /* InfiniteLoadingLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadingLayout.swift; sourceTree = "<group>"; };
 		18180B771ED679F1003F0054 /* InfiniteLoadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteLoadable.swift; sourceTree = "<group>"; };
 		182109761CF0DE0000529610 /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = "../../Downloads/GPUImage2-master/framework/GPUImage.xcodeproj"; sourceTree = "<group>"; };
@@ -926,6 +932,8 @@
 				9B6115D51CCA9944008F5257 /* GreetingsViewController.xib */,
 				9B6115D81CCA9BAD008F5257 /* SignInViewController.swift */,
 				9B6115D91CCA9BAD008F5257 /* SignInViewController.xib */,
+				1806EF6F1F6A14AF00340B19 /* TermsViewController.swift */,
+				1806EF701F6A14AF00340B19 /* TermsViewController.xib */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -1518,6 +1526,7 @@
 				18320D791F650BA900755967 /* DeleteVotePhotoRequest.swift */,
 				18320D811F65CC1000755967 /* FollowUserRequest.swift */,
 				18320D831F65CCCB00755967 /* UnfollowUserRequest.swift */,
+				1806EF6D1F6A065900340B19 /* ReportPhotoRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1897,6 +1906,7 @@
 				187082231D07DD9000FDAAEB /* ThemeSelectorRenderer.xib in Resources */,
 				18320D881F65F2EB00755967 /* AboutViewController.xib in Resources */,
 				9BA9ADE81F4CD898006F0AC0 /* WhiteBalanceFilterViewController.xib in Resources */,
+				1806EF721F6A14AF00340B19 /* TermsViewController.xib in Resources */,
 				9BA9ADE41F4CD898006F0AC0 /* MonochromeFilterViewController.xib in Resources */,
 				9BA9ADC81F4CD898006F0AC0 /* lookup_soft_elegance_2.png in Resources */,
 				1804F4D21F6364870073697D /* GalleryListRenderer.xib in Resources */,
@@ -2019,6 +2029,7 @@
 				1804F4D11F6364870073697D /* GalleryListRenderer.swift in Sources */,
 				1886201C1D8B647F00345440 /* DetailUserUtils.swift in Sources */,
 				9B3813C91CE010770066D3B9 /* StreamViewModel.swift in Sources */,
+				1806EF6E1F6A065900340B19 /* ReportPhotoRequest.swift in Sources */,
 				9BA9ADCE1F4CD898006F0AC0 /* AdjustmentSelectorView.swift in Sources */,
 				186AF5631D59905F00A9928F /* DetailLightBoxPresentationController.swift in Sources */,
 				18EED5EA1ED68BCF00507D6D /* StorageService+Users.swift in Sources */,
@@ -2101,6 +2112,7 @@
 				18FE82121F4FE3F300CFAB47 /* UserStreamCardViewModel.swift in Sources */,
 				9B3813A91CE00DF30066D3B9 /* AppTheme.swift in Sources */,
 				9B7B16BE1EE0BB9300412840 /* SectionViewBase.swift in Sources */,
+				1806EF711F6A14AF00340B19 /* TermsViewController.swift in Sources */,
 				18FE820E1F4FE34000CFAB47 /* PhotoSearchResultCardLayout.swift in Sources */,
 				18222A3C1EDCD45100F0F02E /* UserSectionViewBase.swift in Sources */,
 				18222A551EDFCB6900F0F02E /* UserStreamViewModel.swift in Sources */,

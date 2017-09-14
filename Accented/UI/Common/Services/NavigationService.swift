@@ -105,6 +105,11 @@ class NavigationService: NSObject, UINavigationControllerDelegate {
         rootNavigationController?.pushViewController(vc, animated: true)
     }
     
+    func navigateToReportPage(photo : PhotoModel) {
+        let vc = ReportContentViewController(photo)
+        rootNavigationController?.pushViewController(vc, animated: true)
+    }
+    
     func popToRootController(animated : Bool) {
         _ = rootNavigationController?.popToRootViewController(animated: animated)
     }

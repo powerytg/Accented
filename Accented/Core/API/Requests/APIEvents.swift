@@ -94,4 +94,10 @@ class APIEvents: NSObject {
     // Failed to remove user from followers list
     static let failedUnfollowUser = Notification.Name("failedUnfollowUser")
 
+    // Successfully reported a photo
+    static let didReportPhoto = Notification.Name("didReportPhoto")
+    
+    // Failed to report a photo
+    static let failedReportPhoto = Notification.Name("failedReportPhoto")
+
 }

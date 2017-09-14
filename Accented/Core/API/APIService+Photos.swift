@@ -38,4 +38,8 @@ extension APIService {
         delete(request: request)
     }
 
+    func reportPhoto(photoId : String, reason : ReportReason, details : String?, success: (() -> Void)? = nil, failure : ((String) -> Void)? = nil) {
+        let request = ReportPhotoRequest(photoId: photoId, reason : reason, details : details, success: success, failure: failure)
+        post(request: request)
+    }
 }

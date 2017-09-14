@@ -15,6 +15,7 @@
                 <outlet property="signInButton" destination="qIS-Da-AoX" id="BAX-UQ-AyV"/>
                 <outlet property="skipSignInButton" destination="Ye7-HD-Qau" id="rnd-IQ-ySZ"/>
                 <outlet property="subTitleView" destination="XIx-1f-ktK" id="N3n-kc-wPa"/>
+                <outlet property="termsButton" destination="oqB-sw-Tml" id="9pt-Yp-fVj"/>
                 <outlet property="titleView" destination="Pfx-cV-Cyf" id="MCh-I5-WL9"/>
                 <outlet property="view" destination="2Q4-4l-xgU" id="s1g-fL-apX"/>
             </connections>
@@ -54,14 +55,25 @@
                         <action selector="skipSignInButtonDidTap:" destination="-1" eventType="touchUpInside" id="GiY-tl-XQZ"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oqB-sw-Tml">
+                    <rect key="frame" x="344" y="686" width="50" height="30"/>
+                    <state key="normal" title="TERMS">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="termsButtonDidTap:" destination="-1" eventType="touchUpInside" id="Yn2-4L-2rE"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="oqB-sw-Tml" secondAttribute="trailing" constant="20" id="0b0-fC-o7J"/>
                 <constraint firstItem="CCR-Nl-zLS" firstAttribute="centerX" secondItem="2Q4-4l-xgU" secondAttribute="centerX" id="3up-GM-zF4"/>
                 <constraint firstItem="Ye7-HD-Qau" firstAttribute="top" secondItem="qIS-Da-AoX" secondAttribute="bottom" constant="17" id="4Jv-gl-edv"/>
                 <constraint firstItem="XIx-1f-ktK" firstAttribute="top" secondItem="Pfx-cV-Cyf" secondAttribute="bottom" constant="8" id="9Fg-Hs-xMg"/>
                 <constraint firstItem="CCR-Nl-zLS" firstAttribute="width" secondItem="2Q4-4l-xgU" secondAttribute="width" id="GKw-R4-0Ku"/>
                 <constraint firstItem="XIx-1f-ktK" firstAttribute="leading" secondItem="2Q4-4l-xgU" secondAttribute="leading" constant="40" id="IIX-ti-Aa7"/>
+                <constraint firstAttribute="bottom" secondItem="oqB-sw-Tml" secondAttribute="bottom" constant="20" id="Kju-kl-5Fr"/>
                 <constraint firstItem="CCR-Nl-zLS" firstAttribute="centerY" secondItem="2Q4-4l-xgU" secondAttribute="centerY" id="Ots-Ny-HNx"/>
                 <constraint firstItem="Pfx-cV-Cyf" firstAttribute="leading" secondItem="2Q4-4l-xgU" secondAttribute="leading" constant="28" id="VPN-9I-Wmx"/>
                 <constraint firstItem="Ye7-HD-Qau" firstAttribute="leading" secondItem="qIS-Da-AoX" secondAttribute="leading" id="aXB-cB-v9l"/>

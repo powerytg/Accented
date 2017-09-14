@@ -105,6 +105,17 @@ enum Category : Int {
     case wedding = 25
 }
 
+// Report reason
+enum ReportReason : String {
+    case Offensive = "1"
+    case Spam = "2"
+    case Offtopic = "3"
+    case Copyright = "4"
+    case WrongContent = "5"
+    case AdultContent = "6"
+    case Other = "0"    
+}
+
 // Privacy
 enum Privacy : Int {
     case publicPhoto = 0
